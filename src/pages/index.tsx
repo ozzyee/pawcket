@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Buttons } from "../components/buttons/buttons.component";
 import { AuthService } from "../lib/auth-service/auth.service";
 
 const Home: NextPage = () => {
@@ -40,7 +39,6 @@ const Home: NextPage = () => {
             log in
          </button>
          <button onClick={authLogin.signOut}>log out</button>
-         <Buttons dark={true}>login</Buttons>
       </>
    );
 };

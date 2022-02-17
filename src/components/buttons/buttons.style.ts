@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { buttonStylePros } from "./buttons.definition";
-import styles from "../../styles/style.config.json";
 
 export const ButtonsDiv = styled.button<buttonStylePros>`
    background-color: ${({ backgroundColor }) => backgroundColor};

@@ -1,7 +1,8 @@
 export type TButtonsProps = {
    className?: string;
    dark?: boolean;
-   children?: string;
+   children: string;
+   onClick?: () => void;
 };
 
 export type buttonStylePros = {

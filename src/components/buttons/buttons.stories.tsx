@@ -20,12 +20,15 @@ export default {
          description:
             "this is the boolean for the button this changes the background color between light yellow and orange this is set to yellow by default",
       },
+      onClick: {
+         action: "handle click",
+      },
    },
 } as ComponentMeta<typeof Buttons>;
 
-const Template = ({ children, className, dark }: TButtonsProps) => {
+const Template = ({ children, className, dark, onClick }: TButtonsProps) => {
    return (
-      <Buttons className={className} dark={dark}>
+      <Buttons className={className} dark={dark} onClick={onClick}>
          {children}
       </Buttons>
    );

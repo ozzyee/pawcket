@@ -1,9 +1,7 @@
-import { ReactNode } from "react";
-
 export type TButtonsProps = {
    className?: string;
    dark?: boolean;
-   children: ReactNode;
+   children?: string;
 };
 
 export type buttonStylePros = {

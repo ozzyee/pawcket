@@ -27,7 +27,8 @@ type TUserCredential = UserCredential & {
 
 export class AuthService implements IAuthContract {
    async signOut(): Promise<void> {
-      throw new Error("Method not implemented.");
+      const fetchService = new FetchService();
+      await fetchService.post("/api/log-out", {});
    }
 
    async signup({
@@ -77,10 +78,9 @@ export class AuthService implements IAuthContract {
          const res = _res as TUserCredential;
 
          const refreshToken = res.user.stsTokenManager.refreshToken;
+
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
-
-         window.location.href = "/messaging";
       } catch (err) {
          const error = err as Error;
          console.log("this was the error ->", err);
@@ -95,13 +95,14 @@ export class AuthService implements IAuthContract {
          const res = _res as TUserCredential;
          const refreshToken = res.user.stsTokenManager.refreshToken;
 
+         console.log(refreshToken);
+
          // const userData = {
          //    firstName: res._tokenResponse.firstName,
          //    lastName: res._tokenResponse.lastName,
          //    email: res.user.email,
          //    userImage: res.user.reloadUserInfo.photoUrl,
          // };
-
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
       } catch (err) {
@@ -131,12 +132,12 @@ export class AuthService implements IAuthContract {
 
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
-         window.location.href = "/messaging";
       } catch (err) {
          console.log("this was the error ->", err);
       }
    }
 
+   //! DONT DELETE THIS THIS IS VERRY IMPORTANT
    // async getFirebaseUserData(userToken: string) {
    //    const firebaseGetTokenUrl = `https://securetoken.googleapis.com/v1/token?key=${process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY}`;
    //    const fetchService = new FetchService();

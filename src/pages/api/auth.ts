@@ -4,7 +4,6 @@ import cookie from "cookie";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
    const refreshToken = req.body.refreshToken;
-   console.log(refreshToken);
 
    res.setHeader(
       "set-cookie",

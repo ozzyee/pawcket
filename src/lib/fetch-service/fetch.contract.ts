@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export interface FetchContract {
    get(url: string): Promise<unknown>;
    post(url: string, data?: unknown): Promise<unknown>;

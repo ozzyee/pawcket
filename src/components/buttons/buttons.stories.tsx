@@ -1,20 +1,19 @@
-  /* eslint-disable @next/next/no-img-element */
-  import React from "react";
-  import { Buttons } from "./buttons.component";
-  import { ComponentMeta } from "@storybook/react";
+/* eslint-disable @next/next/no-img-element */
+import React from "react";
+import { Buttons } from "./buttons.component";
+import { ComponentMeta } from "@storybook/react";
 
+export default {
+   title: "Buttons",
+   component: Buttons,
+} as ComponentMeta<typeof Buttons>;
 
-  export default {
-    title: "Buttons",
-    component: Buttons,
-  } as ComponentMeta<typeof Buttons>;
-
-  const Template = () => {
+const Template = () => {
    return (
-      <div>
-         <Buttons />
-      </div>
+      <>
+         <Buttons>Login</Buttons>
+      </>
    );
-  };
-  
-  export const allButtons = Template.bind({});
+};
+
+export const allButtons = Template.bind({});

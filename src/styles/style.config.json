@@ -1,0 +1,16 @@
+{
+   "colors": {
+      "primary": "#FFBF1F",
+      "blue": "#219EBC",
+      "orange": "#FB8500",
+      "black": "#0E171B",
+      "darkOrange": "#CF5C36"
+   },
+   "breakPoints": {
+      "s": "576px",
+      "m": "768px",
+      "l": "992px",
+      "xl": "1200px",
+      "xxl": "1400px"
+   }
+}

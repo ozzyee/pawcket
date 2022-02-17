@@ -1,22 +1,38 @@
 {
-  "name": "pawcket",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.0.10",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "@types/node": "17.0.18",
-    "@types/react": "17.0.39",
-    "eslint": "8.9.0",
-    "eslint-config-next": "12.0.10",
-    "typescript": "4.5.5"
-  }
+   "name": "pawcket",
+   "private": true,
+   "scripts": {
+      "generate:component": "bin/scaffold.sh -c",
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "next lint",
+      "storybook": "start-storybook -p 6006",
+      "build-storybook": "build-storybook"
+   },
+   "dependencies": {
+      "next": "12.0.10",
+      "react": "17.0.2",
+      "react-dom": "17.0.2",
+      "styled-components": "^5.3.3"
+   },
+   "devDependencies": {
+      "@babel/core": "^7.17.4",
+      "@storybook/addon-actions": "^6.4.19",
+      "@storybook/addon-essentials": "^6.4.19",
+      "@storybook/addon-interactions": "^6.4.19",
+      "@storybook/addon-links": "^6.4.19",
+      "@storybook/builder-webpack5": "^6.4.19",
+      "@storybook/manager-webpack5": "^6.4.19",
+      "@storybook/react": "^6.4.19",
+      "@storybook/testing-library": "^0.0.9",
+      "@types/node": "17.0.18",
+      "@types/react": "17.0.39",
+      "@types/styled-components": "^5.1.22",
+      "babel-loader": "^8.2.3",
+      "eslint": "8.9.0",
+      "eslint-config-next": "12.0.10",
+      "typescript": "4.5.5",
+      "webpack": "^5.69.0"
+   }
 }

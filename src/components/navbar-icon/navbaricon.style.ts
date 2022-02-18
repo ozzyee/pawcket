@@ -5,8 +5,8 @@ export const NavbarDiv = styled.div<navbarIconStylesPros>`
    background-color: ${({ backgroundColor }) => backgroundColor};
    width: 250px;
    height: 40px;
-   color: white;
-   font-size: 0.9rem;
+   color: black;
+   font-size: 3rem;
     display : flex;
    :active {
       transform: scale(0.95);

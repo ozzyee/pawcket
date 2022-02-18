@@ -4,7 +4,7 @@ import styles from "../../styles/style.config.json";
 import { TNavbarProps } from "./navbar.definition";
 import NavbarIcon from "../navbar-icon/navbaricon.component";
 
-const icons = ["Hello", "I", "Am", "Tired"]
+const icons = [{name : "Feed", direct : "./feed"},{name : "Profile", direct : "./profile"},{name : "Vets", direct : "./vets"}]
 
 export default function Navbar({className, children} : TNavbarProps){
 
@@ -16,10 +16,9 @@ return (<S.NavbarDiv
     className={className}
     backgroundColor={"green"}
 
-    ><ul>{icons.map(()=>{
-
+    ><ul>{icons.map((icon)=>{
         return (
-        <div><NavbarIcon onClick={onClick}>sdij</NavbarIcon></div>)
+        <div><NavbarIcon onClick={onClick} direct={icon.direct} name={icon.name}>sdij</NavbarIcon></div>)
     })}</ul>
 </S.NavbarDiv>)
 }

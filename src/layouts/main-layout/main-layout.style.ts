@@ -16,7 +16,8 @@ export const MainLayout = styled.main`
 
 export const Top = styled.div`
    height: 40%;
-   max-width: 300px;
+   max-width: 400px;
+   width: 60%;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -39,7 +40,6 @@ export const ImageWrapper = styled.div`
 export const TextHolder = styled.div`
    width: 75%;
    height: 25%;
-   margin-top: 10px;
    text-align: center;
 `;
 
@@ -57,6 +57,16 @@ export const TitleWrapper = styled.div`
    text-align: center;
    margin-left: auto;
    margin-right: auto;
+
+   .sub-heading-h2 {
+      padding-bottom: 0;
+      margin-bottom: 0;
+   }
+
+   .sub-heading-h3 {
+      padding-top: 0;
+      margin-top: 0;
+   }
 `;
 
 export const MainContent = styled.main`

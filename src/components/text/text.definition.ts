@@ -1,4 +1,5 @@
 export type TTextProps = {
    className?: string;
-   fontType?: string;
+   textType?: string;
+   children?: string;
 };

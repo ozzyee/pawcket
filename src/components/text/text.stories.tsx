@@ -8,23 +8,24 @@ export default {
    title: "Text",
    component: Text,
    argTypes: {
-      fontType: {
+      textType: {
          description:
             "This is the type of text you need you have 3 options h1,h2,h3 NOTE: h1 is white",
+      },
+      children: {
+         description:
+            "this is the text witch will be renderd we are using the key word children as we wont to call this component the same as a normal html element would be",
       },
    },
 } as ComponentMeta<typeof Text>;
 
-const Template = ({ fontType }: TTextProps) => {
-   return (
-      <div>
-         <Text fontType={fontType} />
-      </div>
-   );
+const Template = ({ textType, children }: TTextProps) => {
+   return <Text textType={textType}>{children}</Text>;
 };
 
 export const allText: any = Template.bind({});
 allText.args = {
-   fontType: "",
+   textType: "",
    className: "",
+   children: "Im text",
 };

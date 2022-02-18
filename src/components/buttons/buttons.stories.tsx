@@ -16,11 +16,11 @@ export default {
       children: {
          // these are the descriptions for the args these will show up in the docs for the story
          description:
-            "This is the button text we are using the children key word as we wont to call the button as a normal button",
+            "This is the button text we are using the children key word as we  wont to call the button as a normal button",
       },
       className: {
          description:
-            "This is className for the button this is on the butt just incase we wont to adjust the stye in another location",
+            "This is className for the button this is on the button just incase we wont to adjust the stye in another location",
       },
       dark: {
          description:

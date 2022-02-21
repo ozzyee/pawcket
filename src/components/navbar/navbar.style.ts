@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import { navbarStylesPros } from "./navbar.definition";
+import { listStylesPros } from "./navbar.definition";
 
 export const NavbarDiv = styled.div<navbarStylesPros>`
-   background-color: ${({ backgroundColor }) => backgroundColor};
-   width: 250px;
-   height: 40px;
+   display: flex;
+   background-color: #219ebc;
+   padding: 40px;
    color: black;
    font-size: 2rem;
-    display : flex;
-   :active {
-      transform: scale(0.95);
-   }
+   list-style-type: none;
+`;
+
+export const List = styled.ul<listStylesPros>`
+   list-style-type: none;
 `;

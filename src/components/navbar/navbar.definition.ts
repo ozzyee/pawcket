@@ -5,3 +5,7 @@ export type TNavbarProps = {
 export type navbarStylesPros = {
    backgroundColor: string;
 };
+
+export type listStylesPros = {
+   listStyleType: string;
+};

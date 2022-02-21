@@ -4,7 +4,7 @@ export type TNavbarIconProps = {
    onClick?: () => void;
    name: string;
    direct: string;
-   picture?: string;
+   picture: any;
 };
 
 export type navbarIconStylesPros = {

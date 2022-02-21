@@ -12,16 +12,21 @@ export const MainLayout = styled.main`
    justify-content: center;
    flex-direction: column;
    position: relative;
+
+   background-image: url("/background-paws.svg");
 `;
 
 export const Top = styled.div`
-   height: 40%;
+   height: 35%;
    max-width: 400px;
    width: 60%;
    display: flex;
    align-items: center;
    justify-content: center;
    flex-direction: column;
+   position: relative;
+   z-index: 1;
+
 `;
 
 export const TapNavWrapper = styled.div`
@@ -29,6 +34,8 @@ export const TapNavWrapper = styled.div`
    height: 28px;
    position: absolute;
    top: 0;
+   position: absolute;
+   z-index: 1;
 `;
 
 export const ImageWrapper = styled.div`
@@ -37,10 +44,37 @@ export const ImageWrapper = styled.div`
    overflow: hidden;
 `;
 
+export const ImageHolder = styled.div`
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+   width: 160px;
+   height: 160px;
+
+   #frame {
+      position: absolute;
+      z-index: 1;
+      width: 95%;
+      height: 95%;
+   }
+
+   #img {
+      z-index: 2;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+   }
+`;
+
 export const TextHolder = styled.div`
    width: 75%;
    height: 25%;
    text-align: center;
+
+   .heading-h1 {
+      margin: 0;
+   }
 `;
 
 export const Card = styled.div`
@@ -49,12 +83,15 @@ export const Card = styled.div`
    height: 60%;
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
+   position: relative;
+   z-index: 1;
 `;
 
 export const TitleWrapper = styled.div`
    margin-top: 25px;
    width: 80%;
    text-align: center;
+
    margin-left: auto;
    margin-right: auto;
 

@@ -19,13 +19,28 @@ export function MainLayout({
          <S.Top>
             <S.ImageWrapper>
                {imageSrc ? (
-                  <Image alt="img" width={100} height={100} src={imageSrc} />
+                  <S.ImageHolder>
+                     <Image
+                        alt="img"
+                        width={100}
+                        height={100}
+                        src="frame.svg"
+                        id="frame"
+                     />
+                     <Image
+                        alt="img"
+                        width={100}
+                        height={100}
+                        src={imageSrc}
+                        id="img"
+                     />
+                  </S.ImageHolder>
                ) : (
                   <> {topChildren}</>
                )}
             </S.ImageWrapper>
             <S.TextHolder>
-               <Text textType="h1">{topTitle}</Text>
+               <Text textType="h1" className="heading-h1">{topTitle}</Text>
             </S.TextHolder>
          </S.Top>
 

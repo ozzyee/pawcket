@@ -11,22 +11,22 @@ const icons = [
       picture: "icons/feed-icon-nav.svg",
    },
    {
-      name: "Useful links",
-      direct: "./links",
+      name: "Misc",
+      direct: "./misc",
       picture: "icons/miscellaneous-icon-nav.svg",
    },
    {
-      name: "Profile",
+      name: "User",
       direct: "./profile",
       picture: "icons/user-icon.svg",
    },
    {
-      name: "Messaging",
+      name: "Chat",
       direct: "./messaging",
       picture: "icons/message-icon-nav.svg",
    },
    {
-      name: "Vets",
+      name: "Vet",
       direct: "./vets",
       picture: "icons/vet-icon-nav.svg",
    },
@@ -34,19 +34,16 @@ const icons = [
 
 export function Navbar({ className }: TNavbarProps) {
    return (
-      <S.NavbarDiv className={className} backgroundColor={"green"}>
+      <S.NavbarDiv className={className} backgroundColor={"219ebc"}>
          <S.List className="list" listStyleType="none">
             {icons.map((icon) => {
                return (
-                  <li style={{ display: "inline-block" }}>
                      <NavbarIcon
                         direct={icon.direct}
                         name={icon.name}
                         picture={icon.picture}
                      >
-                        sdij
                      </NavbarIcon>
-                  </li>
                );
             })}
          </S.List>

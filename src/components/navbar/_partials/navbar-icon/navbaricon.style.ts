@@ -1,31 +1,36 @@
 import styled from "styled-components";
-import { navbarIconStylesPros } from "./navbaricon.definition";
 
-// export const NavbarDiv = styled.div<navbarIconStylesPros>`
-//    background-color: ${({ backgroundColor }) => backgroundColor};
-//    width: 250px;
-//    height: 40px;
-//    color: black;
-//    font-size: 3rem;
-//    display: flex;
-//    :active {
-//       transform: scale(0.95);
-//    }
-// `;
 
 export const ListItem = styled.li`
-   position: relative;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   border: 2px solid red;
-   width: 100px;
-   height: 100px;
+   fill: white;
    list-style-type: none;
+   width: 100px;
+   height : 100px;
    :active {
       transform: scale(0.95);
    }
-   .icon {
-      fill: red;
-   }
+   .Feed {
+      transform: scale(30%);
+      display: block;
+      position: relative;
+}
+.Misc {
+      transform: scale(.3);
+      display: block;
+      position: relative;
+}
+.User {
+      display: block;
+      position: relative;
+}
+.Chat {
+      transform: scale(.3);
+      display: block;
+      position: relative;
+}
+.Vet {
+      transform: scale(.3);
+      display: block;
+      position: relative;
+}
 `;

@@ -104,8 +104,9 @@ export const TitleWrapper = styled.div`
 
    .sub-heading-h3 {
       padding-top: 0;
-      margin-top: 0;
+      margin: 0;
    }
+   border-bottom: 2px solid #ffbf1f;
 `;
 
 export const MainContent = styled.main`

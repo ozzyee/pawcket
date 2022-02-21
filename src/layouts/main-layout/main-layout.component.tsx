@@ -16,7 +16,7 @@ export function MainLayout({
    return (
       <S.Wrapper>
          <S.MainLayout className={className}>
-            <S.TapNavWrapper></S.TapNavWrapper>
+            {/* <S.TapNavWrapper></S.TapNavWrapper> */}
             <S.Top>
                <S.ImageWrapper>
                   {imageSrc ? (
@@ -46,19 +46,21 @@ export function MainLayout({
                   </Text>
                </S.TextHolder>
             </S.Top>
+         </S.MainLayout>
 
-            <S.Card>
+         <S.Card>
+            <S.InnerCard>
                <S.TitleWrapper>
                   <Text textType="h2" className="sub-heading-h2">
-                     {bottomTitle}
+                  {bottomTitle}
                   </Text>
                   <Text textType="h3" className="sub-heading-h3">
                      {bottomSubTitle}
-                  </Text>
-               </S.TitleWrapper>
-               <S.MainContent>{children}</S.MainContent>
-            </S.Card>
-         </S.MainLayout>
+                     </Text>
+                     </S.TitleWrapper>
+                  <S.MainContent>{children}</S.MainContent>
+            </S.InnerCard>
+         </S.Card>
       </S.Wrapper>
    );
 }

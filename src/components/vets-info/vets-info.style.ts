@@ -40,20 +40,3 @@ export const VetsInfo = styled.div`
       font-style: italic;
    }
 `;
-
-export const TextHolder = styled.div`
-   display: flex;
-   padding: 0;
-   margin: 0;
-
-   .bold {
-      font-weight: bold;
-      padding-right: 5px;
-   }
-
-   .contact-info {
-      font-size: 0.8rem;
-      margin: 0;
-      margin-top: 4px;
-   }
-`;

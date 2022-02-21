@@ -26,7 +26,6 @@ export const Top = styled.div`
    flex-direction: column;
    position: relative;
    z-index: 1;
-
 `;
 
 export const TapNavWrapper = styled.div`
@@ -55,15 +54,15 @@ export const ImageHolder = styled.div`
    #frame {
       position: absolute;
       z-index: 1;
-      width: 95%;
-      height: 95%;
+      width: 100%;
+      height: 100%;
    }
 
    #img {
       z-index: 2;
       border-radius: 50%;
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
    }
 `;
 
@@ -85,6 +84,7 @@ export const Card = styled.div`
    border-top-right-radius: 22px;
    position: relative;
    z-index: 1;
+   filter: drop-shadow(0px -10px 10px rgba(251, 133, 0, 0.6));
 `;
 
 export const TitleWrapper = styled.div`

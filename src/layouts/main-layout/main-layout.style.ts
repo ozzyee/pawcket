@@ -1,33 +1,71 @@
 import styled from "styled-components";
+import styles from "../../styles/style.config.json";
 
 export const Wrapper = styled.div`
    background-image: linear-gradient(#ffbf1f, #ffe5a5);
+   height: 35vh;
+   min-height: 410px;
+   width: 100vw;
+   display: flex;
+   flex-direction: column;
+   position: relative;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      flex-direction: column-reverse;
+      height: 100vh;
+      background-image: linear-gradient(#ffbf1f, #ffbf1f);
+   }
 `;
 
 export const MainLayout = styled.main`
-   padding: 0;
-   margin: 0;
-   with: 100%;
-   height: 100vh;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-direction: column;
-   position: relative;
+   width: 100%;
+   height: 30vh;
+   min-height: 20em;
 
-   background-image: url("/background-paws.svg");
+   background-image: url("/background-paws-1125x1218.svg");
+   z-index: 10;
+   display: flex;
+   background-repeat: no-repeat;
+   background-size: cover;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      background-image: url("/background-paws.svg");
+      height: 100vh;
+      min-height: 0em;
+   }
 `;
 
 export const Top = styled.div`
-   height: 35%;
-   max-width: 400px;
-   width: 60%;
+   height: 30vh;
+   min-height: 20em;
+
+   max-width: 500px;
+   width: 100%;
+
    display: flex;
    align-items: center;
    justify-content: center;
    flex-direction: column;
+
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 0;
    position: relative;
-   z-index: 1;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      width: 82%;
+      max-width: 9000px;
+      height: 91vh;
+      max-height: 1000px;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 0;
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
+      background-color: white;
+   }
 `;
 
 export const TapNavWrapper = styled.div`
@@ -43,21 +81,25 @@ export const ImageWrapper = styled.div`
    border-radius: 50%;
    display: flex;
    overflow: hidden;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
+      top: 2rem;
+   }
 `;
 
 export const ImageHolder = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
-   position: relative;
    width: 160px;
    height: 160px;
 
    #frame {
       position: absolute;
       z-index: 1;
-      width: 100%;
-      height: 100%;
+      width: 50%;
+      height: 50%;
    }
 
    #img {
@@ -69,24 +111,61 @@ export const ImageHolder = styled.div`
 `;
 
 export const TextHolder = styled.div`
-   width: 75%;
+   width: 67%;
    height: 25%;
    text-align: center;
 
    .heading-h1 {
       margin: 0;
    }
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
+      .heading-h1 {
+         color: black;
+      }
+      top: 12rem;
+   }
 `;
 
 export const Card = styled.div`
    background-color: white;
    width: 100%;
-   height: 60%;
+   height: 100vh;
+   z-index: 11;
+   top: 0;
+
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
-   position: relative;
-   z-index: 1;
    filter: drop-shadow(0px -10px 10px rgba(251, 133, 0, 0.6));
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
+      background-color: transparent;
+      width: 82%;
+
+      height: 50%;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      top: 13rem;
+      bottom: 0;
+      margin-top: auto;
+      margin-bottom: auto;
+      filter: drop-shadow(0px 0px 0px white);
+   }
+`;
+
+export const InnerCard = styled.div`
+   height: 60vh;
+   border-top-left-radius: 22px;
+   border-top-right-radius: 22px;
+   background-color: white;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      height: 0;
+   }
 `;
 
 export const TitleWrapper = styled.div`
@@ -107,11 +186,27 @@ export const TitleWrapper = styled.div`
       margin: 0;
    }
    border-bottom: 2px solid #ffbf1f;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      margin-top: 0;
+   }
 `;
 
 export const MainContent = styled.main`
-   display: block;
    margin-top: 20px;
    background-color: white;
    padding: 1.5em;
+   height: 72%;
+   height: 100%;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
+      width: 90%;
+      height: 70%;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: transparent;
+   }
 `;

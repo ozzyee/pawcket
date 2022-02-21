@@ -17,6 +17,28 @@ export const Wrapper = styled.div`
    }
 `;
 
+export const Background = styled.div`
+   width: 100%;
+   height: 100%;
+   background-image: url("/background-paws.svg");
+`;
+
+export const CardDesktop = styled.div`
+   position: absolute;
+   width: 82%;
+   max-width: 9000px;
+   height: 91vh;
+   max-height: 1000px;
+   background-color: white;
+   left: 0;
+   right: 0;
+   margin-left: auto;
+   margin-right: auto;
+   top: 0;
+   border-bottom-left-radius: 22px;
+   border-bottom-right-radius: 22px;
+`;
+
 export const MainLayout = styled.main`
    width: 100%;
    height: 30vh;

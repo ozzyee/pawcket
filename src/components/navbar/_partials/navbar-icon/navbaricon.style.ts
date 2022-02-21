@@ -6,31 +6,24 @@ export const ListItem = styled.li`
    list-style-type: none;
    width: 100px;
    height : 100px;
+   display : flex;
+   align-items : center;
+   justify-content : center;
    :active {
       transform: scale(0.95);
    }
-   .Feed {
-      transform: scale(30%);
-      display: block;
+   .position{
       position: relative;
-}
-.Misc {
+   }
+
+   .scale{
       transform: scale(.3);
-      display: block;
-      position: relative;
-}
-.User {
-      display: block;
-      position: relative;
-}
-.Chat {
-      transform: scale(.3);
-      display: block;
-      position: relative;
-}
-.Vet {
-      transform: scale(.3);
-      display: block;
-      position: relative;
-}
-`;
+      width : 100%;
+      height : 100%;
+
+   }
+
+   .user-icon{
+      width : 100%;
+      height : 100%;
+   }`

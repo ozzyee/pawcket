@@ -10,12 +10,14 @@ export function Text({ className, textType, children }: TTextProps) {
    }
 
    if (textType === "h2") {
-      return <S.SubHeading>{children}</S.SubHeading>;
+      return <S.SubHeading className={className}>{children}</S.SubHeading>;
    }
 
    if (textType === "h3") {
-      return <S.SmallSubHeading>{children}</S.SmallSubHeading>;
+      return (
+         <S.SmallSubHeading className={className}>{children}</S.SmallSubHeading>
+      );
    }
 
-   return <S.Paragraph>{children}</S.Paragraph>;
+   return <S.Paragraph className={className}>{children}</S.Paragraph>;
 }

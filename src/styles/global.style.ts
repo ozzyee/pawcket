@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
     html,
@@ -19,4 +19,10 @@ export const GlobalStyle = createGlobalStyle`
     }
     
 
+`;
+
+export const StoryLayout = styled.div`
+   display: flex;
+   align-items: left;
+   flex-direction: column;
 `;

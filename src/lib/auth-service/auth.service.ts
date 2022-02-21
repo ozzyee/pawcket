@@ -137,7 +137,8 @@ export class AuthService implements IAuthContract {
       }
    }
 
-   //! DONT DELETE THIS THIS IS VERRY IMPORTANT
+   //! DONT DELETE THIS THIS IS VERY IMPORTANT
+   //* refresh token function
    // async getFirebaseUserData(userToken: string) {
    //    const firebaseGetTokenUrl = `https://securetoken.googleapis.com/v1/token?key=${process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY}`;
    //    const fetchService = new FetchService();

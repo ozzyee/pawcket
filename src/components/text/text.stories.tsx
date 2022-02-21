@@ -16,6 +16,10 @@ export default {
          description:
             "this is the text witch will be renderd we are using the key word children as we wont to call this component the same as a normal html element would be",
       },
+      className: {
+         description:
+            "This is className for the text this is on the text just incase we wont to adjust the stye in another location",
+      },
    },
 } as ComponentMeta<typeof Text>;
 

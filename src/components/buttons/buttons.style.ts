@@ -1,19 +1,19 @@
 import styled from "styled-components";
-import { buttonStylePros } from "./buttons.definition";
 
-export const ButtonsDiv = styled.button<buttonStylePros>`
-   background-color: ${({ backgroundColor }) => backgroundColor};
-   width: 250px;
-   height: 40px;
+export const ButtonsDiv = styled.button`
+   background-color: ${({ theme }) => theme.backgroundColor};
+   width: ${({ theme }) => theme.width}px;
+   height: ${({ theme }) => theme.height}px;
    border-color: transparent;
-   border-radius: 11px;
+   border-radius: ${({ theme }) => theme.borderRadius}px;
    color: white;
-   font-size: 0.9rem;
+   font-size: ${({ theme }) => theme.fontSize}rem;
+   margin-top: 10px;
 
    :hover {
       background-color: transparent;
-      color: ${({ backgroundColor }) => backgroundColor};
-      border: 2px solid ${({ backgroundColor }) => backgroundColor};
+      color: ${({ theme }) => theme.backgroundColor};
+      border: 2px solid ${({ theme }) => theme.backgroundColor};
       transition: all 50ms;
    }
 

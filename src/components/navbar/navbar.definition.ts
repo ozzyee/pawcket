@@ -1,8 +1,7 @@
 export type TNavbarProps = {
-    className? : string;
-    children: string;
-    }
+   className?: string;
+};
 
-    export type navbarStylesPros = {
-        backgroundColor : string;
-    }
+export type navbarStylesPros = {
+   backgroundColor: string;
+};

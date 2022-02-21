@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import styles from "../../styles/style.config.json";
+
+export const Wrapper = styled.div`
+   background-image: linear-gradient(#ffbf1f, #ffe5a5);
+`;
 
 export const MainLayout = styled.main`
-   background-color: ${styles.colors.primary};
+   background: linear-gradient(45deg, blue, red);
    padding: 0;
    margin: 0;
    with: 100%;

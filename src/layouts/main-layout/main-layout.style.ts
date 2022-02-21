@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
 `;
 
 export const MainLayout = styled.main`
-   background: linear-gradient(45deg, blue, red);
    padding: 0;
    margin: 0;
    with: 100%;

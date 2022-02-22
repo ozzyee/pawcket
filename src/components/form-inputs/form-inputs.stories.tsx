@@ -26,8 +26,7 @@ const Template = ({ className, placeholder, inputType }: TFormInputsProps) => {
       <FormInputs
          className={className}
          inputType={inputType}
-         placeholder={placeholder}
-      />
+         placeholder={placeholder} onChange={undefined}      />
    );
 };
 

@@ -20,7 +20,6 @@ export const Wrapper = styled.div`
 export const Background = styled.div`
    width: 100%;
    height: 100%;
-   background-image: url("/background-paws.svg");
 `;
 
 export const CardDesktop = styled.div`
@@ -51,8 +50,9 @@ export const MainLayout = styled.main`
    background-size: cover;
 
    @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
       background-image: url("/background-paws.svg");
-      height: 100vh;
+      height: 100%;
       min-height: 0em;
    }
 `;

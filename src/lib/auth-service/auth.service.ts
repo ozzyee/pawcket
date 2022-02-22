@@ -32,16 +32,12 @@ export class AuthService implements IAuthContract {
    }
 
    async signup({
-      firstName,
-      lastName,
       email,
       password,
    }: {
-      firstName?: string;
-      lastName?: string;
       email: string;
       password: string;
-   }): Promise<void> {
+   }): Promise<any> {
       try {
          const _res = await createUserWithEmailAndPassword(
             auth,
@@ -53,8 +49,6 @@ export class AuthService implements IAuthContract {
 
          // eslint-disable-next-line no-unused-vars
          const userData = {
-            firstName,
-            lastName,
             email,
          };
 
@@ -62,7 +56,8 @@ export class AuthService implements IAuthContract {
          await fetchService.post("/api/auth", { refreshToken });
          // window.location.href = "/messaging";
       } catch (err) {
-         console.log("this was the error ->", err);
+         const error = err as Error;
+         return error?.message;
       }
    }
 
@@ -72,7 +67,7 @@ export class AuthService implements IAuthContract {
    }: {
       email: string;
       password: string;
-   }): Promise<string | undefined> {
+   }): Promise<any> {
       try {
          const _res = await signInWithEmailAndPassword(auth, email, password);
          const res = _res as TUserCredential;
@@ -83,7 +78,6 @@ export class AuthService implements IAuthContract {
          await fetchService.post("/api/auth", { refreshToken });
       } catch (err) {
          const error = err as Error;
-         console.log("this was the error ->", err);
          return error.message;
       }
    }

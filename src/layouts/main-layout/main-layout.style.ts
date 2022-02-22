@@ -20,7 +20,6 @@ export const Wrapper = styled.div`
 export const Background = styled.div`
    width: 100%;
    height: 100%;
-   background-image: url("/background-paws.svg");
 `;
 
 export const CardDesktop = styled.div`
@@ -51,8 +50,9 @@ export const MainLayout = styled.main`
    background-size: cover;
 
    @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
       background-image: url("/background-paws.svg");
-      height: 100vh;
+      height: 100%;
       min-height: 0em;
    }
 `;
@@ -154,12 +154,11 @@ export const Card = styled.div`
    background-color: white;
    width: 100%;
    height: 100vh;
-   z-index: 11;
+   z-index: 100;
    top: 0;
 
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
-   filter: drop-shadow(0px -10px 10px rgba(251, 133, 0, 0.6));
 
    @media (min-width: ${styles.breakPoints.m}) {
       position: absolute;
@@ -177,10 +176,26 @@ export const Card = styled.div`
       margin-bottom: auto;
       filter: drop-shadow(0px 0px 0px white);
    }
+   /* filter: drop-shadow(0px -10px 10px ;
+   box-shadow: 0px -10px 10px rgba(251, 133, 0, 0.7)); */
+`;
+
+export const Filter = styled.div`
+   position: absolute;
+   width: 100%;
+   bottom: 0;
+   height: 20%;
+   box-shadow: 0px 0px 60px rgba(251, 133, 0, 1);
+   border-top-left-radius: 22px;
+   border-top-right-radius: 22px;
+   @media (min-width: ${styles.breakPoints.m}) {
+      display: none;
+   }
 `;
 
 export const InnerCard = styled.div`
-   height: 60vh;
+   height: 100%;
+   display: block;
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
    background-color: white;
@@ -219,7 +234,7 @@ export const MainContent = styled.main`
    background-color: white;
    padding: 1.5em;
    height: 72%;
-   height: 100%;
+   height: 50vh;
 
    @media (min-width: ${styles.breakPoints.m}) {
       position: absolute;

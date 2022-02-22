@@ -16,7 +16,7 @@ export function MainLayout({
 }: TMainLayoutProps) {
    return (
       <>
-         <S.Wrapper>
+         <S.Wrapper className={className}>
             <S.Background />
 
             {desktopCard && (
@@ -61,19 +61,22 @@ export function MainLayout({
             )}
 
             {!desktopCard && (
-               <S.Card>
-                  <S.InnerCard>
-                     <S.TitleWrapper>
-                        <Text textType="h2" className="sub-heading-h2">
-                           {bottomTitle}
-                        </Text>
-                        <Text textType="h3" className="sub-heading-h3">
-                           {bottomSubTitle}
-                        </Text>
-                     </S.TitleWrapper>
-                     <S.MainContent>{children}</S.MainContent>
-                  </S.InnerCard>
-               </S.Card>
+               <>
+                  <S.Filter />
+                  <S.Card>
+                     <S.InnerCard>
+                        <S.TitleWrapper>
+                           <Text textType="h2" className="sub-heading-h2">
+                              {bottomTitle}
+                           </Text>
+                           <Text textType="h3" className="sub-heading-h3">
+                              {bottomSubTitle}
+                           </Text>
+                        </S.TitleWrapper>
+                        <S.MainContent>{children}</S.MainContent>
+                     </S.InnerCard>
+                  </S.Card>
+               </>
             )}
          </S.Wrapper>
       </>

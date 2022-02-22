@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import styles from "../../styles/style.config.json";
 
-export const LoginFormDiv = styled.form`
+export const LoginForm= styled.form`
    display: flex;
    flex-direction: column;
    width: 300px;

@@ -67,7 +67,7 @@ export class AuthService implements IAuthContract {
    }: {
       email: string;
       password: string;
-   }): Promise<string | undefined> {
+   }): Promise<any> {
       try {
          const _res = await signInWithEmailAndPassword(auth, email, password);
          const res = _res as TUserCredential;
@@ -78,7 +78,6 @@ export class AuthService implements IAuthContract {
          await fetchService.post("/api/auth", { refreshToken });
       } catch (err) {
          const error = err as Error;
-         console.log("this was the error ->", err);
          return error.message;
       }
    }

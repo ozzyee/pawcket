@@ -36,6 +36,10 @@ export default {
          description:
             "This is for the top of the layout this is here just in case we dont wont an image but some other component we can now do so this is also a ReactNode NOTE: if you wont to use this prop you cant use the imageSrc prop",
       },
+      desktopCard: {
+         description:
+            "If you just need to use a card for a desktop layout just set this value to true",
+      },
    },
 } as ComponentMeta<typeof MainLayout>;
 
@@ -47,6 +51,7 @@ const Template = ({
    bottomSubTitle,
    children,
    topChildren,
+   desktopCard,
 }: TMainLayoutProps) => {
    return (
       <MainLayout
@@ -56,6 +61,7 @@ const Template = ({
          bottomSubTitle={bottomSubTitle}
          className={className}
          topChildren={topChildren}
+         desktopCard={desktopCard}
       >
          {children}
       </MainLayout>
@@ -72,4 +78,5 @@ allMainLayout.args = {
    bottomSubTitle: "Login",
    children: "this is the child",
    topChildren: {},
+   desktopCard: false,
 };

@@ -10,6 +10,11 @@ export const ButtonsDiv = styled.button`
    font-size: ${({ theme }) => theme.fontSize}rem;
    margin-top: 10px;
 
+   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+   font-weight: bold;
+   font-style: italic;
+   color: ${({ theme }) => theme.fontColor};
+
    :hover {
       background-color: transparent;
       color: ${({ theme }) => theme.backgroundColor};

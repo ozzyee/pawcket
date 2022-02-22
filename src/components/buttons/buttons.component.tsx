@@ -14,9 +14,10 @@ export function Buttons({
    const theme = {
       backgroundColor: dark ? styles.colors.orange : styles.colors.primary,
       width: vetsNavBtn ? 100 : 250,
-      fontSize: vetsNavBtn ? 0.8 : 0.9,
-      height: vetsNavBtn ? 25 : 40,
+      fontSize: vetsNavBtn ? 0.8 : 1.5,
+      height: vetsNavBtn ? 25 : 60,
       borderRadius: vetsNavBtn ? 30 : 11,
+      fontColor: dark ? "white" : "#CF5C36",
    };
 
    return (

@@ -19,9 +19,30 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     }
     
-.logo{
-    width:10rem;
-}
+   .logo{
+       width:10rem;     
+   }
+
+   .desktop-display-block{
+         display: none;
+   }
+
+   .login-form{
+
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0;
+   }
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      .desktop-display-none{
+         display: none;
+      }
+      .desktop-display-block{
+         display: block;
+      }
+   }
 
 `;
 
@@ -59,6 +80,10 @@ export const LandingPage = styled.main`
          margin-top: -2.5rem;
          border-radius: 22px;
          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      }
+
+      .desktop-display-none {
+         display: none;
       }
    }
 `;

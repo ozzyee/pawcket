@@ -16,7 +16,7 @@ export function MainLayout({
 }: TMainLayoutProps) {
    return (
       <>
-         <S.Wrapper>
+         <S.Wrapper className={className}>
             <S.Background />
 
             {desktopCard && (

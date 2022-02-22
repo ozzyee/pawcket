@@ -188,6 +188,9 @@ export const Filter = styled.div`
    box-shadow: 0px 0px 60px rgba(251, 133, 0, 1);
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
+   @media (min-width: ${styles.breakPoints.m}) {
+      display: none;
+   }
 `;
 
 export const InnerCard = styled.div`

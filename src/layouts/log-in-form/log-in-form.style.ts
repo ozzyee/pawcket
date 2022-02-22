@@ -27,6 +27,14 @@ export const LoginForm = styled.form`
          color: ${styles.colors.primary};
       }
    }
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      .login-btn {
+         margin-top: 0;
+         height: 30px;
+         width: 200px;
+      }
+   }
 `;
 
 export const AuthLoginWrapper = styled.div`
@@ -34,4 +42,9 @@ export const AuthLoginWrapper = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      padding-top: 2rem;
+
+   }
 `;

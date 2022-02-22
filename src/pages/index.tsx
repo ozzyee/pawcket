@@ -4,8 +4,10 @@ import Logo from "../../public/dummy-logo.svg";
 import { Buttons } from "../components/buttons/buttons.component";
 import { LandingPage, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+   const router = useRouter();
    return (
       <MainLayout
          topTitle="Pawcket"
@@ -13,8 +15,21 @@ const Home: NextPage = () => {
          topChildren={<Logo className="logo" />}
       >
          <LandingPage>
-            <Buttons className="login-btn">Log in</Buttons>
-            <Buttons className="login-btn" dark={true}>
+            <Buttons
+               className="login-btn"
+               onClick={() =>
+                  router.push("/login", undefined, { shallow: true })
+               }
+            >
+               Log in
+            </Buttons>
+            <Buttons
+               className="login-btn"
+               dark={true}
+               onClick={() =>
+                  router.push("/sign-up", undefined, { shallow: true })
+               }
+            >
                Sign up
             </Buttons>
             <TextHolder className="margin-top">

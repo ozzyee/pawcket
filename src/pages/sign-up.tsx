@@ -2,22 +2,22 @@
 import type { NextPage } from "next";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import Logo from "../../public/dummy-logo.svg";
-import { LoginForm } from "../layouts/log-in-form/log-in-form.component";
 import { AuthScreen, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
+import { SignUpForm } from "../layouts/sign-up-form/sign-up-form.component";
 import { AuthDesktop } from "../layouts/auth-desktop/auth-desktop.component";
 import { useRouter } from "next/router";
 
-const Login: NextPage = () => {
+const SignUp: NextPage = () => {
    const router = useRouter();
 
    return (
       <>
          <AuthDesktop
             className="desktop-display-block "
-            form={<LoginForm />}
+            form={<SignUpForm />}
             title={"Welcome!"}
-            subTitle={"Login"}
+            subTitle={"Sign up"}
             footerText={"Don't have an account?"}
             footerTextBold={"Sign Up"}
          />
@@ -26,17 +26,17 @@ const Login: NextPage = () => {
             topTitle="Pawcket"
             bottomTitle="Welcome!"
             topChildren={<Logo className="logo" />}
-            bottomSubTitle="Login"
+            bottomSubTitle="Sign up"
             className="desktop-display-none"
          >
             <AuthScreen>
-               <LoginForm />
+               <SignUpForm className="login-form" />
                <TextHolder className="margin-top auth-screen">
                   <Text>Don't have an account?</Text>
                   <Text
                      className="bold landing-text"
                      onClick={() =>
-                        router.push("/sign-up", undefined, { shallow: true })
+                        router.push("/login", undefined, { shallow: true })
                      }
                   >
                      Sign Up
@@ -48,4 +48,4 @@ const Login: NextPage = () => {
    );
 };
 
-export default Login;
+export default SignUp;

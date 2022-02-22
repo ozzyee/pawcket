@@ -6,6 +6,7 @@ export function FormInputs({
    className,
    placeholder,
    inputType,
+   onChange,
 }: TFormInputsProps) {
    if (inputType === "text-area") {
       return <S.TextArea placeholder={placeholder} className={className} />;
@@ -16,6 +17,9 @@ export function FormInputs({
          className={className}
          type={inputType}
          placeholder={placeholder}
+         onChange={onChange}
+
+
       />
    );
 }

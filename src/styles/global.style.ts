@@ -22,6 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 .logo{
     width:10rem;
 }
+
 `;
 
 export const StoryLayout = styled.div`
@@ -68,6 +69,13 @@ export const TextHolder = styled.div`
    padding: 0;
    margin: 0;
 
+   &.auth-screen {
+      /* margin-top: 10px !important; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
    &.margin-top {
       margin-top: 25px;
       color: ${styles.colors.blue};
@@ -96,4 +104,12 @@ export const TextHolder = styled.div`
          bottom: 0;
       }
    }
+`;
+
+export const AuthScreen = styled.main`
+   width: 100%;
+   left: 0;
+   background-color: white;
+   position: relative;
+   margin-top: auto;
 `;

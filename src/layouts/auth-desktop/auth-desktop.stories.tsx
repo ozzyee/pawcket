@@ -12,7 +12,7 @@
   const Template = () => {
    return (
       <div>
-         <AuthDesktop />
+         <AuthDesktop form={undefined} title={""} subTitle={""} footerText={""} footerTextBold={""} />
       </div>
    );
   };

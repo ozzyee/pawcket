@@ -1,17 +1,18 @@
 import type { NextPage } from "next";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
-import { SvgCanvas } from "../components/svg-canvas/svg-canvas.component";
 import Frame from "../../public/frame.svg"
 import { Buttons } from "../components/buttons/buttons.component";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { Text } from "../components/text/text.component";
+import { CrossFrame } from "../styles/create-pets.style";
 
 const CreatePets: NextPage = () =>{
     return(
         <MainLayout
         topTitle="Upload Photo"
         bottomTitle="Create Pet Profile"
-        topChildren={<Frame className={"logo"}/>}
+        topChildren={<CrossFrame/>}
+        //topChildren={<Frame className="logo"/>}
         >
             <form>
                 <FormInputs placeholder="Name" inputType="input"></FormInputs>

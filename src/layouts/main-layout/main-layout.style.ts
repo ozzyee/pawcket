@@ -180,7 +180,7 @@ export const Card = styled.div`
 `;
 
 export const InnerCard = styled.div`
-   height: 60vh;
+   height: 100%;
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
    background-color: white;

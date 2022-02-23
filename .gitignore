@@ -36,3 +36,9 @@ package-lock.json
 
 # typescript
 *.tsbuildinfo
+
+.env
+
+package-lock.json
+
+yarn.lock

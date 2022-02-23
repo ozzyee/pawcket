@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { AuthService } from "../lib/auth-service/auth.service";
-import Navbar from "../components/navbar/navbar.component"
 
 const Home: NextPage = () => {
    const authLogin = new AuthService();
@@ -40,7 +39,6 @@ const Home: NextPage = () => {
             log in
          </button>
          <button onClick={authLogin.signOut}>log out</button>
-         <Navbar children={"heu"}/>
       </>
    );
 };

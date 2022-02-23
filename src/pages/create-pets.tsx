@@ -12,7 +12,6 @@ const CreatePets: NextPage = () =>{
         topTitle="Upload Photo"
         bottomTitle="Create Pet Profile"
         topChildren={<CrossFrame/>}
-        //topChildren={<Frame className="logo"/>}
         >
             <form>
                 <FormInputs placeholder="Name" inputType="input"></FormInputs>

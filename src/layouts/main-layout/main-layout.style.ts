@@ -102,7 +102,7 @@ export const TapNavWrapper = styled.div`
 export const ImageWrapper = styled.div`
    border-radius: 50%;
    display: flex;
-   overflow: hidden;
+   //overflow: hidden;
 
    @media (min-width: ${styles.breakPoints.m}) {
       position: absolute;

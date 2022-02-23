@@ -26,6 +26,10 @@ export const GlobalStyle = createGlobalStyle`
    .desktop-display-block{
          display: none;
    }
+   
+   .nco-banner __bm__extension{
+    display: none;
+   }
 
    .login-form{
 

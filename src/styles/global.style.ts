@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .desktop-display-block{
-         display: none;
+         display: none ;
    }
    
    .nco-banner __bm__extension{
@@ -41,10 +41,10 @@ export const GlobalStyle = createGlobalStyle`
 
    @media (min-width: ${styles.breakPoints.m}) {
       .desktop-display-none{
-         display: none;
+         display: none !important;
       }
       .desktop-display-block{
-         display: block;
+         display: block ;
       }
    }
 

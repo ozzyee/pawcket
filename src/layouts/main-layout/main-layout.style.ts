@@ -247,3 +247,12 @@ export const MainContent = styled.main`
       background-color: transparent;
    }
 `;
+
+export const VetList = styled.ol`
+      display : flex;
+      flex-direction: column;
+      list-style-type: none;
+      align-items : center;
+      justify-content : center;
+      padding : 0;
+   `

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import styles from "../../styles/style.config.json";
 
 export const Wrapper = styled.div`
-   background-image: linear-gradient(#ffbf1f, #ffe5a5);
+   background-image: radial-gradient(#ffe5a5, #ffbf1f);
    height: 35vh;
    min-height: 410px;
    width: 100vw;
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
    @media (min-width: ${styles.breakPoints.m}) {
       flex-direction: column-reverse;
       height: 100vh;
-      background-image: linear-gradient(#ffbf1f, #ffbf1f);
+      background-image: radial-gradient(#ffe5a5, #ffbf1f);
    }
 `;
 

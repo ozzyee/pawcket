@@ -20,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
     width:10rem;
     overflow: visible;
 }
+
 `;
 
 export const StoryLayout = styled.div`

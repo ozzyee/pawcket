@@ -7,6 +7,7 @@ import { AuthScreen, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
 import { AuthDesktop } from "../layouts/auth-desktop/auth-desktop.component";
 import { useRouter } from "next/router";
+import { CrossFrameUser } from "../styles/create-user.style";
 
 const CreateUser: NextPage = () => {
    const router = useRouter();
@@ -16,9 +17,9 @@ const CreateUser: NextPage = () => {
          <MainLayout
             topTitle="Pawcket"
             bottomTitle="Welcome!"
-            topChildren={<Logo className="logo" />}
-            bottomSubTitle="Login"
-            className="desktop-display-none"
+            topChildren={<CrossFrameUser />}
+            // bottomSubTitle="Login"
+            // className="desktop-display-none"
          ></MainLayout>
 
          <MainLayout

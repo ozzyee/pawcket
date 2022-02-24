@@ -21,12 +21,25 @@ export default {
    },
 } as ComponentMeta<typeof FormInputs>;
 
-const Template = ({ className, placeholder, inputType }: TFormInputsProps) => {
+const Template = ({
+   className,
+   placeholder,
+   inputType,
+   onChange,
+   required,
+   error,
+   errorMsg,
+}: TFormInputsProps) => {
    return (
       <FormInputs
          className={className}
          inputType={inputType}
-         placeholder={placeholder} onChange={undefined}      />
+         placeholder={placeholder}
+         onChange={onChange}
+         required={required}
+         error={error}
+         errorMsg={errorMsg}
+      />
    );
 };
 

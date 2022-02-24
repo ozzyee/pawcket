@@ -2,14 +2,14 @@
 import type { NextPage } from "next";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import Logo from "../../public/dummy-logo.svg";
-import { LoginForm } from "../layouts/log-in-form/log-in-form.component";
-import { AuthScreen, TextHolder } from "../styles/global.style";
-import { Text } from "../components/text/text.component";
-import { AuthDesktop } from "../layouts/auth-desktop/auth-desktop.component";
-import { useRouter } from "next/router";
+// import { LoginForm } from "../layouts/log-in-form/log-in-form.component";
+// import { AuthScreen, TextHolder } from "../styles/global.style";
+// import { Text } from "../components/text/text.component";
+// import { AuthDesktop } from "../layouts/auth-desktop/auth-desktop.component";
+// import { useRouter } from "next/router";
 
 const CreateUser: NextPage = () => {
-   const router = useRouter();
+   // const router = useRouter();
 
    return (
       <>

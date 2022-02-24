@@ -136,9 +136,11 @@ export const TextHolder = styled.div`
    width: 67%;
    height: 25%;
    text-align: center;
+   margin-top: 10px;
 
    .heading-h1 {
       margin: 0;
+      line-height: 105%;
    }
 
    @media (min-width: ${styles.breakPoints.m}) {

@@ -4,14 +4,14 @@ import Frame from "../../public/frame.svg"
 import { Buttons } from "../components/buttons/buttons.component";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { Text } from "../components/text/text.component";
-import { CrossFrame } from "../styles/create-pets.style";
+import * as S from "../styles/create-pets.style";
 
 const CreatePets: NextPage = () =>{
     return(
         <MainLayout
         topTitle="Upload Photo"
         bottomTitle="Create Pet Profile"
-        topChildren={<CrossFrame/>}
+        topChildren={<S.CrossFrame/>}
         >
             <form>
                 <FormInputs placeholder="Name" inputType="input"></FormInputs>

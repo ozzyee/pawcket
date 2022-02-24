@@ -4,12 +4,12 @@ import { FormInputs } from "../../components/form-inputs/form-inputs.component";
 import { Frame } from "../../components/frame/frame.component";
 import * as S from "./create-profiles.style";
 
-export function CreateProfileForm(){
+export function CreateProfileForm({topTitle, bottomTitle, background, foregrnpm}){
     return(
         
         <MainLayout
-        topTitle="Upload Photo"
-        bottomTitle="Create Pet Profile"
+        topTitle={topTitle}
+        bottomTitle={bottomTitle}
         topChildren={<Frame background="/frame.svg" foreground={`"+"`}/>}
         >
             <a style={S.SkipStyle} href="">

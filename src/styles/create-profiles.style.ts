@@ -41,6 +41,7 @@ export const GlowingLine = styled.div<TProps>`
     position: relative;
     display: grid;
     place-items: center;
+    margin-top: 15px;
     ::before{
         content: "";
         position: relative;

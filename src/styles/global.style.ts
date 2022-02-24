@@ -42,6 +42,9 @@ export const LandingPage = styled.main`
       margin-top: 2rem;
       font-size: 1.8rem;
    }
+   .create-profile-btn{
+       align-self: center;
+   }
 
    @media (min-width: ${styles.breakPoints.m}) {
       height: 100%;

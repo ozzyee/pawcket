@@ -1,17 +1,20 @@
-import type { NextPage } from "next";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
-import { Buttons } from "../components/buttons/buttons.component";
-import { FormInputs } from "../components/form-inputs/form-inputs.component";
-import { Text } from "../components/text/text.component";
-import * as S from "../styles/create-profiles.style";
+import { MainLayout } from "../main-layout/main-layout.component";
+import { Buttons } from "../../components/buttons/buttons.component";
+import { FormInputs } from "../../components/form-inputs/form-inputs.component";
+import { Frame } from "../../components/frame/frame.component";
+import * as S from "./create-profiles.style";
 
-const CreatePets: NextPage = () =>{
+export function CreateProfileForm(){
     return(
+        
         <MainLayout
         topTitle="Upload Photo"
         bottomTitle="Create Pet Profile"
-        topChildren={<S.CrossFrame background="/frame.svg" foreground={`"+"`}/>}
+        topChildren={<Frame background="/frame.svg" foreground={`"+"`}/>}
         >
+            <a style={S.SkipStyle} href="">
+                Skip
+            </a>
             <form>
                 <FormInputs placeholder="Name" inputType="input"></FormInputs>
                 <FormInputs placeholder="Bio" inputType="text-area"></FormInputs>
@@ -23,14 +26,12 @@ const CreatePets: NextPage = () =>{
                 <FormInputs placeholder="Medication" inputType="input"></FormInputs>
                 <FormInputs placeholder="Weight" inputType="input"></FormInputs>
                 <FormInputs placeholder="Extra Info" inputType="text-area"></FormInputs>
-                <div>
-                <Buttons dark={false} children="Add Another"></Buttons>
-                <Buttons dark={true} children="Continue"></Buttons>
-                </div>
             </form>
+            <div style={S.ButtonsWrapper}>
+                <Buttons dark={false} children="Continue"></Buttons>
+                <Buttons dark={true} children="Add Another"></Buttons>
+            </div>
 
         </MainLayout>
     )
 }
-
-export default CreatePets

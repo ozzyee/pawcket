@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import styles from "../styles/style.config.json";
+import styled, { CSSProperties } from "styled-components";
+import styles from "../../styles/style.config.json";
 
 type TProps = {
     background?:string,
     foreground?:string,
     width?: number,
     height?: number,
-    text?:string
+    text?:string,
+    onClick?: () => void
 }
 
 export const CrossFrame = styled.span<TProps>`
@@ -25,6 +26,7 @@ export const CrossFrame = styled.span<TProps>`
 
    ::after{
        content: ${props => props.foreground};
+       position: absolute;
        font-weight: 100;
        font-size: 8em;
        color: white;
@@ -62,7 +64,24 @@ export const GlowingLine = styled.div<TProps>`
         color: ${styles.colors.primary};
         display: block;
     }
-
 `
+export const SkipStyle: CSSProperties = {
+    fontFamily: `"Poppins", sans-serif`,
+    fontSize:"1.3em",
+    textDecoration:"underline",
+    top:"-33%",
+    right: "5%",
+    color: "white",
+    position: "absolute",
 
+};
+
+export const ButtonsWrapper: CSSProperties = {
+    width: "100%",
+    margin: "20px 0",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+}
 

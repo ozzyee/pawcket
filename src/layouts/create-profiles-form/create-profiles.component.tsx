@@ -2,6 +2,7 @@ import { MainLayout } from "../main-layout/main-layout.component";
 import { Buttons } from "../../components/buttons/buttons.component";
 import { FormInputs } from "../../components/form-inputs/form-inputs.component";
 import { Frame } from "../../components/frame/frame.component";
+import { Separator } from "../../components/separator/separator.component";
 import { TCreateProfileProps } from "./create-profiles.definition";
 import * as S from "./create-profiles.style";
 
@@ -25,7 +26,7 @@ export function CreateProfileForm({topTitle, bottomTitle, background, foreground
                         <FormInputs placeholder="Name" inputType="input"></FormInputs>
                         <FormInputs placeholder="Bio" inputType="text-area"></FormInputs>
                     </span>
-                        <S.GlowingLine separatorText={separatorText} />
+                        <Separator separatorText={separatorText} />
                         <FormInputs placeholder="Sex" inputType="input"></FormInputs>
                         <FormInputs placeholder="Date of Birth" inputType="input"></FormInputs>
                         <FormInputs placeholder="Species" inputType="input"></FormInputs>
@@ -42,7 +43,7 @@ export function CreateProfileForm({topTitle, bottomTitle, background, foreground
                 :
                 <>
                 <form>
-                    <S.GlowingLine separatorText={separatorText} />
+                <Separator separatorText={separatorText} />
                     <span>
                         <FormInputs placeholder="Name"></FormInputs>
                         <FormInputs placeholder="Date of Birth"></FormInputs>

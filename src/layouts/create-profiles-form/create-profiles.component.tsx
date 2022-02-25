@@ -19,6 +19,7 @@ export function CreateProfileForm({topTitle, bottomTitle, background, foreground
             Skip
         </a>
             { isPet ?
+                <>
                 <form>
                     <span>
                         <FormInputs placeholder="Name" inputType="input"></FormInputs>
@@ -33,7 +34,13 @@ export function CreateProfileForm({topTitle, bottomTitle, background, foreground
                         <FormInputs placeholder="Weight" inputType="input"></FormInputs>
                         <FormInputs placeholder="Extra Info" inputType="text-area"></FormInputs>
                 </form>
+                <div style={S.ButtonsWrapper}>
+                    <Buttons dark={false} children="Continue"></Buttons>
+                    <Buttons dark={true} children="Add Another"></Buttons>
+                </div>
+                </>
                 :
+                <>
                 <form>
                     <S.GlowingLine separatorText={separatorText} />
                     <span>
@@ -45,11 +52,11 @@ export function CreateProfileForm({topTitle, bottomTitle, background, foreground
                         <FormInputs placeholder="Username"></FormInputs>
                         <FormInputs placeholder="Extra Info" inputType="text-area"></FormInputs>
                 </form>
+                <div style={S.ButtonsWrapper}>
+                    <Buttons dark={false} children="Continue"></Buttons>
+                </div>
+                </>
             }
-            <div style={S.ButtonsWrapper}>
-                <Buttons dark={false} children="Continue"></Buttons>
-                <Buttons dark={true} children="Add Another"></Buttons>
-            </div>
 
         </MainLayout>
     )

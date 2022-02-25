@@ -4,6 +4,7 @@ import { Buttons } from "../../components/buttons/buttons.component";
 import { FormInputs } from "../../components/form-inputs/form-inputs.component";
 import { errorMessage } from "../../functions/firebase-err-msg";
 import { AuthService } from "../../lib/auth-service/auth.service";
+import { AuthLoginWrapper } from "../../styles/global.style";
 import { TLoginFormProps } from "./log-in-form.definition";
 import * as S from "./log-in-form.style";
 
@@ -55,10 +56,10 @@ export function LoginForm({ className }: TLoginFormProps) {
                });
             }}
          />
-         <Buttons className="login-btn">Log in</Buttons>
-         <S.AuthLoginWrapper>
+         <Buttons id="auth-btn">Log in</Buttons>
+         <AuthLoginWrapper>
             <AuthLogin />
-         </S.AuthLoginWrapper>
+         </AuthLoginWrapper>
       </S.LoginForm>
    );
 }

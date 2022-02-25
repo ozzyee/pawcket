@@ -89,8 +89,6 @@ export class AuthService implements IAuthContract {
          const res = _res as TUserCredential;
          const refreshToken = res.user.stsTokenManager.refreshToken;
 
-         console.log(refreshToken);
-
          // const userData = {
          //    firstName: res._tokenResponse.firstName,
          //    lastName: res._tokenResponse.lastName,

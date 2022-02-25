@@ -32,12 +32,31 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .login-form{
-
       width: 100%;
       margin-left: auto;
       margin-right: auto;
       margin-top: 0;
    }
+
+
+   
+   #auth-btn{
+      margin-top: 2rem ;
+      height: 34px;
+      width: 90%;
+      font-size: 1.1rem;
+      font-weight: normal;
+      color: white;
+      border-radius: 50px;
+      margin-left: auto;
+      margin-right: auto;
+
+      :hover {
+         color: ${styles.colors.primary};
+      }
+   }
+
+   
 
    @media (min-width: ${styles.breakPoints.m}) {
       .desktop-display-none{
@@ -45,6 +64,12 @@ export const GlobalStyle = createGlobalStyle`
       }
       .desktop-display-block{
          display: block ;
+      }
+
+      .auth-btn {
+         margin-top: 30px;
+         height: 30px;
+         width: 200px;
       }
    }
 
@@ -141,4 +166,15 @@ export const AuthScreen = styled.main`
    background-color: white;
    position: relative;
    margin-top: auto;
+`;
+
+export const AuthLoginWrapper = styled.div`
+   padding-top: 2.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      padding-top: 2rem;
+   }
 `;

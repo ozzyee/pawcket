@@ -230,7 +230,6 @@ export const TitleWrapper = styled.div`
 `;
 
 export const MainContent = styled.main`
-   margin-top: 20px;
    background-color: white;
    padding: 1.5em;
    height: 72%;
@@ -245,5 +244,6 @@ export const MainContent = styled.main`
       margin-left: auto;
       margin-right: auto;
       background-color: transparent;
+      margin-top: 20px;
    }
 `;

@@ -26,9 +26,6 @@ const Template = ({
    placeholder,
    inputType,
    onChange,
-   required,
-   error,
-   errorMsg,
 }: TFormInputsProps) => {
    return (
       <FormInputs
@@ -36,9 +33,8 @@ const Template = ({
          inputType={inputType}
          placeholder={placeholder}
          onChange={onChange}
-         required={required}
-         error={error}
-         errorMsg={errorMsg}
+         error={true}
+         errorMsg={"this is the err"}
       />
    );
 };

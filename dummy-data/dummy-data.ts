@@ -35,7 +35,7 @@ export const freddie: TPet = {
 
 export const tony: TPet = {
     name: "Tony",
-    bio: "I'm 3 months old but that doesn't stopped me. You better wear shoes or prepare yourself for a toe-hunting session with me.",
+    bio: "I'm 3 months old but that doesn't stop me. You better wear shoes or prepare yourself for a toe-hunting session with me.",
     sex: "Male",
     dateOfBirth: "5 of December 2021",
     personality: "Shy",

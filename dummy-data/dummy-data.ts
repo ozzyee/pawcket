@@ -30,7 +30,7 @@ export const freddie: TPet = {
     medications: "N/A",
     weight: "6 Kilograms",
     aboutMe: "Freddie loves playing with his stuffedbear and ragging around the kitchen. It's so funny",
-    profilePic: "../../dummy-data/freddie.jpg",
+    profilePic: "/dummy/freddie.jpg",
 }
 
 export const tony: TPet = {
@@ -42,7 +42,7 @@ export const tony: TPet = {
     medications: "N/A",
     weight: "200 Grams",
     aboutMe: "Tony is too young to have other cat friends but he'll love to meet you once he put on some grams on!!",
-    profilePic: "../../dummy-data/tony.jpg",
+    profilePic: "/dummy/tony.jpg",
 }
 
 export const jennifer: TUser = {

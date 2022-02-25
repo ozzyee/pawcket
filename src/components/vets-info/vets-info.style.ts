@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import styles from "../../styles/style.config.json";
+import { GlobalStyle } from "../../styles/global.style";
 
 export const Wrapper = styled.div`
    position: relative;
@@ -13,8 +14,13 @@ export const VetsInfoDiv = styled.div`
    padding: 10px;
    padding-top: 40px;
    padding-bottom: 20px;
-   box-shadow: 5px 5px 5px rgba(14, 23, 27, .4);
+   box-shadow: 5px 5px 5px rgba(14, 23, 27, 0.4);
    margin-bottom: 20px;
+
+   /* @media (min-width: ${styles.breakPoints.m}) {
+      display: grid;
+      grid-template-columns: repeat(3, 300px);
+   } */
 `;
 
 export const VetsLogoHolder = styled.div`

@@ -248,17 +248,28 @@ export const MainContent = styled.main`
 `;
 
 export const VetList = styled.ol`
-      display : flex;
-      flex-direction: column;
-      list-style-type: none;
-      align-items : center;
-      justify-content : center;
-      padding : 0px;
-   `
+   display: flex;
+   flex-direction: column;
+   list-style-type: none;
+   align-items: center;
+   justify-content: center;
+   padding: 0px;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      background-color: pink;
+      display: grid;
+      grid-template-columns: repeat(3, 400px);
+      padding: 0px;
+      place-items: center;
+      .vetcard {
+         grid-column-end: span;
+      }
+   }
+`;
 
 export const VetButtons = styled.ol`
-      display : flex;
-      padding : 0;
-      list-style-type: none;
-      justify-content: space-between;
-      `
+   display: flex;
+   padding: 0;
+   list-style-type: none;
+   justify-content: space-between;
+`;

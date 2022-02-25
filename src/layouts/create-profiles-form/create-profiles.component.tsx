@@ -5,10 +5,8 @@ import { Frame } from "../../components/frame/frame.component";
 import { TCreateProfileProps } from "./create-profiles.definition";
 import * as S from "./create-profiles.style";
 
-export function CreateProfileForm({topTitle, bottomTitle, background, foreground,isPet}: TCreateProfileProps){
+export function CreateProfileForm({topTitle, bottomTitle, background, foreground,separatorText,isPet}: TCreateProfileProps){
 
-    let separatorText: string = isPet? "PET PASSPORT": "USER INFO";
-    console.log(separatorText);
     
     return(
         
@@ -17,9 +15,9 @@ export function CreateProfileForm({topTitle, bottomTitle, background, foreground
         bottomTitle={bottomTitle}
         topChildren={<Frame background={background} foreground={foreground}/>}
         >
-            <a style={S.SkipStyle} href="">
-                Skip
-            </a>
+        <a style={S.SkipStyle} href="">
+            Skip
+        </a>
             { isPet ?
                 <form>
                     <span>

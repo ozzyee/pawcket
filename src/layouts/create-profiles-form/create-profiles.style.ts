@@ -51,7 +51,7 @@ export const GlowingLine = styled.div<TGlowingLine>`
         font-family: "Poppins", sans-serif;
         font-weight: 300;
         padding: 0 7px 0 7px;
-        content: ${props => props.separatorText};
+        content: "${props => props.separatorText}";
         transform: translateY(-55%);
         background-color: white;
         color: ${styles.colors.primary};
@@ -60,12 +60,12 @@ export const GlowingLine = styled.div<TGlowingLine>`
 `
 export const SkipStyle: CSSProperties = {
     fontFamily: `"Poppins", sans-serif`,
-    fontSize:"1.3em",
+    fontSize:"1.5em",
     textDecoration:"underline",
-    top:"-33%",
-    right: "5%",
     color: "white",
     position: "absolute",
+    top: "-300px",
+    right: "30px"
 
 };
 

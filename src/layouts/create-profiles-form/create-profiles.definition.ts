@@ -10,5 +10,5 @@ export type TCreateProfileProps = {
     onClick?: () => void
 }
 export type TGlowingLine = {
-    separatorText: string,
+    separatorText: string|undefined,
 }

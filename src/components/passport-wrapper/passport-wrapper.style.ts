@@ -4,7 +4,8 @@ import { TPassportWrapper } from "./passport-wrapper.definition";
 
 export const Wrapper = styled.div`
     width: 90%;
-    height: 45vh;
+    height: auto;
+    padding: 0 15px 15px 15px;
     background-color: white;
     margin: 0 auto;
     position: relative;

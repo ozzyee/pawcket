@@ -7,13 +7,14 @@ import {Navbar} from "../components/navbar/navbar.component"
 import {VetsInfo} from "../components/vets-info/vets-info.component"
 import {useState} from "react";
 import {VetList, VetButtons} from "../layouts/main-layout/main-layout.style";
+import {Frame} from "../components/frame/frame.component"
 
 const Vet: NextPage = () => {
    const initialState = [{name : "sdsd", phoneNumber : "9239238", vetAddress : "i92ijwdioj", vetWebsite  : "sidjsidj"}, {name : "sdsd", phoneNumber : "9239238", vetAddress : "i92ijwdioj", vetWebsite  : "sidjsidj"}, {name : "sdsd", phoneNumber : "9239238", vetAddress : "i92ijwdioj", vetWebsite  : "sidjsidj"}, {name : "sdsd", phoneNumber : "9239238", vetAddress : "i92ijwdioj", vetWebsite  : "sidjsidj"}, {name : "sdsd", phoneNumber : "9239238", vetAddress : "i92ijwdioj", vetWebsite  : "sidjsidj"}, {name : "sdsd", phoneNumber : "9239238", vetAddress : "i92ijwdioj", vetWebsite  : "sidjsidj"},{name : "sdsd", phoneNumber : "9239238", vetAddress : "i92ijwdioj", vetWebsite  : "sidjsidj"}]
    const [vets, setVets] = useState(initialState);
    return (
       <>
-         <MainLayout bottomTitle="Vets near you" topChildren={<S.FrameVets />}>
+         <MainLayout bottomTitle="Vets near you" topChildren={<Frame background={"/frame.svg"} foreground={"url(/vet-icon-nav.svg)"} width={70} height={70}/>}>
             <VetButtons>
 
             <li><Buttons vetsNavBtn={true} dark={true}>

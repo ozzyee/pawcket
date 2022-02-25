@@ -1,16 +1,9 @@
 import styled, { CSSProperties } from "styled-components";
 import styles from "../../styles/style.config.json";
+import { TCreateProfileProps, TGlowingLine } from "./create-profiles.definition";
 
-type TProps = {
-    background?:string,
-    foreground?:string,
-    width?: number,
-    height?: number,
-    text?:string,
-    onClick?: () => void
-}
 
-export const CrossFrame = styled.span<TProps>`
+export const CrossFrame = styled.span<TCreateProfileProps>`
    width:150px;
    height: 150px;
    background-color: red;
@@ -37,7 +30,7 @@ export const CrossFrame = styled.span<TProps>`
     }
 `;
 
-export const GlowingLine = styled.div<TProps>`
+export const GlowingLine = styled.div<TGlowingLine>`
     width: 90%;
     margin: 0 auto;
     position: relative;
@@ -58,7 +51,7 @@ export const GlowingLine = styled.div<TProps>`
         font-family: "Poppins", sans-serif;
         font-weight: 300;
         padding: 0 7px 0 7px;
-        content: ${props => props.text};
+        content: ${props => props.separatorText};
         transform: translateY(-55%);
         background-color: white;
         color: ${styles.colors.primary};

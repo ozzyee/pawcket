@@ -19,9 +19,11 @@ export default {
 const Template = ({
     separatorText,
 }: TPassportWrapper) => {
+    const styles = {display: "grid", placeContent: "center"}
    return (
       <Wrapper>
           <Separator separatorText={separatorText}/>
+          <p style={styles}>{"===> The Profile info goes here <==="}</p>
       </Wrapper>
    );
 };
@@ -29,5 +31,5 @@ const Template = ({
 export const aCreateProfileForm: any = Template.bind({});
 
 aCreateProfileForm.args = {
-   separatorText: "I'm on the wrapper too!",
+   separatorText: "I'm in the wrapper too!",
 };

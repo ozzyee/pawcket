@@ -14,6 +14,7 @@ export const VetsInfoDiv = styled.div`
    padding-top: 40px;
    padding-bottom: 20px;
    box-shadow: 5px 5px 5px rgba(14, 23, 27, .4);
+   margin-bottom: 20px;
 `;
 
 export const VetsLogoHolder = styled.div`

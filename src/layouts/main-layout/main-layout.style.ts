@@ -156,7 +156,6 @@ export const Card = styled.div`
    height: 100vh;
    z-index: 100;
    top: 0;
-
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
 
@@ -254,5 +253,12 @@ export const VetList = styled.ol`
       list-style-type: none;
       align-items : center;
       justify-content : center;
-      padding : 0;
+      padding : 0px;
    `
+
+export const VetButtons = styled.ol`
+      display : flex;
+      padding : 0;
+      list-style-type: none;
+      justify-content: space-between;
+      `

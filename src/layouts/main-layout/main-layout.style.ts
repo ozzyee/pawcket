@@ -156,6 +156,7 @@ export const Card = styled.div`
    height: 100vh;
    z-index: 100;
    top: 0;
+
    position: relative;
 
    border-top-left-radius: 22px;
@@ -247,4 +248,31 @@ export const MainContent = styled.main`
       background-color: transparent;
       margin-top: 20px;
    }
+`;
+
+export const VetList = styled.ol`
+   display: flex;
+   flex-direction: column;
+   list-style-type: none;
+   align-items: center;
+   justify-content: center;
+   padding: 0px;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      background-color: pink;
+      display: grid;
+      grid-template-columns: repeat(3, 400px);
+      padding: 0px;
+      place-items: center;
+      .vetcard {
+         grid-column-end: span;
+      }
+   }
+`;
+
+export const VetButtons = styled.ol`
+   display: flex;
+   padding: 0;
+   list-style-type: none;
+   justify-content: space-between;
 `;

@@ -116,8 +116,8 @@ export const LandingPage = styled.main`
       margin-top: 15px;
       margin-bottom: 15px;
    }
-   .create-profile-btn{
-       align-self: center;
+   .create-profile-btn {
+      align-self: center;
    }
 
    @media (min-width: ${styles.breakPoints.m}) {
@@ -213,5 +213,34 @@ export const AuthLoginWrapper = styled.div`
 
    @media (min-width: ${styles.breakPoints.m}) {
       padding-top: 3rem;
+   }
+`;
+
+export const ButtonsWrapper = styled.div`
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding-bottom: 1.5rem;
+
+   #form-btn {
+      left: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+
+      position: relative;
+      width: 90%;
+      height: 36px;
+      font-size: 1.1rem;
+      top: 0.5rem;
+      bottom: 1.5rem;
+      border-radius: 22px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
    }
 `;

@@ -1,18 +1,22 @@
 import { NextPage } from "next";
-import { CreateProfileForm } from "../layouts/create-profiles-form/create-profiles.component";
+import { Frame } from "../components/frame/frame.component";
+import { CreatePetForm } from "../layouts/creat-pet-form/creat-pet-form.component";
+import { MainLayout } from "../layouts/main-layout/main-layout.component";
 
 const CreatePet: NextPage = () => {
-    return (
-        <CreateProfileForm
-        topTitle="Upload Photo"
-        bottomTitle="Create Pet Profile"
-        background="/frame.svg"
-        foreground={`"+"`}
-        separatorText="Pet Passport"
-        isPet={true}
-        />
-    );
- };
- 
- export default CreatePet;
- 
+   return (
+      <>
+         <MainLayout
+            topTitle="Pawcket"
+            bottomTitle="Welcome!"
+            bottomSubTitle="Login"
+            className="desktop-display-none"
+            topChildren={<Frame background={"/frame.svg"} foreground={`"+"`} />}
+         >
+            <CreatePetForm />
+         </MainLayout>
+      </>
+   );
+};
+
+export default CreatePet;

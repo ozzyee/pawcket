@@ -7,7 +7,6 @@ import { AuthScreen, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
 import { AuthDesktop } from "../layouts/auth-desktop/auth-desktop.component";
 import { useRouter } from "next/router";
-import { Return } from "../components/return-button/returnbutton.component";
 
 const Login: NextPage = () => {
    const router = useRouter();

@@ -109,6 +109,11 @@ export const LandingPage = styled.main`
    flex-direction: column;
    height: 75%;
 
+   #login-btn {
+      margin-top: 15px;
+      margin-bottom: 15px;
+   }
+
    @media (min-width: ${styles.breakPoints.m}) {
       height: 60%;
       flex-direction: row;

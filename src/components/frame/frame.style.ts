@@ -26,4 +26,6 @@ export const CrossFrame = styled.span<TFrameProps>`
        ${props => props.height && ({
         height: props.height})}
     }
+
 `;
+

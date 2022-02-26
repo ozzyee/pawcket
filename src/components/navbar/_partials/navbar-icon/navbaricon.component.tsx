@@ -6,17 +6,18 @@ import Feed from "../icons/feed-icon-nav.svg";
 import Misc from "../icons/miscellaneous-icon-nav.svg";
 import Chat from "../icons/message-icon-nav.svg";
 import Vet from "../icons/vet-icon-nav.svg";
+
 import { useEffect, useState } from "react";
+
 
 export default function NavbarIcon({
    name,
    direct,
+
    picture,
    children,
 }: TNavbarIconProps) {
-
    const [icon, setIcon] = useState();
-
 
    return (
       <Link href={direct}>
@@ -31,6 +32,7 @@ export default function NavbarIcon({
 }
 
 function GetIcon({icon, className}:{icon: string, className?: string}){
+
    switch(icon){
       case "Feed" :
          return <Feed className={"scale"}/>

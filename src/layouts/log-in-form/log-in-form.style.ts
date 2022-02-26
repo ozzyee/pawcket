@@ -1,33 +1,17 @@
 import styled from "styled-components";
 import styles from "../../styles/style.config.json";
 
-export const LoginFormDiv = styled.form`
+export const LoginForm = styled.form`
    display: flex;
    flex-direction: column;
-   width: 300px;
+   width: 100%;
+   background-color: white;
 
    .input {
-      margin-bottom: 40px;
+      margin-bottom: 3rem;
    }
 
-   .login-btn {
-      height: 30px;
-      font-size: 1.1rem;
-      font-weight: normal;
-      color: white;
-      border-radius: 50px;
-      margin-left: auto;
-      margin-right: auto;
-
-      :hover {
-         color: ${styles.colors.primary};
-      }
+   @media (min-width: ${styles.breakPoints.m}) {
+      margin-top: 1.4rem;
    }
-`;
-
-export const AuthLoginWrapper = styled.div`
-   padding-top: 2rem;
-   display: flex;
-   align-items: center;
-   justify-content: center;
 `;

@@ -1,3 +1,4 @@
 export type TSignUpFormProps = {
-  className?: string
-}
+   className?: string;
+};
+

@@ -1,5 +1,6 @@
 export type TButtonsProps = {
    className?: string;
+   id?: string;
    dark?: boolean;
    children: string;
    onClick?: () => void;

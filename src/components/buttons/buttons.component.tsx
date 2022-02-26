@@ -10,6 +10,7 @@ export function Buttons({
    children,
    onClick,
    vetsNavBtn,
+   id
 }: TButtonsProps) {
    const theme = {
       backgroundColor: dark ? styles.colors.orange : styles.colors.primary,
@@ -22,7 +23,7 @@ export function Buttons({
 
    return (
       <ThemeProvider theme={theme}>
-         <S.ButtonsDiv className={className} onClick={onClick}>
+         <S.ButtonsDiv className={className} id={id} onClick={onClick}>
             {children}
          </S.ButtonsDiv>
       </ThemeProvider>

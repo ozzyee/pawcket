@@ -11,6 +11,7 @@ export default {
       separatorText: {
          description:
          "Text in the middle of the component. Takes a string",
+
       },
    },
 } as ComponentMeta<typeof Separator>;
@@ -23,6 +24,7 @@ const Template = ({
          separatorText={separatorText}
       />
    );
+
 };
 
 export const aCreateProfileForm: any = Template.bind({});

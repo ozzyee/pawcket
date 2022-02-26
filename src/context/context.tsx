@@ -17,7 +17,7 @@ type TContentContext = {
    _setSnackbarType: (set: AlertColor) => void;
    _setSnackbarMsg: (set: string) => void;
 
-   _error: boolean;
+   _hasError: boolean;
    snackbarMsg: string;
 };
 
@@ -26,7 +26,7 @@ const ContentContext = createContext<TContentContext>({
    _setError: (set: boolean) => {},
    _setSnackbarType: (set: AlertColor) => {},
    _setSnackbarMsg: (set: string) => {},
-   _error: false,
+   _hasError: false,
    snackbarMsg: "",
 });
 
@@ -36,7 +36,7 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
    const [open, setOpen] = useState(false);
    const [snackbarMsg, setSnackbarMsg] = useState("");
    const [snackbarType, setSnackbarType] = useState<AlertColor>("error");
-   const [_error, setError] = useState(false);
+   const [_hasError, setError] = useState(false);
 
    const _setOpen = (open: boolean) => {
       setOpen(open);
@@ -66,7 +66,7 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
             _setError,
             _setSnackbarType,
             _setSnackbarMsg,
-            _error,
+            _hasError,
             snackbarMsg,
          }}
       >

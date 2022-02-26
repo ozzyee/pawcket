@@ -73,6 +73,25 @@ export const GlobalStyle = createGlobalStyle`
          height: 30px;
          width: 200px;
       }
+
+      #auth-btn {
+     left:0 ;
+     right:0 ;
+
+         position: relative;
+         width: 200px ;
+         height: 30px;
+         font-size: 1.1rem ;
+         top: 1.5rem;
+         bottom: 1.5rem;
+         margin: 0;
+         margin-left: 0.5rem ;
+         margin-right: 0.5em;
+         border-radius: 22px;
+         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+         margin-left:auto ;
+         margin-right:auto ;
+      }
    }
 
 `;
@@ -90,31 +109,19 @@ export const LandingPage = styled.main`
    flex-direction: column;
    height: 75%;
 
-   .login-btn {
-      width: 86%;
-      height: 65px;
-      margin-top: 2rem;
-      font-size: 1.8rem;
-   }
-
    @media (min-width: ${styles.breakPoints.m}) {
-      height: 100%;
+      height: 60%;
       flex-direction: row;
-      .login-btn {
-         width: 200px;
-         height: 35px;
-         margin-top: 2rem;
-         font-size: 1.4rem;
-         margin: 0;
-         margin-left: 0.5rem;
-         margin-right: 0.5em;
-         margin-top: -2.5rem;
-         border-radius: 22px;
-         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      }
 
       .desktop-display-none {
          display: none;
+      }
+
+      #login-btn {
+         height: 40px;
+         border-radius: 22px;
+         margin-right: 10px;
+         margin-left: 10px;
       }
    }
 `;
@@ -194,6 +201,6 @@ export const AuthLoginWrapper = styled.div`
    justify-content: center;
 
    @media (min-width: ${styles.breakPoints.m}) {
-      padding-top: 2rem;
+      padding-top: 3rem;
    }
 `;

@@ -5,7 +5,7 @@ export type TValidation = {
 };
 
 export type TErrors = {
-   email: string | undefined;
-   password: string | undefined;
-   confirm: string | undefined;
+   email?: string | undefined;
+   password?: string | undefined;
+   confirm?: string | undefined;
 };

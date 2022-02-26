@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from "react";
 import { AuthLogin } from "../../components/auth-login/auth-login.component";
 import { Buttons } from "../../components/buttons/buttons.component";
 import { FormInputs } from "../../components/form-inputs/form-inputs.component";
+import { useContent } from "../../context/context";
 import { errorMessage } from "../../functions/firebase-err-msg";
 import { AuthService } from "../../lib/auth-service/auth.service";
 import { AuthLoginWrapper } from "../../styles/global.style";
@@ -14,6 +15,8 @@ import * as S from "./sign-up-form.style";
 export function SignUpForm({ className }: TSignUpFormProps) {
    const authLogin = new AuthService();
    const [errors, setErrors] = useState<TErrors | null>(null);
+   const { _setOpen, _setSnackbarType, _setSnackbarMsg, _setError } =
+      useContent();
 
    const [formData, setFormData] = useState({
       email: "",
@@ -32,14 +35,37 @@ export function SignUpForm({ className }: TSignUpFormProps) {
          confirm: errors?.confirm,
       });
 
+      if (errors?.email && errors?.password && errors?.confirm) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg("You must fill in all fields.");
+      }
+
+      if (errors?.email && !errors?.password && !errors?.confirm) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg(errors?.email);
+      }
+
+      if (!errors?.email && errors?.password && errors?.confirm) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg(errors?.password);
+      }
+
       if (!errors.email && !errors.password && !errors.confirm) {
          const firebaseErr = await authLogin.signup({
             email: formData.email,
             password: formData.password,
          });
 
-         const customErr = errorMessage(firebaseErr);
-         console.log("the error is form fb =>", customErr);
+         if (firebaseErr) {
+            const message = errorMessage(firebaseErr);
+            _setOpen(true);
+            _setSnackbarType("error");
+            _setSnackbarMsg(message);
+            _setError(true);
+         }
       }
    };
 

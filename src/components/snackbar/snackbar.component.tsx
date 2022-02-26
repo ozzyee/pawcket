@@ -28,8 +28,8 @@ export function Snackbar({ type, message, open }: TSnackbarProps) {
             open={_open}
             autoHideDuration={6000}
             onClose={handleClose}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            key={"bottom" + "right"}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            key={"top" + "left"}
          >
             <Alert onClose={handleClose} severity={type} sx={{ width: "100%" }}>
                {message}

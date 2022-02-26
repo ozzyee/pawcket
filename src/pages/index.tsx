@@ -17,7 +17,7 @@ const Home: NextPage = () => {
          >
             <LandingPage>
                <Buttons
-                  className="login-btn"
+                  id="login-btn"
                   onClick={() =>
                      router.push("/login", undefined, { shallow: true })
                   }
@@ -25,6 +25,7 @@ const Home: NextPage = () => {
                   Log in
                </Buttons>
                <Buttons
+                  id="login-btn"
                   className="login-btn landing-page-btn"
                   dark={true}
                   onClick={() =>

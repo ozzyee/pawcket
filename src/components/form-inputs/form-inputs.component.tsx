@@ -4,6 +4,7 @@ import * as S from "./form-inputs.style";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
+import { useContent } from "../../context/context";
 
 export function FormInputs({
    className,
@@ -12,8 +13,11 @@ export function FormInputs({
    onChange,
    error,
 }: TFormInputsProps) {
+   const { _hasError } = useContent();
    const [value, setValue] = useState("");
    const [_error, setError] = useState(false);
+
+   console.log("err =>", error);
 
    useEffect(() => {
       if (error === undefined) {
@@ -40,7 +44,11 @@ export function FormInputs({
 
    return (
       <S.InputWrapper>
-         <FormControl error={_error} variant="standard" className="input-width">
+         <FormControl
+            error={_error || _hasError}
+            variant="standard"
+            className="input-width"
+         >
             <InputLabel htmlFor="input" className="label">
                {placeholder}
             </InputLabel>

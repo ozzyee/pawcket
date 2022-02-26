@@ -1,6 +1,5 @@
 import { TErrors, TValidation } from "../../../types/auth-definitions";
 
-
 export const Validation = ({ email, password, confirm }: TValidation) => {
    const errors: TErrors = {
       email: undefined,
@@ -17,8 +16,7 @@ export const Validation = ({ email, password, confirm }: TValidation) => {
    if (!password) {
       errors.password = "Password required";
    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(password)) {
-      errors.password =
-         "This password isn't strong enough please enter a stronger one";
+      errors.password = "Your password is too weak please try a stronger one";
    }
 
    if (!confirm) {

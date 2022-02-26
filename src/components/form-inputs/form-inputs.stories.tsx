@@ -33,8 +33,6 @@ const Template = ({
          inputType={inputType}
          placeholder={placeholder}
          onChange={onChange}
-         error={true}
-         errorMsg={"this is the err"}
       />
    );
 };

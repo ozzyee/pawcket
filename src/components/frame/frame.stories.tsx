@@ -14,7 +14,9 @@ export default {
       foreground: {
          description:
             `String or any type of valid content for content CSS property. In case of string the "" symbols are required, for which is recomended to use back ticks. `,
-      },
+
+      }, 
+
       width: {
          description:
             "If an SVG is passed to foreground, then width and height are required for which this property takes a number",

@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0 ;
     }
 
+
     a {
     color: inherit;
     text-decoration: none;
@@ -16,7 +17,11 @@ export const GlobalStyle = createGlobalStyle`
     * {
     box-sizing: border-box;
     }
-
+    
+.logo{
+    width:10rem;
+    overflow: visible;
+}
    .logo{
        width:10rem;
    }
@@ -110,6 +115,9 @@ export const LandingPage = styled.main`
    #login-btn {
       margin-top: 15px;
       margin-bottom: 15px;
+   }
+   .create-profile-btn{
+       align-self: center;
    }
 
    @media (min-width: ${styles.breakPoints.m}) {

@@ -14,6 +14,7 @@ export const CrossFrame = styled.span<TFrameProps>`
    justify-content: center;
    align-items: center;
    filter: drop-shadow(10px 10px 10px rgba(207, 92, 54, 0.8));
+
    ::after{
        content: ${props => props.foreground};
        position: absolute;
@@ -25,4 +26,6 @@ export const CrossFrame = styled.span<TFrameProps>`
        ${props => props.height && ({
         height: props.height})}
     }
+
 `;
+

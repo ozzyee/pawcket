@@ -2,7 +2,7 @@ import styled from "styled-components";
 import styles from "../../styles/style.config.json";
 
 export const Wrapper = styled.div`
-   background-image: linear-gradient(#ffbf1f, #ffe5a5);
+   background-image: radial-gradient(#ffe5a5, #ffbf1f);
    height: 35vh;
    min-height: 410px;
    width: 100vw;
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
    @media (min-width: ${styles.breakPoints.m}) {
       flex-direction: column-reverse;
       height: 100vh;
-      background-image: linear-gradient(#ffbf1f, #ffbf1f);
+      background-image: radial-gradient(#ffe5a5, #ffbf1f);
    }
 `;
 
@@ -102,7 +102,7 @@ export const TapNavWrapper = styled.div`
 export const ImageWrapper = styled.div`
    border-radius: 50%;
    display: flex;
-   overflow: hidden;
+   //overflow: hidden;
 
    @media (min-width: ${styles.breakPoints.m}) {
       position: absolute;
@@ -136,9 +136,11 @@ export const TextHolder = styled.div`
    width: 67%;
    height: 25%;
    text-align: center;
+   margin-top: 10px;
 
    .heading-h1 {
       margin: 0;
+      line-height: 105%;
    }
 
    @media (min-width: ${styles.breakPoints.m}) {
@@ -198,6 +200,7 @@ export const Filter = styled.div`
 export const InnerCard = styled.div`
    height: 100%;
    display: block;
+
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
    background-color: white;

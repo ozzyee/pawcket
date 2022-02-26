@@ -1,5 +1,6 @@
 import React from "react";
 import * as S from "./navbar.style";
+import styles from "../../styles/style.config.json";
 import { TNavbarProps } from "./navbar.definition";
 import NavbarIcon from "./_partials/navbar-icon/navbaricon.component";
 
@@ -16,6 +17,8 @@ const icons = [
    },
    {
       name: "User",
+
+<!--       direct: "./profile", -->
       direct: "./create-user",
       picture: "icons/user-icon.svg",
    },
@@ -35,6 +38,7 @@ export function Navbar({ className }: TNavbarProps) {
    return (
       <S.NavbarDiv className={className} backgroundColor={"219ebc"}>
          <S.List className="list" listStyleType="none">
+
             {icons.map((icon, index) => {
                return (
 

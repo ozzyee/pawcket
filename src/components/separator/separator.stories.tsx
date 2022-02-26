@@ -9,13 +9,22 @@ export default {
    component: Separator,
    argTypes: {
       separatorText: {
-         description: "Text in the middle of the component. Takes a string",
+         description:
+         "Text in the middle of the component. Takes a string",
+
       },
    },
 } as ComponentMeta<typeof Separator>;
 
-const Template = ({ separatorText }: TGlowingLine) => {
-   return <Separator separatorText={separatorText} />;
+const Template = ({
+    separatorText,
+}: TGlowingLine) => {
+   return (
+      <Separator
+         separatorText={separatorText}
+      />
+   );
+
 };
 
 export const aCreateProfileForm: any = Template.bind({});

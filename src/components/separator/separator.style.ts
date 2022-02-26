@@ -4,6 +4,10 @@ import { TGlowingLine } from "./separator.definition";
 
 export const GlowingLine = styled.div<TGlowingLine>`
 
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+
     display: grid;
     place-items: center;
     margin-top: 15px;

@@ -10,11 +10,11 @@ export function AuthLogin({ className }: TAuthLoginProps) {
       <S.AuthLoginDiv className={className}>
          <S.TextHolder>OR</S.TextHolder>
          <S.AuthIcons>
-            <S.Button onClick={authLogin.googleSignIn}>
+            <S.Button onClick={authLogin.googleSignIn} type="button">
                <S.GoogleIcon />
             </S.Button>
 
-            <S.Button onClick={authLogin.facebookSignIn}>
+            <S.Button onClick={authLogin.facebookSignIn} type="button">
                <S.FacebookIcon />
             </S.Button>
          </S.AuthIcons>

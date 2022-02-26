@@ -32,19 +32,27 @@ export const TextArea = styled.textarea`
    font-family: "Poppins", sans-serif;
    font-size: 1em;
    width: 100%;
-   height: 120px;
+   max-width: 100%;
+   min-height: 120px;
    margin: 0 0 10px 0;
    border: 1px solid rgba(14, 23, 27, 0.4);
    padding: 5px;
    font-size: 1em;
 
-    ::placeholder {
-        font-size: 0.9em;
-        font-weight: 300;
-        color: rgba(14, 23, 27, 0.4);
-        position: absolute;
-        bottom: 0;
-    }
+   margin-top: 2rem;
+
+   ::placeholder {
+      font-size: 0.9em;
+      font-weight: 300;
+      color: rgba(14, 23, 27, 0.4);
+      position: absolute;
+      bottom: 0;
+   }
+
+   :focus {
+      outline: none !important;
+      border: 1px solid ${styles.colors.primary};
+   }
 `;
 
 export const RequiredSymboled = styled.div`
@@ -75,14 +83,13 @@ export const ErrorMessage = styled.p`
       font-size: 0.9em;
       font-weight: 300;
       color: rgba(14, 23, 27, 0.4);
-        position: absolute;
-        bottom: 0;
+      position: absolute;
+      bottom: 0;
    }
-// may need changing 
+
    margin: 0;
    padding: 0;
    padding-left: 0.5rem;
    font-size: 0.7rem;
    color: red;
-
 `;

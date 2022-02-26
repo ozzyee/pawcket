@@ -37,7 +37,9 @@ export const GlobalStyle = createGlobalStyle`
       margin-right: auto;
       margin-top: 0;
    }
-
+   .css-1480iag-MuiInputBase-root-MuiInput-root:after {
+      border-color: ${styles.colors.primary};
+   }
 
    
    #auth-btn{
@@ -120,8 +122,21 @@ export const LandingPage = styled.main`
 export const TextHolder = styled.div`
    display: flex;
    align-items: center;
+   justify-content: center;
    padding: 0;
    margin: 0;
+   margin-top: 0rem;
+
+   z-index: 1000;
+   position: absolute;
+
+   right: 0;
+   left: 0;
+
+   &.landing {
+      position: absolute;
+      bottom: 0;
+   }
 
    &.auth-screen {
       /* margin-top: 10px !important; */
@@ -131,8 +146,12 @@ export const TextHolder = styled.div`
    }
 
    &.margin-top {
-      margin-top: 25px;
+      margin-top: 0;
       color: ${styles.colors.blue};
+   }
+
+   &.login {
+      margin-top: 25px;
    }
 
    .bold {

@@ -25,9 +25,6 @@ export const InputWrapper = styled.div`
       font-weight: 300;
       border-color: grey;
    }
-   .css-1480iag-MuiInputBase-root-MuiInput-root:after {
-      border-color: ${styles.colors.primary};
-   }
 `;
 
 export const TextArea = styled.textarea`

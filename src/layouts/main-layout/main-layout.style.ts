@@ -156,6 +156,7 @@ export const Card = styled.div`
    height: 100vh;
    z-index: 100;
    top: 0;
+   position: relative;
 
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;

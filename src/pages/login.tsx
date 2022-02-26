@@ -32,7 +32,7 @@ const Login: NextPage = () => {
          >
             <AuthScreen>
                <LoginForm />
-               <TextHolder className="margin-top auth-screen">
+               <TextHolder className="margin-top auth-screen login">
                   <Text>Don't have an account?</Text>
                   <Text
                      className="bold landing-text"

@@ -156,6 +156,9 @@ export const Card = styled.div`
    height: 100vh;
    z-index: 100;
    top: 0;
+
+   position: relative;
+
    border-top-left-radius: 22px;
    border-top-right-radius: 22px;
 
@@ -229,7 +232,6 @@ export const TitleWrapper = styled.div`
 `;
 
 export const MainContent = styled.main`
-   margin-top: 20px;
    background-color: white;
    padding: 1.5em;
    height: 72%;
@@ -244,6 +246,7 @@ export const MainContent = styled.main`
       margin-left: auto;
       margin-right: auto;
       background-color: transparent;
+      margin-top: 20px;
    }
 `;
 

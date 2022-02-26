@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/link-passhref */
 import { TNavbarIconProps } from "./navbaricon.definition";
 import Link from "next/link";
 import { ListItem } from "./navbaricon.style";
@@ -6,16 +7,14 @@ import Feed from "../icons/feed-icon-nav.svg";
 import Misc from "../icons/miscellaneous-icon-nav.svg";
 import Chat from "../icons/message-icon-nav.svg";
 import Vet from "../icons/vet-icon-nav.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function NavbarIcon({
    name,
    direct,
-   picture,
-   children,
 }: TNavbarIconProps) {
 
-   const [icon, setIcon] = useState();
+   const [icon] = useState();
 
 
    return (
@@ -30,7 +29,7 @@ export default function NavbarIcon({
    );
 }
 
-function GetIcon({icon, className}:{icon: string, className?: string}){
+function GetIcon({icon}:{icon: string, className?: string}){
    switch(icon){
       case "Feed" :
          return <Feed className={"scale"}/>

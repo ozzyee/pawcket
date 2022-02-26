@@ -1,4 +1,6 @@
-import { auth } from "../../lib/firebase/firebase.initialize";
+import { auth, firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { setDoc, doc } from "firebase/firestore";
+
 import {
    createUserWithEmailAndPassword,
    FacebookAuthProvider,
@@ -46,12 +48,13 @@ export class AuthService implements IAuthContract {
          );
          const res = _res as TUserCredential;
          const refreshToken = res.user.stsTokenManager.refreshToken;
+         const userID = res.user.uid;
 
-         // eslint-disable-next-line no-unused-vars
          const userData = {
             email,
+            userID,
          };
-
+         await setDoc(doc(firestoreDB, "users", userID), userData);
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
          // window.location.href = "/messaging";
@@ -88,15 +91,17 @@ export class AuthService implements IAuthContract {
          const _res = await signInWithPopup(auth, provider);
          const res = _res as TUserCredential;
          const refreshToken = res.user.stsTokenManager.refreshToken;
+         const userID = res.user.uid;
 
-         console.log(refreshToken);
+         const userData = {
+            userID,
+            firstName: res._tokenResponse.firstName,
+            lastName: res._tokenResponse.lastName,
+            email: res.user.email,
+            userImage: res.user.reloadUserInfo.photoUrl,
+         };
 
-         // const userData = {
-         //    firstName: res._tokenResponse.firstName,
-         //    lastName: res._tokenResponse.lastName,
-         //    email: res.user.email,
-         //    userImage: res.user.reloadUserInfo.photoUrl,
-         // };
+         await setDoc(doc(firestoreDB, "users", userID), userData);
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
       } catch (err) {
@@ -110,20 +115,21 @@ export class AuthService implements IAuthContract {
          const _res = await signInWithPopup(auth, provider);
          const res = _res as TUserCredential;
          const refreshToken = res.user.stsTokenManager.refreshToken;
+         const userID = res.user.uid;
 
-         // const facebookCredential =
-         //    FacebookAuthProvider.credentialFromResult(res);
-         // const accessToken = facebookCredential?.accessToken;
-         // const userImage = `https://graph.facebook.com/me/picture?height=400&width=400&access_token=${accessToken}`;
+         const facebookCredential =
+            FacebookAuthProvider.credentialFromResult(res);
+         const accessToken = facebookCredential?.accessToken;
+         const userImage = `https://graph.facebook.com/me/picture?height=400&width=400&access_token=${accessToken}`;
 
-         // const userData = {
-         //    firstName: res._tokenResponse.firstName,
-         //    lastName: res._tokenResponse.lastName,
-         //    email: res.user.email,
-         //    userImage: userImage,
-         //    userID: res.user.uid,
-         // };
-
+         const userData = {
+            userID,
+            firstName: res._tokenResponse.firstName,
+            lastName: res._tokenResponse.lastName,
+            email: res.user.email,
+            userImage: userImage,
+         };
+         await setDoc(doc(firestoreDB, "users", userID), userData);
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
       } catch (err) {

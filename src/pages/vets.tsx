@@ -83,13 +83,12 @@ const Vet: NextPage = () => {
             <VetList className="vetcard">
                {vets.map((vet, index) => {
                   return (
-                     <li>
+                     <li key={index}>
                         <VetsInfo
                            vetName={vet.name}
                            vetPhoneNumber={vet.phoneNumber}
                            vetAddress={vet.vetAddress}
                            vetWebsite={vet.vetWebsite}
-                           key={index}
                         />
                      </li>
                   );

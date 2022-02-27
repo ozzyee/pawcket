@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { TCreateProfileProps } from "./create-profiles.definition";
+import styles from "../../styles/style.config.json";
 
 export const CrossFrame = styled.span<TCreateProfileProps>`
    width: 150px;
@@ -32,6 +33,22 @@ export const CrossFrame = styled.span<TCreateProfileProps>`
    }
 `;
 
+export const DesktopTitle = styled.div`
+   display: none;
+   @media (min-width: ${styles.breakPoints.m}) {
+      border-bottom: 2px solid ${styles.colors.primary};
+      margin-top: -118px;
+      text-align: center;
+      display: block;
+
+      .desktop-title {
+         padding: 0;
+         margin: 0;
+         font-size: 1.6rem;
+      }
+   }
+`;
+
 export const CreateUserForm = styled.form``;
 
 export const CreateUserSpan = styled.span``;
@@ -53,4 +70,60 @@ export const SkipStyleButton = styled.a`
    position: absolute;
    top: -300px;
    right: 30px;
+`;
+
+export const FormSplitLeft = styled.div`
+   @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      padding: 0 6rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+`;
+
+export const FormSplitRight = styled.div`
+   @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      padding: 0 6rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+`;
+
+export const Wrapper = styled.div`
+   width: 100%;
+`;
+
+export const TextHolder = styled.div``;
+
+export const ImageAndTextWrapper = styled.div`
+   display: none;
+   @media (min-width: ${styles.breakPoints.m}) {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .sub-heading-h2-upload {
+         margin: 0;
+         padding: 0;
+         font-weight: 500;
+      }
+      .sub-heading-h2-img {
+         margin: 0;
+         margin-top: -0.5rem;
+         font-weight: 500;
+         text-align: right;
+      }
+   }
 `;

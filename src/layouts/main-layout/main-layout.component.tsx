@@ -21,6 +21,7 @@ export function MainLayout({
 
             {desktopCard && (
                <>
+                  <S.BackgroundImage />
                   <S.CardDesktop>{children}</S.CardDesktop>
                </>
             )}

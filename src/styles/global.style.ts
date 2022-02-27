@@ -27,7 +27,7 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .desktop-display-block{
-         display: none ;
+         display: none !important;
    }
    
    .nco-banner __bm__extension{
@@ -68,7 +68,7 @@ export const GlobalStyle = createGlobalStyle`
          display: none !important;
       }
       .desktop-display-block{
-         display: block ;
+         display: block !important;
       }
 
       .auth-btn {
@@ -242,5 +242,17 @@ export const ButtonsWrapper = styled.div`
       margin-right: auto;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
+   }
+
+   &#create-pet-btns {
+      border: 2px solid green;
+      width: 50%;
+      position: absolute;
+      bottom: 0;
+   }
+   @media (min-width: ${styles.breakPoints.m}) {
+      &#display-none {
+         display: none;
+      }
    }
 `;

@@ -34,11 +34,12 @@ export const TextArea = styled.textarea`
    width: 100%;
    max-width: 100%;
    min-height: 120px;
+   max-height: 120px;
    margin: 0 0 10px 0;
    border: 1px solid rgba(14, 23, 27, 0.4);
    padding: 5px;
    font-size: 1em;
-
+   resize: none;
    margin-top: 2rem;
 
    ::placeholder {

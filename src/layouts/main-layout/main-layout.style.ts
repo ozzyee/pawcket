@@ -57,6 +57,17 @@ export const MainLayout = styled.main`
    }
 `;
 
+export const BackgroundImage = styled.div`
+   @media (min-width: ${styles.breakPoints.m}) {
+      position: absolute;
+      border: 2px solid green;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      background-image: url("/background-paws.svg");
+   }
+`;
+
 export const Top = styled.div`
    height: 30vh;
    min-height: 20em;

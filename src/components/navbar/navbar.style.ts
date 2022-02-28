@@ -22,4 +22,5 @@ export const List = styled.ul<listStylesPros>`
    justify-content: space-evenly;
    align-items: center;
    padding: 0;
+   display: flex;
 `;

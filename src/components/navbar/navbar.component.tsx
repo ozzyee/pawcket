@@ -18,7 +18,6 @@ const icons = [
    {
       name: "User",
 
-<!--       direct: "./profile", -->
       direct: "./create-user",
       picture: "icons/user-icon.svg",
    },
@@ -38,10 +37,8 @@ export function Navbar({ className }: TNavbarProps) {
    return (
       <S.NavbarDiv className={className} backgroundColor={"219ebc"}>
          <S.List className="list" listStyleType="none">
-
             {icons.map((icon, index) => {
                return (
-
                   <NavbarIcon
                      key={index}
                      direct={icon.direct}

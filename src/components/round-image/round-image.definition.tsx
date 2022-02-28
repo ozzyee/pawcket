@@ -1,4 +1,5 @@
 export type TRoundImageProps = {
     src: string,
-    diameter: number
+    diameter: number,
+    caption?: string
 }

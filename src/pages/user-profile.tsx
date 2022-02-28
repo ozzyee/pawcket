@@ -5,11 +5,14 @@ import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { Frame } from "../components/frame/frame.component";
 import { Text } from "../components/text/text.component";
-import * as data from "../../dummy-data/dummy-data"
+import { Buttons } from "../components/buttons/buttons.component";
+import * as data from "../../dummy-data/dummy-data";
+import * as S from "../styles/user-profile.style"
 
 const UserProfile: NextPage = () => {
 
     const[user, setUser] = useState({...data.jennifer})
+    const[pets] = user.pets
 
     return (
         
@@ -34,8 +37,11 @@ const UserProfile: NextPage = () => {
         </Text>
     <PassportWrapper separatorText="My Pets">
         {[
-        <RoundImage src={user.pets[0].profilePic} diameter={100}/>,
-        <RoundImage src={user.pets[1].profilePic} diameter={100}/>
+        <S.PetsSection>
+        <RoundImage src={user.pets[0].profilePic} diameter={100} caption={user.pets[0].name}/>
+        <RoundImage src={user.pets[1].profilePic} diameter={100} caption={user.pets[1].name}/>
+        </S.PetsSection>,
+        <Buttons children="+"/>
         ]}
     </PassportWrapper>
     </MainLayout>

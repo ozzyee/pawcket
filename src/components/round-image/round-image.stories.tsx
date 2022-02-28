@@ -8,10 +8,13 @@ export default {
     component: RoundImage,
     argTypes: {
         src:{
-            desciption: "URL for the picture.Takes a string"
+            desciption: "URL for the picture. Takes a string"
         },
         diameter:{
-            description: "Image circle container diameter"
+            description: "Image circle container diameter. Takes a number"
+        },
+        caption:{
+            description: "Little text under picture, is optional. Takes a string"
         }
     },
 } as ComponentMeta<typeof RoundImage>;

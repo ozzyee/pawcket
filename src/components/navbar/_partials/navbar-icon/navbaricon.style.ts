@@ -6,10 +6,8 @@ export const ListItem = styled.li`
    list-style-type: none;
    width: 100px;
    height : 100px;
-   display : flex;
    align-items : center;
-   justify-content : center;
-
+   display: inline-block;
    width: 23px;
    height : 23px;
    z-index: 9999;
@@ -27,11 +25,6 @@ export const ListItem = styled.li`
       height : 100%;
 
    }
-
-//    .user-icon{
-//       width : 100%;
-//       height : 100%;
-//    }`
 
    .user-icon{
       transform: scale(1.7);

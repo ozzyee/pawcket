@@ -12,16 +12,15 @@ export const NavbarDiv = styled.div<navbarStylesPros>`
 //    width: 100vw;
 //    bottom: 0;
 //    height: 6vh;
-   `;
 
 export const List = styled.ul<listStylesPros>`
-//    list-style-type: none;
-//    display: flex;
+   //    list-style-type: none;
+   //    display: flex;
 
    justify-content: space-between;
    align-items: center;
    justify-content: space-evenly;
    align-items: center;
-   padding : 0;
-
+   padding: 0;
+   display: flex;
 `;

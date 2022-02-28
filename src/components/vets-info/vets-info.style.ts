@@ -37,8 +37,8 @@ export const VetsLogoHolder = styled.div`
 `;
 
 export const VetsInfo = styled.div`
-   width: 90%;
-
+width: 90%;
+   border : 2px solid red;
    .vet-name {
       padding: 0;
       margin: 0;

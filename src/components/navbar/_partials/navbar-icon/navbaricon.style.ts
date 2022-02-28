@@ -9,6 +9,11 @@ export const ListItem = styled.li`
    display : flex;
    align-items : center;
    justify-content : center;
+
+   width: 23px;
+   height : 23px;
+   z-index: 9999;
+
    :active {
       transform: scale(0.95);
    }
@@ -23,7 +28,14 @@ export const ListItem = styled.li`
 
    }
 
+//    .user-icon{
+//       width : 100%;
+//       height : 100%;
+//    }`
+
    .user-icon{
-      width : 100%;
-      height : 100%;
-   }`
+      transform: scale(1.7);
+
+   }
+
+`

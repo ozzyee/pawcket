@@ -16,11 +16,12 @@ export function MainLayout({
 }: TMainLayoutProps) {
    return (
       <>
-         <S.Wrapper>
+         <S.Wrapper className={className}>
             <S.Background />
 
             {desktopCard && (
                <>
+                  <S.BackgroundImage />
                   <S.CardDesktop>{children}</S.CardDesktop>
                </>
             )}
@@ -52,28 +53,37 @@ export function MainLayout({
                         )}
                      </S.ImageWrapper>
                      <S.TextHolder>
-                        <Text textType="h1" className="heading-h1">
-                           {topTitle}
-                        </Text>
+                        {topTitle && (
+                           <Text textType="h1" className="heading-h1">
+                              {topTitle}
+                           </Text>
+                        )}
                      </S.TextHolder>
                   </S.Top>
                </S.MainLayout>
             )}
 
             {!desktopCard && (
-               <S.Card>
-                  <S.InnerCard>
-                     <S.TitleWrapper>
-                        <Text textType="h2" className="sub-heading-h2">
-                           {bottomTitle}
-                        </Text>
-                        <Text textType="h3" className="sub-heading-h3">
-                           {bottomSubTitle}
-                        </Text>
-                     </S.TitleWrapper>
-                     <S.MainContent>{children}</S.MainContent>
-                  </S.InnerCard>
-               </S.Card>
+               <>
+                  <S.Filter />
+                  <S.Card>
+                     <S.InnerCard>
+                        <S.TitleWrapper>
+                           {bottomTitle && (
+                              <Text textType="h2" className="sub-heading-h2">
+                                 {bottomTitle}
+                              </Text>
+                           )}
+                           {bottomSubTitle && (
+                              <Text textType="h3" className="sub-heading-h3">
+                                 {bottomSubTitle}
+                              </Text>
+                           )}
+                        </S.TitleWrapper>
+                        <S.MainContent>{children}</S.MainContent>
+                     </S.InnerCard>
+                  </S.Card>
+               </>
             )}
          </S.Wrapper>
       </>

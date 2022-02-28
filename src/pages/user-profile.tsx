@@ -25,7 +25,7 @@ const UserProfile: NextPage = () => {
             ${user.dateOfBirth}\n
             `}
         </Text>
-    <PassportWrapper separatorText="Test">
+    <PassportWrapper separatorText="My Pets">
         {[
         <img src={user.pets[0].profilePic}></img>,
         <img src={user.pets[1].profilePic}></img>

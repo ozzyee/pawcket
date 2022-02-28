@@ -9,7 +9,7 @@ export type TCreatUser = {
    firstName?: string;
    lastName?: string;
    userName?: string;
-   DOB?: Date;
+   DOB?: Date | string;
    address?: string;
    postCode?: string;
    tel?: string;

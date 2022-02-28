@@ -1,4 +1,5 @@
 import { TCreatUser } from "../create-profiles.definition";
+import moment from "moment";
 
 export const createUserValidation = ({
    firstName,
@@ -23,11 +24,21 @@ export const createUserValidation = ({
       errors.lastName = "You must enter a real first name.";
    }
 
+   function isOver13(dateOfBirth: Date) {
+      const date13YrsAgo = new Date();
+      date13YrsAgo.setFullYear(date13YrsAgo.getFullYear() - 13);
+      return dateOfBirth <= date13YrsAgo;
+   }
+   const date = moment(DOB).format("L");
+   const dateSplit = date.split("/");
+
    if (!DOB) {
       errors.DOB = "You must enter your data of birth.";
+   } else if (
+      !isOver13(new Date(`${dateSplit[2]}/${dateSplit[0]}/${dateSplit[1]}`))
+   ) {
+      errors.DOB = "You Too young.";
    }
-
-   console.log("this is the DOB =>", DOB);
 
    return errors;
 };

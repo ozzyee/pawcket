@@ -6,7 +6,11 @@ export type TFormInputsProps = {
    placeholder: string;
    inputType?: string;
    onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
-   error?: string | undefined;
+   error?: string | Date | undefined;
    formValue?: string;
    onDateChange?: ((evt: Date) => void) | undefined;
+};
+
+export type TErrorStyle = {
+   styleError: string;
 };

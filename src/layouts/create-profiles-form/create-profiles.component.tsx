@@ -8,9 +8,12 @@ import * as S from "./create-profiles.style";
 import { Text } from "../../components/text/text.component";
 import { FormEvent, useState } from "react";
 import { createUserValidation } from "./functions/cteate-user-validation";
+import { useContent } from "../../context/context";
 
 export function CreateProfileForm({}: TCreateProfileProps) {
    const [userData, setUserData] = useState<null | TCreatUser>(null);
+   const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
+   const [err, setErr] = useState<TCreatUser | null>(null);
 
    const addUserInfo = (evt: FormEvent) => {
       evt.preventDefault();
@@ -19,7 +22,27 @@ export function CreateProfileForm({}: TCreateProfileProps) {
          lastName: userData?.lastName,
          DOB: userData?.DOB,
       });
-      console.log(err);
+
+      setErr(err);
+
+      if (err?.DOB && err?.firstName && err?.lastName) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg("You must fill in all required fields.");
+      } else if (err?.DOB) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         const error = err?.DOB as string;
+         _setSnackbarMsg(error);
+      } else if (err?.firstName) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg(err?.firstName);
+      } else if (err?.lastName) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg(err?.lastName);
+      }
    };
 
    return (
@@ -45,6 +68,7 @@ export function CreateProfileForm({}: TCreateProfileProps) {
                               firstName: evt.target.value,
                            });
                         }}
+                        error={err?.firstName}
                         inputType="name"
                      />
                      <FormInputs
@@ -55,6 +79,7 @@ export function CreateProfileForm({}: TCreateProfileProps) {
                               lastName: evt.target.value,
                            });
                         }}
+                        error={err?.lastName}
                         inputType="name"
                      />
                      <FormInputs
@@ -75,6 +100,7 @@ export function CreateProfileForm({}: TCreateProfileProps) {
                               DOB: evt,
                            });
                         }}
+                        error={err?.DOB}
                         inputType="date"
                      />
                   </S.CreateUserSpan>

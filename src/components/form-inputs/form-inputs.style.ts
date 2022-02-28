@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import styles from "../../styles/style.config.json";
+import { TErrorStyle } from "./form-inputs.definition";
 
 export const InputWrapper = styled.div`
    margin-top: 0.8rem;
@@ -27,7 +28,7 @@ export const InputWrapper = styled.div`
    }
 `;
 
-export const DateInputWrapper = styled.div`
+export const DateInputWrapper = styled.div<TErrorStyle>`
    margin-top: 1.2rem;
 
    .MuiFormControl-root {
@@ -67,7 +68,7 @@ export const DateInputWrapper = styled.div`
 
    fieldset {
       border: 0 solid !important;
-      border-bottom: 1px solid gray !important;
+      border-bottom:  ${({ styleError }) => styleError} !important;
 
       width: 100%;
       border-radius: 0;

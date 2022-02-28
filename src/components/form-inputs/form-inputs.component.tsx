@@ -23,6 +23,7 @@ export function FormInputs({
    const { _hasError } = useContent();
    const [value, setValue] = useState<Date | string>("");
    const [_error, setError] = useState(false);
+   const [dateErr, setDateErr] = useState(false);
 
    useEffect(() => {
       if (!formValue) {
@@ -33,13 +34,16 @@ export function FormInputs({
    }, [formValue]);
 
    useEffect(() => {
-      if (error === undefined) {
+      const err = error as string;
+      if (err === undefined) {
          setError(false);
+         setDateErr(false);
          return;
       }
 
-      if (error.length > 0) {
+      if (err.length > 0) {
          setError(true);
+         setDateErr(true);
       }
    }, [error]);
 
@@ -55,7 +59,9 @@ export function FormInputs({
 
    if (inputType === "date") {
       return (
-         <S.DateInputWrapper>
+         <S.DateInputWrapper
+            styleError={dateErr ? "2px solid #D32F2F" : "1px solid gray"}
+         >
             <LocalizationProvider
                dateAdapter={AdapterDateFns}
                id="date-wrapper"

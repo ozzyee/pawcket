@@ -6,6 +6,7 @@ import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { Frame } from "../components/frame/frame.component";
 import { Text } from "../components/text/text.component";
 import { Buttons } from "../components/buttons/buttons.component";
+import { Navbar } from "../components/navbar/navbar.component";
 import * as data from "../../dummy-data/dummy-data";
 import * as S from "../styles/user-profile.style"
 
@@ -44,6 +45,7 @@ const UserProfile: NextPage = () => {
         <Buttons children="+"/>
         ]}
     </PassportWrapper>
+    <Navbar/>
     </MainLayout>
     );
  };

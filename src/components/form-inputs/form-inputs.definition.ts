@@ -8,5 +8,5 @@ export type TFormInputsProps = {
    onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
    error?: string | undefined;
    formValue?: string;
-   onDateChange?: ((evt: string) => void) | undefined;
+   onDateChange?: ((evt: Date) => void) | undefined;
 };

@@ -21,7 +21,7 @@ export function FormInputs({
    onDateChange,
 }: TFormInputsProps) {
    const { _hasError } = useContent();
-   const [value, setValue] = useState("");
+   const [value, setValue] = useState<Date | string>("");
    const [_error, setError] = useState(false);
 
    useEffect(() => {
@@ -67,8 +67,11 @@ export function FormInputs({
                   onChange={(newValue) => {
                      if (!newValue || onDateChange === undefined) return null;
                      onDateChange(newValue);
+                     setValue(newValue);
                   }}
+                  views={["day", "month", "year"]}
                   renderInput={(params) => <TextField {...params} />}
+                  maxDate={new Date()}
                />
             </LocalizationProvider>
          </S.DateInputWrapper>

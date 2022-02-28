@@ -17,10 +17,20 @@ export function FormInputs({
    inputType,
    onChange,
    error,
+   formValue,
+   onDateChange,
 }: TFormInputsProps) {
    const { _hasError } = useContent();
    const [value, setValue] = useState("");
    const [_error, setError] = useState(false);
+
+   useEffect(() => {
+      if (!formValue) {
+         setValue("");
+         return;
+      }
+      setValue(formValue);
+   }, [formValue]);
 
    useEffect(() => {
       if (error === undefined) {
@@ -35,7 +45,7 @@ export function FormInputs({
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setValue(event.target.value);
-      if (!event) return null;
+      if (!event || onChange === undefined) return null;
       onChange(event);
    };
 
@@ -52,11 +62,11 @@ export function FormInputs({
             >
                <DatePicker
                   className="date-picker"
-                  label="Basic example"
+                  label={placeholder}
                   value={value}
                   onChange={(newValue) => {
-                     if (!newValue) return null;
-                     setValue(newValue);
+                     if (!newValue || onDateChange === undefined) return null;
+                     onDateChange(newValue);
                   }}
                   renderInput={(params) => <TextField {...params} />}
                />
@@ -72,11 +82,11 @@ export function FormInputs({
             variant="standard"
             className="input-width"
          >
-            <InputLabel htmlFor="input" className="label">
+            <InputLabel htmlFor={inputType} className="label">
                {placeholder}
             </InputLabel>
             <Input
-               id="input"
+               id={inputType}
                value={value}
                onChange={handleChange}
                aria-describedby="component-error-text"

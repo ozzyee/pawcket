@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { useState } from "react";
+import { RoundImage } from "../components/round-image/round-img.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { Frame } from "../components/frame/frame.component";
@@ -17,18 +18,23 @@ const UserProfile: NextPage = () => {
       topChildren={<Frame background="/frame.svg" foreground={"url(/circle.svg)"} width={115} height={115}/>}
       >
         <Text>
-            {`
-            ${user.extraInfo}\n
-            Address\n
-            ${user.address}
-            Date of Birth\n
-            ${user.dateOfBirth}\n
-            `}
+            {`${user.extraInfo}`}
+        </Text>
+        <Text>
+            {"Address"}
+        </Text>
+        <Text>
+            {`${user.address}`}
+        </Text>
+        <Text>
+            {"Date of Birth"}
+        </Text>
+        <Text>
+            {`${user.dateOfBirth}`}
         </Text>
     <PassportWrapper separatorText="My Pets">
         {[
-        <img src={user.pets[0].profilePic}></img>,
-        <img src={user.pets[1].profilePic}></img>
+        <RoundImage src={user.pets[0].profilePic} width={150} height={150}/>,
         ]}
     </PassportWrapper>
     </MainLayout>

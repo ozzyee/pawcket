@@ -23,10 +23,15 @@ export function CreateProfileForm({}: TCreateProfileProps) {
                         </Text>
                      </S.DesktopTitle>
 
-                     <FormInputs placeholder="Name" onChange={undefined} />
+                     <FormInputs
+                        placeholder="Name"
+                        onChange={undefined}
+                        inputType="text"
+                     />
                      <FormInputs
                         placeholder="Date of Birth"
                         onChange={undefined}
+                        inputType="date"
                      />
                   </S.CreateUserSpan>
                   <FormInputs placeholder="Postal Code" onChange={undefined} />

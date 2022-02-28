@@ -6,6 +6,11 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import { useContent } from "../../context/context";
 
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+
 export function FormInputs({
    className,
    placeholder,
@@ -16,8 +21,6 @@ export function FormInputs({
    const { _hasError } = useContent();
    const [value, setValue] = useState("");
    const [_error, setError] = useState(false);
-
-   console.log("err =>", error);
 
    useEffect(() => {
       if (error === undefined) {
@@ -40,7 +43,27 @@ export function FormInputs({
       return <S.TextArea placeholder={placeholder} className={className} />;
    }
 
-   console.log("this is the err", error);
+   if (inputType === "date") {
+      return (
+         <S.DateInputWrapper>
+            <LocalizationProvider
+               dateAdapter={AdapterDateFns}
+               id="date-wrapper"
+            >
+               <DatePicker
+                  className="date-picker"
+                  label="Basic example"
+                  value={value}
+                  onChange={(newValue) => {
+                     if (!newValue) return null;
+                     setValue(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+               />
+            </LocalizationProvider>
+         </S.DateInputWrapper>
+      );
+   }
 
    return (
       <S.InputWrapper>

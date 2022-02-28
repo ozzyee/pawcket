@@ -34,7 +34,8 @@ const UserProfile: NextPage = () => {
         </Text>
     <PassportWrapper separatorText="My Pets">
         {[
-        <RoundImage src={user.pets[0].profilePic} width={150} height={150}/>,
+        <RoundImage src={user.pets[0].profilePic} diameter={100}/>,
+        <RoundImage src={user.pets[1].profilePic} diameter={100}/>
         ]}
     </PassportWrapper>
     </MainLayout>

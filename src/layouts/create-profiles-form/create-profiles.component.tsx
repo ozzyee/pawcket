@@ -47,7 +47,9 @@ export function CreateProfileForm({}: TCreateProfileProps) {
 
    return (
       <>
-         <S.SkipStyleButton href="">Skip</S.SkipStyleButton>
+         <S.SkipStyleButton href="">
+             Skip
+        </S.SkipStyleButton>
 
          <S.CreateUserForm onSubmit={addUserInfo}>
             <Separator separatorText="USER INFO" />

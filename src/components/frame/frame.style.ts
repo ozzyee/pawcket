@@ -16,14 +16,23 @@ export const CrossFrame = styled.span<TFrameProps>`
    padding-bottom: ${props => !props.diameter ? `35px` : (props.diameter * 0.20 - 10) + "px"};
 
    ::after{
-       content: "+";
+       ${props => !props.img ?
+       `content: "+";` :
+       `
+       content:"";
+       background: url(${props.img});
+       background-size: contain;
+       background-position: center;
+       background-repeat: no-repeat;
+       `
+       }
        display: grid;
        place-content: center;
        position: absolute;
-       background-color: red;
+       background-color: white;
        border-radius: 100%;
        font-weight: 100;
-       font-size: 8em;
+       font-size: 8rem;
        color: white;
        width:${props => !props.diameter ? `150px` : (props.diameter - props.diameter * 0.20) + "px"} ;
        height: ${props => !props.diameter ? `150px` : (props.diameter - props.diameter * 0.20) + "px"} ;

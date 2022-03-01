@@ -32,8 +32,8 @@ export default {
    },
 } as ComponentMeta<typeof Frame>;
 
-const Template = ({ background, foreground }: TFrameProps) => {
-   return <Frame background={background} foreground={foreground} diameter={150}/>;
+const Template = ({ background, img }: TFrameProps) => {
+   return <Frame background={background} img={img} diameter={150}/>;
 };
 
 export const aFrame: any = Template.bind({});

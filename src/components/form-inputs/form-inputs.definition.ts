@@ -7,4 +7,5 @@ export type TFormInputsProps = {
    onChange: ChangeEventHandler<HTMLInputElement>;
    error?: string | undefined;
    id? : string;
+   value? : string;
 };

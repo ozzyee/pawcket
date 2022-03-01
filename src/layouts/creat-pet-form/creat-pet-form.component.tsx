@@ -34,6 +34,26 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
       });
    };
 
+   if(errors?.name && errors?.dateOfBirth && errors?.sex){
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must fill in all fields.")
+   }
+   if(errors?.name && !errors?.dateOfBirth && !errors?.sex){
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must input a name");
+   }
+   if(!errors?.name && errors?.dateOfBirth && !errors?.sex){
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must input a Date of Birth!");
+   }
+   if(!errors?.name && !errors?.dateOfBirth && errors?.sex){
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must select a sex. Please type either 'Male' or 'Female'");
+   }
    return (
       <>
          <S.CreatePetForm className={className} onSubmit={onCreatePet}>
@@ -102,11 +122,15 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                   <FormInputs
                      placeholder="Date of Birth"
                      inputType="date"
+                     value="Hello, wrold!"
+                     error={errors?.dateOfBirth}
                      onChange={(evt) => {
                         setFormData({
                            ...formData,
                            dateOfBirth: evt.target.value,
-                        });}}
+                        })
+                        }}
+
                   />
                   <FormInputs
                      placeholder="Species"

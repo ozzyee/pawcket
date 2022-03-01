@@ -18,12 +18,11 @@ const PetProfile: NextPage = () => {
       bottomTitle={pet.name}
       topChildren={<Frame background="/frame.svg" foreground={"url(/dummy/freddie.jpg)"} width={115} height={115}/>}
       >
-    <S.InfoSection>
+    <S.Bio>
         <Text className="bio">
             {`"${pet.bio}"`}
         </Text>
-    </S.InfoSection>
-    <PassportWrapper separatorText="My Passport">
+        <PassportWrapper separatorText="My Passport">
         {[
         <Text className="placeholder">
             {"Name:"}
@@ -64,11 +63,12 @@ const PetProfile: NextPage = () => {
         <Text className="placeholder">
             {"About me:"}
         </Text>,
-        <Text>
+        <Text className="aboutMe">
             {`${pet.aboutMe}`}
         </Text>
         ]}
     </PassportWrapper>
+    </S.Bio>
     <Navbar/>
     </MainLayout>
     );

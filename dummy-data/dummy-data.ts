@@ -23,7 +23,7 @@ type TUser = {
 
 export const freddie: TPet = {
     name: "Freddie",
-    bio: "Did you know that I have been considered a frisbee champion for my mad fetch skills? If you love your frisbee as much as I love mine, you should hit me up so we can be a champion team",
+    bio: "Did you know that I have been considered a frisbee champion for my mad fetch skills? If you love your frisbee as much as I love mine, you should hit me up so we can be a champion team",
     sex: "Male",
     dateOfBirth: "12 of November 2021",
     personality: "Playful",

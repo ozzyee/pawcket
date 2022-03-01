@@ -31,6 +31,7 @@ export const freddie: TPet = {
     weight: "6 Kilograms",
     aboutMe: "Freddie loves playing with his stuffedbear and ragging around the kitchen. It's so funny",
     profilePic: "/dummy/freddie.jpg",
+    //profilePic: ""
 }
 
 export const tony: TPet = {
@@ -53,5 +54,6 @@ export const jennifer: TUser = {
     username:"Jennifer J.",
     extraInfo: "I'm thecnically 8 years old.",
     profilePic: "",
+    //profilePic: "https://www.askideas.com/media/14/Old-Woman-Making-Pouting-Face-Funny-Picture.bmp",
     pets: [tony, freddie]
 }

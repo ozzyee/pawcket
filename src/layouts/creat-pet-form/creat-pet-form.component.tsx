@@ -90,13 +90,22 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                   <FormInputs
                      placeholder="Sex"
                      inputType="input"
-                     onChange={undefined}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           sex: evt.target.value,
+                        });
+                      } }
                   />
 
                   <FormInputs
                      placeholder="Date of Birth"
                      inputType="input"
-                     onChange={undefined}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           dateOfBirth: evt.target.value,
+                        });}}
                   />
                   <FormInputs
                      placeholder="Species"

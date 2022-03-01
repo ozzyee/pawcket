@@ -11,7 +11,7 @@ const CreateUser: NextPage = () => {
          </MainLayout>
 
          <MainLayout
-            topTitle="Pawcket"
+            topTitle="Upload Photo"
             bottomTitle="Welcome!"
             className="desktop-display-none"
             topChildren={<Frame background={"/frame.svg"} foreground={`"+"`} />}

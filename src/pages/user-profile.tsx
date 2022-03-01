@@ -8,12 +8,12 @@ import { Text } from "../components/text/text.component";
 import { Buttons } from "../components/buttons/buttons.component";
 import { Navbar } from "../components/navbar/navbar.component";
 import * as data from "../../dummy-data/dummy-data";
-import * as S from "../styles/user-profile.style"
+import * as S from "../styles/user-profile"
+import router from "next/router";
 
 const UserProfile: NextPage = () => {
 
     const[user, setUser] = useState({...data.jennifer})
-    const[pets] = user.pets
 
     return (
         
@@ -21,28 +21,37 @@ const UserProfile: NextPage = () => {
       bottomTitle={user.username}
       topChildren={<Frame background="/frame.svg" foreground={"url(/circle.svg)"} width={115} height={115}/>}
       >
-        <Text>
+    <S.InfoSection>
+        <Text className="bio">
             {`${user.extraInfo}`}
         </Text>
-        <Text>
-            {"Address"}
+        <Text className="placeholder">
+                {"Address:"}
         </Text>
         <Text>
             {`${user.address}`}
         </Text>
-        <Text>
-            {"Date of Birth"}
+        <Text className="placeholder">
+            {"Date of Birth:"}
         </Text>
         <Text>
             {`${user.dateOfBirth}`}
         </Text>
+    </S.InfoSection>
     <PassportWrapper separatorText="My Pets">
         {[
         <S.PetsSection>
-        <RoundImage src={user.pets[0].profilePic} diameter={100} caption={user.pets[0].name}/>
-        <RoundImage src={user.pets[1].profilePic} diameter={100} caption={user.pets[1].name}/>
+        {user.pets.map( (pet) => {
+            return(<RoundImage src={pet.profilePic} diameter={100} caption={pet.name}/>)
+        })}
+        <Buttons 
+            children="+" 
+            dark={true}
+            onClick={() =>
+                router.push("/create-pet", undefined, { shallow: true })
+             }
+        />
         </S.PetsSection>,
-        <Buttons children="+"/>
         ]}
     </PassportWrapper>
     <Navbar/>

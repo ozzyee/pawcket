@@ -10,7 +10,9 @@ import { Text } from "../../components/text/text.component";
 export function CreateProfileForm({}: TCreateProfileProps) {
    return (
       <>
-         <S.SkipStyleButton href="">Skip</S.SkipStyleButton>
+         <S.SkipStyleButton href="">
+             Skip
+        </S.SkipStyleButton>
 
          <S.CreateUserForm>
             <Separator separatorText="USER INFO" />

@@ -15,7 +15,7 @@ const CreatePet: NextPage = () => {
             bottomTitle="Welcome!"
             bottomSubTitle="create your pet"
             className="desktop-display-none"
-            topChildren={<Frame background={"/frame.svg"} foreground={`"+"`} />}
+            topChildren={<Frame background={"/frame.svg"} diameter={150}/>}
          >
             <CreatePetForm />
          </MainLayout>

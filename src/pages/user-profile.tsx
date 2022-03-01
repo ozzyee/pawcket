@@ -19,7 +19,7 @@ const UserProfile: NextPage = () => {
         
     <MainLayout
       bottomTitle={user.username}
-      topChildren={<Frame background="/frame.svg" foreground={"url(/circle.svg)"} width={115} height={115}/>}
+      topChildren={<Frame background="/frame.svg" diameter={230}/>}
       >
     <S.InfoSection>
         <Text className="bio">

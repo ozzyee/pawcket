@@ -1,24 +1,24 @@
-type TPet = {
-    name: string,
-    bio: string,
-    sex: string,
-    dateOfBirth: string,
-    personality: string,
-    medications:string,
-    weight: string,
-    aboutMe: string,
-    profilePic: string,
+export type TPet = {
+    name?: string;
+    bio?: string;
+    sex?: string;
+    dateOfBirth?: any;
+    personality?: string;
+    medications?:string;
+    weight?: string;
+    aboutMe?: string;
+    profilePic?: string;
 };
 
-type TUser = {
-    name: string,
-    address: string,
-    dateOfBirth: string,
-    telephone: string,
-    username:string,
-    extraInfo: string,
-    profilePic: string,
-    pets: TPet[]
+export type TUser = {
+    name?: string,
+    address?: string,
+    dateOfBirth?: string,
+    telephone?: string,
+    username?:string,
+    extraInfo?: string,
+    profilePic?: string,
+    pets?: TPet[]
 }
 
 export const freddie: TPet = {

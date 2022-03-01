@@ -1,18 +1,8 @@
-type TPet = {
-   name?: string;
-   bio?: string;
-   sex?: string;
-   dateOfBirth?: string;
-   personality?: string;
-   medications?: string;
-   weight?: string;
-   aboutMe?: string;
-   profilePic?: string;
-};
+import {TPet} from "../../../../dummy-data/dummy-data"
 
 export type TPetError = {
    name?: string | undefined;
-   dateOfBirth?: string | undefined;
+   dateOfBirth?: Date | string ;
    sex?: string | undefined;
 };
 
@@ -30,8 +20,6 @@ export const Validation = ({ name, dateOfBirth, sex }: TPet) => {
    }
    if (!dateOfBirth) {
       errors.dateOfBirth = "Give your pet a Date of Birth"
-   } else if (/^[dd/mm/yyyy] | [0-9]+$/i.test(dateOfBirth)) {
-      errors.dateOfBirth = "What is your pets sex.";
    }
    if (!sex) {
       errors.sex = "What is your pets sex.";

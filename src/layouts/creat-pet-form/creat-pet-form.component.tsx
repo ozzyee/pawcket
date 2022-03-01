@@ -8,25 +8,24 @@ import { TCreatePetFormProps } from "./creat-pet-form.definition";
 import * as S from "./creat-pet-form.style";
 import { Frame } from "../../components/frame/frame.component";
 import { TPetError, Validation } from "./function/validation";
+import {TPet} from "../../../dummy-data/dummy-data"
 import { useContent } from "../../context/context";
 
 
 export function CreatePetForm({ className }: TCreatePetFormProps) {
-   const [errors, setErrors] = useState<TPetError | null>(null);
+   const [formData, setFormData] = useState<null | TPet>(null);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg, _setError } =
       useContent();
+   const [errors, setErrors] = useState<TPet | null>(null);
 
-   const [formData, setFormData] = useState({
-      name: "",
-      sex: "",
-      dateOfBirth: "",
-   });
 
    const onCreatePet = async (evt: FormEvent) => {
       evt.preventDefault();
-
-      const errors = Validation(formData);
-
+      const errors = Validation({
+         name : formData?.name,
+         sex : formData?.sex,
+         dateOfBirth : formData?.dateOfBirth,
+      });
       setErrors({
          name: errors?.name,
          sex: errors?.sex,
@@ -47,7 +46,10 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
    if(!errors?.name && errors?.dateOfBirth && !errors?.sex){
       _setOpen(true);
       _setSnackbarType("error");
+      const error = errors?.dateOfBirth as string;
+      _setSnackbarMsg(error);
       _setSnackbarMsg("You must input a Date of Birth!");
+
    }
    if(!errors?.name && !errors?.dateOfBirth && errors?.sex){
       _setOpen(true);
@@ -121,16 +123,14 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                   />
                   <FormInputs
                      placeholder="Date of Birth"
-                     inputType="date"
-                     value="Hello, wrold!"
                      error={errors?.dateOfBirth}
                      onChange={(evt) => {
                         setFormData({
                            ...formData,
-                           dateOfBirth: evt.target.value,
+                           dateOfBirth: evt,
                         })
-                        }}
-
+                     }}
+                     inputType="date"
                   />
                   <FormInputs
                      placeholder="Species"

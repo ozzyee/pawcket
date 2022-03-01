@@ -2,29 +2,39 @@ import { TFrameProps } from "./frame.definition";
 import styled from "styled-components";
 
 export const CrossFrame = styled.span<TFrameProps>`
-   width:150px;
-   height: 150px;
-   background-color: red;
+   width:${props => !props.diameter ? `150px` : props.diameter + "px"} ;
+   height: ${props => !props.diameter ? `150px` : props.diameter+ "px"} ;
    background: url(${props => props.background});
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
-   overflow: hidden;
    display: flex;
    justify-content: center;
    align-items: center;
    filter: drop-shadow(10px 10px 10px rgba(207, 92, 54, 0.8));
+   padding: ${props => !props.diameter ? `45px 45px 0 45px` : (props.diameter * 0.20) + "px"};
+   padding-bottom: ${props => !props.diameter ? `35px` : (props.diameter * 0.20 - 10) + "px"};
 
    ::after{
-       content: ${props => props.foreground};
+       ${props => !props.img ?
+       `content: "+";` :
+       `
+       content:"";
+       background: url(${props.img});
+       background-size: cover;
+       background-position: center;
+       background-repeat: no-repeat;
+       `
+       }
+       display: grid;
+       place-content: center;
        position: absolute;
+       border-radius: 100%;
        font-weight: 100;
-       font-size: 8em;
+       font-size: 8rem;
        color: white;
-       ${props => props.width && ({
-        width: props.width})}
-       ${props => props.height && ({
-        height: props.height})}
+       width:${props => !props.diameter ? `150px` : (props.diameter - props.diameter * 0.20) + "px"} ;
+       height: ${props => !props.diameter ? `150px` : (props.diameter - props.diameter * 0.20) + "px"} ;
     }
 
 `;

@@ -10,17 +10,20 @@ export default {
    component: Wrapper,
    argTypes: {
       separatorText: {
-         description: "Text in the top of the component. Takes a string",
+         description:
+         "Text in the top of the component. Takes a string",
       },
    },
 } as ComponentMeta<typeof Wrapper>;
 
-const Template = ({ separatorText }: TPassportWrapper) => {
-   const styles = { display: "grid", placeContent: "center" };
+const Template = ({
+    separatorText,
+}: TPassportWrapper) => {
+    const styles = {display: "grid", placeContent: "center"}
    return (
       <Wrapper>
-         <Separator separatorText={separatorText} />
-         <p style={styles}>{"===> The Profile info goes here <==="}</p>
+          <Separator separatorText={separatorText}/>
+          <p style={styles}>{"===> The Profile info goes here <==="}</p>
       </Wrapper>
    );
 };

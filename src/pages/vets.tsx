@@ -57,9 +57,7 @@ const Vet: NextPage = () => {
             topChildren={
                <Frame
                   background={"/frame.svg"}
-                  foreground={"url(/vet-icon-nav.svg)"}
-                  width={70}
-                  height={70}
+                  diameter={230}
                />
             }
          >

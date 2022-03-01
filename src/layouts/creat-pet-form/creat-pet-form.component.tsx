@@ -1,18 +1,62 @@
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import { Buttons } from "../../components/buttons/buttons.component";
 import { FormInputs } from "../../components/form-inputs/form-inputs.component";
 import { Separator } from "../../components/separator/separator.component";
 import { ButtonsWrapper } from "../../styles/global.style";
 import { Text } from "../../components/text/text.component";
-
 import { TCreatePetFormProps } from "./creat-pet-form.definition";
 import * as S from "./creat-pet-form.style";
 import { Frame } from "../../components/frame/frame.component";
+import { TPetError, Validation } from "./function/validation";
+import { useContent } from "../../context/context";
+
 
 export function CreatePetForm({ className }: TCreatePetFormProps) {
+   const [errors, setErrors] = useState<TPetError | null>(null);
+   const { _setOpen, _setSnackbarType, _setSnackbarMsg, _setError } =
+      useContent();
+
+   const [formData, setFormData] = useState({
+      name: "",
+      sex: "",
+      dateOfBirth: "",
+   });
+
+   const onCreatePet = async (evt: FormEvent) => {
+      evt.preventDefault();
+
+      const errors = Validation(formData);
+
+      setErrors({
+         name: errors?.name,
+         sex: errors?.sex,
+         dateOfBirth: errors?.dateOfBirth,
+      });
+   };
+
+   if(errors?.name && errors?.dateOfBirth && errors?.sex){
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must fill in all fields.")
+   }
+   if(errors?.name && !errors?.dateOfBirth && !errors?.sex){
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must input a name");
+   }
+   if(!errors?.name && errors?.dateOfBirth && !errors?.sex){
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must input a Date of Birth!");
+   }
+   if(!errors?.name && !errors?.dateOfBirth && errors?.sex){
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must select a sex. Please type either 'Male' or 'Female'");
+   }
    return (
       <>
-         <S.CreatePetForm className={className}>
+         <S.CreatePetForm className={className} onSubmit={onCreatePet}>
             <S.FormSplitLeft>
                <S.Wrapper>
                   <S.ImageAndTextWrapper>
@@ -30,7 +74,13 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                      <FormInputs
                         placeholder="Name"
                         inputType="input"
-                        onChange={undefined}
+                        error={errors?.name}
+                        onChange={(evt) => {
+                           setFormData({
+                              ...formData,
+                              name: evt.target.value,
+                           });
+                        }}
                      />
                      <FormInputs
                         placeholder="Bio"
@@ -59,15 +109,28 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                      </Text>
                   </S.DesktopTitle>
                   <FormInputs
-                     placeholder="Sex"
+                     placeholder='Sex (Male or Female)'
                      inputType="input"
-                     onChange={undefined}
+                     error={errors?.sex}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           sex: evt.target.value,
+                        });
+                      } }
                   />
-
                   <FormInputs
                      placeholder="Date of Birth"
-                     inputType="input"
-                     onChange={undefined}
+                     inputType="date"
+                     value="Hello, wrold!"
+                     error={errors?.dateOfBirth}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           dateOfBirth: evt.target.value,
+                        })
+                        }}
+
                   />
                   <FormInputs
                      placeholder="Species"

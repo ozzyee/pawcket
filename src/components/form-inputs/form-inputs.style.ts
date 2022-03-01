@@ -151,4 +151,8 @@ export const ErrorMessage = styled.p`
    padding-left: 0.5rem;
    font-size: 0.7rem;
    color: red;
-`;
+   `;
+
+   export const FormSelect = styled.select`
+
+   `

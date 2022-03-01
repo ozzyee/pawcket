@@ -21,7 +21,7 @@ export const CrossFrame = styled.span<TFrameProps>`
        `
        content:"";
        background: url(${props.img});
-       background-size: contain;
+       background-size: cover;
        background-position: center;
        background-repeat: no-repeat;
        `

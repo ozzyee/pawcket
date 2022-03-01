@@ -29,7 +29,6 @@ export const CrossFrame = styled.span<TFrameProps>`
        display: grid;
        place-content: center;
        position: absolute;
-       background-color: white;
        border-radius: 100%;
        font-weight: 100;
        font-size: 8rem;

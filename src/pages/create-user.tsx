@@ -14,7 +14,7 @@ const CreateUser: NextPage = () => {
             topTitle="Upload Photo"
             bottomTitle="Welcome!"
             className="desktop-display-none"
-            topChildren={<Frame background={"/frame.svg"} foreground={`"+"`} />}
+            topChildren={<Frame background={"/frame.svg"} diameter={150} />}
          >
             <CreateProfileForm />
          </MainLayout>

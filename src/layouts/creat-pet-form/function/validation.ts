@@ -25,13 +25,13 @@ export const Validation = ({ name, dateOfBirth, sex }: TPet) => {
 
    if (!name) {
       errors.name = "Give your pet a name.";
-   } else if (!/^[A-Za-z]{1,15}$/i.test(name)) {
+   } else if (!/^[A-Z]{1,15}$/i.test(name)) {
       errors.name = "Your pet's name must be under 15 characters.";
    }
-   if (!dateOfBirth) {
-      errors.dateOfBirth = "Enter pet birth date.";
-   } else if (!/^[A-Za-z]{1,15}$/i.test(dateOfBirth)) {
-      errors.name = "Your pet's name must be under 15 characters.";
+   if (!sex) {
+      errors.sex = "What is your pets sex.";
+   } else if (!/^[Male]|[Female]{1,6}$/i.test(sex)) {
+      errors.sex = "Your pet's name must be under 15 characters.";
    }
    return errors;
 };

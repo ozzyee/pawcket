@@ -10,6 +10,7 @@ import { Frame } from "../../components/frame/frame.component";
 import { TPetError, Validation } from "./function/validation";
 import { useContent } from "../../context/context";
 
+
 export function CreatePetForm({ className }: TCreatePetFormProps) {
    const [errors, setErrors] = useState<TPetError | null>(null);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg, _setError } =
@@ -88,8 +89,9 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                      </Text>
                   </S.DesktopTitle>
                   <FormInputs
-                     placeholder="Sex"
+                     placeholder='Sex (Male or Female)'
                      inputType="input"
+                     error={errors?.sex}
                      onChange={(evt) => {
                         setFormData({
                            ...formData,
@@ -97,10 +99,9 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                         });
                       } }
                   />
-
                   <FormInputs
                      placeholder="Date of Birth"
-                     inputType="input"
+                     inputType="date"
                      onChange={(evt) => {
                         setFormData({
                            ...formData,

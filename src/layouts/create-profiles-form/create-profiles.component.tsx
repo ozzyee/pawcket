@@ -9,13 +9,15 @@ import { Text } from "../../components/text/text.component";
 import { FormEvent, useState } from "react";
 import { createUserValidation } from "./functions/cteate-user-validation";
 import { useContent } from "../../context/context";
+import { setDoc, doc, getDoc } from "firebase/firestore";
+import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 
 export function CreateProfileForm({}: TCreateProfileProps) {
    const [userData, setUserData] = useState<null | TCreatUser>(null);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [err, setErr] = useState<TCreatUser | null>(null);
 
-   const addUserInfo = (evt: FormEvent) => {
+   const addUserInfo = async (evt: FormEvent) => {
       evt.preventDefault();
       const err = createUserValidation({
          firstName: userData?.firstName,
@@ -24,7 +26,7 @@ export function CreateProfileForm({}: TCreateProfileProps) {
       });
 
       setErr(err);
-
+      // Error handling
       if (err?.DOB && err?.firstName && err?.lastName) {
          _setOpen(true);
          _setSnackbarType("error");
@@ -42,6 +44,39 @@ export function CreateProfileForm({}: TCreateProfileProps) {
          _setOpen(true);
          _setSnackbarType("error");
          _setSnackbarMsg(err?.lastName);
+      }
+      // If no errors send data to db
+
+      if (!err?.DOB && !err?.firstName && !err?.lastName) {
+         try {
+            // TODO
+            //? Pass in uid when doing auth
+            //? move the dcc ref to ssr
+            const docRef = doc(
+               firestoreDB,
+               "users",
+               "cVPUqe64uVTXoc2UIFdWn8bwHWv2"
+            );
+            //? Also do the fetch server side
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+
+            await setDoc(
+               doc(firestoreDB, "users", "cVPUqe64uVTXoc2UIFdWn8bwHWv2"),
+               {
+                  ...data,
+                  ...userData,
+               }
+            );
+            _setOpen(true);
+            _setSnackbarType("success");
+            _setSnackbarMsg("The data was saved successfully.");
+         } catch (err) {
+            const error = err as Error;
+            _setOpen(true);
+            _setSnackbarType("error");
+            _setSnackbarMsg(error.message);
+         }
       }
    };
 

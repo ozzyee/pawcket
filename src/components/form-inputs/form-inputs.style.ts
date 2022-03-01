@@ -53,6 +53,16 @@ export const DateInputWrapper = styled.div<TErrorStyle>`
       left: -6px;
    }
 
+   .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+      padding: 15.5px 0 4px 10px;
+   }
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+         padding: 16.5px 14px;
+      }
+   }
+
    .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
       padding: 14px 12px 4px 9px;
       @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
@@ -68,7 +78,7 @@ export const DateInputWrapper = styled.div<TErrorStyle>`
 
    fieldset {
       border: 0 solid !important;
-      border-bottom:  ${({ styleError }) => styleError} !important;
+      border-bottom: ${({ styleError }) => styleError} !important;
 
       width: 100%;
       border-radius: 0;

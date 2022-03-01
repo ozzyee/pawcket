@@ -16,7 +16,7 @@ const PetProfile: NextPage = () => {
         
     <MainLayout
       bottomTitle={pet.name}
-      topChildren={<Frame background="/frame.svg" foreground={"url(/dummy/freddie.jpg)"} width={115} height={115}/>}
+      topChildren={<Frame background="/frame.svg" foreground={`"+"`} diameter={220}/>}
       >
     <S.Bio>
         <Text className="bio">

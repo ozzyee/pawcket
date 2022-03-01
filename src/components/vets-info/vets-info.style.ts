@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import styles from "../../styles/style.config.json";
-import { GlobalStyle } from "../../styles/global.style";
 
 export const Wrapper = styled.div`
    position: relative;
@@ -37,8 +36,8 @@ export const VetsLogoHolder = styled.div`
 `;
 
 export const VetsInfo = styled.div`
-width: 90%;
-   border : 2px solid red;
+   width: 90%;
+   border: 2px solid red;
    .vet-name {
       padding: 0;
       margin: 0;
@@ -46,5 +45,30 @@ width: 90%;
       font-weight: bold;
       color: black;
       font-style: italic;
+   }
+`;
+
+export const TextHolder = styled.div`
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 0;
+   margin: 0;
+   margin-top: 0rem;
+
+   z-index: 1000;
+
+   right: 0;
+   left: 0;
+
+   .bold {
+      font-weight: bold;
+      padding-right: 5px;
+   }
+
+   .contact-info {
+      font-size: 0.8rem;
+      margin: 0;
+      margin-top: 4px;
    }
 `;

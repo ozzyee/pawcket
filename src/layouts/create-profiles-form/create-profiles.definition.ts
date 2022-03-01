@@ -5,4 +5,13 @@ export type TCreateProfileProps = {
    background?: any;
 };
 
-export type TGlowingLine = {};
+export type TCreatUser = {
+   firstName?: string;
+   lastName?: string;
+   userName?: string;
+   DOB?: Date | string;
+   address?: string;
+   postCode?: string;
+   tel?: string;
+   extraInfo?: string;
+};

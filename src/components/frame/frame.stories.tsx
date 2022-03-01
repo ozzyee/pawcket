@@ -9,22 +9,18 @@ export default {
    argTypes: {
       background: {
          description:
-            "URL for the backgroundImage property, takes a string",
+            "URL for the backgroundImage property. Takes a string",
       },
-      foreground: {
+      img: {
          description:
-            `String or any type of valid content for content CSS property. In case of string the "" symbols are required, for which is recomended to use back ticks. `,
+            `URL for the foreground image property. Takes a string `,
 
       }, 
 
-      width: {
+      diameter: {
          description:
-            "If an SVG is passed to foreground, then width and height are required for which this property takes a number",
+            "Diameter of the whole frame (foreground is rescaled accordingly) is required. Takes a number",
       },
-      height: {
-        description:
-           "If an SVG is passed to foreground, then width and height are required for which this property takes a number",
-     },
      onClick: {
          description:
             "Takes a function"
@@ -32,12 +28,11 @@ export default {
    },
 } as ComponentMeta<typeof Frame>;
 
-const Template = ({ background, foreground }: TFrameProps) => {
-   return <Frame background={background} foreground={foreground}/>;
+const Template = ({ background, img }: TFrameProps) => {
+   return <Frame background={background} img={img} diameter={150}/>;
 };
 
 export const aFrame: any = Template.bind({});
 aFrame.args = {
    background: "/frame.svg",
-   foreground: `"+"`
 };

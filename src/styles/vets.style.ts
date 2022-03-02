@@ -42,10 +42,101 @@ export const FrameVets = styled.span`
 
 export const VetNav = styled.div`
    width: 100%;
-
    position: fixed;
    bottom: 0;
-   z-index: 999999999;
+   z-index: 1;
    padding: 0;
    margin: 0;
+`;
+
+export const Mobile = styled.span`
+   .nav {
+      width: 100vw;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+   }
+   @media (min-width: ${styles.breakPoints.m}) {
+      .mobile {
+         display: none;
+      }
+   }
+`;
+
+export const VetList = styled.ol`
+   display: flex;
+   flex-direction: column;
+   list-style-type: none;
+   align-items: center;
+   justify-content: center;
+   padding: 0px;
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      display: grid;
+      grid-template-columns: repeat(3, 400px);
+      padding: 0px;
+      place-items: center;
+      overflow-y: scroll;
+      height: 90%;
+      max-height: 365px;
+
+      ::-webkit-scrollbar {
+         width: 0px;
+      }
+
+      :hover::-webkit-scrollbar {
+         width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+         background: transparent;
+         border-radius: 50px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+         background-color: ${styles.colors.primary};
+         border-radius: 50px;
+      }
+      .vetcard {
+         grid-column-end: span;
+      }
+   }
+`;
+
+export const VetButtons = styled.ol`
+   display: flex;
+   padding: 0;
+   list-style-type: none;
+   justify-content: space-between;
+`;
+
+export const Desktop = styled.div`
+   .desktop {
+      display: none;
+   }
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      .desktop {
+         display: flex;
+      }
+   }
+`;
+
+export const Top = styled.div`
+   border: 2px solid red;
+   height: 30%;
+
+   .nav {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40%;
+      border-radius: 0 0 0 50px;
+   }
+`;
+
+export const Bottom = styled.div`
+   border: 2px solid blue;
+   height: 70%;
 `;

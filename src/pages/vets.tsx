@@ -6,10 +6,11 @@ import { Buttons } from "../components/buttons/buttons.component";
 import { Navbar } from "../components/navbar/navbar.component";
 import { VetsInfo } from "../components/vets-info/vets-info.component";
 import { useState } from "react";
-import { VetList, VetButtons } from "../layouts/main-layout/main-layout.style";
+import { VetList, VetButtons } from "../styles/vets.style";
 import { Frame } from "../components/frame/frame.component";
 import { Return } from "../components/return-button/returnbutton.component";
 import { VetNav } from "../styles/vets.style";
+import { Top } from "../layouts/main-layout/main-layout.style";
 
 const Vet: NextPage = () => {
    const initialState = [
@@ -72,53 +73,61 @@ const Vet: NextPage = () => {
    const [vets, setVets] = useState(initialState);
    return (
       <>
-         <MainLayout
-            bottomTitle="Vets near you"
-            topChildren={
-               <Frame
-                  background={"/frame.svg"}
-                  img={"/circle/vet-circle.svg"}
-                  diameter={230}
-               />
-            }
-         >
-            <VetButtons>
-               <li>
-                  <Buttons vetsNavBtn={true} dark={true}>
-                     Open Now
-                  </Buttons>
-               </li>
-               <li>
-                  <Buttons vetsNavBtn={true} dark={true}>
-                     On Call
-                  </Buttons>
-               </li>
-               <li>
-                  <Buttons vetsNavBtn={true} dark={true}>
-                     Near You
-                  </Buttons>
-               </li>
-            </VetButtons>
-            <VetList className="vetcard">
-               {vets.map((vet, index) => {
-                  return (
-                     <li key={index}>
-                        <VetsInfo
-                           vetName={vet.name}
-                           vetPhoneNumber={vet.phoneNumber}
-                           vetAddress={vet.vetAddress}
-                           vetWebsite={vet.vetWebsite}
-                        />
-                     </li>
-                  );
-               })}
-            </VetList>
-         </MainLayout>
+         <S.Desktop>
+            <MainLayout className="desktop" desktopCard={true}>
+               <S.Top>
+                  <Navbar className="nav" />
+               </S.Top>
+               <S.Bottom></S.Bottom>
+            </MainLayout>
+         </S.Desktop>
+         <S.Mobile>
+            <MainLayout
+               className="mobile"
+               bottomTitle="Vets near you"
+               topChildren={
+                  <Frame
+                     background={"/frame.svg"}
+                     img={"/circle/vet-circle.svg"}
+                     diameter={230}
+                  />
+               }
+            >
+               <VetButtons>
+                  <li>
+                     <Buttons vetsNavBtn={true} dark={true}>
+                        Open Now
+                     </Buttons>
+                  </li>
+                  <li>
+                     <Buttons vetsNavBtn={true} dark={true}>
+                        On Call
+                     </Buttons>
+                  </li>
+                  <li>
+                     <Buttons vetsNavBtn={true} dark={true}>
+                        Near You
+                     </Buttons>
+                  </li>
+               </VetButtons>
+               <VetList className="vetcard">
+                  {vets.map((vet, index) => {
+                     return (
+                        <li key={index}>
+                           <VetsInfo
+                              vetName={vet.name}
+                              vetPhoneNumber={vet.phoneNumber}
+                              vetAddress={vet.vetAddress}
+                              vetWebsite={vet.vetWebsite}
+                           />
+                        </li>
+                     );
+                  })}
+               </VetList>
 
-         <VetNav>
-            <Navbar />
-         </VetNav>
-
+               <Navbar className="nav" />
+            </MainLayout>
+         </S.Mobile>
          {/* Desktop Version */}
          {/* <MainLayout>
             <VetList>

@@ -28,7 +28,7 @@ export const VetsLogoHolder = styled.div`
    height: 60px;
    border-radius: 50%;
    background-color: white;
-   z-index: 1000;
+   z-index: 1;
    position: relative;
    margin-left: auto;
    margin-right: auto;
@@ -37,7 +37,7 @@ export const VetsLogoHolder = styled.div`
 
 export const VetsInfo = styled.div`
    width: 90%;
-   border: 2px solid red;
+
    .vet-name {
       padding: 0;
       margin: 0;

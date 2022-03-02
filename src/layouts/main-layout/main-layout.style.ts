@@ -3,7 +3,7 @@ import styles from "../../styles/style.config.json";
 
 export const Wrapper = styled.div`
    background-image: radial-gradient(#ffe5a5, #ffbf1f);
-   height: 35vh;
+   height: 100%;
    min-height: 410px;
    width: 100vw;
    display: flex;
@@ -262,52 +262,4 @@ export const MainContent = styled.main`
       background-color: transparent;
       margin-top: 20px;
    }
-`;
-
-export const VetList = styled.ol`
-   display: flex;
-   flex-direction: column;
-   list-style-type: none;
-   align-items: center;
-   justify-content: center;
-   padding: 0px;
-
-   @media (min-width: ${styles.breakPoints.m}) {
-      display: grid;
-      grid-template-columns: repeat(3, 400px);
-      padding: 0px;
-      place-items: center;
-      overflow-y: scroll;
-      height: 90%;
-      max-height: 365px;
-
-      ::-webkit-scrollbar {
-         width: 0px;
-      }
-
-      :hover::-webkit-scrollbar {
-         width: 6px;
-      }
-
-      ::-webkit-scrollbar-track {
-         background: transparent;
-         border-radius: 50px;
-      }
-
-      ::-webkit-scrollbar-thumb {
-         background-color: ${styles.colors.primary};
-         border-radius: 50px;
-      }
-      .vetcard {
-         grid-column-end: span;
-      }
-   }
-`;
-
-export const VetButtons = styled.ol`
-   display: flex;
-   padding: 0;
-   list-style-type: none;
-   justify-content: space-between;
-   i
 `;

@@ -7,13 +7,13 @@ import { Text } from "../../components/text/text.component";
 import { TCreatePetFormProps } from "./creat-pet-form.definition";
 import * as S from "./creat-pet-form.style";
 import { Frame } from "../../components/frame/frame.component";
-import { TPetError, Validation } from "./function/validation";
+import { Validation } from "./function/validation";
 import { TPet } from "./creat-pet-form.definition";
 import { useContent } from "../../context/context";
 
 export function CreatePetForm({ className }: TCreatePetFormProps) {
    const [formData, setFormData] = useState<null | TPet>(null);
-   const { _setOpen, _setSnackbarType, _setSnackbarMsg, _setError } =
+   const { _setOpen, _setSnackbarType, _setSnackbarMsg } =
       useContent();
    const [errors, setErrors] = useState<TPet | null>(null);
 

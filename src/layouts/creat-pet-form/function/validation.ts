@@ -1,7 +1,7 @@
 import { TPet } from "../creat-pet-form.definition";
 
 export type TPetError = {
-   name?: string | undefined;
+   name?: string ;
    dateOfBirth?: Date | string;
    sex?: string | undefined;
 };

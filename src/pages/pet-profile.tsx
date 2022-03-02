@@ -35,7 +35,7 @@ const PetProfile: NextPage = () => {
                      diameter={200}
                   />
                   <Text textType="h1" className="name">
-                     {pet?.name}
+                     {pet?.name ? pet?.name : ""}
                   </Text>
                </S.TopLeft>
                <S.TopRight>

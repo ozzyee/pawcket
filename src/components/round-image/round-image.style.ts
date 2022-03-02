@@ -23,4 +23,12 @@ export const RoundPhoto = styled.div<TRoundImageProps>`
     transform: translateY(110%);
     font-weight: 600;
 }
+
+@media (min-width: ${styles.breakPoints.m}) {
+        
+        .desktop{
+            display: flex;
+        }
+    }
+
 `

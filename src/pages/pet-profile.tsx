@@ -11,7 +11,7 @@ import * as S from "../styles/pet-profile"
 
 const PetProfile: NextPage = () => {
 
-    const[pet, setUser] = useState({...data.freddie})
+    const[pet, setUser] = useState({...data.tony})
 
     const passport = [
         <Text className="placeholder">

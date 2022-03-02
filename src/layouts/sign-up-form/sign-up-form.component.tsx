@@ -111,7 +111,7 @@ export function SignUpForm({ className }: TSignUpFormProps) {
          <Buttons id="auth-btn">Sign Up</Buttons>
 
          <AuthLoginWrapper>
-            <AuthLogin />
+            <AuthLogin root={"sign-up"} />
          </AuthLoginWrapper>
       </S.SignUpForm>
    );

@@ -34,6 +34,9 @@ export const CrossFrame = styled.span<TFrameProps>`
        background-size: cover;
        background-position: center;
        background-repeat: no-repeat;
+
+       margin-top: -0.4rem;
+
        `}
       /* display: grid; */
       place-content: center;

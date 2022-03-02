@@ -10,18 +10,24 @@ import {
 } from "./create-profiles.definition";
 import * as S from "./create-profiles.style";
 import { Text } from "../../components/text/text.component";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { createUserValidation } from "./functions/cteate-user-validation";
 import { useContent } from "../../context/context";
 import { setDoc, doc } from "firebase/firestore";
 import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 import { useRouter } from "next/router";
+import { ImageUploader } from "../../components/image-uploader/image-uploader.component";
 
 export function CreateProfileForm({
    dateObject,
    userUID,
+   uploadImage,
 }: TCreateUserLayoutProps) {
+   const hiddenImageUploader = useRef(null);
    const router = useRouter();
+   const [img, setImg] = useState("");
+
+   console.log("THE IMG ->", img);
 
    const [userData, setUserData] = useState<null | TCreatUser>({
       firstName: dateObject?.firstName || "",
@@ -30,11 +36,18 @@ export function CreateProfileForm({
       postCode: dateObject?.postCode || "",
       tel: dateObject?.tel || "",
       extraInfo: dateObject?.extraInfo || "",
+      userImage: dateObject?.userImage || "",
    });
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [err, setErr] = useState<TCreatUser | null>(null);
 
+   const uploadImageFunc = () => {
+      // @ts-ignore
+      hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
+   };
+
    useEffect(() => {
+      setUserData({ ...userData });
       if (dateObject?.DOB) {
          const dateSplit = dateObject.DOB.split("T")[0];
          const dateSplitString = dateSplit?.split('"')[1];
@@ -45,6 +58,16 @@ export function CreateProfileForm({
          return;
       }
    }, [dateObject]);
+
+   useEffect(() => {
+      if (img) {
+         setUserData({ ...userData, userImage: img });
+         return;
+      }
+      setUserData({ ...userData, userImage: uploadImage });
+   }, [uploadImage, img]);
+
+   console.log("data to save =>", userData);
 
    const addUserInfo = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -187,7 +210,18 @@ export function CreateProfileForm({
             <S.FormSplitLeft>
                <S.Wrapper>
                   <S.ImageAndTextWrapper>
-                     <Frame diameter={150} />
+                     <Frame
+                        diameter={150}
+                        img={img}
+                        onClick={uploadImageFunc}
+                     />
+                     <ImageUploader
+                        _ref={hiddenImageUploader}
+                        onChange={(imgUrl) => {
+                           setImg(imgUrl);
+                        }}
+                        folder={`/${userUID}`}
+                     />
                      <S.TextHolder>
                         <Text textType="h2" className="sub-heading-h2-upload">
                            Upload

@@ -1,7 +1,6 @@
 export type TCreateProfileProps = {
    background: string;
    foreground: string;
-   
 };
 
 export type TCreatUser = {
@@ -13,6 +12,7 @@ export type TCreatUser = {
    postCode?: string;
    tel?: string;
    extraInfo?: string;
+   userImage?: string;
 };
 
 export type TCreateUserLayoutProps = {
@@ -28,5 +28,6 @@ export type TCreateUserLayoutProps = {
       postCode?: string;
       tel?: string;
    };
+   uploadImage?: string;
    userUID: string;
 };

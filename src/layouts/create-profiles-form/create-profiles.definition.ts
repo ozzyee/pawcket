@@ -1,4 +1,7 @@
 export type TCreateProfileProps = {
+   background: string;
+   foreground: string;
+   
 };
 
 export type TCreatUser = {

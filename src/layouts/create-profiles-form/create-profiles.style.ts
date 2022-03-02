@@ -6,7 +6,7 @@ export const CrossFrame = styled.span<TCreateProfileProps>`
    width: 150px;
    height: 150px;
    background-color: red;
-   background: url(${(props) => props.background});
+   background: url("/frame.svg");
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
@@ -22,16 +22,17 @@ export const CrossFrame = styled.span<TCreateProfileProps>`
       font-weight: 100;
       font-size: 8em;
       color: white;
-      ${(props) =>
-         props.width && {
-            width: props.width,
-         }}
-      ${(props) =>
-         props.height && {
-            height: props.height,
-         }}
    }
 `;
+//* NOTE may need this *//
+//   ${(props) =>
+//       props.width && {
+//          width: props.width,
+//       }}
+//    ${(props) =>
+//       props.height && {
+//          height: props.height,
+//       }}
 
 export const DesktopTitle = styled.div`
    display: none;

@@ -13,6 +13,10 @@ export default {
          "Text in the middle of the component. Takes a string",
 
       },
+      className: {
+         description:
+         "Element class. Takes a string",
+      },
    },
 } as ComponentMeta<typeof Separator>;
 

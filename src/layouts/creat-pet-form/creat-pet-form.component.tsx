@@ -1,22 +1,67 @@
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import { Buttons } from "../../components/buttons/buttons.component";
 import { FormInputs } from "../../components/form-inputs/form-inputs.component";
 import { Separator } from "../../components/separator/separator.component";
 import { ButtonsWrapper } from "../../styles/global.style";
 import { Text } from "../../components/text/text.component";
-
 import { TCreatePetFormProps } from "./creat-pet-form.definition";
 import * as S from "./creat-pet-form.style";
 import { Frame } from "../../components/frame/frame.component";
+import { TPetError, Validation } from "./function/validation";
+import { TPet } from "./creat-pet-form.definition";
+import { useContent } from "../../context/context";
 
 export function CreatePetForm({ className }: TCreatePetFormProps) {
+   const [formData, setFormData] = useState<null | TPet>(null);
+   const { _setOpen, _setSnackbarType, _setSnackbarMsg, _setError } =
+      useContent();
+   const [errors, setErrors] = useState<TPet | null>(null);
+
+   const onCreatePet = async (evt: FormEvent) => {
+      evt.preventDefault();
+      const errors = Validation({
+         name: formData?.name,
+         sex: formData?.sex,
+         dateOfBirth: formData?.dateOfBirth,
+      });
+      setErrors({
+         name: errors?.name,
+         sex: errors?.sex,
+         dateOfBirth: errors?.dateOfBirth,
+      });
+   };
+
+   if (errors?.name && errors?.dateOfBirth && errors?.sex) {
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must fill in all fields.");
+   }
+   if (errors?.name && !errors?.dateOfBirth && !errors?.sex) {
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg("You must input a name");
+   }
+   if (!errors?.name && errors?.dateOfBirth && !errors?.sex) {
+      _setOpen(true);
+      _setSnackbarType("error");
+      const error = errors?.dateOfBirth as string;
+      _setSnackbarMsg(error);
+      _setSnackbarMsg("You must input a Date of Birth!");
+   }
+   if (!errors?.name && !errors?.dateOfBirth && errors?.sex) {
+      _setOpen(true);
+      _setSnackbarType("error");
+      _setSnackbarMsg(
+         "You must select a sex. Please type either 'Male' or 'Female'"
+      );
+   }
    return (
       <>
-         <S.CreatePetForm className={className}>
+         <S.CreatePetForm className={className} onSubmit={onCreatePet}>
             <S.FormSplitLeft>
                <S.Wrapper>
                   <S.ImageAndTextWrapper>
-                     <Frame background={"/frame.svg"} foreground={`"+"`} />
+                     <Frame background={"/frame.svg"} diameter={150}/>
                      <S.TextHolder>
                         <Text textType="h2" className="sub-heading-h2-upload">
                            Upload
@@ -30,7 +75,13 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                      <FormInputs
                         placeholder="Name"
                         inputType="input"
-                        onChange={undefined}
+                        error={errors?.name}
+                        onChange={(evt) => {
+                           setFormData({
+                              ...formData,
+                              name: evt.target.value,
+                           });
+                        }}
                      />
                      <FormInputs
                         placeholder="Bio"
@@ -59,15 +110,26 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                      </Text>
                   </S.DesktopTitle>
                   <FormInputs
-                     placeholder="Sex"
+                     placeholder="Sex (Male or Female)"
                      inputType="input"
-                     onChange={undefined}
+                     error={errors?.sex}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           sex: evt.target.value,
+                        });
+                     }}
                   />
-
                   <FormInputs
                      placeholder="Date of Birth"
-                     inputType="input"
-                     onChange={undefined}
+                     error={errors?.dateOfBirth}
+                     onDateChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           dateOfBirth: evt,
+                        });
+                     }}
+                     inputType="date"
                   />
                   <FormInputs
                      placeholder="Species"

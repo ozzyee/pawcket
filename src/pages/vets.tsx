@@ -57,6 +57,7 @@ const Vet: NextPage = () => {
             topChildren={
                <Frame
                   background={"/frame.svg"}
+                  img={"/circle/vet-circle.svg"}
                   diameter={230}
                />
             }

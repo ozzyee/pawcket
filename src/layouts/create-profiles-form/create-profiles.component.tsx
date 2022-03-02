@@ -92,12 +92,10 @@ export function CreateProfileForm({
 
    return (
       <>
-         <S.SkipStyleButton href="">Skip</S.SkipStyleButton>
-
          <S.CreateUserForm onSubmit={addUserInfo}>
             <Separator separatorText="USER INFO" />
             <S.FormSplitRight>
-               <S.Wrapper>
+               <S.Wrapper id="form-right">
                   <S.CreateUserSpan>
                      <S.DesktopTitle>
                         <Text textType="h2" className="desktop-title">
@@ -202,6 +200,7 @@ export function CreateProfileForm({
                   <FormInputs
                      placeholder="Extra Info"
                      inputType="text-area"
+                     className="text-area"
                      onTextAreaChange={(evt) => {
                         console.log("the evt =>", evt);
 

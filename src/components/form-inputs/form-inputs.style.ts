@@ -4,6 +4,7 @@ import { TErrorStyle } from "./form-inputs.definition";
 
 export const InputWrapper = styled.div`
    margin-top: 0.8rem;
+   width: 100%;
 
    .input-width {
       width: 100%;

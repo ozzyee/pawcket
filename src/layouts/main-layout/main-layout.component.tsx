@@ -13,6 +13,7 @@ export function MainLayout({
    children,
    topChildren,
    desktopCard,
+
 }: TMainLayoutProps) {
    return (
       <>

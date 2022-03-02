@@ -107,7 +107,7 @@ export function LoginForm({ className }: TLoginFormProps) {
          />
          <Buttons id="auth-btn">Log in</Buttons>
          <AuthLoginWrapper>
-            <AuthLogin />
+            <AuthLogin root="login" />
          </AuthLoginWrapper>
       </S.LoginForm>
    );

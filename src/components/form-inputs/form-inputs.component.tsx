@@ -19,6 +19,8 @@ export function FormInputs({
    error,
    formValue,
    onDateChange,
+   onTextAreaChange,
+   formDateValue,
 }: TFormInputsProps) {
    const { _hasError } = useContent();
    const [value, setValue] = useState<Date | string>("");
@@ -26,12 +28,19 @@ export function FormInputs({
    const [dateErr, setDateErr] = useState(false);
 
    useEffect(() => {
+      if (formDateValue) {
+         const dateSplit = formDateValue?.split("T")[0];
+         const dateSplitString = dateSplit?.split('"')[1];
+         setValue(new Date(dateSplitString));
+         return;
+      }
       if (!formValue) {
          setValue("");
          return;
       }
+
       setValue(formValue);
-   }, [formValue]);
+   }, [formValue, formDateValue]);
 
    useEffect(() => {
       const err = error as string;
@@ -54,7 +63,13 @@ export function FormInputs({
    };
 
    if (inputType === "text-area") {
-      return <S.TextArea placeholder={placeholder} className={className} />;
+      return (
+         <S.TextArea
+            placeholder={placeholder}
+            className={className}
+            onChange={onTextAreaChange}
+         />
+      );
    }
 
    if (inputType === "date") {

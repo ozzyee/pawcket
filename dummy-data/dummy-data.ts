@@ -1,11 +1,12 @@
 import { TPet } from "../src/layouts/creat-pet-form/creat-pet-form.definition";
 
 export type TUser = {
-   name?: string;
+   firstName: string;
+   lastName: string;
+   userName?: string;
    address?: string;
-   dateOfBirth?: string;
+   DOB: string;
    telephone?: string;
-   username?: string;
    extraInfo?: string;
    profilePic?: string;
    pets?: TPet[];
@@ -40,11 +41,12 @@ export const tony: TPet = {
 
 export const jennifer: TUser = {
 
-   name: "Jennifer Jones",
+   firstName: "Jennifer Jones",
+   lastName: "Jennifer Jones",
    address: "123 Street Rd.",
-   dateOfBirth: "29 of February 1988",
+   DOB: "29 of February 1988",
    telephone: "N/A",
-   username: "Jennifer J.",
+   userName: "Jennifer",
    extraInfo: "I'm thecnically 8 years old.",
    profilePic: "",
    pets: [tony, freddie],

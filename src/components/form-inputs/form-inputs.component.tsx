@@ -6,33 +6,50 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import { useContent } from "../../context/context";
 
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+
 export function FormInputs({
    className,
    placeholder,
    inputType,
    onChange,
    error,
+   formValue,
+   onDateChange,
 }: TFormInputsProps) {
    const { _hasError } = useContent();
-   const [value, setValue] = useState("");
+   const [value, setValue] = useState<Date | string>("");
    const [_error, setError] = useState(false);
-
-   console.log("err =>", error);
+   const [dateErr, setDateErr] = useState(false);
 
    useEffect(() => {
-      if (error === undefined) {
+      if (!formValue) {
+         setValue("");
+         return;
+      }
+      setValue(formValue);
+   }, [formValue]);
+
+   useEffect(() => {
+      const err = error as string;
+      if (err === undefined) {
          setError(false);
+         setDateErr(false);
          return;
       }
 
-      if (error.length > 0) {
+      if (err.length > 0) {
          setError(true);
+         setDateErr(true);
       }
    }, [error]);
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setValue(event.target.value);
-      if (!event) return null;
+      if (!event || onChange === undefined) return null;
       onChange(event);
    };
 
@@ -40,7 +57,32 @@ export function FormInputs({
       return <S.TextArea placeholder={placeholder} className={className} />;
    }
 
-   console.log("this is the err", error);
+   if (inputType === "date") {
+      return (
+         <S.DateInputWrapper
+            styleError={dateErr ? "2px solid #D32F2F" : "1px solid gray"}
+         >
+            <LocalizationProvider
+               dateAdapter={AdapterDateFns}
+               id="date-wrapper"
+            >
+               <DatePicker
+                  className="date-picker"
+                  label={placeholder}
+                  value={value}
+                  onChange={(newValue) => {
+                     if (!newValue || onDateChange === undefined) return null;
+                     onDateChange(newValue);
+                     setValue(newValue);
+                  }}
+                  views={["day", "month", "year"]}
+                  renderInput={(params) => <TextField {...params} />}
+                  maxDate={new Date()}
+               />
+            </LocalizationProvider>
+         </S.DateInputWrapper>
+      );
+   }
 
    return (
       <S.InputWrapper>
@@ -49,11 +91,11 @@ export function FormInputs({
             variant="standard"
             className="input-width"
          >
-            <InputLabel htmlFor="input" className="label">
+            <InputLabel htmlFor={inputType} className="label">
                {placeholder}
             </InputLabel>
             <Input
-               id="input"
+               id={inputType}
                value={value}
                onChange={handleChange}
                aria-describedby="component-error-text"

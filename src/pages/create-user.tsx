@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { NextApiRequest, NextApiResponse, NextPage } from "next";
 import { Frame } from "../components/frame/frame.component";
 import { CreateProfileForm } from "../layouts/create-profiles-form/create-profiles.component";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
@@ -21,5 +21,7 @@ const CreateUser: NextPage = () => {
       </>
    );
 };
+
+
 
 export default CreateUser;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import styles from "../../styles/style.config.json";
+import { TErrorStyle } from "./form-inputs.definition";
 
 export const InputWrapper = styled.div`
    margin-top: 0.8rem;
@@ -24,6 +25,63 @@ export const InputWrapper = styled.div`
       font-size: 1em;
       font-weight: 300;
       border-color: grey;
+   }
+`;
+
+export const DateInputWrapper = styled.div<TErrorStyle>`
+   margin-top: 1.2rem;
+
+   .MuiFormControl-root {
+      width: 100%;
+   }
+
+   .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
+      font-family: "Poppins", sans-serif;
+      font-size: 0.9em;
+      color: black;
+      font-weight: 300 !important;
+      padding-bottom: 20px;
+      left: -7px;
+   }
+   .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
+      font-family: "Poppins", sans-serif;
+      font-weight: 300 !important;
+
+      color: black;
+      left: -6px;
+   }
+
+   .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+      padding: 15.5px 0 4px 10px;
+   }
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+         padding: 16.5px 14px;
+      }
+   }
+
+   .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+      padding: 14px 12px 4px 9px;
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
+      font-family: "Poppins", sans-serif;
+      font-size: 1em;
+      font-weight: 300;
+      letter-spacing: 0.231;
+   }
+
+   #mui-11 {
+      border: 0 solid;
+   }
+
+   fieldset {
+      border: 0 solid !important;
+      border-bottom: ${({ styleError }) => styleError} !important;
+
+      width: 100%;
+      border-radius: 0;
    }
 `;
 
@@ -93,4 +151,8 @@ export const ErrorMessage = styled.p`
    padding-left: 0.5rem;
    font-size: 0.7rem;
    color: red;
-`;
+   `;
+
+   export const FormSelect = styled.select`
+
+   `

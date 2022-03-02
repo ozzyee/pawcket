@@ -61,9 +61,17 @@ export const GlobalStyle = createGlobalStyle`
       }
    }
 
+   .css-1x51dt5-MuiInputBase-input-MuiInput-input{
+      padding-left:.5rem;
+   }
+
    
 
    @media (min-width: ${styles.breakPoints.m}) {
+      .css-1x51dt5-MuiInputBase-input-MuiInput-input{
+      padding-left:.5rem !important;
+   }
+
       .desktop-display-none{
          display: none !important;
       }

@@ -19,6 +19,7 @@ export function FormInputs({
    error,
    formValue,
    onDateChange,
+   onTextAreaChange
 }: TFormInputsProps) {
    const { _hasError } = useContent();
    const [value, setValue] = useState<Date | string>("");
@@ -54,7 +55,13 @@ export function FormInputs({
    };
 
    if (inputType === "text-area") {
-      return <S.TextArea placeholder={placeholder} className={className} />;
+      return (
+         <S.TextArea
+            placeholder={placeholder}
+            className={className}
+            onChange={onTextAreaChange}
+         />
+      );
    }
 
    if (inputType === "date") {

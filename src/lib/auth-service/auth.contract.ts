@@ -21,6 +21,6 @@ export interface IAuthContract {
       email: string;
       password: string;
    }): Promise<string | undefined>;
-   googleSignIn(): Promise<void>;
-   facebookSignIn(): void;
+   googleSignIn(location: string): Promise<void>;
+   facebookSignIn(location: string): void;
 }

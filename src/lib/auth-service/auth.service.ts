@@ -57,7 +57,7 @@ export class AuthService implements IAuthContract {
          await setDoc(doc(firestoreDB, "users", userID), userData);
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
-         // window.location.href = "/messaging";
+         window.location.href = "/create-user";
       } catch (err) {
          const error = err as Error;
          return error?.message;
@@ -79,14 +79,18 @@ export class AuthService implements IAuthContract {
 
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
+         window.location.href = "/user-profile";
       } catch (err) {
          const error = err as Error;
          return error.message;
       }
    }
 
-   async googleSignIn(): Promise<void> {
+   async googleSignIn(location: string | undefined): Promise<void> {
       try {
+         const currentUrl = window.location.href;
+         console.log("current url ->", currentUrl);
+
          const provider = new GoogleAuthProvider();
          const _res = await signInWithPopup(auth, provider);
          const res = _res as TUserCredential;
@@ -104,12 +108,19 @@ export class AuthService implements IAuthContract {
          await setDoc(doc(firestoreDB, "users", userID), userData);
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
+
+         if (location === "login") {
+            console.log("im form login");
+            window.location.href = "/user-profile";
+            return;
+         }
+         window.location.href = "/create-user";
       } catch (err) {
          console.log("this was the error ->", err);
       }
    }
 
-   async facebookSignIn(): Promise<void> {
+   async facebookSignIn(location: string | undefined): Promise<void> {
       try {
          const provider = new FacebookAuthProvider();
          const _res = await signInWithPopup(auth, provider);
@@ -132,33 +143,35 @@ export class AuthService implements IAuthContract {
          await setDoc(doc(firestoreDB, "users", userID), userData);
          const fetchService = new FetchService();
          await fetchService.post("/api/auth", { refreshToken });
+
+         if (location === "login") {
+            console.log("im form login");
+            window.location.href = "/user-profile";
+            return;
+         }
+         window.location.href = "/create-user";
       } catch (err) {
          console.log("this was the error ->", err);
       }
    }
 
-   //! DONT DELETE THIS THIS IS VERY IMPORTANT
    //* refresh token function
-   // async getFirebaseUserData(userToken: string) {
-   //    const firebaseGetTokenUrl = `https://securetoken.googleapis.com/v1/token?key=${process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY}`;
-   //    const fetchService = new FetchService();
+   async getFirebaseUserToken(userToken: string) {
+      const firebaseGetTokenUrl = `https://securetoken.googleapis.com/v1/token?key=${process.env.NEXT_PUBLIC_FIREBASE_API_KEY}`;
+      const fetchService = new FetchService();
 
-   //    if (!userToken) throw new Error("no data");
+      if (!userToken) throw new Error("no data");
 
-   //    const getIdToken = await fetchService.post(firebaseGetTokenUrl, {
-   //       grant_type: "refresh_token",
-   //       refresh_token: userToken,
-   //    });
+      const getIdToken = await fetchService.post(firebaseGetTokenUrl, {
+         grant_type: "refresh_token",
+         refresh_token: userToken,
+      });
 
-   //    if (getIdToken?.error) {
-   //       const errMsg = getIdToken?.error.message;
-   //       throw new Error(errMsg);
-   //    }
+      if (getIdToken?.error) {
+         const errMsg = getIdToken?.error.message;
+         throw new Error(errMsg);
+      }
 
-   //    const getUserObject = await fetchService.get(
-   //       Urls["users-base-url"] + getIdToken.user_id
-   //    );
-
-   //    return { getUserObject, getIdToken };
-   // }
+      return { getIdToken };
+   }
 }

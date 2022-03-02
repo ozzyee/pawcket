@@ -15,3 +15,14 @@ export type TCreatUser = {
    tel?: string;
    extraInfo?: string;
 };
+
+export type TCreateUserLayoutProps = {
+   dateObject: {
+      email?: string;
+      firstName?: string;
+      lastName?: string;
+      userID?: string;
+      userImage?: string;
+   };
+   userUID: string;
+};

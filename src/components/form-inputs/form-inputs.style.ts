@@ -26,6 +26,8 @@ export const InputWrapper = styled.div`
       font-weight: 300;
       border-color: grey;
    }
+
+
 `;
 
 export const DateInputWrapper = styled.div<TErrorStyle>`
@@ -61,6 +63,8 @@ export const DateInputWrapper = styled.div<TErrorStyle>`
       .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
          padding: 16.5px 14px;
       }
+
+    
    }
 
    .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {

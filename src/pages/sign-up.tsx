@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import type { NextPage } from "next";
+import type { NextApiRequest, NextPage } from "next";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import Logo from "../../public/dummy-logo.svg";
 import { AuthScreen, TextHolder } from "../styles/global.style";
@@ -7,6 +7,7 @@ import { Text } from "../components/text/text.component";
 import { SignUpForm } from "../layouts/sign-up-form/sign-up-form.component";
 import { AuthDesktop } from "../layouts/auth-desktop/auth-desktop.component";
 import { useRouter } from "next/router";
+import { AuthService } from "../lib/auth-service/auth.service";
 
 const SignUp: NextPage = () => {
    const router = useRouter();
@@ -47,5 +48,31 @@ const SignUp: NextPage = () => {
       </>
    );
 };
+
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+   try {
+      const cookieRefreshToken = req.cookies.token;
+      const authService = new AuthService();
+      const dataRes = await authService.getFirebaseUserToken(
+         cookieRefreshToken
+      );
+
+      if (!dataRes) {
+         return {
+            props: {},
+         };
+      }
+
+      return {
+         redirect: {
+            destination: "/create-user",
+         },
+      };
+   } catch (err) {
+      return {
+         props: {},
+      };
+   }
+}
 
 export default SignUp;

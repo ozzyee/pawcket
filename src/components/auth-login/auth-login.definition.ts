@@ -1,3 +1,4 @@
 export type TAuthLoginProps = {
-  className?: string
-}
+   className?: string;
+   root: string;
+};

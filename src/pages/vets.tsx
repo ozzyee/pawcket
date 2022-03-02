@@ -1,14 +1,11 @@
 import type { NextPage } from "next";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
-import { useRouter } from "next/router";
-import * as S from "../styles/vets.style";
 import { Buttons } from "../components/buttons/buttons.component";
 import { Navbar } from "../components/navbar/navbar.component";
 import { VetsInfo } from "../components/vets-info/vets-info.component";
 import { useState } from "react";
 import { VetList, VetButtons } from "../layouts/main-layout/main-layout.style";
 import { Frame } from "../components/frame/frame.component";
-import { Return } from "../components/return-button/returnbutton.component";
 
 const Vet: NextPage = () => {
    const initialState = [
@@ -49,6 +46,7 @@ const Vet: NextPage = () => {
          vetWebsite: "sidjsidj",
       },
    ];
+   // eslint-disable-next-line no-unused-vars
    const [vets, setVets] = useState(initialState);
    return (
       <>

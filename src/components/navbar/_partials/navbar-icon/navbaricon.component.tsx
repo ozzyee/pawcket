@@ -6,20 +6,17 @@ import Feed from "../icons/feed-icon-nav.svg";
 import Misc from "../icons/miscellaneous-icon-nav.svg";
 import Chat from "../icons/message-icon-nav.svg";
 import Vet from "../icons/vet-icon-nav.svg";
-
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 
 export default function NavbarIcon({
    name,
    direct,
-
-   picture,
-   children,
 }: TNavbarIconProps) {
-   const [icon, setIcon] = useState();
+   const [icon] = useState();
 
    return (
+      // eslint-disable-next-line @next/next/link-passhref
       <Link href={direct}>
          <ListItem>
             <div className={name}>
@@ -31,7 +28,7 @@ export default function NavbarIcon({
    );
 }
 
-function GetIcon({icon, className}:{icon: string, className?: string}){
+function GetIcon({icon}:{icon: string, className?: string}){
 
    switch(icon){
       case "Feed" :

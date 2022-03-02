@@ -8,9 +8,8 @@ import { TCreatePetFormProps } from "./creat-pet-form.definition";
 import * as S from "./creat-pet-form.style";
 import { Frame } from "../../components/frame/frame.component";
 import { TPetError, Validation } from "./function/validation";
-import {TPet} from "../../../dummy-data/dummy-data"
+import { TPet } from "./creat-pet-form.definition";
 import { useContent } from "../../context/context";
-
 
 export function CreatePetForm({ className }: TCreatePetFormProps) {
    const [formData, setFormData] = useState<null | TPet>(null);
@@ -18,13 +17,12 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
       useContent();
    const [errors, setErrors] = useState<TPet | null>(null);
 
-
    const onCreatePet = async (evt: FormEvent) => {
       evt.preventDefault();
       const errors = Validation({
-         name : formData?.name,
-         sex : formData?.sex,
-         dateOfBirth : formData?.dateOfBirth,
+         name: formData?.name,
+         sex: formData?.sex,
+         dateOfBirth: formData?.dateOfBirth,
       });
       setErrors({
          name: errors?.name,
@@ -33,28 +31,29 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
       });
    };
 
-   if(errors?.name && errors?.dateOfBirth && errors?.sex){
+   if (errors?.name && errors?.dateOfBirth && errors?.sex) {
       _setOpen(true);
       _setSnackbarType("error");
-      _setSnackbarMsg("You must fill in all fields.")
+      _setSnackbarMsg("You must fill in all fields.");
    }
-   if(errors?.name && !errors?.dateOfBirth && !errors?.sex){
+   if (errors?.name && !errors?.dateOfBirth && !errors?.sex) {
       _setOpen(true);
       _setSnackbarType("error");
       _setSnackbarMsg("You must input a name");
    }
-   if(!errors?.name && errors?.dateOfBirth && !errors?.sex){
+   if (!errors?.name && errors?.dateOfBirth && !errors?.sex) {
       _setOpen(true);
       _setSnackbarType("error");
       const error = errors?.dateOfBirth as string;
       _setSnackbarMsg(error);
       _setSnackbarMsg("You must input a Date of Birth!");
-
    }
-   if(!errors?.name && !errors?.dateOfBirth && errors?.sex){
+   if (!errors?.name && !errors?.dateOfBirth && errors?.sex) {
       _setOpen(true);
       _setSnackbarType("error");
-      _setSnackbarMsg("You must select a sex. Please type either 'Male' or 'Female'");
+      _setSnackbarMsg(
+         "You must select a sex. Please type either 'Male' or 'Female'"
+      );
    }
    return (
       <>
@@ -111,7 +110,7 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                      </Text>
                   </S.DesktopTitle>
                   <FormInputs
-                     placeholder='Sex (Male or Female)'
+                     placeholder="Sex (Male or Female)"
                      inputType="input"
                      error={errors?.sex}
                      onChange={(evt) => {
@@ -119,16 +118,16 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                            ...formData,
                            sex: evt.target.value,
                         });
-                      } }
+                     }}
                   />
                   <FormInputs
                      placeholder="Date of Birth"
                      error={errors?.dateOfBirth}
-                     onChange={(evt) => {
+                     onDateChange={(evt) => {
                         setFormData({
                            ...formData,
                            dateOfBirth: evt,
-                        })
+                        });
                      }}
                      inputType="date"
                   />

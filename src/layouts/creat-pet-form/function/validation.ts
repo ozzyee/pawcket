@@ -1,8 +1,8 @@
-import {TPet} from "../../../../dummy-data/dummy-data"
+import { TPet } from "../creat-pet-form.definition";
 
 export type TPetError = {
    name?: string | undefined;
-   dateOfBirth?: Date | string ;
+   dateOfBirth?: Date | string;
    sex?: string | undefined;
 };
 
@@ -19,7 +19,7 @@ export const Validation = ({ name, dateOfBirth, sex }: TPet) => {
       errors.name = "Your pet's name must be under 15 characters.";
    }
    if (!dateOfBirth) {
-      errors.dateOfBirth = "Give your pet a Date of Birth"
+      errors.dateOfBirth = "Give your pet a Date of Birth";
    }
    if (!sex) {
       errors.sex = "What is your pets sex.";

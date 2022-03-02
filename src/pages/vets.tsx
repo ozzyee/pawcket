@@ -48,6 +48,25 @@ const Vet: NextPage = () => {
          vetAddress: "i92ijwdioj",
          vetWebsite: "sidjsidj",
       },
+
+      {
+         name: "sdsd",
+         phoneNumber: "9239238",
+         vetAddress: "i92ijwdioj",
+         vetWebsite: "sidjsidj",
+      },
+      {
+         name: "sdsd",
+         phoneNumber: "9239238",
+         vetAddress: "i92ijwdioj",
+         vetWebsite: "sidjsidj",
+      },
+      {
+         name: "sdsd",
+         phoneNumber: "9239238",
+         vetAddress: "i92ijwdioj",
+         vetWebsite: "sidjsidj",
+      },
    ];
    const [vets, setVets] = useState(initialState);
    return (

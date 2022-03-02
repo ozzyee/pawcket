@@ -273,11 +273,31 @@ export const VetList = styled.ol`
    padding: 0px;
 
    @media (min-width: ${styles.breakPoints.m}) {
-      background-color: pink;
       display: grid;
       grid-template-columns: repeat(3, 400px);
       padding: 0px;
       place-items: center;
+      overflow-y: scroll;
+      height: 90%;
+      max-height: 365px;
+
+      ::-webkit-scrollbar {
+         width: 0px;
+      }
+
+      :hover::-webkit-scrollbar {
+         width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+         background: transparent;
+         border-radius: 50px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+         background-color: ${styles.colors.primary};
+         border-radius: 50px;
+      }
       .vetcard {
          grid-column-end: span;
       }
@@ -289,4 +309,5 @@ export const VetButtons = styled.ol`
    padding: 0;
    list-style-type: none;
    justify-content: space-between;
+   i
 `;

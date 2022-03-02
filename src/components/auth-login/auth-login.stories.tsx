@@ -11,7 +11,7 @@ export default {
 const Template = () => {
    return (
       <div>
-         <AuthLogin />
+         <AuthLogin root={""} />
       </div>
    );
 };

@@ -49,30 +49,30 @@ const SignUp: NextPage = () => {
    );
 };
 
-// export async function getServerSideProps({ req }: { req: NextApiRequest }) {
-//    try {
-//       const cookieRefreshToken = req.cookies.token;
-//       const authService = new AuthService();
-//       const dataRes = await authService.getFirebaseUserToken(
-//          cookieRefreshToken
-//       );
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+   try {
+      const cookieRefreshToken = req.cookies.token;
+      const authService = new AuthService();
+      const dataRes = await authService.getFirebaseUserToken(
+         cookieRefreshToken
+      );
 
-//       if (!dataRes) {
-//          return {
-//             props: {},
-//          };
-//       }
+      if (!dataRes) {
+         return {
+            props: {},
+         };
+      }
 
-//       return {
-//          redirect: {
-//             destination: "/create-user",
-//          },
-//       };
-//    } catch (err) {
-//       return {
-//          props: {},
-//       };
-//    }
-// }
+      return {
+         redirect: {
+            destination: "/create-user",
+         },
+      };
+   } catch (err) {
+      return {
+         props: {},
+      };
+   }
+}
 
 export default SignUp;

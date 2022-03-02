@@ -44,7 +44,7 @@ const UserProfile: NextPage = () => {
             {`${user.dateOfBirth}`}
         </Text>
     </S.InfoSection>
-    <PassportWrapper separatorText="My Pets">
+    <PassportWrapper separator={true} separatorText="My Pets">
         {[
         <S.PetsSection>
         {user.pets.map( (pet, id) => {

@@ -16,7 +16,7 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
             <S.FormSplitLeft>
                <S.Wrapper>
                   <S.ImageAndTextWrapper>
-                     <Frame background={"/frame.svg"} foreground={`"+"`} />
+                     <Frame background={"/frame.svg"} diameter={150}/>
                      <S.TextHolder>
                         <Text textType="h2" className="sub-heading-h2-upload">
                            Upload

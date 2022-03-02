@@ -39,3 +39,13 @@ export const FrameVets = styled.span`
       }
    }
 `;
+
+export const VetNav = styled.div`
+   width: 100%;
+
+   position: fixed;
+   bottom: 0;
+   z-index: 999999999;
+   padding: 0;
+   margin: 0;
+`;

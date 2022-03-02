@@ -9,6 +9,7 @@ import { useState } from "react";
 import { VetList, VetButtons } from "../layouts/main-layout/main-layout.style";
 import { Frame } from "../components/frame/frame.component";
 import { Return } from "../components/return-button/returnbutton.component";
+import { VetNav } from "../styles/vets.style";
 
 const Vet: NextPage = () => {
    const initialState = [
@@ -113,7 +114,10 @@ const Vet: NextPage = () => {
                })}
             </VetList>
          </MainLayout>
-         <Navbar />
+
+         <VetNav>
+            <Navbar />
+         </VetNav>
 
          {/* Desktop Version */}
          {/* <MainLayout>

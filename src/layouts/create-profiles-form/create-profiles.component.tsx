@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Buttons } from "../../components/buttons/buttons.component";
 import { FormInputs } from "../../components/form-inputs/form-inputs.component";
 import { Frame } from "../../components/frame/frame.component";
@@ -9,7 +10,7 @@ import {
 } from "./create-profiles.definition";
 import * as S from "./create-profiles.style";
 import { Text } from "../../components/text/text.component";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { createUserValidation } from "./functions/cteate-user-validation";
 import { useContent } from "../../context/context";
 import { setDoc, doc } from "firebase/firestore";
@@ -22,9 +23,25 @@ export function CreateProfileForm({
    const [userData, setUserData] = useState<null | TCreatUser>({
       firstName: dateObject.firstName,
       lastName: dateObject.lastName,
+      address: dateObject.address,
+      postCode: dateObject.postCode,
+      tel: dateObject.tel,
+      extraInfo: dateObject.extraInfo,
    });
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [err, setErr] = useState<TCreatUser | null>(null);
+
+   useEffect(() => {
+      if (dateObject.DOB) {
+         const dateSplit = dateObject.DOB.split("T")[0];
+         const dateSplitString = dateSplit?.split('"')[1];
+         setUserData({
+            ...userData,
+            DOB: new Date(dateSplitString),
+         });
+         return;
+      }
+   }, [dateObject]);
 
    const addUserInfo = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -60,6 +77,7 @@ export function CreateProfileForm({
                ...dateObject,
                ...userData,
             });
+
             _setOpen(true);
             _setSnackbarType("success");
             _setSnackbarMsg("The data was saved successfully.");
@@ -71,8 +89,6 @@ export function CreateProfileForm({
          }
       }
    };
-
-   console.log(userData);
 
    return (
       <>
@@ -128,11 +144,12 @@ export function CreateProfileForm({
                         onDateChange={(evt) => {
                            setUserData({
                               ...userData,
-                              DOB: evt,
+                              DOB: new Date(evt),
                            });
                         }}
                         error={err?.DOB}
                         inputType="date"
+                        formDateValue={dateObject?.DOB}
                      />
                   </S.CreateUserSpan>
                   <FormInputs
@@ -143,6 +160,7 @@ export function CreateProfileForm({
                            address: evt.target.value,
                         });
                      }}
+                     formValue={dateObject.address}
                   />
                   <FormInputs
                      placeholder="Postal Code"
@@ -152,6 +170,7 @@ export function CreateProfileForm({
                            postCode: evt.target.value,
                         });
                      }}
+                     formValue={dateObject.postCode}
                   />
                   <FormInputs
                      placeholder="Telephone"
@@ -161,6 +180,7 @@ export function CreateProfileForm({
                            tel: evt.target.value,
                         });
                      }}
+                     formValue={dateObject.tel}
                      inputType="tel"
                   />
                </S.Wrapper>
@@ -183,11 +203,14 @@ export function CreateProfileForm({
                      placeholder="Extra Info"
                      inputType="text-area"
                      onTextAreaChange={(evt) => {
+                        console.log("the evt =>", evt);
+
                         setUserData({
                            ...userData,
                            extraInfo: evt.target.value,
                         });
                      }}
+                     formValue={dateObject.extraInfo}
                   />
 
                   <ButtonsWrapper>

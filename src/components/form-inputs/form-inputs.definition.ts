@@ -10,6 +10,7 @@ export type TFormInputsProps = {
    formValue?: string;
    onDateChange?: ((evt: Date) => void) | undefined;
    onTextAreaChange?: React.ChangeEventHandler<HTMLTextAreaElement> | undefined;
+   formDateValue?: string | undefined;
 };
 
 export type TErrorStyle = {

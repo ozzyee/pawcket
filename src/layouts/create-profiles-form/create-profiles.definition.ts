@@ -22,7 +22,12 @@ export type TCreateUserLayoutProps = {
       firstName?: string;
       lastName?: string;
       userID?: string;
+      DOB?: string;
+      extraInfo?: string;
       userImage?: string;
+      address?: string;
+      postCode?: string;
+      tel?: string;
    };
    userUID: string;
 };

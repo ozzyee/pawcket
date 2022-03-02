@@ -5,7 +5,7 @@ export type TCreateUserPage = {
       lastName?: string;
       userID?: string;
       userImage?: string;
-      DOB?: Date | string;
+      DOB?: string;
       extraInfo?: string;
    };
    userUID: string;

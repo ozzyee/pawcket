@@ -36,7 +36,12 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const userUID = dataRes.getIdToken.user_id;
       const docRef = doc(firestoreDB, "users", userUID);
       const docSnap = await getDoc(docRef);
-      const data = docSnap.data();
+      const _data = docSnap.data();
+
+      const data = {
+         ..._data,
+         DOB: JSON.stringify(_data?.DOB.toDate()),
+      };
 
       if (!dataRes) {
          return {

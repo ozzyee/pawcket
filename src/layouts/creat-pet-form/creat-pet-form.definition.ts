@@ -3,7 +3,7 @@ export type TCreatePetFormProps = {
 };
 
 export type TPet = {
-   name?: string;
+   name: string;
    bio?: string;
    sex?: string;
    dateOfBirth?: Date | string;

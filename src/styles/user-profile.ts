@@ -109,6 +109,8 @@ export const Bottom = styled.div`
     .separator{
         width: 90%;
         margin: 0 5%;
+        position: relative;
+        z-index: 5;
     }
     .placeholder{
         color: rgba(14, 23, 27, 0.5);

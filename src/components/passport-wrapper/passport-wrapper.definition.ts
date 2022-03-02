@@ -1,6 +1,8 @@
 import { ReactChild } from "react"
 
 export type TPassportWrapper = {
-    separatorText: string,
-    children: ReactChild[]
+    separator?:boolean,
+    separatorText?: string,
+    children: ReactChild[],
+    className?: string
 }

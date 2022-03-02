@@ -12,6 +12,7 @@ export type TUser = {
 };
 
 export const freddie: TPet = {
+
    name: "Freddie",
    bio: "Did you know that I have been considered a frisbee champion for my mad fetch skills? If you love your frisbee as much as I love mine, you should hit me up so we can be a champion team",
    sex: "Male",
@@ -38,6 +39,7 @@ export const tony: TPet = {
 };
 
 export const jennifer: TUser = {
+
    name: "Jennifer Jones",
    address: "123 Street Rd.",
    dateOfBirth: "29 of February 1988",

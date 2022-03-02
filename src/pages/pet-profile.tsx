@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
+import { Separator } from "../components/separator/separator.component";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { Frame } from "../components/frame/frame.component";
 import { Text } from "../components/text/text.component";
@@ -10,22 +11,11 @@ import * as S from "../styles/pet-profile"
 
 const PetProfile: NextPage = () => {
 
-    const[pet, setUser] = useState({...data.freddie})
+    const[pet, setUser] = useState({...data.tony})
 
-    return (
-        
-    <MainLayout
-      bottomTitle={pet.name}
-      topChildren={<Frame background="/frame.svg" img={pet.profilePic} diameter={280}/>}
-      >
-    <S.Bio>
-        <Text className="bio">
-            {`"${pet.bio}"`}
-        </Text>
-        <PassportWrapper separatorText="My Passport">
-        {[
+    const passport = [
         <Text className="placeholder">
-            {"Name:"}
+        {"Name:"}
         </Text>,
         <Text>
             {`${pet.name}`}
@@ -65,12 +55,61 @@ const PetProfile: NextPage = () => {
         </Text>,
         <Text className="aboutMe">
             {`${pet.aboutMe}`}
+        </Text>]
+
+    return (
+    <>
+    <S.Desktop>
+    <MainLayout desktopCard={true} className="desktop">
+        <S.TopLeft>
+            <Frame background="/frame.svg" 
+            img={!pet.profilePic || pet.profilePic === "" ? "/circle/user-circle.svg" : pet.profilePic}
+            diameter={200}/>
+            <Text textType="h1" className="name">
+                {pet.name}
+            </Text>
+        </S.TopLeft>
+        <S.TopRight>
+         <Navbar className="desktopNav"/>
+         <Text className="bio">
+             {`"${pet.bio}"`}
+         </Text>
+        </S.TopRight>
+        <S.Bottom>
+            <Separator separatorText="My Passport" className="separator"/>
+            <PassportWrapper separator={false} className="desktopPassport">
+                {[...passport]}
+            </PassportWrapper>
+        </S.Bottom>
+
+    </MainLayout>
+    </S.Desktop>
+
+
+    <S.Mobile>
+    <MainLayout
+      bottomTitle={pet.name}
+      topChildren={<Frame 
+        background="/frame.svg" 
+        img={!pet.profilePic || pet.profilePic === "" ? 
+        "/circle/user-circle.svg":
+        pet.profilePic
+        }
+        diameter={230}/>}
+        className="mobile"
+      >
+    <S.Bio>
+        <Text className="bio">
+            {`"${pet.bio}"`}
         </Text>
-        ]}
+        <PassportWrapper separator={true} separatorText="My Passport">
+        {[...passport]}
     </PassportWrapper>
     </S.Bio>
     <Navbar/>
     </MainLayout>
+    </S.Mobile>
+    </>
     );
  };
  

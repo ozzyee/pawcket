@@ -15,8 +15,7 @@ export default {
          description:
             `URL for the foreground image property. Takes a string `,
 
-      }, 
-
+      },
       diameter: {
          description:
             "Diameter of the whole frame (foreground is rescaled accordingly) is required. Takes a number",
@@ -28,11 +27,13 @@ export default {
    },
 } as ComponentMeta<typeof Frame>;
 
-const Template = ({ background, img }: TFrameProps) => {
-   return <Frame background={background} img={img} diameter={150}/>;
+const Template = ({ background, img, diameter }: TFrameProps) => {
+   return <Frame background={background} img={img} diameter={diameter}/>;
 };
 
 export const aFrame: any = Template.bind({});
 aFrame.args = {
    background: "/frame.svg",
+   img:"/dummy/freddie.jpg",
+   diameter:200
 };

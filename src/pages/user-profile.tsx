@@ -47,8 +47,15 @@ const UserProfile: NextPage = () => {
     <PassportWrapper separatorText="My Pets">
         {[
         <S.PetsSection>
-        {user.pets.map( (pet) => {
-            return(<RoundImage src={pet.profilePic} diameter={100} caption={pet.name}/>)
+        {user.pets.map( (pet, id) => {
+            return(<RoundImage 
+                src={pet.profilePic} 
+                diameter={100} 
+                caption={pet.name} 
+                onClick={() =>
+                   router.push("/pet-profile", undefined, { shallow: true })
+                }
+                key={id}/>)
         })}
         <Buttons 
             children="+" 

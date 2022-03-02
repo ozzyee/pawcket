@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 import styles from "./style.config.json"
 
 export const Bio = styled.div`
@@ -20,3 +20,30 @@ export const Bio = styled.div`
         line-height: 110%;
     }
 `
+export const Desktop = styled.div`
+
+.desktop{
+        display: none;
+    }
+
+    @media (min-width: ${styles.breakPoints.m}) {
+        
+        .desktop{
+            display: grid;
+        }
+    }
+`
+export const topLeft = styled.span`
+
+`
+
+export const Mobile = styled.span`
+
+    @media (min-width: ${styles.breakPoints.m}) {
+        
+        .mobile{
+            display: none;
+        }
+    }
+`
+

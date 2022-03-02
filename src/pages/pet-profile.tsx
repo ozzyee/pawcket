@@ -13,7 +13,19 @@ const PetProfile: NextPage = () => {
     const[pet, setUser] = useState({...data.freddie})
 
     return (
-        
+    <>
+    <S.Desktop>
+    <MainLayout desktopCard={true} className="desktop">
+
+        <Frame background="/frame.svg" 
+        img={!pet.profilePic || pet.profilePic === "" ? "/circle/user-circle.svg" : pet.profilePic}
+        diameter={230}/>
+
+    </MainLayout>
+    </S.Desktop>
+
+
+    <S.Mobile>
     <MainLayout
       bottomTitle={pet.name}
       topChildren={<Frame 
@@ -22,7 +34,8 @@ const PetProfile: NextPage = () => {
         "/circle/user-circle.svg":
         pet.profilePic
         }
-        diameter={280}/>}
+        diameter={230}/>}
+        className="mobile"
       >
     <S.Bio>
         <Text className="bio">
@@ -77,6 +90,8 @@ const PetProfile: NextPage = () => {
     </S.Bio>
     <Navbar/>
     </MainLayout>
+    </S.Mobile>
+    </>
     );
  };
  

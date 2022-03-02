@@ -12,6 +12,7 @@ import { doc, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 
 const PetProfile: NextPage = () => {
+   // eslint-disable-next-line no-unused-vars
    const [pet, setUser] = useState({ ...data.freddie });
 
    return (
@@ -28,22 +29,20 @@ const PetProfile: NextPage = () => {
          <S.Bio>
             <Text className="bio">{`"${pet.bio}"`}</Text>
             <PassportWrapper separatorText="My Passport">
-               {[
-                  <Text className="placeholder">{"Name:"}</Text>,
-                  <Text>{`${pet.name}`}</Text>,
-                  <Text className="placeholder">{"Sex:"}</Text>,
-                  <Text>{`${pet.sex}`}</Text>,
-                  <Text className="placeholder">{"Date of Birth:"}</Text>,
-                  <Text>{`${pet.dateOfBirth}`}</Text>,
-                  <Text className="placeholder">{"Personality:"}</Text>,
-                  <Text>{`${pet.personality}`}</Text>,
-                  <Text className="placeholder">{"Medication:"}</Text>,
-                  <Text>{`${pet.medications}`}</Text>,
-                  <Text className="placeholder">{"Weight:"}</Text>,
-                  <Text>{`${pet.weight}`}</Text>,
-                  <Text className="placeholder">{"About me:"}</Text>,
-                  <Text className="aboutMe">{`${pet.aboutMe}`}</Text>,
-               ]}
+               <Text className="placeholder">{"Name:"}</Text>,
+               <Text>{`${pet.name}`}</Text>,
+               <Text className="placeholder">{"Sex:"}</Text>,
+               <Text>{`${pet.sex}`}</Text>,
+               <Text className="placeholder">{"Date of Birth:"}</Text>,
+               <Text>{`${pet.dateOfBirth}`}</Text>,
+               <Text className="placeholder">{"Personality:"}</Text>,
+               <Text>{`${pet.personality}`}</Text>,
+               <Text className="placeholder">{"Medication:"}</Text>,
+               <Text>{`${pet.medications}`}</Text>,
+               <Text className="placeholder">{"Weight:"}</Text>,
+               <Text>{`${pet.weight}`}</Text>,
+               <Text className="placeholder">{"About me:"}</Text>,
+               <Text className="aboutMe">{`${pet.aboutMe}`}</Text>,
             </PassportWrapper>
          </S.Bio>
          <Navbar />

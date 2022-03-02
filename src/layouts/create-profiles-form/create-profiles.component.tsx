@@ -80,11 +80,7 @@ export function CreateProfileForm({
                ...dateObject,
                ...userData,
             });
-
-            _setOpen(true);
-            _setSnackbarType("success");
-            _setSnackbarMsg("The data was saved successfully.");
-            router.push("/user-profile", undefined, { shallow: true });
+            router.push("/user-profile", undefined, { shallow: false });
          } catch (err) {
             const error = err as Error;
             _setOpen(true);

@@ -37,16 +37,36 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const docRef = doc(firestoreDB, "users", userUID);
       const docSnap = await getDoc(docRef);
       const _data = docSnap.data();
+      const data = _data;
 
-      const data = {
-         ..._data,
-         DOB: JSON.stringify(_data?.DOB.toDate()),
-      };
-
+      // No user then send to login/ sign up page
       if (!dataRes) {
          return {
             redirect: {
                destination: "/",
+            },
+         };
+      }
+
+      if (data?.firstName && data?.lastName && data?.DOB) {
+         return {
+            redirect: {
+               destination: "/user-profile",
+            },
+         };
+      }
+
+      // If user and date is set in db set the date in object
+      if (_data?.DOB) {
+         const data = {
+            ..._data,
+            DOB: JSON.stringify(_data?.DOB.toDate()),
+         };
+         
+         return {
+            props: {
+               data,
+               userUID,
             },
          };
       }
@@ -58,6 +78,8 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          },
       };
    } catch (err) {
+      console.log("ERR", err);
+
       return {
          redirect: {
             destination: "/",

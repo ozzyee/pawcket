@@ -1,4 +1,5 @@
-import { NextPage } from "next";
+/* eslint-disable no-unused-vars */
+import { NextApiRequest, NextPage } from "next";
 import { useState } from "react";
 import { RoundImage } from "../components/round-image/round-img.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
@@ -8,56 +9,101 @@ import { Text } from "../components/text/text.component";
 import { Buttons } from "../components/buttons/buttons.component";
 import { Navbar } from "../components/navbar/navbar.component";
 import * as data from "../../dummy-data/dummy-data";
-import * as S from "../styles/user-profile"
+import * as S from "../styles/user-profile";
 import router from "next/router";
+import { AuthService } from "../lib/auth-service/auth.service";
+import { doc, getDoc } from "@firebase/firestore";
+import { firestoreDB } from "../lib/firebase/firebase.initialize";
 
 const UserProfile: NextPage = () => {
+   const [user, setUser] = useState({ ...data.jennifer });
 
-    const[user, setUser] = useState({...data.jennifer})
-
-    return (
-        
-    <MainLayout
-      bottomTitle={user.username}
-      topChildren={<Frame background="/frame.svg" diameter={230}/>}
+   return (
+      <MainLayout
+         bottomTitle={user.username}
+         topChildren={<Frame background="/frame.svg" diameter={230} />}
       >
-    <S.InfoSection>
-        <Text className="bio">
-            {`${user.extraInfo}`}
-        </Text>
-        <Text className="placeholder">
-                {"Address:"}
-        </Text>
-        <Text>
-            {`${user.address}`}
-        </Text>
-        <Text className="placeholder">
-            {"Date of Birth:"}
-        </Text>
-        <Text>
-            {`${user.dateOfBirth}`}
-        </Text>
-    </S.InfoSection>
-    <PassportWrapper separatorText="My Pets">
-        {[
-        <S.PetsSection>
-        {user.pets.map( (pet) => {
-            return(<RoundImage src={pet.profilePic} diameter={100} caption={pet.name}/>)
-        })}
-        <Buttons 
-            children="+" 
-            dark={true}
-            onClick={() =>
-                router.push("/create-pet", undefined, { shallow: true })
-             }
-        />
-        </S.PetsSection>,
-        ]}
-    </PassportWrapper>
-    <Navbar/>
-    </MainLayout>
-    );
- };
- 
- export default UserProfile;
- 
+         <S.InfoSection>
+            <Text className="bio">{`${user.extraInfo}`}</Text>
+            <Text className="placeholder">{"Address:"}</Text>
+            <Text>{`${user.address}`}</Text>
+            <Text className="placeholder">{"Date of Birth:"}</Text>
+            <Text>{`${user.dateOfBirth}`}</Text>
+         </S.InfoSection>
+         <PassportWrapper separatorText="My Pets">
+            <S.PetsSection>
+               {user.pets.map((pet, index) => {
+                  return (
+                     <RoundImage
+                        src={pet.profilePic}
+                        diameter={100}
+                        caption={pet.name}
+                        key={index}
+                     />
+                  );
+               })}
+               <Buttons
+                  dark={true}
+                  onClick={() =>
+                     router.push("/create-pet", undefined, { shallow: true })
+                  }
+               >
+                  +
+               </Buttons>
+            </S.PetsSection>
+            ,
+         </PassportWrapper>
+         <Navbar />
+      </MainLayout>
+   );
+};
+
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+   try {
+      const cookieRefreshToken = req.cookies.token;
+      const authService = new AuthService();
+      const dataRes = await authService.getFirebaseUserToken(
+         cookieRefreshToken
+      );
+      const userUID = dataRes.getIdToken.user_id;
+      const docRef = doc(firestoreDB, "users", userUID);
+      const docSnap = await getDoc(docRef);
+      const _data = docSnap.data();
+
+      // No user then send to login/ sign up page
+      if (!dataRes) {
+         return {
+            redirect: {
+               destination: "/",
+            },
+         };
+      }
+
+      console.log(!_data?.DOB );
+      
+
+      if (!_data?.firstName || !_data?.lastName || !_data?.DOB) {
+         return {
+            redirect: {
+               destination: "/create-user",
+            },
+         };
+      }
+
+      return {
+         props: {
+            userUID,
+         },
+      };
+   } catch (err) {
+      console.log("ERR", err);
+
+      return {
+         redirect: {
+            destination: "/",
+         },
+      };
+   }
+}
+
+export default UserProfile;

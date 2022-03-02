@@ -1,5 +1,5 @@
 import { auth, firestoreDB } from "../../lib/firebase/firebase.initialize";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 
 import {
    createUserWithEmailAndPassword,
@@ -97,7 +97,13 @@ export class AuthService implements IAuthContract {
          const refreshToken = res.user.stsTokenManager.refreshToken;
          const userID = res.user.uid;
 
+         const docRef = doc(firestoreDB, "users", userID);
+         const docSnap = await getDoc(docRef);
+         const _data = docSnap.data();
+         const data = _data;
+
          const userData = {
+            ...data,
             userID,
             firstName: res._tokenResponse.firstName,
             lastName: res._tokenResponse.lastName,

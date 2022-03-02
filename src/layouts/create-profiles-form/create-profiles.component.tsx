@@ -15,24 +15,27 @@ import { createUserValidation } from "./functions/cteate-user-validation";
 import { useContent } from "../../context/context";
 import { setDoc, doc } from "firebase/firestore";
 import { firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { useRouter } from "next/router";
 
 export function CreateProfileForm({
    dateObject,
    userUID,
 }: TCreateUserLayoutProps) {
+   const router = useRouter();
+
    const [userData, setUserData] = useState<null | TCreatUser>({
-      firstName: dateObject.firstName,
-      lastName: dateObject.lastName,
-      address: dateObject.address,
-      postCode: dateObject.postCode,
-      tel: dateObject.tel,
-      extraInfo: dateObject.extraInfo,
+      firstName: dateObject?.firstName || "",
+      lastName: dateObject?.lastName || "",
+      address: dateObject?.address || "",
+      postCode: dateObject?.postCode || "",
+      tel: dateObject?.tel || "",
+      extraInfo: dateObject?.extraInfo || "",
    });
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [err, setErr] = useState<TCreatUser | null>(null);
 
    useEffect(() => {
-      if (dateObject.DOB) {
+      if (dateObject?.DOB) {
          const dateSplit = dateObject.DOB.split("T")[0];
          const dateSplitString = dateSplit?.split('"')[1];
          setUserData({
@@ -81,6 +84,7 @@ export function CreateProfileForm({
             _setOpen(true);
             _setSnackbarType("success");
             _setSnackbarMsg("The data was saved successfully.");
+            router.push("/user-profile", undefined, { shallow: true });
          } catch (err) {
             const error = err as Error;
             _setOpen(true);
@@ -115,7 +119,7 @@ export function CreateProfileForm({
                         }}
                         error={err?.firstName}
                         inputType="name"
-                        formValue={dateObject.firstName}
+                        formValue={dateObject?.firstName}
                      />
                      <FormInputs
                         placeholder="Last Name"
@@ -127,7 +131,7 @@ export function CreateProfileForm({
                         }}
                         error={err?.lastName}
                         inputType="name"
-                        formValue={dateObject.lastName}
+                        formValue={dateObject?.lastName}
                      />
                      <FormInputs
                         placeholder="Username"
@@ -160,7 +164,7 @@ export function CreateProfileForm({
                            address: evt.target.value,
                         });
                      }}
-                     formValue={dateObject.address}
+                     formValue={dateObject?.address}
                   />
                   <FormInputs
                      placeholder="Postal Code"
@@ -170,7 +174,7 @@ export function CreateProfileForm({
                            postCode: evt.target.value,
                         });
                      }}
-                     formValue={dateObject.postCode}
+                     formValue={dateObject?.postCode}
                   />
                   <FormInputs
                      placeholder="Telephone"
@@ -180,7 +184,7 @@ export function CreateProfileForm({
                            tel: evt.target.value,
                         });
                      }}
-                     formValue={dateObject.tel}
+                     formValue={dateObject?.tel}
                      inputType="tel"
                   />
                </S.Wrapper>
@@ -210,7 +214,7 @@ export function CreateProfileForm({
                            extraInfo: evt.target.value,
                         });
                      }}
-                     formValue={dateObject.extraInfo}
+                     formValue={dateObject?.extraInfo}
                   />
 
                   <ButtonsWrapper>

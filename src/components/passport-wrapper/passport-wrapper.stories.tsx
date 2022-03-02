@@ -9,9 +9,17 @@ export default {
    title: "Passport Wrapper",
    component: Wrapper,
    argTypes: {
+    separator: {
+       description:
+       "Value to display or not separator.Takes a boolean",
+    },
       separatorText: {
          description:
          "Text in the top of the component. Takes a string",
+      },
+      className: {
+         description:
+         "Element class. Takes a string",
       },
    },
 } as ComponentMeta<typeof Wrapper>;

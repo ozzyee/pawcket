@@ -10,14 +10,16 @@ import { AuthService } from "../lib/auth-service/auth.service";
 import dynamic from "next/dynamic";
 import { TAuthDesktopProps } from "../layouts/auth-desktop/auth-desktop.definition";
 import { AuthDesktop, LoginForm } from "../functions/dynamic-imports";
+import Head from "next/head";
 
 const Login: NextPage = () => {
    const router = useRouter();
 
-
-
    return (
       <>
+         <Head>
+            <title>Pawcket | Login</title>
+         </Head>
          <AuthDesktop
             className="desktop-display-block "
             form={<LoginForm />}

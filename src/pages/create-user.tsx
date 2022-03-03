@@ -10,6 +10,8 @@ import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { TCreateUserPage } from "../types/create-user-definition";
+import Head from "next/head";
+
 
 const CreateUser = ({ data, userUID }: TCreateUserPage) => {
    const hiddenImageUploader = useRef(null);
@@ -22,6 +24,10 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
 
    return (
       <>
+         <Head>
+            <title>Pawcket | Create User</title>
+         </Head>
+
          <MainLayout desktopCard={true} className="desktop-display-block">
             <CreateProfileForm dateObject={data} userUID={userUID} />
          </MainLayout>

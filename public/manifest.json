@@ -3,7 +3,7 @@
    "background_color": "#f69435",
    "display": "standalone",
    "scope": "/",
-   "start_url": "/create-user",
+   "start_url": "/",
    "name": "pawcket",
    "short_name": "pawcket",
    "description": "the free social media for pets and owners alike",

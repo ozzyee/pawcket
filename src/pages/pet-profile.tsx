@@ -11,6 +11,7 @@ import { doc, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Passport } from "../components/passport/passport.component";
 import { Frame, Navbar } from "../functions/dynamic-imports";
+import Head from "next/head";
 
 const PetProfile: NextPage = () => {
    const [pet] = useState({ ...data.tony });
@@ -18,6 +19,10 @@ const PetProfile: NextPage = () => {
 
    return (
       <>
+         <Head>
+            <title>Pawcket | Pet Profile</title>
+         </Head>
+
          <S.Desktop>
             <MainLayout desktopCard={true} className="desktop">
                <S.TopLeft>

@@ -6,11 +6,15 @@ import { Text } from "../components/text/text.component";
 import { useRouter } from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { Buttons } from "../functions/dynamic-imports";
+import Head from "next/head";
 
 const Home: NextPage = () => {
    const router = useRouter();
    return (
       <>
+         <Head>
+            <title>Pawcket | Home</title>
+         </Head>
          <MainLayout
             topTitle="Pawcket"
             bottomTitle="Welcome!"

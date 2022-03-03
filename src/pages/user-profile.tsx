@@ -14,12 +14,17 @@ import { AuthService } from "../lib/auth-service/auth.service";
 import { doc, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Frame, Navbar } from "../functions/dynamic-imports";
+import Head from "next/head";
 
 const UserProfile: NextPage = () => {
    const [user, setUser] = useState({ ...data.jennifer });
    if (!user) return null;
    return (
       <>
+         <Head>
+            <title>Pawcket | Dashboard</title>
+         </Head>
+
          <S.Desktop>
             <MainLayout desktopCard={true} className="desktop">
                <S.TopLeft>

@@ -5,10 +5,15 @@ import { CreatePetForm } from "../functions/dynamic-imports";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
+import Head from "next/head";
 
 const CreatePet: NextPage = () => {
    return (
       <>
+         <Head>
+            <title>Pawcket | Create Pet</title>
+         </Head>
+
          <MainLayout desktopCard={true} className="desktop-display-block">
             <CreatePetForm />
          </MainLayout>

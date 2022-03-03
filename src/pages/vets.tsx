@@ -10,6 +10,7 @@ import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Buttons, Frame } from "../functions/dynamic-imports";
 import dynamic from "next/dynamic";
 import { TVetsInfoProps } from "../components/vets-info/vets-info.definition";
+import Head from "next/head";
 
 const Vet: NextPage = () => {
    const initialState = [
@@ -64,6 +65,10 @@ const Vet: NextPage = () => {
 
    return (
       <>
+         <Head>
+            <title>Pawcket | Vets</title>
+         </Head>
+
          <MainLayout
             bottomTitle="Vets near you"
             topChildren={

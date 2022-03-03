@@ -16,9 +16,21 @@ import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Frame, Navbar } from "../functions/dynamic-imports";
 import Head from "next/head";
 
-const UserProfile: NextPage = () => {
+const UserProfile: NextPage = (props) => {
    const [user, setUser] = useState({ ...data.jennifer });
    if (!user) return null;
+
+    //Fetch user info
+        const userData = async (id: string) => {
+            const ref = doc(firestoreDB, "users", id);
+            const snap = await getDoc(ref)
+            const data = snap.data()
+            console.log("HERE=====>",data)
+            setUser({...data})
+        }
+        userData(props.userUID)
+
+
    return (
       <>
          <Head>

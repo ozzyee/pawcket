@@ -72,7 +72,7 @@ export const ButtonWrapper = styled.div`
    flex-direction: column;
    display: none;
 
-   #form-btn {
+   .form-btn {
       left: 0;
       right: 0;
       margin: 0;

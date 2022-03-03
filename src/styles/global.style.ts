@@ -120,7 +120,7 @@ export const LandingPage = styled.main`
    flex-direction: column;
    height: 75%;
 
-   #login-btn-1 #login-btn-2 {
+   .login-btn {
       margin-top: 15px;
       margin-bottom: 15px;
    }
@@ -136,7 +136,7 @@ export const LandingPage = styled.main`
          display: none;
       }
 
-      #login-btn-1 #login-btn-2 {
+      .login-btn {
          height: 40px;
          border-radius: 22px;
          margin-right: 10px;
@@ -232,7 +232,7 @@ export const ButtonsWrapper = styled.div`
    justify-content: center;
    padding-bottom: 1.5rem;
 
-   #form-btn {
+   .form-btn {
       left: 0;
       right: 0;
       margin: 0;

@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse, NextPage } from "next";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
+
 import Logo from "../../public/dummy-logo.svg";
 import { LandingPage, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
 import { useRouter } from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
-import { Buttons } from "../functions/dynamic-imports";
+import { Buttons, MainLayout } from "../functions/dynamic-imports";
 import Head from "next/head";
 
 const Home: NextPage = () => {

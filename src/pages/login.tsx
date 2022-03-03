@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import type { NextApiRequest, NextPage } from "next";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
+
 import Logo from "../../public/dummy-logo.svg";
 import { AuthScreen, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
@@ -9,7 +9,11 @@ import { useRouter } from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
 import dynamic from "next/dynamic";
 import { TAuthDesktopProps } from "../layouts/auth-desktop/auth-desktop.definition";
-import { AuthDesktop, LoginForm } from "../functions/dynamic-imports";
+import {
+   AuthDesktop,
+   LoginForm,
+   MainLayout,
+} from "../functions/dynamic-imports";
 import Head from "next/head";
 
 const Login: NextPage = () => {
@@ -20,7 +24,6 @@ const Login: NextPage = () => {
          <Head>
             <title>Pawcket | Login</title>
             <html lang="en" />
-
          </Head>
          <AuthDesktop
             className="desktop-display-block "

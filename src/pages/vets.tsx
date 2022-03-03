@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextPage } from "next";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
 
 import { Navbar } from "../components/navbar/navbar.component";
 import { useState } from "react";
@@ -7,7 +6,7 @@ import { VetList, VetButtons } from "../layouts/main-layout/main-layout.style";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { doc, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { Buttons, Frame } from "../functions/dynamic-imports";
+import { Buttons, Frame, MainLayout } from "../functions/dynamic-imports";
 import dynamic from "next/dynamic";
 import { TVetsInfoProps } from "../components/vets-info/vets-info.definition";
 import Head from "next/head";

@@ -27,6 +27,29 @@ const Vet: NextPage = () => {
       setVets(data);
    }
 
+   function getRandomWord(){
+      const randomNumber = Math.floor(Math.random() * 7);
+      switch(randomNumber){
+         case 0 :
+            return "Clinic";
+         case 1:
+            return "Practice";
+         case 2:
+            return "Vets";
+         case 3:
+            return "Walk-in";
+         case 4:
+            return "Services";
+         case 5:
+            return "Veterinary";
+         case 6:
+            return "Pet Hospital";
+         default :
+            return null;
+      }
+   }
+
+
    useEffect(()=>{
       getVets();
    }, [])
@@ -42,7 +65,8 @@ const Vet: NextPage = () => {
                <Navbar className="nav" />
                <Text textType="h1" className="title">Vets near you</Text>
                <Separator className="vets"/>
-               <VetButtons className="vetbuttons">                 <li>
+               <VetButtons className="vetbuttons">
+                   <li>
                      <Buttons vetsNavBtn={true} dark={true}>
                         Open Now
                      </Buttons>
@@ -53,7 +77,8 @@ const Vet: NextPage = () => {
                      </Buttons>
                   </li>
                   <li>
-                     <Buttons vetsNavBtn={true} dark={true}>
+                     <Buttons vetsNavBtn={true} dark={true} onClick={()=>{
+                     }}>
                         Near You
                      </Buttons>
                   </li>
@@ -68,14 +93,16 @@ const Vet: NextPage = () => {
                   <PassportWrapper className="wrapper">
                   <VetList className="vetcard">
                   {vets.map((vet, index) => {
+                     //Making random values for the API, so they dont look samey.
                      const randomPhone = Math.floor(Math.random() * 1000)
                      return (
                         <li key={index}>
                            <VetsInfo
-                              vetName={"Dr. " +vet.name + "'s Clinic"}
+                              vetName={"Dr. " + vet.name + "'s " + getRandomWord()}
                               vetPhoneNumber={`0${randomPhone}  ${vet.phone}  ${randomPhone * 2}`}
                               vetAddress={vet.address}
                               vetWebsite={vet.website}
+                              vetDistance={vet.distance + " meters"}
                            />
                         </li>
                      );
@@ -109,20 +136,25 @@ const Vet: NextPage = () => {
                      </Buttons>
                   </li>
                   <li>
-                     <Buttons vetsNavBtn={true} dark={true}>
+                     <Buttons vetsNavBtn={true} dark={true} onClick={()=>{
+                     }}>
                         Near You
                      </Buttons>
                   </li>
                </VetButtons>
                <VetList className="vetcard">
-                  {vets.map((vet, index) => {
+               {vets.map((vet, index) => {
+                     //Making random values for the API, so they dont look samey.
+                     const randomPhone = Math.floor(Math.random() * 1000)
+                     const randomNoun = Math.floor(Math.random() * 3);
                      return (
                         <li key={index}>
                            <VetsInfo
-                              vetName={vet.name}
-                              vetPhoneNumber={vet.phoneNumber}
-                              vetAddress={vet.vetAddress}
-                              vetWebsite={vet.vetWebsite}
+                              vetName={"Dr. " + vet.name + "'s " + getRandomWord()}
+                              vetPhoneNumber={`0${randomPhone}  ${vet.phone}  ${randomPhone * 2}`}
+                              vetAddress={vet.address}
+                              vetWebsite={vet.website}
+                              vetDistance={vet.distance}
                            />
                         </li>
                      );

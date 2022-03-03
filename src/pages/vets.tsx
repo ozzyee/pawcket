@@ -5,7 +5,7 @@ import * as S from "../styles/vets.style";
 import { Buttons } from "../components/buttons/buttons.component";
 import { Navbar } from "../components/navbar/navbar.component";
 import { VetsInfo } from "../components/vets-info/vets-info.component";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { VetList, VetButtons } from "../styles/vets.style";
 import { Frame } from "../components/frame/frame.component";
 import { Return } from "../components/return-button/returnbutton.component";
@@ -16,69 +16,28 @@ import {Text} from "../components/text/text.component"
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 
 const Vet: NextPage = () => {
-   const initialState = [
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
 
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
-      {
-         name: "sdsd",
-         phoneNumber: "9239238",
-         vetAddress: "i92ijwdioj",
-         vetWebsite: "sidjsidj",
-      },
-   ];
-   const [vets, setVets] = useState(initialState);
+   const [vets, setVets] = useState([]);
+
+
+   async function getVets(){
+      const response = await fetch("https://hub.dummyapis.com/vj/tuB6Lx7");
+      const data = await response.json();
+      console.log(data);
+      setVets(data);
+   }
+
+   useEffect(()=>{
+      getVets();
+   }, [])
+
+
    return (
       <>
          <S.Desktop>
             <MainLayout className="desktop" desktopCard={true}>
                <S.Top>
+               <h1 onClick={getVets}>CLICK ME FOR VETS!!!!!!!!</h1>
                <S.TopRight>
                <Navbar className="nav" />
                <Text textType="h1" className="title">Vets near you</Text>
@@ -109,13 +68,14 @@ const Vet: NextPage = () => {
                   <PassportWrapper className="wrapper">
                   <VetList className="vetcard">
                   {vets.map((vet, index) => {
+                     const randomPhone = Math.floor(Math.random() * 1000)
                      return (
                         <li key={index}>
                            <VetsInfo
-                              vetName={vet.name}
-                              vetPhoneNumber={vet.phoneNumber}
-                              vetAddress={vet.vetAddress}
-                              vetWebsite={vet.vetWebsite}
+                              vetName={"Dr. " +vet.name + "'s Clinic"}
+                              vetPhoneNumber={`0${randomPhone}  ${vet.phone}  ${randomPhone * 2}`}
+                              vetAddress={vet.address}
+                              vetWebsite={vet.website}
                            />
                         </li>
                      );

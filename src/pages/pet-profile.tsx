@@ -21,6 +21,8 @@ const PetProfile: NextPage = () => {
       <>
          <Head>
             <title>Pawcket | Pet Profile</title>
+            <html lang="en" />
+
          </Head>
 
          <S.Desktop>

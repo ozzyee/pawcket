@@ -19,6 +19,8 @@ const Login: NextPage = () => {
       <>
          <Head>
             <title>Pawcket | Login</title>
+            <html lang="en" />
+
          </Head>
          <AuthDesktop
             className="desktop-display-block "

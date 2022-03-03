@@ -17,6 +17,8 @@ const SignUp: NextPage = () => {
       <>
          <Head>
             <title>Pawcket | Sign Up</title>
+            <html lang="en" />
+
          </Head>
 
          <AuthDesktop

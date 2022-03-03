@@ -14,6 +14,8 @@ const Home: NextPage = () => {
       <>
          <Head>
             <title>Pawcket | Home</title>
+            <html lang="en" />
+
          </Head>
          <MainLayout
             topTitle="Pawcket"
@@ -22,7 +24,7 @@ const Home: NextPage = () => {
          >
             <LandingPage>
                <Buttons
-                  id="login-btn"
+                  id="login-btn-1"
                   onClick={() =>
                      router.push("/login", undefined, { shallow: true })
                   }
@@ -30,7 +32,7 @@ const Home: NextPage = () => {
                   Log in
                </Buttons>
                <Buttons
-                  id="login-btn"
+                  id="login-btn-2"
                   className="login-btn landing-page-btn"
                   dark={true}
                   onClick={() =>

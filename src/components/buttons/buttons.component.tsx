@@ -10,7 +10,7 @@ export function Buttons({
    children,
    onClick,
    vetsNavBtn,
-   id
+   id,
 }: TButtonsProps) {
    const theme = {
       backgroundColor: dark ? styles.colors.orange : styles.colors.primary,
@@ -18,7 +18,7 @@ export function Buttons({
       fontSize: vetsNavBtn ? 0.8 : 1.5,
       height: vetsNavBtn ? 25 : 60,
       borderRadius: vetsNavBtn ? 30 : 11,
-      fontColor: dark ? "white" : "#CF5C36",
+      fontColor: dark ? "white" : "white",
    };
 
    return (

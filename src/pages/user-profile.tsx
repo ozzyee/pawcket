@@ -23,6 +23,8 @@ const UserProfile: NextPage = () => {
       <>
          <Head>
             <title>Pawcket | Dashboard</title>
+            <html lang="en" />
+
          </Head>
 
          <S.Desktop>

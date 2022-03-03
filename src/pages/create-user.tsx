@@ -26,6 +26,8 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
       <>
          <Head>
             <title>Pawcket | Create User</title>
+            <html lang="en" />
+
          </Head>
 
          <MainLayout desktopCard={true} className="desktop-display-block">

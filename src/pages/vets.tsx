@@ -67,6 +67,7 @@ const Vet: NextPage = () => {
       <>
          <Head>
             <title>Pawcket | Vets</title>
+            <html lang="en" />
          </Head>
 
          <MainLayout

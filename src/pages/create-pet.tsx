@@ -12,6 +12,7 @@ const CreatePet: NextPage = () => {
       <>
          <Head>
             <title>Pawcket | Create Pet</title>
+            <html lang="en" />
          </Head>
 
          <MainLayout desktopCard={true} className="desktop-display-block">

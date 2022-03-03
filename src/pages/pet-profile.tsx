@@ -3,21 +3,17 @@ import { useState } from "react";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 import { Separator } from "../components/separator/separator.component";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
-import { Frame } from "../components/frame/frame.component";
 import { Text } from "../components/text/text.component";
-import { Navbar } from "../components/navbar/navbar.component";
 import * as data from "../../dummy-data/dummy-data";
 import * as S from "../styles/pet-profile";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { doc, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Passport } from "../components/passport/passport.component";
+import { Frame, Navbar } from "../functions/dynamic-imports";
 
 const PetProfile: NextPage = () => {
-   // eslint-disable-next-line no-unused-vars
-
-   // eslint-disable-next-line no-unused-vars
-   const [pet, setUser] = useState({ ...data.tony });
+   const [pet] = useState({ ...data.tony });
    if (!pet) return null;
 
    return (

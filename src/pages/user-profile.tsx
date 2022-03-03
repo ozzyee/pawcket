@@ -5,16 +5,15 @@ import { RoundImage } from "../components/round-image/round-img.component";
 import { Separator } from "../components/separator/separator.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
-import { Frame } from "../components/frame/frame.component";
 import { Text } from "../components/text/text.component";
 import { Buttons } from "../components/buttons/buttons.component";
-import { Navbar } from "../components/navbar/navbar.component";
 import * as data from "../../dummy-data/dummy-data";
 import * as S from "../styles/user-profile";
 import router from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { doc, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
+import { Frame, Navbar } from "../functions/dynamic-imports";
 
 const UserProfile: NextPage = () => {
    const [user, setUser] = useState({ ...data.jennifer });

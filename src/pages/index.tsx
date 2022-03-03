@@ -1,13 +1,11 @@
-import type { NextApiRequest, NextPage } from "next";
+import type { NextApiRequest, NextApiResponse, NextPage } from "next";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import Logo from "../../public/dummy-logo.svg";
-import { Buttons } from "../components/buttons/buttons.component";
 import { LandingPage, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
 import { useRouter } from "next/router";
-import { doc, getDoc } from "@firebase/firestore";
 import { AuthService } from "../lib/auth-service/auth.service";
-import { firestoreDB } from "../lib/firebase/firebase.initialize";
+import { Buttons } from "../functions/dynamic-imports";
 
 const Home: NextPage = () => {
    const router = useRouter();
@@ -48,7 +46,17 @@ const Home: NextPage = () => {
    );
 };
 
-export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+export async function getServerSideProps({
+   req,
+   res,
+}: {
+   req: NextApiRequest;
+   res: NextApiResponse;
+}) {
+   res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=43200, stale-while-revalidate=60"
+   );
    try {
       const cookieRefreshToken = req.cookies.token;
       const authService = new AuthService();

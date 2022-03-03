@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { doc, getDoc } from "@firebase/firestore";
-import { NextApiRequest, NextPage } from "next";
+import { NextApiRequest, NextApiResponse, NextPage } from "next";
 import { Frame } from "../components/frame/frame.component";
-import { CreatePetForm } from "../layouts/creat-pet-form/creat-pet-form.component";
+import { CreatePetForm } from "../functions/dynamic-imports";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
@@ -27,7 +26,17 @@ const CreatePet: NextPage = () => {
    );
 };
 
-export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+export async function getServerSideProps({
+   req,
+   res,
+}: {
+   req: NextApiRequest;
+   res: NextApiResponse;
+}) {
+   res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=43200, stale-while-revalidate=60"
+   );
    try {
       const cookieRefreshToken = req.cookies.token;
       const authService = new AuthService();
@@ -37,6 +46,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const userUID = dataRes.getIdToken.user_id;
       const docRef = doc(firestoreDB, "pets", userUID);
       const docSnap = await getDoc(docRef);
+      // eslint-disable-next-line no-unused-vars
       const _data = docSnap.data();
 
       // No user then send to login/ sign up page
@@ -47,7 +57,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
             },
          };
       }
-
 
       return {
          props: {

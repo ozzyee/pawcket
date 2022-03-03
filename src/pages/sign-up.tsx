@@ -4,13 +4,14 @@ import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import Logo from "../../public/dummy-logo.svg";
 import { AuthScreen, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
-import { SignUpForm } from "../layouts/sign-up-form/sign-up-form.component";
 import { AuthDesktop } from "../layouts/auth-desktop/auth-desktop.component";
 import { useRouter } from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
+import { SignUpForm } from "../functions/dynamic-imports";
 
 const SignUp: NextPage = () => {
    const router = useRouter();
+
 
    return (
       <>

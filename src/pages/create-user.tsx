@@ -1,10 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { doc, getDoc } from "@firebase/firestore";
 import { NextApiRequest } from "next";
 import { useRef, useState } from "react";
-import { Frame } from "../components/frame/frame.component";
-import { ImageUploader } from "../components/image-uploader/image-uploader.component";
-import { CreateProfileForm } from "../layouts/create-profiles-form/create-profiles.component";
+import {
+   CreateProfileForm,
+   Frame,
+   ImageUploader,
+} from "../functions/dynamic-imports";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
@@ -18,6 +19,7 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
       // @ts-ignore
       hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
    };
+
    return (
       <>
          <MainLayout desktopCard={true} className="desktop-display-block">
@@ -33,7 +35,7 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
                   <Frame
                      background={"/frame.svg"}
                      diameter={150}
-                     img={data.userImage || image}
+                     img={data?.userImage ? data?.userImage || image : ""}
                      onClick={uploadImage}
                   />
                   <ImageUploader
@@ -82,6 +84,14 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          return {
             redirect: {
                destination: "/user-profile",
+            },
+         };
+      }
+
+      if (!data) {
+         return {
+            props: {
+               userUID,
             },
          };
       }

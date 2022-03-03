@@ -47,7 +47,6 @@ export function CreateProfileForm({
    };
 
    useEffect(() => {
-      setUserData({ ...userData });
       if (dateObject?.DOB) {
          const dateSplit = dateObject.DOB.split("T")[0];
          const dateSplitString = dateSplit?.split('"')[1];
@@ -64,10 +63,8 @@ export function CreateProfileForm({
          setUserData({ ...userData, userImage: img });
          return;
       }
-      setUserData({ ...userData, userImage: uploadImage });
    }, [uploadImage, img]);
 
-   console.log("data to save =>", userData);
 
    const addUserInfo = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -97,10 +94,11 @@ export function CreateProfileForm({
          _setSnackbarMsg(err?.lastName);
       }
 
+
       if (!err?.DOB && !err?.firstName && !err?.lastName) {
          try {
             await setDoc(doc(firestoreDB, "users", userUID), {
-               ...dateObject,
+               // ...dateObject,
                ...userData,
             });
             router.push("/user-profile", undefined, { shallow: false });

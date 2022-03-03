@@ -72,7 +72,7 @@ export const ButtonWrapper = styled.div`
    flex-direction: column;
    display: none;
 
-   #form-btn {
+   /* .form-btn {
       left: 0;
       right: 0;
       margin: 0;
@@ -90,7 +90,7 @@ export const ButtonWrapper = styled.div`
       margin-right: auto;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
-   }
+   } */
    @media (min-width: ${styles.breakPoints.m}) {
       display: flex;
    }

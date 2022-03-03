@@ -4,7 +4,6 @@ import { useState } from "react";
 import { RoundImage } from "../components/round-image/round-img.component";
 import { Separator } from "../components/separator/separator.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { Text } from "../components/text/text.component";
 import { Buttons } from "../components/buttons/buttons.component";
 import * as data from "../../dummy-data/dummy-data";
@@ -13,7 +12,7 @@ import router from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { doc, DocumentData, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { Frame, Navbar } from "../functions/dynamic-imports";
+import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import Head from "next/head";
 import { TUser } from "../../dummy-data/dummy-data";
 

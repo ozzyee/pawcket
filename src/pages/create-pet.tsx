@@ -1,8 +1,8 @@
 import { doc, getDoc } from "@firebase/firestore";
 import { NextApiRequest, NextApiResponse, NextPage } from "next";
 import { Frame } from "../components/frame/frame.component";
-import { CreatePetForm } from "../functions/dynamic-imports";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
+import { CreatePetForm, MainLayout } from "../functions/dynamic-imports";
+
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import Head from "next/head";

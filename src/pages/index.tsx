@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse, NextPage } from "next";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
+
 import Logo from "../../public/dummy-logo.svg";
 import { LandingPage, TextHolder } from "../styles/global.style";
 import { Text } from "../components/text/text.component";
 import { useRouter } from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
-import { Buttons } from "../functions/dynamic-imports";
+import { Buttons, MainLayout } from "../functions/dynamic-imports";
 import Head from "next/head";
 
 const Home: NextPage = () => {
@@ -15,7 +15,6 @@ const Home: NextPage = () => {
          <Head>
             <title>Pawcket | Home</title>
             <html lang="en" />
-
          </Head>
          <MainLayout
             topTitle="Pawcket"
@@ -25,6 +24,7 @@ const Home: NextPage = () => {
             <LandingPage>
                <Buttons
                   id="login-btn-1"
+                  className="login-btn"
                   onClick={() =>
                      router.push("/login", undefined, { shallow: true })
                   }
@@ -32,7 +32,6 @@ const Home: NextPage = () => {
                   Log in
                </Buttons>
                <Buttons
-                  id="login-btn-2"
                   className="login-btn landing-page-btn"
                   dark={true}
                   onClick={() =>

@@ -5,8 +5,8 @@ import {
    CreateProfileForm,
    Frame,
    ImageUploader,
+   MainLayout,
 } from "../functions/dynamic-imports";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { TCreateUserPage } from "../types/create-user-definition";

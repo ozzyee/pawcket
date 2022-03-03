@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { NextApiRequest, NextPage } from "next";
+import { NextApiRequest, NextPage} from "next";
 import { useState } from "react";
 import { RoundImage } from "../components/round-image/round-img.component";
 import { Separator } from "../components/separator/separator.component";
@@ -11,13 +11,14 @@ import * as data from "../../dummy-data/dummy-data";
 import * as S from "../styles/user-profile";
 import router from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
-import { doc, getDoc } from "@firebase/firestore";
+import { doc, DocumentData, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Frame, Navbar } from "../functions/dynamic-imports";
 import Head from "next/head";
+import { TUser } from "../../dummy-data/dummy-data";
 
-const UserProfile: NextPage = (props) => {
-   const [user, setUser] = useState({ ...data.jennifer });
+const UserProfile: NextPage = ({userUID}) => {
+   const [user, setUser] = useState<TUser | DocumentData>({ ...data.jennifer });
    if (!user) return null;
 
     //Fetch user info
@@ -28,7 +29,7 @@ const UserProfile: NextPage = (props) => {
             console.log("HERE=====>",data)
             setUser({...data})
         }
-        userData(props.userUID)
+        userData(userUID)
 
 
    return (

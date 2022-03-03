@@ -101,7 +101,6 @@ export const TopRight = styled.div`
    }
 `;
 export const Bottom = styled.div`
-<<<<<<< HEAD
    float: left;
    width: 100%;
    height: 50%;
@@ -109,6 +108,8 @@ export const Bottom = styled.div`
    .separator {
       width: 90%;
       margin: 0 5%;
+      position: relative;
+      z-index: 5;
    }
    .placeholder {
       color: rgba(14, 23, 27, 0.5);
@@ -142,48 +143,3 @@ export const Bottom = styled.div`
       border-radius: 50px;
    }
 `;
-=======
-    float: left;
-    width:100%;
-    height: 50%;
-
-    .separator{
-        width: 90%;
-        margin: 0 5%;
-        position: relative;
-        z-index: 5;
-    }
-    .placeholder{
-        color: rgba(14, 23, 27, 0.5);
-    }
-
-    .desktopPassport{
-        display: grid;
-        overflow: scroll;
-        height: 90%;
-        overflow-x: hidden;
-        margin-top: 0;
-        transform: translatey(-5%);
-        line-height: 0%;
-    }
-
-    .desktopPassport::-webkit-scrollbar {
-        width: 0px;
-    }
-    
-    .desktopPassport:hover::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .desktopPassport::-webkit-scrollbar-track{
-        background: transparent;
-        border-radius: 50px;
-    }
-    
-
-    .desktopPassport::-webkit-scrollbar-thumb {
-        background-color: ${styles.colors.primary};
-        border-radius: 50px;
-    }
-`
->>>>>>> ae22ac898a8e22ee0bb948dab6a0615891f0e11b

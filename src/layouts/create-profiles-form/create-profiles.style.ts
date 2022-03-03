@@ -5,8 +5,8 @@ import styles from "../../styles/style.config.json";
 export const CrossFrame = styled.span<TCreateProfileProps>`
    width: 150px;
    height: 150px;
-   background-color: red;
-   background: url(${(props) => props.background});
+   /* background-color: red; */
+   background: url("/frame.svg");
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
@@ -22,24 +22,27 @@ export const CrossFrame = styled.span<TCreateProfileProps>`
       font-weight: 100;
       font-size: 8em;
       color: white;
-      ${(props) =>
-         props.width && {
-            width: props.width,
-         }}
-      ${(props) =>
-         props.height && {
-            height: props.height,
-         }}
    }
 `;
+//* NOTE may need this *//
+//   ${(props) =>
+//       props.width && {
+//          width: props.width,
+//       }}
+//    ${(props) =>
+//       props.height && {
+//          height: props.height,
+//       }}
 
 export const DesktopTitle = styled.div`
    display: none;
    @media (min-width: ${styles.breakPoints.m}) {
       border-bottom: 2px solid ${styles.colors.primary};
-      margin-top: -118px;
+      margin-bottom: 20px;
       text-align: center;
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       .desktop-title {
          padding: 0;
@@ -49,9 +52,18 @@ export const DesktopTitle = styled.div`
    }
 `;
 
-export const CreateUserForm = styled.form``;
+export const CreateUserForm = styled.form`
+   height: 100%;
+   @media (min-width: ${styles.breakPoints.m}) {
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+   }
+`;
 
-export const CreateUserSpan = styled.span``;
+export const CreateUserSpan = styled.span`
+   width: 100%;
+`;
 
 export const ButtonsWrapper = styled.div`
    width: 100%;
@@ -74,7 +86,7 @@ export const SkipStyleButton = styled.a`
 
 export const FormSplitLeft = styled.div`
    @media (min-width: ${styles.breakPoints.m}) {
-      position: absolute;
+      /* position: absolute; */
       width: 50%;
       height: 100%;
       padding: 0 6rem;
@@ -87,7 +99,7 @@ export const FormSplitLeft = styled.div`
 
 export const FormSplitRight = styled.div`
    @media (min-width: ${styles.breakPoints.m}) {
-      position: absolute;
+      /* position: absolute; */
       right: 0;
       width: 50%;
       height: 100%;
@@ -101,6 +113,23 @@ export const FormSplitRight = styled.div`
 
 export const Wrapper = styled.div`
    width: 100%;
+   /* border: 2px solid red; */
+
+   @media (min-width: ${styles.breakPoints.m}) {
+      /* height: 100%; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      &#form-right {
+         margin-top: -1.8em;
+      }
+
+      .text-area {
+         min-height: 156px;
+      }
+   }
 `;
 
 export const TextHolder = styled.div``;

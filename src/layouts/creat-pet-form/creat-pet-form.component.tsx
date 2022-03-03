@@ -7,7 +7,7 @@ import { Text } from "../../components/text/text.component";
 import { TCreatePetFormProps } from "./creat-pet-form.definition";
 import * as S from "./creat-pet-form.style";
 import { Frame } from "../../components/frame/frame.component";
-import { TPetError, Validation } from "./function/validation";
+import { Validation } from "./function/validation";
 import { TPet } from "./creat-pet-form.definition";
 import { useContent } from "../../context/context";
 import { setDoc, doc } from "firebase/firestore";
@@ -15,8 +15,7 @@ import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 
 export function CreatePetForm({ className }: TCreatePetFormProps) {
    const [formData, setFormData] = useState<null | TPet>(null);
-   const { _setOpen, _setSnackbarType, _setSnackbarMsg, _setError } =
-      useContent();
+   const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [errors, setErrors] = useState<TPet | null>(null);
 
    const onCreatePet = async (evt: FormEvent) => {
@@ -88,6 +87,7 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                   </S.ImageAndTextWrapper>
                   <S.CreatePetSpan>
                      <FormInputs
+                        id="pet-name"
                         placeholder="Name"
                         inputType="input"
                         error={errors?.name}
@@ -99,6 +99,7 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                         }}
                      />
                      <FormInputs
+                        id="pet-bio"
                         placeholder="Bio"
                         inputType="text-area"
                         onChange={undefined}
@@ -126,7 +127,7 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                   </S.DesktopTitle>
                   <FormInputs
                      placeholder="Sex (Male or Female)"
-                     inputType="input"
+                     inputType="pet-sex"
                      error={errors?.sex}
                      onChange={(evt) => {
                         setFormData({
@@ -148,38 +149,38 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                   />
                   <FormInputs
                      placeholder="Species"
-                     inputType="input"
+                     inputType="pet-species"
                      onChange={undefined}
                   />
 
                   <FormInputs
                      placeholder="Personality"
-                     inputType="input"
+                     inputType="pet-personality"
                      onChange={undefined}
                   />
                   <FormInputs
                      placeholder="Medication"
-                     inputType="input"
+                     inputType="pet-medication"
                      onChange={undefined}
                   />
                   <FormInputs
                      placeholder="Weight"
-                     inputType="input"
+                     inputType="pet-Weight"
                      onChange={undefined}
                   />
                   <FormInputs
                      placeholder="Extra Info"
-                     inputType="text-area"
+                     inputType="pet-extra-info"
                      onChange={undefined}
                   />
                </S.Wrapper>
             </S.FormSplitRight>
 
             <ButtonsWrapper id="display-none">
-               <Buttons dark={false} id="form-btn">
+               <Buttons dark={false} className="form-btn" id="pet-continue-btn">
                   Continue
                </Buttons>
-               <Buttons dark={true} id="form-btn">
+               <Buttons dark={true} className="form-btn" id="pet-add-btn">
                   Add Another
                </Buttons>
             </ButtonsWrapper>

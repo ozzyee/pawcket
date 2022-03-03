@@ -2,6 +2,7 @@
    "name": "pawcket",
    "private": true,
    "scripts": {
+      "analyzer":"cross-env ANALYZE=true next build",
       "test": "jest --watchAll",
       "generate:component": "bin/scaffold.sh -c",
       "dev": "next dev",
@@ -16,8 +17,10 @@
       "@emotion/styled": "^11.8.1",
       "@mui/lab": "^5.0.0-alpha.70",
       "@mui/material": "^5.4.3",
+      "@next/bundle-analyzer": "^12.1.0",
       "@svgr/webpack": "^6.2.1",
       "cookie": "^0.4.2",
+      "cross-env": "^7.0.3",
       "date-fns": "^2.28.0",
       "firebase": "^9.6.6",
       "firebase-admin": "^10.0.2",

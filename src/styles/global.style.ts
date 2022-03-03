@@ -61,9 +61,17 @@ export const GlobalStyle = createGlobalStyle`
       }
    }
 
+   .css-1x51dt5-MuiInputBase-input-MuiInput-input{
+      padding-left:.5rem;
+   }
+
    
 
    @media (min-width: ${styles.breakPoints.m}) {
+      .css-1x51dt5-MuiInputBase-input-MuiInput-input{
+      padding-left:.5rem !important;
+   }
+
       .desktop-display-none{
          display: none !important;
       }
@@ -112,7 +120,7 @@ export const LandingPage = styled.main`
    flex-direction: column;
    height: 75%;
 
-   #login-btn {
+   .login-btn {
       margin-top: 15px;
       margin-bottom: 15px;
    }
@@ -128,7 +136,7 @@ export const LandingPage = styled.main`
          display: none;
       }
 
-      #login-btn {
+      .login-btn {
          height: 40px;
          border-radius: 22px;
          margin-right: 10px;
@@ -224,7 +232,7 @@ export const ButtonsWrapper = styled.div`
    justify-content: center;
    padding-bottom: 1.5rem;
 
-   #form-btn {
+   .form-btn {
       left: 0;
       right: 0;
       margin: 0;

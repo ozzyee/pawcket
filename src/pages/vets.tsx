@@ -1,8 +1,6 @@
-import type { NextPage } from "next";
+import type { NextApiRequest, NextPage } from "next";
 import { MainLayout } from "../layouts/main-layout/main-layout.component";
-import { useRouter } from "next/router";
-import * as S from "../styles/vets.style";
-import { Buttons } from "../components/buttons/buttons.component";
+
 import { Navbar } from "../components/navbar/navbar.component";
 import { VetsInfo } from "../components/vets-info/vets-info.component";
 import { useState, useEffect } from "react";
@@ -11,26 +9,39 @@ import { Frame } from "../components/frame/frame.component";
 import { Return } from "../components/return-button/returnbutton.component";
 import { VetNav } from "../styles/vets.style";
 import { Top } from "../layouts/main-layout/main-layout.style";
-import {Separator} from "../components/separator/separator.component"
-import {Text} from "../components/text/text.component"
+import { Separator } from "../components/separator/separator.component";
+import { Text } from "../components/text/text.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
+import * as S from "../styles/vets.style";
+import { Buttons } from "../components/buttons/buttons.component";
+import { AuthService } from "../lib/auth-service/auth.service";
+import { doc, getDoc } from "firebase/firestore";
+import { firestoreDB } from "../lib/firebase/firebase.initialize";
+
+// type TVetsList = {
+//    name: string;
+//    address: string;
+//    phone: number;
+//    website: string;
+//    distance: number;
+// };
+
+type TestType = any[];
 
 const Vet: NextPage = () => {
+   const [vets, setVets] = useState<TestType>([]);
 
-   const [vets, setVets] = useState([]);
-
-
-   async function getVets(){
+   async function getVets() {
       const response = await fetch("https://hub.dummyapis.com/vj/tuB6Lx7");
       const data = await response.json();
       console.log(data);
       setVets(data);
    }
 
-   function getRandomWord(){
+   function getRandomWord() {
       const randomNumber = Math.floor(Math.random() * 7);
-      switch(randomNumber){
-         case 0 :
+      switch (randomNumber) {
+         case 0:
             return "Clinic";
          case 1:
             return "Practice";
@@ -44,70 +55,84 @@ const Vet: NextPage = () => {
             return "Veterinary";
          case 6:
             return "Pet Hospital";
-         default :
+         default:
             return null;
       }
    }
 
-
-   useEffect(()=>{
+   useEffect(() => {
       getVets();
-   }, [])
-
+   }, []);
 
    return (
       <>
          <S.Desktop>
             <MainLayout className="desktop" desktopCard={true}>
                <S.Top>
-               <h1 onClick={getVets}>CLICK ME FOR VETS!!!!!!!!</h1>
-               <S.TopRight>
-               <Navbar className="nav" />
-               <Text textType="h1" className="title">Vets near you</Text>
-               <Separator className="vets"/>
-               <VetButtons className="vetbuttons">
-                   <li>
-                     <Buttons vetsNavBtn={true} dark={true}>
-                        Open Now
-                     </Buttons>
-                  </li>
-                  <li>
-                     <Buttons vetsNavBtn={true} dark={true}>
-                        On Call
-                     </Buttons>
-                  </li>
-                  <li>
-                     <Buttons vetsNavBtn={true} dark={true} onClick={()=>{
-                     }}>
-                        Near You
-                     </Buttons>
-                  </li>
-               </ VetButtons>
-               </S.TopRight>
-               <S.TopLeft>
-                  <Frame background="/frame.svg" img="/circle/vet-circle.svg" diameter={230}/>
-               </S.TopLeft>
+                  <h1 onClick={getVets}>CLICK ME FOR VETS!!!!!!!!</h1>
+                  <S.TopRight>
+                     <Navbar className="nav" />
+                     <Text textType="h1" className="title">
+                        Vets near you
+                     </Text>
+                     <Separator className="vets" />
+                     <VetButtons className="vetbuttons">
+                        <li>
+                           <Buttons vetsNavBtn={true} dark={true}>
+                              Open Now
+                           </Buttons>
+                        </li>
+                        <li>
+                           <Buttons vetsNavBtn={true} dark={true}>
+                              On Call
+                           </Buttons>
+                        </li>
+                        <li>
+                           <Buttons
+                              vetsNavBtn={true}
+                              dark={true}
+                              onClick={() => {}}
+                           >
+                              Near You
+                           </Buttons>
+                        </li>
+                     </VetButtons>
+                  </S.TopRight>
+                  <S.TopLeft>
+                     <Frame
+                        background="/frame.svg"
+                        img="/circle/vet-circle.svg"
+                        diameter={230}
+                     />
+                  </S.TopLeft>
                </S.Top>
                <S.Bottom>
-                  <Separator className="vetsep"/>
+                  <Separator className="vetsep" />
                   <PassportWrapper className="wrapper">
-                  <VetList className="vetcard">
-                  {vets.map((vet, index) => {
-                     //Making random values for the API, so they dont look samey.
-                     const randomPhone = Math.floor(Math.random() * 1000)
-                     return (
-                        <li key={index}>
-                           <VetsInfo
-                              vetName={"Dr. " + vet.name + "'s " + getRandomWord()}
-                              vetPhoneNumber={`0${randomPhone}  ${vet.phone}  ${randomPhone * 2}`}
-                              vetAddress={vet.address}
-                              vetWebsite={vet.website}
-                              vetDistance={vet.distance + " meters"}
-                           />
-                        </li>
-                     );
-                  })}
-               </VetList>
+                     <VetList className="vetcard">
+                        {vets.map((vet, index) => {
+                           //Making random values for the API, so they dont look samey.
+                           const randomPhone = Math.floor(Math.random() * 1000);
+                           return (
+                              <li key={index}>
+                                 <VetsInfo
+                                    vetName={
+                                       "Dr. " +
+                                       vet.name +
+                                       "'s " +
+                                       getRandomWord()
+                                    }
+                                    vetPhoneNumber={`0${randomPhone}  ${
+                                       vet.phone
+                                    }  ${randomPhone * 2}`}
+                                    vetAddress={vet.address}
+                                    vetWebsite={vet.website}
+                                    vetDistance={vet.distance + " meters"}
+                                 />
+                              </li>
+                           );
+                        })}
+                     </VetList>
                   </PassportWrapper>
                </S.Bottom>
             </MainLayout>
@@ -125,7 +150,7 @@ const Vet: NextPage = () => {
                }
             >
                <VetButtons>
-               <li>
+                  <li>
                      <Buttons vetsNavBtn={true} dark={true}>
                         Open Now
                      </Buttons>
@@ -136,22 +161,25 @@ const Vet: NextPage = () => {
                      </Buttons>
                   </li>
                   <li>
-                     <Buttons vetsNavBtn={true} dark={true} onClick={()=>{
-                     }}>
+                     <Buttons vetsNavBtn={true} dark={true} onClick={() => {}}>
                         Near You
                      </Buttons>
                   </li>
                </VetButtons>
                <VetList className="vetcard">
-               {vets.map((vet, index) => {
+                  {vets.map((vet, index) => {
                      //Making random values for the API, so they dont look samey.
-                     const randomPhone = Math.floor(Math.random() * 1000)
+                     const randomPhone = Math.floor(Math.random() * 1000);
                      const randomNoun = Math.floor(Math.random() * 3);
                      return (
                         <li key={index}>
                            <VetsInfo
-                              vetName={"Dr. " + vet.name + "'s " + getRandomWord()}
-                              vetPhoneNumber={`0${randomPhone}  ${vet.phone}  ${randomPhone * 2}`}
+                              vetName={
+                                 "Dr. " + vet.name + "'s " + getRandomWord()
+                              }
+                              vetPhoneNumber={`0${randomPhone}  ${vet.phone}  ${
+                                 randomPhone * 2
+                              }`}
                               vetAddress={vet.address}
                               vetWebsite={vet.website}
                               vetDistance={vet.distance}
@@ -185,5 +213,43 @@ const Vet: NextPage = () => {
       </>
    );
 };
+
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+   try {
+      const cookieRefreshToken = req.cookies.token;
+      const authService = new AuthService();
+      const dataRes = await authService.getFirebaseUserToken(
+         cookieRefreshToken
+      );
+      const userUID = dataRes.getIdToken.user_id;
+      const docRef = doc(firestoreDB, "pets", userUID);
+      const docSnap = await getDoc(docRef);
+      // eslint-disable-next-line no-unused-vars
+      const _data = docSnap.data();
+
+      // No user then send to login/ sign up page
+      if (!dataRes) {
+         return {
+            redirect: {
+               destination: "/",
+            },
+         };
+      }
+
+      return {
+         props: {
+            userUID,
+         },
+      };
+   } catch (err) {
+      console.log("ERR", err);
+
+      return {
+         redirect: {
+            destination: "/",
+         },
+      };
+   }
+}
 
 export default Vet;

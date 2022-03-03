@@ -107,7 +107,7 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                <S.Wrapper>
                   <S.DesktopTitle>
                      <Text textType="h2" className="desktop-title">
-                        Create your profile
+                        Create your pets profile
                      </Text>
                   </S.DesktopTitle>
                   <FormInputs
@@ -161,7 +161,7 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                </S.Wrapper>
             </S.FormSplitRight>
 
-            <ButtonsWrapper id="display-none">
+            <ButtonsWrapper id="display-none" className="create-users-forms">
                <Buttons dark={false} className="form-btn" id="pet-continue-btn">
                   Continue
                </Buttons>

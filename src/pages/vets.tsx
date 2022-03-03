@@ -11,6 +11,9 @@ import { Frame } from "../components/frame/frame.component";
 import { Return } from "../components/return-button/returnbutton.component";
 import { VetNav } from "../styles/vets.style";
 import { Top } from "../layouts/main-layout/main-layout.style";
+import {Separator} from "../components/separator/separator.component"
+import {Text} from "../components/text/text.component"
+import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 
 const Vet: NextPage = () => {
    const initialState = [
@@ -76,9 +79,50 @@ const Vet: NextPage = () => {
          <S.Desktop>
             <MainLayout className="desktop" desktopCard={true}>
                <S.Top>
-                  <Navbar className="nav" />
+               <S.TopRight>
+               <Navbar className="nav" />
+               <Text textType="h1" className="title">Vets near you</Text>
+               <Separator className="vets"/>
+               <VetButtons className="vetbuttons">                 <li>
+                     <Buttons vetsNavBtn={true} dark={true}>
+                        Open Now
+                     </Buttons>
+                  </li>
+                  <li>
+                     <Buttons vetsNavBtn={true} dark={true}>
+                        On Call
+                     </Buttons>
+                  </li>
+                  <li>
+                     <Buttons vetsNavBtn={true} dark={true}>
+                        Near You
+                     </Buttons>
+                  </li>
+               </ VetButtons>
+               </S.TopRight>
+               <S.TopLeft>
+                  <Frame background="/frame.svg" img="/circle/vet-circle.svg" diameter={230}/>
+               </S.TopLeft>
                </S.Top>
-               <S.Bottom></S.Bottom>
+               <S.Bottom>
+                  <Separator className="vetsep"/>
+                  <PassportWrapper className="wrapper">
+                  <VetList className="vetcard">
+                  {vets.map((vet, index) => {
+                     return (
+                        <li key={index}>
+                           <VetsInfo
+                              vetName={vet.name}
+                              vetPhoneNumber={vet.phoneNumber}
+                              vetAddress={vet.vetAddress}
+                              vetWebsite={vet.vetWebsite}
+                           />
+                        </li>
+                     );
+                  })}
+               </VetList>
+                  </PassportWrapper>
+               </S.Bottom>
             </MainLayout>
          </S.Desktop>
          <S.Mobile>
@@ -94,7 +138,7 @@ const Vet: NextPage = () => {
                }
             >
                <VetButtons>
-                  <li>
+               <li>
                      <Buttons vetsNavBtn={true} dark={true}>
                         Open Now
                      </Buttons>

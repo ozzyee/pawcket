@@ -124,8 +124,7 @@ export const Desktop = styled.div`
 `;
 
 export const Top = styled.div`
-   border: 2px solid red;
-   height: 30%;
+   height: 40%;
 
    .nav {
       position: absolute;
@@ -137,6 +136,60 @@ export const Top = styled.div`
 `;
 
 export const Bottom = styled.div`
-   border: 2px solid blue;
-   height: 70%;
+   height: 60%;
+   .wrapper{
+      height: 85%;
+      padding: 5% 0;
+   }
+   ol{
+      height: 100%;
+      max-height: 110%;
+      padding: 0 5%;
+
+}
+
+   .vetsep{
+      left: 5%;
+      position: relative;
+      z-index: 3;
+      width: 90%
+
+   }
+   .vetsep::before{
+      height: 3.5px;
+   }
+`;
+export const TopLeft = styled.div`
+   height: 100%;
+   width: 40%;
+   float : left;
+   display : flex;
+justify-content: center;
+align-items: center;
+`;
+export const TopRight = styled.div`
+display: flex;
+height: 100%;
+width: 60%;
+float : right;
+flex-direction : column;
+justify-content: center;
+align-items: center;
+.title{
+   color : black;
+   text-align: center;
+   margin-bottom: 0px
+}
+.vets{
+   margin: 0 50%;
+   width: 80%;
+}
+.vetbuttons{
+   width: 100%;
+   justify-content: space-evenly;
+}
+button{
+   margin-top: 50%;
+   transform: scale(1.7);
+}
 `;

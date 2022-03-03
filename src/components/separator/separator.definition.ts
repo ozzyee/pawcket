@@ -1,4 +1,4 @@
 export type TGlowingLine = {
-    separatorText: string|undefined,
+    separatorText?: string|undefined,
     className?: string
 }

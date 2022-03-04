@@ -257,7 +257,7 @@ export const ButtonsWrapper = styled.div`
    }
 
    &#create-pet-btns {
-      border: 2px solid green;
+      /* border: 2px solid green; */
       width: 50%;
       position: absolute;
       bottom: 0;

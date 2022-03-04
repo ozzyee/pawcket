@@ -36,7 +36,6 @@ const UserProfile: NextPage = ({userUID}) => {
          <Head>
             <title>Pawcket | Dashboard</title>
             <html lang="en" />
-
          </Head>
 
          <S.Desktop>
@@ -155,7 +154,7 @@ const UserProfile: NextPage = ({userUID}) => {
                   </S.PetsSection>
                   ,
                </PassportWrapper>
-               <Navbar />
+               <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>
       </>

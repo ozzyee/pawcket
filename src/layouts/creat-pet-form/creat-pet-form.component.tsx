@@ -10,6 +10,8 @@ import { Frame } from "../../components/frame/frame.component";
 import { Validation } from "./function/validation";
 import { TPet } from "./creat-pet-form.definition";
 import { useContent } from "../../context/context";
+import { setDoc, doc } from "firebase/firestore";
+import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 
 export function CreatePetForm({ className }: TCreatePetFormProps) {
    const [formData, setFormData] = useState<null | TPet>(null);
@@ -28,32 +30,45 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
          sex: errors?.sex,
          dateOfBirth: errors?.dateOfBirth,
       });
+
+      if (errors?.name && errors?.dateOfBirth && errors?.sex) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg("You must fill in all fields.");
+      }
+      if (errors?.name && !errors?.dateOfBirth && !errors?.sex) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg("You must input a name");
+      }
+      if (!errors?.name && errors?.dateOfBirth && !errors?.sex) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         const error = errors?.dateOfBirth as string;
+         _setSnackbarMsg(error);
+         _setSnackbarMsg("You must input a Date of Birth!");
+      }
+      if (!errors?.name && !errors?.dateOfBirth && errors?.sex) {
+         _setOpen(true);
+         _setSnackbarType("error");
+         _setSnackbarMsg(
+            "You must select a sex. Please type either 'Male' or 'Female'"
+         );
+      }
+
+      //If no errors send data to db
+
+      if (!errors?.name && !errors?.dateOfBirth && !errors?.sex) {
+         try {
+            await setDoc(doc(firestoreDB, "pets", "petID2"), {
+               ...formData,
+            });
+         } catch (errors) {
+            const error = errors as Error;
+         }
+      }
    };
 
-   if (errors?.name && errors?.dateOfBirth && errors?.sex) {
-      _setOpen(true);
-      _setSnackbarType("error");
-      _setSnackbarMsg("You must fill in all fields.");
-   }
-   if (errors?.name && !errors?.dateOfBirth && !errors?.sex) {
-      _setOpen(true);
-      _setSnackbarType("error");
-      _setSnackbarMsg("You must input a name");
-   }
-   if (!errors?.name && errors?.dateOfBirth && !errors?.sex) {
-      _setOpen(true);
-      _setSnackbarType("error");
-      const error = errors?.dateOfBirth as string;
-      _setSnackbarMsg(error);
-      _setSnackbarMsg("You must input a Date of Birth!");
-   }
-   if (!errors?.name && !errors?.dateOfBirth && errors?.sex) {
-      _setOpen(true);
-      _setSnackbarType("error");
-      _setSnackbarMsg(
-         "You must select a sex. Please type either 'Male' or 'Female'"
-      );
-   }
    return (
       <>
          <S.CreatePetForm className={className} onSubmit={onCreatePet}>

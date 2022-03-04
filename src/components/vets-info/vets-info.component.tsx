@@ -10,6 +10,7 @@ export function VetsInfo({
    vetPhoneNumber,
    vetAddress,
    vetWebsite,
+   vetDistance,
 }: TVetsInfoProps) {
    return (
       <S.Wrapper>
@@ -32,6 +33,10 @@ export function VetsInfo({
                <S.TextHolder>
                   <Text className="contact-info bold">Website:</Text>
                   <Text className="contact-info">{vetWebsite}</Text>
+               </S.TextHolder>
+               <S.TextHolder>
+                  <Text className="contact-info bold">Distance:</Text>
+                  <Text className="contact-info">{vetDistance}</Text>
                </S.TextHolder>
             </S.VetsInfo>
          </S.VetsInfoDiv>

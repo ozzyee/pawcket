@@ -21,7 +21,6 @@ const PetProfile: NextPage = () => {
          <Head>
             <title>Pawcket | Pet Profile</title>
             <html lang="en" />
-
          </Head>
 
          <S.Desktop>
@@ -81,7 +80,7 @@ const PetProfile: NextPage = () => {
                      <Passport pet={pet} />
                   </PassportWrapper>
                </S.Bio>
-               <Navbar />
+               <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>
       </>

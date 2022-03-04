@@ -20,6 +20,6 @@ export type TPet = {
    petPersonality?: string;
    petMedication?: string;
    petWeight?: string;
-   petExtraInfo?: string;
+   petExtraInfo?: string | undefined;
    image?: string;
 };

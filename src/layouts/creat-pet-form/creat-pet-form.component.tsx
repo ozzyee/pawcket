@@ -33,7 +33,7 @@ export function CreatePetForm({
    const [img, setImg] = useState("");
 
    useEffect(() => {
-      setFormData({ ...formData, image: uploadImage });
+      setFormData({ ...formData, image: uploadImage || img });
    }, [uploadImage, img]);
 
    console.log("data =>", formData);
@@ -175,7 +175,7 @@ export function CreatePetForm({
                         id="pet-bio"
                         placeholder="Bio"
                         inputType="text-area"
-                        onChange={(evt) => {
+                        onTextAreaChange={(evt) => {
                            setFormData({
                               ...formData,
                               petBio: evt.target.value,

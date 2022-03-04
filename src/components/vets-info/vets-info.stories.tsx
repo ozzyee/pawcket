@@ -19,12 +19,14 @@ export default {
       vetAddress: {
          description: "This is the address of the vets this is required",
       },
-      vetWebsite:{
-         description: "This is the vets website this is required and must be a simple web adders it shouldn't have http:// inside of it "
+      vetWebsite: {
+         description:
+            "This is the vets website this is required and must be a simple web adders it shouldn't have http:// inside of it ",
       },
-      className:{
-         description: "This is the className for this component this is so we can style if from a different component/layout "
-      }
+      className: {
+         description:
+            "This is the className for this component this is so we can style if from a different component/layout ",
+      },
    },
 } as ComponentMeta<typeof VetsInfo>;
 
@@ -33,6 +35,7 @@ const Template = ({
    vetPhoneNumber,
    vetAddress,
    vetWebsite,
+   vetDistance,
 }: TVetsInfoProps) => {
    return (
       <VetsInfo
@@ -40,6 +43,7 @@ const Template = ({
          vetPhoneNumber={vetPhoneNumber}
          vetAddress={vetAddress}
          vetWebsite={vetWebsite}
+         vetDistance={vetDistance}
       />
    );
 };

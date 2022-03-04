@@ -1,5 +1,7 @@
 export type TCreatePetFormProps = {
    className?: string;
+   userUID: string;
+   _data: any;
 };
 
 export type TPet = {
@@ -12,4 +14,10 @@ export type TPet = {
    weight?: string;
    aboutMe?: string;
    profilePic?: string;
+   petBio?: string;
+   petSpecies?: string;
+   petPersonality?: string;
+   petMedication?: string;
+   petWeight?:string;
+   petExtraInfo?: string;
 };

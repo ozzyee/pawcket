@@ -2,7 +2,7 @@
    "name": "pawcket",
    "private": true,
    "scripts": {
-      "analyzer":"cross-env ANALYZE=true next build",
+      "analyzer": "cross-env ANALYZE=true next build",
       "test": "jest --watchAll",
       "generate:component": "bin/scaffold.sh -c",
       "dev": "next dev",
@@ -30,7 +30,8 @@
       "next-pwa": "^5.4.4",
       "react": "17.0.2",
       "react-dom": "17.0.2",
-      "styled-components": "^5.3.3"
+      "styled-components": "^5.3.3",
+      "uid": "^2.0.0"
    },
    "devDependencies": {
       "@babel/core": "^7.17.4",

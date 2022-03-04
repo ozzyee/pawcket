@@ -12,11 +12,20 @@ import { TPet } from "./creat-pet-form.definition";
 import { useContent } from "../../context/context";
 import { setDoc, doc } from "firebase/firestore";
 import { firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { useRouter } from "next/router";
+import Router from "next/router";
+import { uid } from "uid";
 
-export function CreatePetForm({ className }: TCreatePetFormProps) {
+export function CreatePetForm({
+   className,
+   userUID,
+   _data,
+}: TCreatePetFormProps) {
+   const router = useRouter();
    const [formData, setFormData] = useState<null | TPet>(null);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [errors, setErrors] = useState<TPet | null>(null);
+   const [redirect, setRedirect] = useState("");
 
    const onCreatePet = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -56,15 +65,40 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
          );
       }
 
-      //If no errors send data to db
+      console.log(redirect);
 
+      //If no errors send data to db
       if (!errors?.name && !errors?.dateOfBirth && !errors?.sex) {
+         const DOB = formData?.dateOfBirth?.toString();
+
          try {
-            await setDoc(doc(firestoreDB, "pets", "petID2"), {
-               ...formData,
-            });
+            if (!_data?.pets) {
+               await setDoc(doc(firestoreDB, "pets", userUID), {
+                  pets: [{ ...formData, dateOfBirth: DOB, id: uid() }],
+               });
+               if (redirect !== "user-profile") {
+                  // @ts-ignore
+                  Router.reload(window.location.pathname);
+               } else {
+                  router.push(redirect);
+               }
+            } else {
+               await setDoc(doc(firestoreDB, "pets", userUID), {
+                  pets: [
+                     ..._data?.pets,
+                     { ...formData, dateOfBirth: DOB, id: uid() },
+                  ],
+               });
+               if (redirect !== "user-profile") {
+                  // @ts-ignore
+                  Router.reload(window.location.pathname);
+               } else {
+                  router.push(redirect);
+               }
+            }
          } catch (errors) {
             const error = errors as Error;
+            console.log(error);
          }
       }
    };
@@ -89,7 +123,7 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                      <FormInputs
                         id="pet-name"
                         placeholder="Name"
-                        inputType="input"
+                        inputType="name"
                         error={errors?.name}
                         onChange={(evt) => {
                            setFormData({
@@ -102,14 +136,29 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                         id="pet-bio"
                         placeholder="Bio"
                         inputType="text-area"
-                        onChange={undefined}
+                        onChange={(evt) => {
+                           setFormData({
+                              ...formData,
+                              petBio: evt.target.value,
+                           });
+                        }}
                      />
 
                      <S.ButtonWrapper>
-                        <Buttons dark={false} id="form-btn">
+                        <Buttons
+                           type="submit"
+                           dark={false}
+                           id="form-btn"
+                           onClick={() => setRedirect("user-profile")}
+                        >
                            Continue
                         </Buttons>
-                        <Buttons dark={true} id="form-btn">
+                        <Buttons
+                           type="submit"
+                           dark={true}
+                           id="form-btn"
+                           onClick={() => setRedirect("create-pet")}
+                        >
                            Add Another
                         </Buttons>
                      </S.ButtonWrapper>
@@ -150,37 +199,72 @@ export function CreatePetForm({ className }: TCreatePetFormProps) {
                   <FormInputs
                      placeholder="Species"
                      inputType="pet-species"
-                     onChange={undefined}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           petSpecies: evt.target.value,
+                        });
+                     }}
                   />
 
                   <FormInputs
                      placeholder="Personality"
                      inputType="pet-personality"
-                     onChange={undefined}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           petPersonality: evt.target.value,
+                        });
+                     }}
                   />
                   <FormInputs
                      placeholder="Medication"
                      inputType="pet-medication"
-                     onChange={undefined}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           petMedication: evt.target.value,
+                        });
+                     }}
                   />
                   <FormInputs
                      placeholder="Weight"
                      inputType="pet-Weight"
-                     onChange={undefined}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           petWeight: evt.target.value,
+                        });
+                     }}
                   />
                   <FormInputs
                      placeholder="Extra Info"
                      inputType="pet-extra-info"
-                     onChange={undefined}
+                     onChange={(evt) => {
+                        setFormData({
+                           ...formData,
+                           petExtraInfo: evt.target.value,
+                        });
+                     }}
                   />
                </S.Wrapper>
             </S.FormSplitRight>
 
             <ButtonsWrapper id="display-none" className="create-users-forms">
-               <Buttons dark={false} className="form-btn" id="pet-continue-btn">
+               <Buttons
+                  dark={false}
+                  className="form-btn"
+                  id="pet-continue-btn"
+                  onClick={() => setRedirect("user-profile")}
+               >
                   Continue
                </Buttons>
-               <Buttons dark={true} className="form-btn" id="pet-add-btn">
+               <Buttons
+                  dark={true}
+                  className="form-btn"
+                  id="pet-add-btn"
+                  onClick={() => setRedirect("create-pet")}
+               >
                   Add Another
                </Buttons>
             </ButtonsWrapper>

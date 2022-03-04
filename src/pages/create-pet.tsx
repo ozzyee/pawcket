@@ -1,13 +1,13 @@
 import { doc, getDoc } from "@firebase/firestore";
-import { NextApiRequest, NextApiResponse, NextPage } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { Frame } from "../components/frame/frame.component";
 import { CreatePetForm, MainLayout } from "../functions/dynamic-imports";
-
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import Head from "next/head";
+import { TCreatePetPage } from "../types/create-pet-page";
 
-const CreatePet: NextPage = () => {
+const CreatePet = ({ userUID, _data }: TCreatePetPage) => {
    return (
       <>
          <Head>
@@ -16,7 +16,7 @@ const CreatePet: NextPage = () => {
          </Head>
 
          <MainLayout desktopCard={true} className="desktop-display-block">
-            <CreatePetForm />
+            <CreatePetForm userUID={userUID} _data={_data} />
          </MainLayout>
 
          <MainLayout
@@ -26,7 +26,7 @@ const CreatePet: NextPage = () => {
             className="desktop-display-none"
             topChildren={<Frame background={"/frame.svg"} diameter={150} />}
          >
-            <CreatePetForm />
+            <CreatePetForm userUID={userUID} _data={_data} />
          </MainLayout>
       </>
    );
@@ -52,7 +52,6 @@ export async function getServerSideProps({
       const userUID = dataRes.getIdToken.user_id;
       const docRef = doc(firestoreDB, "pets", userUID);
       const docSnap = await getDoc(docRef);
-      // eslint-disable-next-line no-unused-vars
       const _data = docSnap.data();
 
       // No user then send to login/ sign up page
@@ -64,9 +63,18 @@ export async function getServerSideProps({
          };
       }
 
+      if (!_data) {
+         return {
+            props: {
+               userUID,
+            },
+         };
+      }
+
       return {
          props: {
             userUID,
+            _data,
          },
       };
    } catch (err) {

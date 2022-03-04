@@ -30,9 +30,6 @@ type TData = {
 
 type TestType = TData[];
 
-
-
-
 const Vet: NextPage = () => {
    const [vets, setVets] = useState<TestType>([]);
 
@@ -118,22 +115,24 @@ const Vet: NextPage = () => {
                            //Making random values for the API, so they dont look samey.
                            const randomPhone = Math.floor(Math.random() * 1000);
                            return (
-                              <li key={index}>
-                                 <VetsInfo
-                                    vetName={
-                                       "Dr. " +
-                                       vet.name +
-                                       "'s " +
-                                       getRandomWord()
-                                    }
-                                    vetPhoneNumber={`0${randomPhone}  ${
-                                       vet.phone
-                                    }  ${randomPhone * 2}`}
-                                    vetAddress={vet.address}
-                                    vetWebsite={vet.website}
-                                    vetDistance={vet.distance + " meters"}
-                                 />
-                              </li>
+                              <>
+                                 <li key={index}>
+                                    <VetsInfo
+                                       vetName={
+                                          "Dr. " +
+                                          vet.name +
+                                          "'s " +
+                                          getRandomWord()
+                                       }
+                                       vetPhoneNumber={`0${randomPhone}  ${
+                                          vet.phone
+                                       }  ${randomPhone * 2}`}
+                                       vetAddress={vet.address}
+                                       vetWebsite={vet.website}
+                                       vetDistance={vet.distance + " meters"}
+                                    />
+                                 </li>
+                              </>
                            );
                         })}
                      </VetList>
@@ -176,19 +175,21 @@ const Vet: NextPage = () => {
                      const randomPhone = Math.floor(Math.random() * 1000);
                      const randomNoun = Math.floor(Math.random() * 3);
                      return (
-                        <li key={index}>
-                           <VetsInfo
-                              vetName={
-                                 "Dr. " + vet.name + "'s " + getRandomWord()
-                              }
-                              vetPhoneNumber={`0${randomPhone}  ${vet.phone}  ${
-                                 randomPhone * 2
-                              }`}
-                              vetAddress={vet.address}
-                              vetWebsite={vet.website}
-                              vetDistance={vet.distance}
-                           />
-                        </li>
+                        <>
+                           {/* <li key={index}>
+                              <VetsInfo
+                                 vetName={
+                                    "Dr. " + vet.name + "'s " + getRandomWord()
+                                 }
+                                 vetPhoneNumber={`0${randomPhone}  ${
+                                    vet.phone
+                                 }  ${randomPhone * 2}`}
+                                 vetAddress={vet.address}
+                                 vetWebsite={vet.website}
+                                 vetDistance={vet.distance}
+                              />
+                           </li> */}
+                        </>
                      );
                   })}
                </VetList>

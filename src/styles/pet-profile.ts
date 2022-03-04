@@ -83,9 +83,10 @@ export const Bottom = styled.div`
    height: 50%;
 
    .separator {
+       display: grid;
       width: 90%;
       margin: 0 5%;
-      position: absolute;
+      position: relative;
       z-index: 5;
    }
    .placeholder {

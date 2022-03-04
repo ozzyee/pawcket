@@ -6,6 +6,7 @@ import { Separator } from "../components/separator/separator.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 import { Text } from "../components/text/text.component";
 import { Buttons } from "../components/buttons/buttons.component";
+import { UserInfo } from "../components/user-info/user-info.component";
 import * as data from "../../dummy-data/dummy-data";
 import * as S from "../styles/user-profile";
 import router from "next/router";
@@ -15,6 +16,7 @@ import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import Head from "next/head";
 import { TUser } from "../../dummy-data/dummy-data";
+import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
 
 const UserProfile: NextPage = ({userUID}) => {
    const [user, setUser] = useState<TUser | DocumentData>({ ...data.jennifer });
@@ -55,15 +57,9 @@ const UserProfile: NextPage = ({userUID}) => {
                   </Text>
                </S.TopLeft>
                <S.TopRight>
-                  <Navbar className="desktopNav" />
-                    <S.InfoSection>
-                       <Text className="bio">{`${user.extraInfo}`}</Text>
-                       <Text className="placeholder">{"Post Code:"}</Text>
-                       <Text>{`${user.postCode}`}</Text>
-                       <Text className="placeholder">{"Address:"}</Text>
-                       <Text>{`${user.address}`}</Text>
-                       <Text className="placeholder">{"Date of Birth:"}</Text>
-                       <Text>{`${user.DOB}`}</Text>
+                  <Navbar className="desktopNav"/>
+                    <S.InfoSection className="desktopinfo">
+                        <UserInfo user={user}/>
                     </S.InfoSection>
                </S.TopRight>
                <S.Bottom >
@@ -75,13 +71,13 @@ const UserProfile: NextPage = ({userUID}) => {
                      separator={false}
                      className="desktopPassport"
                   >
-                     <S.PetsSection>
+                     <S.PetsSection className="desktopPets">
                         {user.pets &&
-                           user.pets.map((pet, id) => {
+                           user.pets.map((pet: TPet, id: number) => {
                               return (
                                  <RoundImage
                                     src={pet.profilePic}
-                                    diameter={100}
+                                    diameter={120}
                                     caption={pet.name}
                                     className="petPic"
                                     onClick={() =>
@@ -126,16 +122,12 @@ const UserProfile: NextPage = ({userUID}) => {
                className="mobile"
             >
                <S.InfoSection>
-                  <Text className="bio">{`${user.extraInfo}`}</Text>
-                  <Text className="placeholder">{"Address:"}</Text>
-                  <Text>{`${user.address}`}</Text>
-                  <Text className="placeholder">{"Date of Birth:"}</Text>
-                  <Text>{`${user.DOB}`}</Text>
+                   <UserInfo user={user}/>
                </S.InfoSection>
                <PassportWrapper separator={true} separatorText="My Pets">
                   <S.PetsSection>
                      {user.pets &&
-                        user.pets.map((pet, index) => {
+                        user.pets.map((pet: TPet, index:number) => {
                            return (
                               <RoundImage
                                  key={index}

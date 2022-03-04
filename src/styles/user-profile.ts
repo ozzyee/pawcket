@@ -83,6 +83,7 @@ export const TopRight = styled.div`
    flex-direction: column;
    align-items: center;
    justify-content: center;
+   padding: 0 5px;
 
    .bio {
       text-align: center;
@@ -99,11 +100,57 @@ export const TopRight = styled.div`
       padding: 0;
       border-radius: 0% 0% 0% 50px;
    }
+   
+   .desktopinfo{
+       margin-top: 10%;
+       width: 100%;
+       height: 65%;
+       overflow-y: scroll;
+   }
+
+   .desktopPassport {
+      display: grid;
+      overflow: scroll;
+      height: 90%;
+      overflow-x: hidden;
+      margin-top: 0;
+      transform: translatey(-5%);
+      line-height: 0%;
+   }
+
+   .desktopinfo::-webkit-scrollbar {
+      width: 6px;
+   }
+
+   .desktopinfo::-webkit-scrollbar-thumb {
+      background-color: ${styles.colors.primary};
+      border-radius: 50px;
+   }
+
+   .desktopinfo::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 50px;
+   }
 `;
 export const Bottom = styled.div`
    float: left;
    width: 100%;
    height: 50%;
+   
+   button {
+       grid-column: unset;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+   }
+
+   .desktopPets{
+   display: grid;
+   grid-template-columns: repeat(3, 33.3%);
+   grid-auto-rows: 150px;
+   place-items: center;
+   margin: 30px 0px;
+    }
 
    .separator {
        display: grid;

@@ -65,7 +65,6 @@ export function CreateProfileForm({
       }
    }, [uploadImage, img]);
 
-
    const addUserInfo = async (evt: FormEvent) => {
       evt.preventDefault();
       const err = createUserValidation({
@@ -93,7 +92,6 @@ export function CreateProfileForm({
          _setSnackbarType("error");
          _setSnackbarMsg(err?.lastName);
       }
-
 
       if (!err?.DOB && !err?.firstName && !err?.lastName) {
          try {
@@ -245,7 +243,7 @@ export function CreateProfileForm({
                   />
 
                   <ButtonsWrapper>
-                     <Buttons dark={false} id="form-btn">
+                     <Buttons dark={false} className="form-btn">
                         Continue
                      </Buttons>
                   </ButtonsWrapper>

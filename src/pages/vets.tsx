@@ -1,11 +1,9 @@
 import type { NextApiRequest, NextPage } from "next";
-import { MainLayout } from "../layouts/main-layout/main-layout.component";
 
 import { Navbar } from "../components/navbar/navbar.component";
 import { VetsInfo } from "../components/vets-info/vets-info.component";
 import { useState, useEffect } from "react";
 import { VetList, VetButtons } from "../styles/vets.style";
-import { Frame } from "../components/frame/frame.component";
 import { Return } from "../components/return-button/returnbutton.component";
 import { VetNav } from "../styles/vets.style";
 import { Top } from "../layouts/main-layout/main-layout.style";
@@ -13,10 +11,13 @@ import { Separator } from "../components/separator/separator.component";
 import { Text } from "../components/text/text.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 import * as S from "../styles/vets.style";
-import { Buttons } from "../components/buttons/buttons.component";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { doc, getDoc } from "firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
+import { Buttons, Frame, MainLayout } from "../functions/dynamic-imports";
+import dynamic from "next/dynamic";
+import { TVetsInfoProps } from "../components/vets-info/vets-info.definition";
+import Head from "next/head";
 
 type TData = {
    id: number;
@@ -28,6 +29,9 @@ type TData = {
 };
 
 type TestType = TData[];
+
+
+
 
 const Vet: NextPage = () => {
    const [vets, setVets] = useState<TestType>([]);

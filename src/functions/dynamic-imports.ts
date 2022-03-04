@@ -5,6 +5,7 @@ import { TImageUploaderProps } from "../components/image-uploader/image-uploader
 import { TNavbarProps } from "../components/navbar/navbar.definition";
 import { TAuthDesktopProps } from "../layouts/auth-desktop/auth-desktop.definition";
 import { TCreateUserLayoutProps } from "../layouts/create-profiles-form/create-profiles.definition";
+import { TMainLayoutProps } from "../layouts/main-layout/main-layout.definition";
 import { TSignUpFormProps } from "../layouts/sign-up-form/sign-up-form.definition";
 
 export const Frame = dynamic<TFrameProps>(
@@ -66,5 +67,12 @@ export const Buttons = dynamic<TButtonsProps>(
    () =>
       import("../components/buttons/buttons.component").then(
          (module) => module.Buttons
+      ) as any
+);
+
+export const MainLayout = dynamic<TMainLayoutProps>(
+   () =>
+      import("../layouts/main-layout/main-layout.component").then(
+         (module) => module.MainLayout
       ) as any
 );

@@ -122,6 +122,8 @@ export const Wrapper = styled.div`
       justify-content: center;
       flex-direction: column;
 
+      
+
       &#form-right {
          margin-top: -1.8em;
       }

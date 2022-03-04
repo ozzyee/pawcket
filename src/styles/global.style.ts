@@ -232,6 +232,10 @@ export const ButtonsWrapper = styled.div`
    justify-content: center;
    padding-bottom: 1.5rem;
 
+   &.create-users-forms {
+      border: 2px solid green !important;
+   }
+
    .form-btn {
       left: 0;
       right: 0;
@@ -264,3 +268,5 @@ export const ButtonsWrapper = styled.div`
       }
    }
 `;
+
+

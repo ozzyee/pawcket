@@ -142,7 +142,7 @@ const UserProfile: NextPage = () => {
                   </S.PetsSection>
                   ,
                </PassportWrapper>
-               <Navbar />
+               <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>
       </>

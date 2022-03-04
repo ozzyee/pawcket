@@ -18,15 +18,16 @@ import { AuthService } from "../lib/auth-service/auth.service";
 import { doc, getDoc } from "firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 
-// type TVetsList = {
-//    name: string;
-//    address: string;
-//    phone: number;
-//    website: string;
-//    distance: number;
-// };
+type TData = {
+   id: number;
+   name: string;
+   phone: number;
+   website: string;
+   distance: string;
+   address: string;
+};
 
-type TestType = any[];
+type TestType = TData[];
 
 const Vet: NextPage = () => {
    const [vets, setVets] = useState<TestType>([]);
@@ -69,7 +70,6 @@ const Vet: NextPage = () => {
          <S.Desktop>
             <MainLayout className="desktop" desktopCard={true}>
                <S.Top>
-                  <h1 onClick={getVets}>CLICK ME FOR VETS!!!!!!!!</h1>
                   <S.TopRight>
                      <Navbar className="nav" />
                      <Text textType="h1" className="title">

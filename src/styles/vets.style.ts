@@ -82,11 +82,13 @@ export const VetList = styled.ol`
       max-height: 365px;
 
       ::-webkit-scrollbar {
-         width: 0px;
+         width: 6px;
+         visibility: hidden;
       }
 
       :hover::-webkit-scrollbar {
          width: 6px;
+         visibility: visible;
       }
 
       ::-webkit-scrollbar-track {
@@ -137,59 +139,57 @@ export const Top = styled.div`
 
 export const Bottom = styled.div`
    height: 60%;
-   .wrapper{
+   .wrapper {
       height: 85%;
       padding: 5% 0;
    }
-   ol{
+   ol {
       height: 100%;
       max-height: 110%;
       padding: 0 5%;
+   }
 
-}
-
-   .vetsep{
+   .vetsep {
       left: 5%;
       position: relative;
       z-index: 3;
-      width: 90%
-
+      width: 90%;
    }
-   .vetsep::before{
+   .vetsep::before {
       height: 3.5px;
    }
 `;
 export const TopLeft = styled.div`
    height: 100%;
    width: 40%;
-   float : left;
-   display : flex;
-justify-content: center;
-align-items: center;
+   float: left;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 `;
 export const TopRight = styled.div`
-display: flex;
-height: 100%;
-width: 60%;
-float : right;
-flex-direction : column;
-justify-content: center;
-align-items: center;
-.title{
-   color : black;
-   text-align: center;
-   margin-bottom: 0px
-}
-.vets{
-   margin: 0 50%;
-   width: 80%;
-}
-.vetbuttons{
-   width: 100%;
-   justify-content: space-evenly;
-}
-button{
-   margin-top: 50%;
-   transform: scale(1.7);
-}
+   display: flex;
+   height: 100%;
+   width: 60%;
+   float: right;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   .title {
+      color: black;
+      text-align: center;
+      margin-bottom: 0px;
+   }
+   .vets {
+      margin: 0 50%;
+      width: 80%;
+   }
+   .vetbuttons {
+      width: 100%;
+      justify-content: space-evenly;
+   }
+   button {
+      margin-top: 50%;
+      transform: scale(1.7);
+   }
 `;

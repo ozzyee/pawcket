@@ -81,7 +81,7 @@ const PetProfile: NextPage = () => {
                      <Passport pet={pet} />
                   </PassportWrapper>
                </S.Bio>
-               <Navbar />
+               <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>
       </>

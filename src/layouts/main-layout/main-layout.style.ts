@@ -36,6 +36,7 @@ export const CardDesktop = styled.div`
    top: 0;
    border-bottom-left-radius: 22px;
    border-bottom-right-radius: 22px;
+   box-shadow: 10px 10px 10px rgba(251, 133, 0, 0.7);
 `;
 
 export const MainLayout = styled.main`

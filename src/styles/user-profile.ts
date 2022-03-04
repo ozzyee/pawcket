@@ -126,7 +126,7 @@ export const Bottom = styled.div`
    }
 
    .desktopPassport::-webkit-scrollbar {
-      width: 0px;
+      width: 6px;
    }
 
    .desktopPassport:hover::-webkit-scrollbar {

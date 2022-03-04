@@ -208,4 +208,8 @@ export const Bottom = styled.div`
       background-color: ${styles.colors.primary};
       border-radius: 50px;
    }
+
+   .centeredButton{
+       grid-column: span 3;
+   }
 `;

@@ -4,6 +4,12 @@ import * as S from "./user-info.style";
 import { Text } from "../text/text.component";
 
 export function UserInfo({ user, className }: TUserInfoProps) {
+
+    function trimDate(date:string):string{
+        const i = date.indexOf("T")
+        const dob = date.substring(1, i)
+        return
+    }
    return (
       <S.UserInfo className={className}>
         
@@ -14,7 +20,7 @@ export function UserInfo({ user, className }: TUserInfoProps) {
         <Text>{`${user.address}`}</Text></>}
         {user.DOB === undefined ? null :
         <><Text className="placeholder">{"Date of Birth:"}</Text>
-        <Text>{`${user.DOB}`}</Text></>}
+        <Text>{`${trimDate(user.DOB)}`}</Text></>}
         
       </S.UserInfo>
    );

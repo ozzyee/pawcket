@@ -18,20 +18,9 @@ import Head from "next/head";
 import { TUser } from "../../dummy-data/dummy-data";
 import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
 
-const UserProfile: NextPage = ({userUID}) => {
-   const [user, setUser] = useState<TUser | DocumentData>({ ...data.jennifer });
+const UserProfile: NextPage = ({userUID, data}) => {
+   const [user, setUser] = useState<TUser | DocumentData>(data);
    if (!user) return null;
-
-    //Fetch user info
-    //     const userData = async (id: string) => {
-    //         const ref = doc(firestoreDB, "users", id);
-    //         const snap = await getDoc(ref)
-    //         const data = snap.data()
-    //         console.log("HERE=====>",data)
-    //         setUser({...data})
-    //     }
-    //     userData(userUID)
-
 
    return (
       <>
@@ -91,6 +80,7 @@ const UserProfile: NextPage = ({userUID}) => {
                            })}
                         <Buttons
                            dark={true}
+                           className={!user.pets ? "centeredButton": ""}
                            onClick={() =>
                               router.push("/create-pet", undefined, {
                                  shallow: true,
@@ -173,6 +163,9 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const docSnap = await getDoc(docRef);
       const _data = docSnap.data();
 
+      
+    //Fetch user info
+
       // No user then send to login/ sign up page
       if (!dataRes) {
          return {
@@ -192,9 +185,24 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          };
       }
 
+      if (_data?.DOB) {
+        const data = {
+           ..._data,
+           DOB: JSON.stringify(_data?.DOB.toDate()),
+        };
+
+        return {
+           props: {
+              data,
+              userUID,
+           },
+        };
+     }
+
       return {
          props: {
             userUID,
+            data
          },
       };
    } catch (err) {

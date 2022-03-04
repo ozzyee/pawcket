@@ -3,19 +3,17 @@ import { TImageUploaderProps } from "./image-uploader.definition";
 import * as S from "./image-uploader.style";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { storage } from "../../lib/firebase/firebase.initialize";
+import { uid } from "uid";
 
 export function ImageUploader({ onChange, _ref, folder }: TImageUploaderProps) {
    const uploader = async (event: ChangeEvent) => {
       const target = event.target as HTMLInputElement;
-      let file: File = (target.files as FileList)[0];
-      const fileNameSplit = file.name.split(".");
-      const fileType = fileNameSplit[fileNameSplit.length - 1];
-
-      file.name = `bob123.${fileType}`;
+      const file: File = (target.files as FileList)[0];
+      const id = uid();
 
       if (!file) return null;
 
-      const storageRef = ref(storage, `/${folder}/${file.name}`);
+      const storageRef = ref(storage, `/${folder}/${id}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(

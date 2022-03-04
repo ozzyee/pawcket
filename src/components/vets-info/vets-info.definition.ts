@@ -4,4 +4,5 @@ export type TVetsInfoProps = {
    vetPhoneNumber: string;
    vetAddress: string;
    vetWebsite: string;
+   vetDistance: string;
 };

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { navbarStylesPros } from "./navbar.definition";
 import { listStylesPros } from "./navbar.definition";
+import styles from "../../styles/style.config.json";
 
 export const NavbarDiv = styled.div<navbarStylesPros>`
-   background-color: #219ebc;
-   padding-left: 50px;
-   padding-right: 50px;
+   background-color: ${styles.colors.blue};
+   padding: 1px;
 `;
 //    position: fixed;
 //    z-index : 9999;

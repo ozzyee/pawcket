@@ -3,7 +3,7 @@ import styles from "../../styles/style.config.json";
 
 export const Wrapper = styled.div`
    background-image: radial-gradient(#ffe5a5, #ffbf1f);
-   height: 35vh;
+   height: 100%;
    min-height: 410px;
    width: 100vw;
    display: flex;
@@ -36,6 +36,7 @@ export const CardDesktop = styled.div`
    top: 0;
    border-bottom-left-radius: 22px;
    border-bottom-right-radius: 22px;
+   box-shadow: 10px 10px 10px rgba(251, 133, 0, 0.7);
 `;
 
 export const MainLayout = styled.main`
@@ -262,31 +263,4 @@ export const MainContent = styled.main`
       background-color: transparent;
       margin-top: 20px;
    }
-`;
-
-export const VetList = styled.ol`
-   display: flex;
-   flex-direction: column;
-   list-style-type: none;
-   align-items: center;
-   justify-content: center;
-   padding: 0px;
-
-   @media (min-width: ${styles.breakPoints.m}) {
-      background-color: pink;
-      display: grid;
-      grid-template-columns: repeat(3, 400px);
-      padding: 0px;
-      place-items: center;
-      .vetcard {
-         grid-column-end: span;
-      }
-   }
-`;
-
-export const VetButtons = styled.ol`
-   display: flex;
-   padding: 0;
-   list-style-type: none;
-   justify-content: space-between;
 `;

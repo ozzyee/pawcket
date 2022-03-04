@@ -19,6 +19,7 @@ export type TPet = {
    petSpecies?: string;
    petPersonality?: string;
    petMedication?: string;
-   petWeight?:string;
+   petWeight?: string;
    petExtraInfo?: string;
+   image?: string;
 };

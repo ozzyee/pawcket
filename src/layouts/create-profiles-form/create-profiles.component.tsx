@@ -27,8 +27,6 @@ export function CreateProfileForm({
    const router = useRouter();
    const [img, setImg] = useState("");
 
-   console.log("THE IMG ->", img);
-
    const [userData, setUserData] = useState<null | TCreatUser>({
       firstName: dateObject?.firstName || "",
       lastName: dateObject?.lastName || "",

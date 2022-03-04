@@ -1,4 +1,5 @@
-import React, { FormEvent, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { Buttons } from "../../components/buttons/buttons.component";
 import { FormInputs } from "../../components/form-inputs/form-inputs.component";
 import { Separator } from "../../components/separator/separator.component";
@@ -15,6 +16,7 @@ import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 import { useRouter } from "next/router";
 import Router from "next/router";
 import { uid } from "uid";
+import { ImageUploader } from "../../functions/dynamic-imports";
 
 export function CreatePetForm({
    className,
@@ -23,12 +25,23 @@ export function CreatePetForm({
    uploadImage,
 }: TCreatePetFormProps) {
    const router = useRouter();
+   const hiddenImageUploader = useRef(null);
    const [formData, setFormData] = useState<null | TPet>(null);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [errors, setErrors] = useState<TPet | null>(null);
    const [redirect, setRedirect] = useState("");
+   const [img, setImg] = useState("");
 
-   console.log("img ->", uploadImage);
+   useEffect(() => {
+      setFormData({ ...formData, image: uploadImage });
+   }, [uploadImage, img]);
+
+   console.log("data =>", formData);
+
+   const uploadImageFunc = () => {
+      // @ts-ignore
+      hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
+   };
 
    const onCreatePet = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -68,11 +81,10 @@ export function CreatePetForm({
          );
       }
 
-      console.log(redirect);
-
       //If no errors send data to db
       if (!errors?.name && !errors?.dateOfBirth && !errors?.sex) {
          const DOB = formData?.dateOfBirth?.toString();
+         console.log("HELLO!!");
 
          try {
             if (!_data?.pets) {
@@ -82,7 +94,7 @@ export function CreatePetForm({
                         ...formData,
                         dateOfBirth: DOB,
                         id: uid(),
-                        image: uploadImage,
+                        image: uploadImage || img,
                      },
                   ],
                });
@@ -100,10 +112,11 @@ export function CreatePetForm({
                         ...formData,
                         dateOfBirth: DOB,
                         id: uid(),
-                        image: uploadImage,
+                        image: uploadImage || img,
                      },
                   ],
                });
+
                if (redirect !== "user-profile") {
                   // @ts-ignore
                   Router.reload(window.location.pathname);
@@ -124,7 +137,18 @@ export function CreatePetForm({
             <S.FormSplitLeft>
                <S.Wrapper>
                   <S.ImageAndTextWrapper>
-                     <Frame background={"/frame.svg"} diameter={150} />
+                     <Frame
+                        diameter={150}
+                        img={formData?.image || img}
+                        onClick={uploadImageFunc}
+                     />
+                     <ImageUploader
+                        _ref={hiddenImageUploader}
+                        onChange={(imgUrl) => {
+                           setImg(imgUrl);
+                        }}
+                        folder={`/${userUID}`}
+                     />
                      <S.TextHolder>
                         <Text textType="h2" className="sub-heading-h2-upload">
                            Upload

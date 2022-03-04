@@ -15,7 +15,10 @@ export default {
         },
         caption:{
             description: "Little text under picture, is optional. Takes a string"
-        }
+        },
+        className:{
+            description: "Element class. Takes a string"
+        },
     },
 } as ComponentMeta<typeof RoundImage>;
 

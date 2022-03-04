@@ -21,14 +21,14 @@ const UserProfile: NextPage = ({userUID}) => {
    if (!user) return null;
 
     //Fetch user info
-        const userData = async (id: string) => {
-            const ref = doc(firestoreDB, "users", id);
-            const snap = await getDoc(ref)
-            const data = snap.data()
-            console.log("HERE=====>",data)
-            setUser({...data})
-        }
-        userData(userUID)
+    //     const userData = async (id: string) => {
+    //         const ref = doc(firestoreDB, "users", id);
+    //         const snap = await getDoc(ref)
+    //         const data = snap.data()
+    //         console.log("HERE=====>",data)
+    //         setUser({...data})
+    //     }
+    //     userData(userUID)
 
 
    return (
@@ -56,11 +56,19 @@ const UserProfile: NextPage = ({userUID}) => {
                </S.TopLeft>
                <S.TopRight>
                   <Navbar className="desktopNav" />
-                  <Text className="bio">{`"${user.extraInfo}"`}</Text>
+                    <S.InfoSection>
+                       <Text className="bio">{`${user.extraInfo}`}</Text>
+                       <Text className="placeholder">{"Post Code:"}</Text>
+                       <Text>{`${user.postCode}`}</Text>
+                       <Text className="placeholder">{"Address:"}</Text>
+                       <Text>{`${user.address}`}</Text>
+                       <Text className="placeholder">{"Date of Birth:"}</Text>
+                       <Text>{`${user.DOB}`}</Text>
+                    </S.InfoSection>
                </S.TopRight>
-               <S.Bottom>
+               <S.Bottom >
                   <Separator
-                     separatorText="My Passport"
+                     separatorText="My Pets"
                      className="separator"
                   />
                   <PassportWrapper
@@ -75,6 +83,7 @@ const UserProfile: NextPage = ({userUID}) => {
                                     src={pet.profilePic}
                                     diameter={100}
                                     caption={pet.name}
+                                    className="petPic"
                                     onClick={() =>
                                        router.push("/pet-profile", undefined, {
                                           shallow: true,

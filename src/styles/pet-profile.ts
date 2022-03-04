@@ -85,7 +85,7 @@ export const Bottom = styled.div`
    .separator {
       width: 90%;
       margin: 0 5%;
-      position: relative;
+      position: absolute;
       z-index: 5;
    }
    .placeholder {
@@ -99,7 +99,8 @@ export const Bottom = styled.div`
       overflow-x: hidden;
       margin-top: 0;
       transform: translatey(-5%);
-      line-height: 0%;
+      padding: 10px 20px;
+      line-height: 8px;
    }
 
    .desktopPassport::-webkit-scrollbar {

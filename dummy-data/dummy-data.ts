@@ -9,6 +9,7 @@ export type TUser = {
    telephone?: string;
    extraInfo?: string;
    profilePic?: string;
+   postCode?: string;
    pets?: TPet[];
 };
 

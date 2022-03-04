@@ -106,6 +106,7 @@ export const Bottom = styled.div`
    height: 50%;
 
    .separator {
+       display: grid;
       width: 90%;
       margin: 0 5%;
       position: relative;
@@ -113,6 +114,24 @@ export const Bottom = styled.div`
    }
    .placeholder {
       color: rgba(14, 23, 27, 0.5);
+   }
+
+   .petPic::after{
+       visibility: hidden;
+        position: relative;
+        top: -110%;
+        width: 100%;
+        height: 100%;
+        border-radius: 100px;
+        color:white;
+        background-color: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        display: grid;
+        place-content: center;
+   }
+
+   .petPic:hover::after{
+       visibility: visible;
    }
 
    .desktopPassport {

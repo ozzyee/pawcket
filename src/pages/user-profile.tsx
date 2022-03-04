@@ -161,7 +161,6 @@ const UserProfile: NextPage = ({userUID}) => {
                         +
                      </Buttons>
                   </S.PetsSection>
-                  ,
                </PassportWrapper>
                <Navbar className="nav" />
             </MainLayout>

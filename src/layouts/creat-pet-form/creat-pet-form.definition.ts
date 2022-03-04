@@ -2,6 +2,7 @@ export type TCreatePetFormProps = {
    className?: string;
    userUID: string;
    _data: any;
+   uploadImage?: string;
 };
 
 export type TPet = {

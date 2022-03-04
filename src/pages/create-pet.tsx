@@ -1,13 +1,25 @@
 import { doc, getDoc } from "@firebase/firestore";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Frame } from "../components/frame/frame.component";
-import { CreatePetForm, MainLayout } from "../functions/dynamic-imports";
+import {
+   CreatePetForm,
+   ImageUploader,
+   MainLayout,
+} from "../functions/dynamic-imports";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import Head from "next/head";
 import { TCreatePetPage } from "../types/create-pet-page";
+import { useRef, useState } from "react";
 
 const CreatePet = ({ userUID, _data }: TCreatePetPage) => {
+   const hiddenImageUploader = useRef(null);
+   const [image, setImage] = useState<null | string>(null);
+
+   const uploadImage = () => {
+      // @ts-ignore
+      hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
+   };
    return (
       <>
          <Head>
@@ -24,9 +36,29 @@ const CreatePet = ({ userUID, _data }: TCreatePetPage) => {
             bottomTitle="Welcome!"
             bottomSubTitle="create your pet"
             className="desktop-display-none"
-            topChildren={<Frame background={"/frame.svg"} diameter={150} />}
+            topChildren={
+               <>
+                  <Frame
+                     background={"/frame.svg"}
+                     diameter={150}
+                     img={image}
+                     onClick={uploadImage}
+                  />
+                  <ImageUploader
+                     _ref={hiddenImageUploader}
+                     onChange={(imgUrl) => {
+                        setImage(imgUrl);
+                     }}
+                     folder={`/${userUID}/pets`}
+                  />
+               </>
+            }
          >
-            <CreatePetForm userUID={userUID} _data={_data} />
+            <CreatePetForm
+               userUID={userUID}
+               _data={_data}
+               uploadImage={image ? image : ""}
+            />
          </MainLayout>
       </>
    );

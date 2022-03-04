@@ -4,14 +4,14 @@ import * as S from "./image-uploader.style";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { storage } from "../../lib/firebase/firebase.initialize";
 
-export function ImageUploader({
-   onChange,
-   _ref,
-   folder
-}: TImageUploaderProps) {
+export function ImageUploader({ onChange, _ref, folder }: TImageUploaderProps) {
    const uploader = async (event: ChangeEvent) => {
       const target = event.target as HTMLInputElement;
-      const file: File = (target.files as FileList)[0];
+      let file: File = (target.files as FileList)[0];
+      const fileNameSplit = file.name.split(".");
+      const fileType = fileNameSplit[fileNameSplit.length - 1];
+
+      file.name = `bob123.${fileType}`;
 
       if (!file) return null;
 

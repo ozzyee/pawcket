@@ -20,12 +20,15 @@ export function CreatePetForm({
    className,
    userUID,
    _data,
+   uploadImage,
 }: TCreatePetFormProps) {
    const router = useRouter();
    const [formData, setFormData] = useState<null | TPet>(null);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [errors, setErrors] = useState<TPet | null>(null);
    const [redirect, setRedirect] = useState("");
+
+   console.log("img ->", uploadImage);
 
    const onCreatePet = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -74,7 +77,14 @@ export function CreatePetForm({
          try {
             if (!_data?.pets) {
                await setDoc(doc(firestoreDB, "pets", userUID), {
-                  pets: [{ ...formData, dateOfBirth: DOB, id: uid() }],
+                  pets: [
+                     {
+                        ...formData,
+                        dateOfBirth: DOB,
+                        id: uid(),
+                        image: uploadImage,
+                     },
+                  ],
                });
                if (redirect !== "user-profile") {
                   // @ts-ignore
@@ -86,7 +96,12 @@ export function CreatePetForm({
                await setDoc(doc(firestoreDB, "pets", userUID), {
                   pets: [
                      ..._data?.pets,
-                     { ...formData, dateOfBirth: DOB, id: uid() },
+                     {
+                        ...formData,
+                        dateOfBirth: DOB,
+                        id: uid(),
+                        image: uploadImage,
+                     },
                   ],
                });
                if (redirect !== "user-profile") {
@@ -253,6 +268,7 @@ export function CreatePetForm({
             <ButtonsWrapper id="display-none" className="create-users-forms">
                <Buttons
                   dark={false}
+                  type="submit"
                   className="form-btn"
                   id="pet-continue-btn"
                   onClick={() => setRedirect("user-profile")}
@@ -261,6 +277,7 @@ export function CreatePetForm({
                </Buttons>
                <Buttons
                   dark={true}
+                  type="submit"
                   className="form-btn"
                   id="pet-add-btn"
                   onClick={() => setRedirect("create-pet")}

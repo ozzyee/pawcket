@@ -1,15 +1,15 @@
 import { NextApiRequest, NextPage } from "next";
 import { useState } from "react";
-import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
-import { Separator } from "../components/separator/separator.component";
-import { Text } from "../components/text/text.component";
-import * as data from "../../dummy-data/dummy-data";
-import * as S from "../styles/pet-profile";
-import { AuthService } from "../lib/auth-service/auth.service";
+import { PassportWrapper } from "../../components/passport-wrapper/passport-wrapper.component";
+import { Separator } from "../../components/separator/separator.component";
+import { Text } from "../../components/text/text.component";
+import * as data from "../../../dummy-data/dummy-data";
+import * as S from "../../styles/pet-profile";
+import { AuthService } from "../../lib/auth-service/auth.service";
 import { doc, getDoc } from "@firebase/firestore";
-import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { Passport } from "../components/passport/passport.component";
-import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
+import { firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { Passport } from "../../components/passport/passport.component";
+import { Frame, MainLayout, Navbar } from "../../functions/dynamic-imports";
 import Head from "next/head";
 
 const PetProfile: NextPage = () => {

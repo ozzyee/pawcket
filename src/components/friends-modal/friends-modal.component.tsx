@@ -11,6 +11,7 @@ export function FriendsModal({
    fullName,
    sentRequest,
    imageUrl,
+   userStatus,
 }: TFriendsModalProps) {
    console.log("img =>", imageUrl);
 
@@ -34,7 +35,7 @@ export function FriendsModal({
             </S.Image>
          </S.ImageWrapper>
          <S.UserNameWrapper>
-            <Text className="status-text">Friends Request</Text>
+            <Text className="status-text">{userStatus ? userStatus : ""}</Text>
             <Text textType="h3" className="name-text">
                {fullName}
             </Text>

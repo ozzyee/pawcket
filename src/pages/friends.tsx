@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 import { collection, getDocs } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { FriendsModal } from "../components/friends-modal/friends-modal.component";
 

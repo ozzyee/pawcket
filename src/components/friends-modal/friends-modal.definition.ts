@@ -3,4 +3,5 @@ export type TFriendsModalProps = {
    fullName: string;
    sentRequest: boolean;
    imageUrl?: string;
+   userStatus?: string;
 };

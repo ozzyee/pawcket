@@ -13,6 +13,7 @@ export type TFormInputsProps = {
    onTextAreaChange?: React.ChangeEventHandler<HTMLTextAreaElement> | undefined;
    formDateValue?: string | undefined;
    id?: string;
+   onKeyUp?: (event: { target: HTMLInputElement }) => void;
 };
 
 export type TErrorStyle = {

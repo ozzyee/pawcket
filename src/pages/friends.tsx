@@ -4,6 +4,7 @@ import { collection, getDocs } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
+import { FriendsModal } from "../components/friends-modal/friends-modal.component";
 
 import { Navbar } from "../components/navbar/navbar.component";
 import { Frame, MainLayout } from "../functions/dynamic-imports";
@@ -22,6 +23,9 @@ type TUserData = {
    tel: string;
    userID: string;
    userImage: string;
+   fullName: string;
+   fullNameReverse: string;
+   userName: string;
 };
 
 type TFriendsData = {
@@ -30,58 +34,26 @@ type TFriendsData = {
 };
 
 const Friends = ({ data, userUID }: TFriendsData) => {
-   const [search, setSearch] = useState("");
-   const [searchArr, setSearchArr] = useState<string[]>([]);
-   const newData: TUserData[] = [];
+   const [results, setResults] = useState<TUserData[]>([]);
 
-   useEffect(() => {
-      const sarahArray = search.split(" ");
+   const searchUser = (text: string) => {
+      const searchResults = data.filter(
+         ({ fullName, fullNameReverse, userName }) => {
+            const fullNameLowercase = fullName.toLowerCase();
+            const fullNameReverseLowercase = fullNameReverse.toLowerCase();
+            const usernameToLowercase = userName?.toLowerCase();
 
-      for (let name of sarahArray) {
-         name = name.substr(0, 1).toUpperCase() + name.substr(1);
-         setSearchArr([...searchArr, name]);
-      }
-   }, [search]);
-
-   useEffect(() => {
-      if (search.length === 0) {
-         setSearchArr([]);
-      }
-   }, [search]);
-
-   data.map((data: TUserData) => {
-      if (searchArr.length === 1) {
-         if (data?.firstName?.includes(searchArr[0])) {
-            newData.push(data);
-            return;
-         } else if (data?.lastName?.includes(searchArr[0])) {
-            newData.push(data);
-            return;
+            return (
+               fullNameLowercase.startsWith(text.toLowerCase()) ||
+               fullNameReverseLowercase.startsWith(text.toLowerCase()) ||
+               usernameToLowercase?.startsWith(text.toLowerCase())
+            );
          }
-      } else if (searchArr[1] === "") {
-         if (data?.firstName == searchArr[0]) {
-            newData.push(data);
-            return;
-         } else if (data?.lastName?.includes(searchArr[0])) {
-            newData.push(data);
-            return;
-         }
-      } else if (searchArr.length > 1) {
-         if (
-            data?.firstName?.includes(searchArr[0]) &&
-            data?.lastName?.includes(searchArr[1])
-         ) {
-            newData.push(data);
-         } else if (
-            data?.firstName?.includes(searchArr[1]) &&
-            data?.lastName?.includes(searchArr[0])
-         ) {
-            newData.push(data);
-         }
-      }
-   });
+      );
+      setResults([...searchResults]);
+   };
 
-   console.log(newData);
+   console.log("these are the results ->", results);
 
    return (
       <>
@@ -89,8 +61,11 @@ const Friends = ({ data, userUID }: TFriendsData) => {
             <MainLayout className="desktop" desktopCard={true}>
                <FormInputs
                   placeholder={"Search for friends"}
-                  onChange={(evt) => setSearch(evt.target.value)}
+                  onKeyUp={(event: { target: HTMLInputElement }) => {
+                     searchUser(event.target.value);
+                  }}
                />
+               <FriendsModal />
             </MainLayout>
          </S.Desktop>
 
@@ -131,12 +106,8 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          const dataObject = {
             ..._data,
             DOB: JSON.stringify(_data?.DOB?.toDate()) || "",
-            lastName:
-               _data.lastName?.charAt(0).toUpperCase() +
-               _data.lastName?.slice(1),
-            firstName:
-               _data.firstName?.charAt(0).toUpperCase() +
-               _data.firstName?.slice(1),
+            fullName: _data.firstName + " " + _data.lastName,
+            fullNameReverse: _data.lastName + " " + _data.firstName,
          };
 
          data.push(dataObject);

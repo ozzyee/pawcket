@@ -4,8 +4,9 @@ import {
    collection,
    doc,
    getDoc,
-   getDocs,
    onSnapshot,
+   query,
+   setDoc,
 } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
@@ -33,28 +34,19 @@ type TUserData = {
    fullName: string;
    fullNameReverse: string;
    userName: string;
-   friends: TCurrentUsersFriends[];
 };
 
 type TFriendsData = {
-   data: TUserData[];
    userUID?: string;
-   currentUserData: TUserData;
 };
 
-type TCurrentUsersFriends = {
-   friendID: string;
-   requestAccepted: boolean;
-};
-
-const Friends = ({ data, userUID, currentUserData }: TFriendsData) => {
+const Friends = ({ userUID }: TFriendsData) => {
    const [results, setResults] = useState<TUserData[]>([]);
-   const [friends, setFriends] = useState<TCurrentUsersFriends[]>([
-      ...currentUserData.friends,
-   ]);
+   const [currentUserData, setCurrentUserData] = useState<any>(null);
+   const [allUsers, setAllUsers] = useState<TUserData[]>([]);
 
    const searchUser = (text: string) => {
-      const searchResults = data.filter(
+      const searchResults = allUsers.filter(
          ({ fullName, fullNameReverse, userName }) => {
             const fullNameLowercase = fullName.toLowerCase();
             const fullNameReverseLowercase = fullNameReverse.toLowerCase();
@@ -70,18 +62,94 @@ const Friends = ({ data, userUID, currentUserData }: TFriendsData) => {
       setResults([...searchResults]);
    };
 
-   const addUser = (friendID: string) => {
-      setFriends([...friends, { friendID, requestAccepted: false }]);
+   const addFriend = async ({ id }: { id: string }) => {
+      if (!userUID) return null;
+
+      //! if the current used dosent have any friends then add an empty sting to array  and put in selected friend
+      if (!currentUserData.friends) {
+         const addFriendData = {
+            ...currentUserData,
+            friends: ["", { friendID: id, requestAccepted: false }],
+         };
+         await setDoc(doc(firestoreDB, "users", userUID), addFriendData);
+         sendRequest({ id });
+         return;
+      }
+      //! if the current used has friends spread out the friends and put in the new one
+
+      const addFriendData = {
+         ...currentUserData,
+         friends: [
+            ...currentUserData.friends,
+            { friendID: id, requestAccepted: false },
+         ],
+      };
+      //! when the object is ready then send it to the db
+      await setDoc(doc(firestoreDB, "users", userUID), addFriendData);
+      sendRequest({ id });
    };
 
-   console.log("friends => ->", friends);
+   const sendRequest = async ({ id }: { id: string }) => {
+      //! get the selected friends data have
+      const docRef = doc(firestoreDB, "users", id);
+      const docSnap = await getDoc(docRef);
+      const _data = docSnap.data();
+
+      //! once we have the data we can then send it to the db.
+      //! if the friend doesn't have any friends then we will set an empty array with a string an new data
+      if (!_data?.friendsRequests) {
+         const addFriendRequestData = {
+            ..._data,
+            friendsRequests: [
+               "",
+               { requestAccepted: false, friendID: userUID },
+            ],
+         };
+         await setDoc(doc(firestoreDB, "users", id), addFriendRequestData);
+         return;
+      }
+
+      //! if  the friend has friends then speed out the data and add the new one
+      const addFriendRequestData = {
+         ..._data,
+         friendsRequests: [
+            ..._data.friendsRequests,
+            { requestAccepted: false, friendID: userUID },
+         ],
+      };
+      await setDoc(doc(firestoreDB, "users", id), addFriendRequestData);
+   };
 
    // const removeUser = () => {};
 
+   //! realtime feed to db
    useEffect(() => {
-      // @ts-ignore
+      if (!userUID) return;
+      //! current users data in real time
       onSnapshot(doc(firestoreDB, "users", userUID), (doc) => {
-         // console.log("Current data: ", doc.data());
+         const data = doc.data();
+         const _data = {
+            ...data,
+            DOB: "",
+         };
+         setCurrentUserData(_data);
+      });
+
+      //! all documents in users in real time
+      const q = query(collection(firestoreDB, "users"));
+      onSnapshot(q, (querySnapshot) => {
+         const users: TUserData[] = [];
+         querySnapshot.forEach((doc) => {
+            const _data = doc.data();
+            const data: any = {
+               ..._data,
+               DOB: "",
+               fullName: _data.firstName + " " + _data.lastName,
+               fullNameReverse: _data.lastName + " " + _data.firstName,
+            };
+            users.push(data);
+         });
+         setAllUsers(users);
       });
    }, []);
 
@@ -100,6 +168,8 @@ const Friends = ({ data, userUID, currentUserData }: TFriendsData) => {
                      return (
                         <FriendsModal
                            key={index}
+                           uid={userID}
+                           currentUserUid={userUID}
                            fullName={fullName}
                            sentRequest={false}
                            imageUrl={userImage}
@@ -110,7 +180,7 @@ const Friends = ({ data, userUID, currentUserData }: TFriendsData) => {
                                  (evt.target as Element).ownerSVGElement?.id;
 
                               if (functionId === "add-friend") {
-                                 addUser(userID);
+                                 addFriend({ id: userID });
                               } else {
                                  console.log("remove");
                               }
@@ -149,30 +219,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          cookieRefreshToken
       );
       const userUID = dataRes.getIdToken.user_id;
-      const data: any = [];
-      const querySnapshot = await getDocs(collection(firestoreDB, "users"));
-
-      const docRef = doc(firestoreDB, "users", userUID);
-      const docSnap = await getDoc(docRef);
-      const _currentUserData = docSnap.data();
-
-      querySnapshot.forEach((doc) => {
-         const _data = doc.data();
-
-         const dataObject = {
-            ..._data,
-            DOB: JSON.stringify(_data?.DOB?.toDate()) || "",
-            fullName: _data.firstName + " " + _data.lastName,
-            fullNameReverse: _data.lastName + " " + _data.firstName,
-         };
-
-         data.push(dataObject);
-      });
-
-      const currentUserData = {
-         ..._currentUserData,
-         DOB: JSON.stringify(_currentUserData?.DOB?.toDate()) || "",
-      };
 
       // No user then send to login/ sign up page
       if (!dataRes) {
@@ -186,8 +232,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       return {
          props: {
             userUID,
-            data,
-            currentUserData,
          },
       };
    } catch (err) {

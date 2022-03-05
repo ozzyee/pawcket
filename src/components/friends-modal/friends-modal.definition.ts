@@ -6,4 +6,6 @@ export type TFriendsModalProps = {
    imageUrl?: string;
    userStatus?: string;
    onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+   uid: string;
+   currentUserUid: string | undefined;
 };

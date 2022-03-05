@@ -13,19 +13,23 @@ export function FriendsModal({
    imageUrl,
    userStatus,
    onClick,
+   uid,
+   currentUserUid,
 }: TFriendsModalProps) {
-   console.log("img =>", imageUrl);
-
    return (
       <S.FriendsModalDiv className={className}>
-         {sentRequest ? (
-            <S.Button onClick={onClick} id="remove-friend">
-               <PersonRemove className="friend-icon" id="remove-friend" />
-            </S.Button>
-         ) : (
-            <S.Button onClick={onClick} id="add-friend">
-               <PersonAdd className="friend-icon" id="add-friend" />
-            </S.Button>
+         {uid !== currentUserUid&& (
+            <>
+               {sentRequest ? (
+                  <S.Button onClick={onClick} id="remove-friend">
+                     <PersonRemove className="friend-icon" id="remove-friend" />
+                  </S.Button>
+               ) : (
+                  <S.Button onClick={onClick} id="add-friend">
+                     <PersonAdd className="friend-icon" id="add-friend" />
+                  </S.Button>
+               )}
+            </>
          )}
          <S.ImageWrapper>
             <S.Image>
@@ -38,7 +42,8 @@ export function FriendsModal({
             </S.Image>
          </S.ImageWrapper>
          <S.UserNameWrapper>
-            <Text className="status-text">{userStatus ? userStatus : ""}</Text>
+           {uid !== currentUserUid && <Text className="status-text">{userStatus ? userStatus : ""}</Text>}
+           {uid === currentUserUid && <Text className="status-text">Your account</Text>}
             <Text textType="h3" className="name-text">
                {fullName}
             </Text>

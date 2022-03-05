@@ -39,10 +39,6 @@ const Friends = ({ data, userUID }: TFriendsData) => {
    }, [search]);
 
    data.map((data: TUserData) => {
-      const name = `${data.firstName} ${data.lastName}`;
-
-      console.log(searchArr[1] === "");
-
       if (searchArr.length === 1) {
          if (data?.firstName?.includes(searchArr[0])) {
             newData.push(data);

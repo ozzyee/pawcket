@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 import { collection, getDocs } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
@@ -35,7 +36,11 @@ const Friends = ({ data, userUID }: TFriendsData) => {
 
    useEffect(() => {
       const sarahArray = search.split(" ");
-      setSearchArr([...sarahArray]);
+
+      for (let name of sarahArray) {
+         name = name.substr(0, 1).toUpperCase() + name.substr(1);
+         setSearchArr([...searchArr, name]);
+      }
    }, [search]);
 
    data.map((data: TUserData) => {

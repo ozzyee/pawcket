@@ -36,7 +36,6 @@ export function CreatePetForm({
       setFormData({ ...formData, image: uploadImage || img });
    }, [uploadImage, img]);
 
-   console.log("data =>", formData);
 
    const uploadImageFunc = () => {
       // @ts-ignore
@@ -84,8 +83,6 @@ export function CreatePetForm({
       //If no errors send data to db
       if (!errors?.name && !errors?.dateOfBirth && !errors?.sex) {
          const DOB = formData?.dateOfBirth?.toString();
-         console.log("HELLO!!");
-
          try {
             if (!_data?.pets) {
                await setDoc(doc(firestoreDB, "pets", userUID), {

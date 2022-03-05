@@ -31,7 +31,6 @@ const Vet: NextPage = () => {
    async function getVets() {
       const response = await fetch("https://hub.dummyapis.com/vj/tuB6Lx7");
       const data = await response.json();
-      console.log(data);
       setVets(data);
    }
 

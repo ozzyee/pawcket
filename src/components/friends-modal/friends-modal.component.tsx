@@ -12,18 +12,21 @@ export function FriendsModal({
    sentRequest,
    imageUrl,
    userStatus,
+   onClick,
 }: TFriendsModalProps) {
    console.log("img =>", imageUrl);
 
    return (
       <S.FriendsModalDiv className={className}>
-         <S.Button>
-            {sentRequest ? (
-               <PersonRemove id="friend-icon" />
-            ) : (
-               <PersonAdd id="friend-icon" />
-            )}
-         </S.Button>
+         {sentRequest ? (
+            <S.Button onClick={onClick} id="remove-friend">
+               <PersonRemove className="friend-icon" id="remove-friend" />
+            </S.Button>
+         ) : (
+            <S.Button onClick={onClick} id="add-friend">
+               <PersonAdd className="friend-icon" id="add-friend" />
+            </S.Button>
+         )}
          <S.ImageWrapper>
             <S.Image>
                <Image

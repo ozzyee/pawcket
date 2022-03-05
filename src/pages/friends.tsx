@@ -1,8 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import { collection, getDocs } from "@firebase/firestore";
+import {
+   collection,
+   doc,
+   getDoc,
+   getDocs,
+   onSnapshot,
+} from "@firebase/firestore";
 import type { NextApiRequest } from "next";
-import {useState } from "react";
+import { useEffect, useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { FriendsModal } from "../components/friends-modal/friends-modal.component";
 
@@ -27,15 +33,25 @@ type TUserData = {
    fullName: string;
    fullNameReverse: string;
    userName: string;
+   friends: TCurrentUsersFriends[];
 };
 
 type TFriendsData = {
    data: TUserData[];
    userUID?: string;
+   currentUserData: TUserData;
 };
 
-const Friends = ({ data, userUID }: TFriendsData) => {
+type TCurrentUsersFriends = {
+   friendID: string;
+   requestAccepted: boolean;
+};
+
+const Friends = ({ data, userUID, currentUserData }: TFriendsData) => {
    const [results, setResults] = useState<TUserData[]>([]);
+   const [friends, setFriends] = useState<TCurrentUsersFriends[]>([
+      ...currentUserData.friends,
+   ]);
 
    const searchUser = (text: string) => {
       const searchResults = data.filter(
@@ -54,6 +70,21 @@ const Friends = ({ data, userUID }: TFriendsData) => {
       setResults([...searchResults]);
    };
 
+   const addUser = (friendID: string) => {
+      setFriends([...friends, { friendID, requestAccepted: false }]);
+   };
+
+   console.log("friends => ->", friends);
+
+   // const removeUser = () => {};
+
+   useEffect(() => {
+      // @ts-ignore
+      onSnapshot(doc(firestoreDB, "users", userUID), (doc) => {
+         // console.log("Current data: ", doc.data());
+      });
+   }, []);
+
    return (
       <>
          <S.Desktop>
@@ -65,13 +96,25 @@ const Friends = ({ data, userUID }: TFriendsData) => {
                   }}
                />
                <FriendsPageWrapper>
-                  {results.map(({ fullName, userImage }, index) => {
+                  {results.map(({ fullName, userImage, userID }, index) => {
                      return (
                         <FriendsModal
                            key={index}
                            fullName={fullName}
                            sentRequest={false}
                            imageUrl={userImage}
+                           onClick={(evt) => {
+                              const functionId =
+                                 (evt.target as Element).id ||
+                                 // @ts-ignore
+                                 (evt.target as Element).ownerSVGElement?.id;
+
+                              if (functionId === "add-friend") {
+                                 addUser(userID);
+                              } else {
+                                 console.log("remove");
+                              }
+                           }}
                         />
                      );
                   })}
@@ -109,6 +152,10 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const data: any = [];
       const querySnapshot = await getDocs(collection(firestoreDB, "users"));
 
+      const docRef = doc(firestoreDB, "users", userUID);
+      const docSnap = await getDoc(docRef);
+      const _currentUserData = docSnap.data();
+
       querySnapshot.forEach((doc) => {
          const _data = doc.data();
 
@@ -121,6 +168,11 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
 
          data.push(dataObject);
       });
+
+      const currentUserData = {
+         ..._currentUserData,
+         DOB: JSON.stringify(_currentUserData?.DOB?.toDate()) || "",
+      };
 
       // No user then send to login/ sign up page
       if (!dataRes) {
@@ -135,6 +187,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          props: {
             userUID,
             data,
+            currentUserData,
          },
       };
    } catch (err) {

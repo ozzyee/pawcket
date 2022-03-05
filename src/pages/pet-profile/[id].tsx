@@ -35,12 +35,9 @@ const PetProfile = ({ _data }: TData) => {
    const router = useRouter();
    const petID = router.asPath.split("/")[2];
    const petData = _data?.filter(({ id }: { id: string }) => id === petID);
-   console.log("this is pet data", petData);
 
    const [pet] = useState({ ...petData[0] });
    if (!pet) return null;
-
-   console.log(pet);
 
    return (
       <>

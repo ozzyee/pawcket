@@ -20,7 +20,8 @@ export const ImageWrapper = styled.div`
    justify-content: center;
 `;
 
-export const Button = styled.div`
+export const Button = styled.button`
+   border-color: transparent;
    background-color: ${styles.colors.primary};
    position: absolute;
    height: 42px;
@@ -32,7 +33,7 @@ export const Button = styled.div`
    z-index: 1000;
    transition: all 80ms;
 
-   #friend-icon {
+   .friend-icon {
       color: white;
    }
 
@@ -41,7 +42,7 @@ export const Button = styled.div`
       border: 2px solid ${styles.colors.primary};
       padding: 6px;
 
-      #friend-icon {
+      .friend-icon {
          color: ${styles.colors.primary};
       }
    }

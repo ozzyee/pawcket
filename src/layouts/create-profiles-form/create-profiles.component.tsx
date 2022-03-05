@@ -230,8 +230,6 @@ export function CreateProfileForm({
                      inputType="text-area"
                      className="text-area"
                      onTextAreaChange={(evt) => {
-                        console.log("the evt =>", evt);
-
                         setUserData({
                            ...userData,
                            extraInfo: evt.target.value,

@@ -65,7 +65,7 @@ const Friends = ({ data, userUID }: TFriendsData) => {
                      searchUser(event.target.value);
                   }}
                />
-               <FriendsModal />
+               <FriendsModal fullName={"Oscar Earle"} sentRequest={false} />
             </MainLayout>
          </S.Desktop>
 

@@ -43,11 +43,15 @@ const Friends = ({ data, userUID }: TFriendsData) => {
          if (data?.firstName?.includes(searchArr[0])) {
             newData.push(data);
             return;
+         } else if (data?.lastName?.includes(searchArr[0])) {
+            newData.push(data);
+            return;
          }
       } else if (searchArr[1] === "") {
          if (data?.firstName == searchArr[0]) {
-            console.log("HELLO!@#$%");
-
+            newData.push(data);
+            return;
+         } else if (data?.lastName?.includes(searchArr[0])) {
             newData.push(data);
             return;
          }
@@ -55,6 +59,11 @@ const Friends = ({ data, userUID }: TFriendsData) => {
          if (
             data?.firstName?.includes(searchArr[0]) &&
             data?.lastName?.includes(searchArr[1])
+         ) {
+            newData.push(data);
+         } else if (
+            data?.firstName?.includes(searchArr[1]) &&
+            data?.lastName?.includes(searchArr[0])
          ) {
             newData.push(data);
          }

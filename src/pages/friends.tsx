@@ -34,6 +34,7 @@ type TUserData = {
    fullName: string;
    fullNameReverse: string;
    userName: string;
+   friendsRequests: any;
 };
 
 type TFriendsData = {
@@ -153,6 +154,9 @@ const Friends = ({ userUID }: TFriendsData) => {
       });
    }, []);
 
+   //* if the user is to remove a friend with the button this must update in the db
+   //* if friend accepts request set light gray  text to friend  
+
    return (
       <>
          <S.Desktop>
@@ -164,30 +168,36 @@ const Friends = ({ userUID }: TFriendsData) => {
                   }}
                />
                <FriendsPageWrapper>
-                  {results.map(({ fullName, userImage, userID }, index) => {
-                     return (
-                        <FriendsModal
-                           key={index}
-                           uid={userID}
-                           currentUserUid={userUID}
-                           fullName={fullName}
-                           sentRequest={false}
-                           imageUrl={userImage}
-                           onClick={(evt) => {
-                              const functionId =
-                                 (evt.target as Element).id ||
-                                 // @ts-ignore
-                                 (evt.target as Element).ownerSVGElement?.id;
+                  {results.map(
+                     (
+                        { fullName, userImage, userID, friendsRequests },
+                        index
+                     ) => {
+                        return (
+                           <FriendsModal
+                              key={index}
+                              uid={userID}
+                              currentUserUid={userUID}
+                              fullName={fullName}
+                              sentRequest={false}
+                              imageUrl={userImage}
+                              friendsRequestList={friendsRequests}
+                              onClick={(evt) => {
+                                 const functionId =
+                                    (evt.target as Element).id ||
+                                    // @ts-ignore
+                                    (evt.target as Element).ownerSVGElement?.id;
 
-                              if (functionId === "add-friend") {
-                                 addFriend({ id: userID });
-                              } else {
-                                 console.log("remove");
-                              }
-                           }}
-                        />
-                     );
-                  })}
+                                 if (functionId === "add-friend") {
+                                    addFriend({ id: userID });
+                                 } else {
+                                    console.log("remove");
+                                 }
+                              }}
+                           />
+                        );
+                     }
+                  )}
                </FriendsPageWrapper>
             </MainLayout>
          </S.Desktop>

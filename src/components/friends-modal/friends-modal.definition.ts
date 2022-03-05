@@ -8,4 +8,5 @@ export type TFriendsModalProps = {
    onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
    uid: string;
    currentUserUid: string | undefined;
+   friendsRequestList: any;
 };

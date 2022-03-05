@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TFriendsModalProps } from "./friends-modal.definition";
 import * as S from "./friends-modal.style";
 import Image from "next/image";
@@ -9,16 +9,35 @@ import { Text } from "../text/text.component";
 export function FriendsModal({
    className,
    fullName,
-   sentRequest,
    imageUrl,
    userStatus,
    onClick,
    uid,
    currentUserUid,
+   friendsRequestList,
 }: TFriendsModalProps) {
+   const [userStatusMsg, setUserStatusMsg] = useState("");
+   const [sentRequest, setSentRequest] = useState(false);
+
+   const friendRequestFilter = friendsRequestList?.filter(
+      ({ friendID }: { friendID: string }) => friendID === currentUserUid
+   );
+
+   useEffect(() => {
+      if (friendRequestFilter?.length === 1) {
+         setUserStatusMsg("request pending");
+         setSentRequest(true);
+      }
+      if (uid === currentUserUid) {
+         setUserStatusMsg("Your Account");
+      }
+   }, [currentUserUid, friendRequestFilter, uid, userStatus]);
+
+   console.log(userStatusMsg);
+
    return (
       <S.FriendsModalDiv className={className}>
-         {uid !== currentUserUid&& (
+         {uid !== currentUserUid && (
             <>
                {sentRequest ? (
                   <S.Button onClick={onClick} id="remove-friend">
@@ -42,8 +61,7 @@ export function FriendsModal({
             </S.Image>
          </S.ImageWrapper>
          <S.UserNameWrapper>
-           {uid !== currentUserUid && <Text className="status-text">{userStatus ? userStatus : ""}</Text>}
-           {uid === currentUserUid && <Text className="status-text">Your account</Text>}
+            <Text className="status-text">{userStatusMsg}</Text>
             <Text textType="h3" className="name-text">
                {fullName}
             </Text>

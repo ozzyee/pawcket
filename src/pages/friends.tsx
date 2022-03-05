@@ -121,7 +121,54 @@ const Friends = ({ userUID }: TFriendsData) => {
       await setDoc(doc(firestoreDB, "users", id), addFriendRequestData);
    };
 
-   // const removeUser = () => {};
+   const removeFriend = async ({ id }: { id: string }) => {
+      if (!userUID) return null;
+      //! we make a copy of the array as this is what we are going to modify
+      const removalArr = currentUserData.friends;
+
+      //! then we get the index of the target id
+      const index = removalArr?.findIndex(
+         ({ friendID }: { friendID: string }) => {
+            return friendID === id;
+         }
+      );
+      //! then if there is an object in the array with the target if we remove it
+      if (index !== -1) removalArr?.splice(index, 1);
+
+      //! we then make a new object to sed to the db
+      const removeFriendData = {
+         ...currentUserData,
+         friends: [...removalArr],
+      };
+      //! when the object is ready then send it to the db
+      await setDoc(doc(firestoreDB, "users", userUID), removeFriendData);
+      removeFriendRequest({ id });
+   };
+
+   const removeFriendRequest = async ({ id }: { id: string }) => {
+      if (!id) return null;
+      //! get the selected friends data have
+      const docRef = doc(firestoreDB, "users", id);
+      const docSnap = await getDoc(docRef);
+      const _data = docSnap.data();
+      const removalFriendArr = _data?.friendsRequests;
+      const newArr: any = [];
+
+      //! we remove the user from are friend requests
+      removalFriendArr.map((item: any) => {
+         console.log(item);
+         if (item.friendID !== userUID) {
+            newArr.push(item);
+         }
+      });
+
+      //! we then make a new object to sed to the db
+      const removeFriendData = {
+         ..._data,
+         friendsRequests: [...newArr],
+      };
+      await setDoc(doc(firestoreDB, "users", id), removeFriendData);
+   };
 
    //! realtime feed to db
    useEffect(() => {
@@ -155,7 +202,7 @@ const Friends = ({ userUID }: TFriendsData) => {
    }, []);
 
    //* if the user is to remove a friend with the button this must update in the db
-   //* if friend accepts request set light gray  text to friend  
+   //* if friend accepts request set light gray text to friend
 
    return (
       <>
@@ -191,7 +238,7 @@ const Friends = ({ userUID }: TFriendsData) => {
                                  if (functionId === "add-friend") {
                                     addFriend({ id: userID });
                                  } else {
-                                    console.log("remove");
+                                    removeFriend({ id: userID });
                                  }
                               }}
                            />

@@ -33,18 +33,23 @@ export function FriendsModal({
       }
    }, [currentUserUid, friendRequestFilter, uid, userStatus]);
 
-   console.log(userStatusMsg);
+   const onClickHandler = (evt: any) => {
+      if (!onClick) return null;
+      onClick(evt);
+
+      sentRequest ? setSentRequest(false) : setSentRequest(true);
+   };
 
    return (
       <S.FriendsModalDiv className={className}>
          {uid !== currentUserUid && (
             <>
                {sentRequest ? (
-                  <S.Button onClick={onClick} id="remove-friend">
+                  <S.Button onClick={onClickHandler} id="remove-friend">
                      <PersonRemove className="friend-icon" id="remove-friend" />
                   </S.Button>
                ) : (
-                  <S.Button onClick={onClick} id="add-friend">
+                  <S.Button onClick={onClickHandler} id="add-friend">
                      <PersonAdd className="friend-icon" id="add-friend" />
                   </S.Button>
                )}

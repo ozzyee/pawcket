@@ -12,6 +12,8 @@ export function FriendsModal({
    sentRequest,
    imageUrl,
 }: TFriendsModalProps) {
+   console.log("img =>", imageUrl);
+
    return (
       <S.FriendsModalDiv className={className}>
          <S.Button>
@@ -24,7 +26,7 @@ export function FriendsModal({
          <S.ImageWrapper>
             <S.Image>
                <Image
-                  src={imageUrl ? imageUrl : "/icon-256x256.png"}
+                  src={!imageUrl ? "/icon-256x256.png" : imageUrl}
                   alt="Picture of the author"
                   width={120}
                   height={120}

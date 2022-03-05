@@ -10,6 +10,7 @@ import { Navbar } from "../components/navbar/navbar.component";
 import { Frame, MainLayout } from "../functions/dynamic-imports";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
+import { FriendsPageWrapper } from "../styles/global.style";
 import * as S from "../styles/vets.style";
 
 type TUserData = {
@@ -53,8 +54,6 @@ const Friends = ({ data, userUID }: TFriendsData) => {
       setResults([...searchResults]);
    };
 
-   console.log("these are the results ->", results);
-
    return (
       <>
          <S.Desktop>
@@ -65,7 +64,18 @@ const Friends = ({ data, userUID }: TFriendsData) => {
                      searchUser(event.target.value);
                   }}
                />
-               <FriendsModal fullName={"Oscar Earle"} sentRequest={false} />
+               <FriendsPageWrapper>
+                  {results.map(({ fullName, userImage }, index) => {
+                     return (
+                        <FriendsModal
+                           key={index}
+                           fullName={fullName}
+                           sentRequest={false}
+                           imageUrl={userImage}
+                        />
+                     );
+                  })}
+               </FriendsPageWrapper>
             </MainLayout>
          </S.Desktop>
 
@@ -101,7 +111,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
 
       querySnapshot.forEach((doc) => {
          const _data = doc.data();
-         console.log("DATA =>", _data);
 
          const dataObject = {
             ..._data,

@@ -7,6 +7,8 @@ export const FriendsModalDiv = styled.div`
    border-radius: 22px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
    position: relative;
+
+   margin: 0.6rem;
 `;
 
 export const ImageWrapper = styled.div`

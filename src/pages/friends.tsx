@@ -43,6 +43,12 @@ const Friends = ({ data, userUID }: TFriendsData) => {
       }
    }, [search]);
 
+   useEffect(() => {
+      if (search.length === 0) {
+         setSearchArr([]);
+      }
+   }, [search]);
+
    data.map((data: TUserData) => {
       if (searchArr.length === 1) {
          if (data?.firstName?.includes(searchArr[0])) {

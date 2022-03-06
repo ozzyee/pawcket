@@ -47,8 +47,10 @@ export function FriendsModal({
          const data = doc.data();
          const _data = {
             ...data,
-            DOB: "",
+            // DOB: "",
          };
+         console.log("the data ->", _data);
+
          setCurrentUserData(_data);
       });
    }, []);

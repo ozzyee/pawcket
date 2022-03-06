@@ -35,7 +35,6 @@ const Friends = ({ userUID }: TFriendsData) => {
          const data = doc.data();
          const _data = {
             ...data,
-            DOB: "",
          };
          setCurrentUserData(_data);
       });
@@ -48,7 +47,6 @@ const Friends = ({ userUID }: TFriendsData) => {
             const _data = doc.data();
             const data: any = {
                ..._data,
-               DOB: "",
                fullName: _data.firstName + " " + _data.lastName,
                fullNameReverse: _data.lastName + " " + _data.firstName,
             };

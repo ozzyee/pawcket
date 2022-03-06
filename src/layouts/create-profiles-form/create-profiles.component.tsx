@@ -83,10 +83,17 @@ export function CreateProfileForm({
       }
 
       if (!err?.DOB && !err?.firstName && !err?.lastName) {
+         const _DOB = userData?.DOB?.toString();
+
+         const data = {
+            ...userData,
+            DOB: _DOB,
+         };
+         console.log("the data ->", data);
+
          try {
             await setDoc(doc(firestoreDB, "users", userUID), {
-               // ...dateObject,
-               ...userData,
+               ...data,
             });
             router.push("/user-profile", undefined, { shallow: false });
          } catch (err) {

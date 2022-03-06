@@ -7,9 +7,8 @@ export function UserInfo({ user, className }: TUserInfoProps) {
 
     function trimDate(date:string):string{
         const i = date.indexOf("T")
-        const dob = date.substring(1, i)
-        return
-    }
+        return date.substring(1, i)
+        }
    return (
       <S.UserInfo className={className}>
         

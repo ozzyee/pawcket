@@ -21,7 +21,8 @@ import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
 const UserProfile: NextPage = ({userUID, data}) => {
    const [user, setUser] = useState<TUser | DocumentData>(data);
    if (!user) return null;
-
+   console.log(data);
+   
    return (
       <>
          <Head>
@@ -160,8 +161,11 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       );
       const userUID = dataRes.getIdToken.user_id;
       const docRef = doc(firestoreDB, "users", userUID);
+      const docRefPet = doc(firestoreDB, "pets", userUID);
       const docSnap = await getDoc(docRef);
+      const docSnapPet = await getDoc(docRefPet);
       const _data = docSnap.data();
+      const _dataPet = docSnapPet.data();
 
       
     //Fetch user info
@@ -189,6 +193,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
         const data = {
            ..._data,
            DOB: JSON.stringify(_data?.DOB.toDate()),
+           ..._dataPet,
         };
 
         return {

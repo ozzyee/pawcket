@@ -7,7 +7,7 @@ export const RoundPhoto = styled.div<TRoundImageProps>`
     height: ${props => props.diameter}px;
     aspect-ratio: 1/1;
     border-radius: 100%;
-    background: url(${props => props.src});
+    background: url(${props => props.src ? props.src : "/public/circle/user-circle.svg"});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

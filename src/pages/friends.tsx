@@ -13,7 +13,8 @@ import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { FriendsPageWrapper } from "../styles/global.style";
 import * as S from "../styles/vets.style";
 import { TUserData } from "../types/user-data.definition";
-import { removeFriend } from "./friends/remove";
+import { removeFriend } from "../functions/friends/remove-friends";
+import { searchUser } from "../functions/friends/search-friends";
 
 type TFriendsData = {
    userUID?: string;
@@ -25,23 +26,6 @@ const Friends = ({ userUID }: TFriendsData) => {
    const [allUsers, setAllUsers] = useState<TUserData[]>([]);
 
    console.log("allUsers =>", allUsers);
-
-   const searchUser = (text: string) => {
-      const searchResults = allUsers.filter(
-         ({ fullName, fullNameReverse, userName }) => {
-            const fullNameLowercase = fullName.toLowerCase();
-            const fullNameReverseLowercase = fullNameReverse.toLowerCase();
-            const usernameToLowercase = userName?.toLowerCase();
-
-            return (
-               fullNameLowercase.startsWith(text.toLowerCase()) ||
-               fullNameReverseLowercase.startsWith(text.toLowerCase()) ||
-               usernameToLowercase?.startsWith(text.toLowerCase())
-            );
-         }
-      );
-      setResults([...searchResults]);
-   };
 
    //! realtime feed to db
    useEffect(() => {
@@ -84,7 +68,7 @@ const Friends = ({ userUID }: TFriendsData) => {
                <FormInputs
                   placeholder={"Search for friends"}
                   onKeyUp={(event: { target: HTMLInputElement }) => {
-                     searchUser(event.target.value);
+                     setResults(searchUser(event.target.value, allUsers));
                   }}
                />
                <FriendsPageWrapper>
@@ -115,7 +99,6 @@ const Friends = ({ userUID }: TFriendsData) => {
                                        currentUserData,
                                     });
                                  } else {
-                                    // removeFriendRequest({ id: userID });
                                     removeFriend({
                                        id: userID,
                                        userUID,

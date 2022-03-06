@@ -6,4 +6,5 @@ export type TButtonsProps = {
    onClick?: () => void;
    vetsNavBtn?: boolean;
    allBtns?: boolean;
+   type?: string;
 };

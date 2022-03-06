@@ -7,6 +7,7 @@ import { TAuthDesktopProps } from "../layouts/auth-desktop/auth-desktop.definiti
 import { TCreateUserLayoutProps } from "../layouts/create-profiles-form/create-profiles.definition";
 import { TMainLayoutProps } from "../layouts/main-layout/main-layout.definition";
 import { TSignUpFormProps } from "../layouts/sign-up-form/sign-up-form.definition";
+import { TCreatePetPage } from "../types/create-pet-page";
 
 export const Frame = dynamic<TFrameProps>(
    () =>
@@ -22,7 +23,7 @@ export const Navbar = dynamic<TNavbarProps>(
       ) as any
 );
 
-export const CreatePetForm = dynamic<{}>(
+export const CreatePetForm = dynamic<TCreatePetPage>(
    () =>
       import("../layouts/creat-pet-form/creat-pet-form.component").then(
          (module) => module.CreatePetForm

@@ -12,13 +12,13 @@ export function Passport({ className, pet }: TPassportProps) {
          <Text className="placeholder">{"Date of Birth:"}</Text>
          <Text>{`${pet.dateOfBirth}`}</Text>
          <Text className="placeholder">{"Personality:"}</Text>
-         <Text>{`${pet.personality}`}</Text>
+         <Text>{`${pet.petPersonality}`}</Text>
          <Text className="placeholder">{"Medication:"}</Text>
-         <Text>{`${pet.medications}`}</Text>
+         <Text>{`${pet.petMedication}`}</Text>
          <Text className="placeholder">{"Weight:"}</Text>
-         <Text>{`${pet.weight}`}</Text>
+         <Text>{`${pet.petWeight}`}</Text>
          <Text className="placeholder">{"About me:"}</Text>
-         <Text className="aboutMe">{`${pet.aboutMe}`}</Text>
+         <Text className="aboutMe">{`${pet.petExtraInfo}`}</Text>
       </S.PassportDiv>
    );
 }

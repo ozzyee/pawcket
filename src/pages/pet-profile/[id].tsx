@@ -1,25 +1,51 @@
-import { NextApiRequest, NextPage } from "next";
+/* eslint-disable react/no-unescaped-entities */
+import { NextApiRequest } from "next";
 import { useState } from "react";
-import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
-import { Separator } from "../components/separator/separator.component";
-import { Text } from "../components/text/text.component";
-import * as data from "../../dummy-data/dummy-data";
-import * as S from "../styles/pet-profile";
-import { AuthService } from "../lib/auth-service/auth.service";
+import { PassportWrapper } from "../../components/passport-wrapper/passport-wrapper.component";
+import { Separator } from "../../components/separator/separator.component";
+import { Text } from "../../components/text/text.component";
+import * as S from "../../styles/pet-profile";
+import { AuthService } from "../../lib/auth-service/auth.service";
 import { doc, getDoc } from "@firebase/firestore";
-import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { Passport } from "../components/passport/passport.component";
-import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
+import { firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { Passport } from "../../components/passport/passport.component";
+import { Frame, MainLayout, Navbar } from "../../functions/dynamic-imports";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
-const PetProfile: NextPage = () => {
-   const [pet] = useState({ ...data.tony });
+type TData = {
+   _data: TDataObject[];
+};
+
+type TDataObject = {
+   dateOfBirth: string;
+   id: string;
+   image: string;
+   name: string;
+   petBio: string;
+   petExtraInfo: string;
+   petMedication: string;
+   petPersonality: string;
+   petSpecies: string;
+   petWeight: string;
+   sex: string;
+};
+
+const PetProfile = ({ _data }: TData) => {
+   const router = useRouter();
+   const petID = router.asPath.split("/")[2];
+   const petData = _data?.filter(({ id }: { id: string }) => id === petID);
+   console.log("this is pet data", petData);
+
+   const [pet] = useState({ ...petData[0] });
    if (!pet) return null;
+
+   console.log(pet);
 
    return (
       <>
          <Head>
-            <title>Pawcket | Pet Profile</title>
+            <title>Pawcket | {pet.name}'s Profile </title>
             <html lang="en" />
          </Head>
 
@@ -28,11 +54,7 @@ const PetProfile: NextPage = () => {
                <S.TopLeft>
                   <Frame
                      background="/frame.svg"
-                     img={
-                        !pet.profilePic || pet.profilePic === ""
-                           ? "/circle/user-circle.svg"
-                           : pet.profilePic
-                     }
+                     img={!pet.image ? "/circle/user-circle.svg" : pet.image}
                      diameter={200}
                   />
                   <Text textType="h1" className="name">
@@ -41,7 +63,7 @@ const PetProfile: NextPage = () => {
                </S.TopLeft>
                <S.TopRight>
                   <Navbar className="desktopNav" />
-                  <Text className="bio">{`"${pet.bio}"`}</Text>
+                  <Text className="bio">{`"${pet.petBio}"`}</Text>
                </S.TopRight>
                <S.Bottom>
                   <Separator
@@ -64,18 +86,14 @@ const PetProfile: NextPage = () => {
                topChildren={
                   <Frame
                      background="/frame.svg"
-                     img={
-                        !pet.profilePic || pet.profilePic === ""
-                           ? "/circle/user-circle.svg"
-                           : pet.profilePic
-                     }
+                     img={!pet.image ? "/circle/user-circle.svg" : pet.image}
                      diameter={230}
                   />
                }
                className="mobile"
             >
                <S.Bio>
-                  <Text className="bio">{`"${pet.bio}"`}</Text>
+                  <Text className="bio">{`"${pet.petBio}"`}</Text>
                   <PassportWrapper separator={true} separatorText="My Passport">
                      <Passport pet={pet} />
                   </PassportWrapper>
@@ -97,8 +115,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const userUID = dataRes.getIdToken.user_id;
       const docRef = doc(firestoreDB, "pets", userUID);
       const docSnap = await getDoc(docRef);
-      // eslint-disable-next-line no-unused-vars
-      const _data = docSnap.data();
+      const _data = docSnap?.data()?.pets;
 
       // No user then send to login/ sign up page
       if (!dataRes) {
@@ -111,7 +128,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
 
       return {
          props: {
-            userUID,
+            _data,
          },
       };
    } catch (err) {

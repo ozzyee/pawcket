@@ -1,12 +1,10 @@
+/* eslint-disable no-unused-vars */
 import type { NextApiRequest, NextPage } from "next";
 
 import { Navbar } from "../components/navbar/navbar.component";
 import { VetsInfo } from "../components/vets-info/vets-info.component";
 import { useState, useEffect } from "react";
 import { VetList, VetButtons } from "../styles/vets.style";
-import { Return } from "../components/return-button/returnbutton.component";
-import { VetNav } from "../styles/vets.style";
-import { Top } from "../layouts/main-layout/main-layout.style";
 import { Separator } from "../components/separator/separator.component";
 import { Text } from "../components/text/text.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
@@ -15,9 +13,6 @@ import { AuthService } from "../lib/auth-service/auth.service";
 import { doc, getDoc } from "firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Buttons, Frame, MainLayout } from "../functions/dynamic-imports";
-import dynamic from "next/dynamic";
-import { TVetsInfoProps } from "../components/vets-info/vets-info.definition";
-import Head from "next/head";
 
 type TData = {
    id: number;
@@ -29,9 +24,6 @@ type TData = {
 };
 
 type TestType = TData[];
-
-
-
 
 const Vet: NextPage = () => {
    const [vets, setVets] = useState<TestType>([]);
@@ -118,22 +110,24 @@ const Vet: NextPage = () => {
                            //Making random values for the API, so they dont look samey.
                            const randomPhone = Math.floor(Math.random() * 1000);
                            return (
-                              <li key={index}>
-                                 <VetsInfo
-                                    vetName={
-                                       "Dr. " +
-                                       vet.name +
-                                       "'s " +
-                                       getRandomWord()
-                                    }
-                                    vetPhoneNumber={`0${randomPhone}  ${
-                                       vet.phone
-                                    }  ${randomPhone * 2}`}
-                                    vetAddress={vet.address}
-                                    vetWebsite={vet.website}
-                                    vetDistance={vet.distance + " meters"}
-                                 />
-                              </li>
+                              <>
+                                 <li key={index}>
+                                    <VetsInfo
+                                       vetName={
+                                          "Dr. " +
+                                          vet.name +
+                                          "'s " +
+                                          getRandomWord()
+                                       }
+                                       vetPhoneNumber={`0${randomPhone}  ${
+                                          vet.phone
+                                       }  ${randomPhone * 2}`}
+                                       vetAddress={vet.address}
+                                       vetWebsite={vet.website}
+                                       vetDistance={vet.distance + " meters"}
+                                    />
+                                 </li>
+                              </>
                            );
                         })}
                      </VetList>
@@ -171,24 +165,27 @@ const Vet: NextPage = () => {
                   </li>
                </VetButtons>
                <VetList className="vetcard">
+
                   {vets.map((vet, index) => {
                      //Making random values for the API, so they dont look samey.
-                     const randomPhone = Math.floor(Math.random() * 1000);
-                     const randomNoun = Math.floor(Math.random() * 3);
+                     // const randomPhone = Math.floor(Math.random() * 1000);
+                     // const randomNoun = Math.floor(Math.random() * 3);
                      return (
-                        <li key={index}>
-                           <VetsInfo
-                              vetName={
-                                 "Dr. " + vet.name + "'s " + getRandomWord()
-                              }
-                              vetPhoneNumber={`0${randomPhone}  ${vet.phone}  ${
-                                 randomPhone * 2
-                              }`}
-                              vetAddress={vet.address}
-                              vetWebsite={vet.website}
-                              vetDistance={vet.distance}
-                           />
-                        </li>
+                        <>
+                           {/* <li key={index}>
+                              <VetsInfo
+                                 vetName={
+                                    "Dr. " + vet.name + "'s " + getRandomWord()
+                                 }
+                                 vetPhoneNumber={`0${randomPhone}  ${
+                                    vet.phone
+                                 }  ${randomPhone * 2}`}
+                                 vetAddress={vet.address}
+                                 vetWebsite={vet.website}
+                                 vetDistance={vet.distance}
+                              />
+                           </li> */}
+                        </>
                      );
                   })}
                </VetList>

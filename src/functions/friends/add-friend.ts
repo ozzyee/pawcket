@@ -1,18 +1,12 @@
 import { setDoc, doc, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../../lib/firebase/firebase.initialize";
-import { TUserData } from "../../types/user-data.definition";
+import { TAddFriend, TUserData } from "../../types/user-data.definition";
 
-type TAddFriend = {
-   id?: string;
-   userUID: string | undefined;
-   currentUserData: TUserData;
-   userID: string;
-};
 
-export const addFriend = ({ userID, userUID, currentUserData }: TAddFriend) => {
+export const addFriend = ({ id, userUID, currentUserData }: TAddFriend) => {
    if (!userUID) return null;
-   confirmRequest({ id: userID, userUID, currentUserData });
-   setFriend({ id: userID, userUID });
+   confirmRequest({ id, userUID, currentUserData });
+   setFriend({ id, userUID });
 };
 
 const confirmRequest = async ({

@@ -1,11 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import {
-   collection,
-   doc,
-   onSnapshot,
-   query,
-} from "@firebase/firestore";
+import { collection, doc, onSnapshot, query } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
@@ -21,6 +16,7 @@ import { TUserData } from "../types/user-data.definition";
 import { unsendFriendRequest } from "../functions/friends/unsend-friend-request";
 import { searchUser } from "../functions/friends/search-friends";
 import { addFriend } from "../functions/friends/add-friend";
+import { removeFriend } from "../functions/friends/remove-friend";
 
 type TFriendsData = {
    userUID?: string;
@@ -30,11 +26,6 @@ const Friends = ({ userUID }: TFriendsData) => {
    const [results, setResults] = useState<TUserData[]>([]);
    const [currentUserData, setCurrentUserData] = useState<any>(null);
    const [allUsers, setAllUsers] = useState<TUserData[]>([]);
-
-   //? Add friend - done 
-   //? remove friends
-   //? send friend request  - done
-   //? unsend friend request - done
 
    //! realtime feed to db
    useEffect(() => {
@@ -83,6 +74,11 @@ const Friends = ({ userUID }: TFriendsData) => {
                         { fullName, userImage, userID, friendsRequests },
                         index
                      ) => {
+                        const paramsObject = {
+                           id: userID,
+                           userUID,
+                           currentUserData,
+                        };
                         return (
                            <FriendsModal
                               key={index}
@@ -94,28 +90,24 @@ const Friends = ({ userUID }: TFriendsData) => {
                               friendsRequestList={friendsRequests}
                               onClickSendFriendRequest={() => {
                                  sendFriendRequest({
-                                    id: userID,
-                                    userUID,
-                                    currentUserData,
+                                    ...paramsObject,
                                  });
                               }}
                               onClickUnsendFriendRequest={() => {
                                  unsendFriendRequest({
-                                    id: userID,
-                                    userUID,
-                                    currentUserData,
+                                    ...paramsObject,
                                  });
                               }}
                               onClickAddFriend={() => {
                                  addFriend({
-                                    userID,
-                                    userUID,
-                                    currentUserData,
+                                    ...paramsObject,
                                  });
                               }}
-
-                              //    onClickAddFriend,
-                              // onClickRemoveFriend,
+                              onClickRemoveFriend={() => {
+                                 removeFriend({
+                                    ...paramsObject,
+                                 });
+                              }}
                            />
                         );
                      }
@@ -170,9 +162,9 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       console.log("ERR", err);
 
       return {
-         //  redirect: {
-         //     destination: "/",
-         //  },
+         redirect: {
+            destination: "/",
+         },
          props: {},
       };
    }

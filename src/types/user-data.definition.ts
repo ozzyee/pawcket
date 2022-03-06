@@ -18,3 +18,9 @@ export type TUserData = {
       requestAccepted: boolean;
    }[];
 };
+
+export type TAddFriend = {
+   id: string;
+   userUID: string | undefined;
+   currentUserData: any;
+};

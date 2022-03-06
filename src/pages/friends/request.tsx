@@ -219,6 +219,7 @@ const Friends = ({ userUID }: TFriendsData) => {
                                     setFriend({ id: userID });
                                  } else {
                                     removeFriend({ id: userID });
+                                    removeFriendRequest({ id: userID });
                                  }
                               }}
                               type="friend-request"

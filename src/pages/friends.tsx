@@ -15,27 +15,12 @@ import { FriendsModal } from "../components/friends-modal/friends-modal.componen
 
 import { Navbar } from "../components/navbar/navbar.component";
 import { Frame, MainLayout } from "../functions/dynamic-imports";
+import { addFriend } from "../functions/friends/add-friend";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { FriendsPageWrapper } from "../styles/global.style";
 import * as S from "../styles/vets.style";
-
-type TUserData = {
-   DOB: string;
-   address: string;
-   email: string;
-   extraInfo: string;
-   firstName: string;
-   lastName: string;
-   postCode: string;
-   tel: string;
-   userID: string;
-   userImage: string;
-   fullName: string;
-   fullNameReverse: string;
-   userName: string;
-   friendsRequests: any;
-};
+import { TUserData } from "../types/user-data.definition";
 
 type TFriendsData = {
    userUID?: string;
@@ -63,64 +48,6 @@ const Friends = ({ userUID }: TFriendsData) => {
          }
       );
       setResults([...searchResults]);
-   };
-
-   const addFriend = async ({ id }: { id: string }) => {
-      if (!userUID) return null;
-
-      //! if the current used dosent have any friends then add an empty sting to array  and put in selected friend
-      if (!currentUserData.friends) {
-         const addFriendData = {
-            ...currentUserData,
-            friends: ["", { friendID: id, requestAccepted: false }],
-         };
-         await setDoc(doc(firestoreDB, "users", userUID), addFriendData);
-         sendRequest({ id });
-         return;
-      }
-      //! if the current used has friends spread out the friends and put in the new one
-
-      const addFriendData = {
-         ...currentUserData,
-         friends: [
-            ...currentUserData.friends,
-            { friendID: id, requestAccepted: false },
-         ],
-      };
-      //! when the object is ready then send it to the db
-      await setDoc(doc(firestoreDB, "users", userUID), addFriendData);
-      sendRequest({ id });
-   };
-
-   const sendRequest = async ({ id }: { id: string }) => {
-      //! get the selected friends data have
-      const docRef = doc(firestoreDB, "users", id);
-      const docSnap = await getDoc(docRef);
-      const _data = docSnap.data();
-
-      //! once we have the data we can then send it to the db.
-      //! if the friend doesn't have any friends then we will set an empty array with a string an new data
-      if (!_data?.friendsRequests) {
-         const addFriendRequestData = {
-            ..._data,
-            friendsRequests: [
-               "",
-               { requestAccepted: false, friendID: userUID },
-            ],
-         };
-         await setDoc(doc(firestoreDB, "users", id), addFriendRequestData);
-         return;
-      }
-
-      //! if  the friend has friends then speed out the data and add the new one
-      const addFriendRequestData = {
-         ..._data,
-         friendsRequests: [
-            ..._data.friendsRequests,
-            { requestAccepted: false, friendID: userUID },
-         ],
-      };
-      await setDoc(doc(firestoreDB, "users", id), addFriendRequestData);
    };
 
    const removeFriend = async ({ id }: { id: string }) => {
@@ -237,8 +164,13 @@ const Friends = ({ userUID }: TFriendsData) => {
                                     (evt.target as Element).ownerSVGElement?.id;
 
                                  if (functionId === "add-friend") {
-                                    addFriend({ id: userID });
+                                    addFriend({
+                                       id: userID,
+                                       userUID,
+                                       currentUserData,
+                                    });
                                  } else {
+                                    removeFriendRequest({ id: userID });
                                     removeFriend({ id: userID });
                                  }
                               }}

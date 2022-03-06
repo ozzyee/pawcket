@@ -46,8 +46,7 @@ const Friends = ({ userUID }: TFriendsData) => {
    const [currentUserData, setCurrentUserData] = useState<any>(null);
    const [allUsers, setAllUsers] = useState<TUserData[]>([]);
 
-   console.log("allUsers =>",allUsers);
-   
+   console.log("allUsers =>", allUsers);
 
    const searchUser = (text: string) => {
       const searchResults = allUsers.filter(
@@ -158,7 +157,7 @@ const Friends = ({ userUID }: TFriendsData) => {
       const newArr: any = [];
 
       //! we remove the user from are friend requests
-      removalFriendArr.map((item: any) => {
+      removalFriendArr?.map((item: any) => {
          if (item.friendID !== userUID) {
             newArr.push(item);
          }

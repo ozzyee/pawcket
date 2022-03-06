@@ -25,10 +25,17 @@ export function FriendsModal({
    const [sentRequest, setSentRequest] = useState(false);
    const [currentUserData, setCurrentUserData] = useState<any>(null);
    const [showAddButton, setShowAddBtn] = useState(false);
+   const [friends, setFriends] = useState(false);
 
    const friendRequestFilter = currentUserData?.friendsRequests?.filter(
       ({ friendID }: { friendID: string }) => friendID === currentUserUid
    );
+
+   const isFriend = currentUserData?.friends?.filter(
+      ({ friendID }: { friendID: string }) => friendID === currentUserUid
+   );
+
+   // console.log("isFriend =>", isFriend[0].requestAccepted);
 
    useEffect(() => {
       if (!uid) return;
@@ -57,7 +64,15 @@ export function FriendsModal({
       if (uid === currentUserUid) {
          setUserStatusMsg("Your Account");
       }
-   }, [currentUserUid, friendRequestFilter, uid, userStatus]);
+
+      if (isFriend?.length >= 1) {
+         if (isFriend[0]?.requestAccepted) {
+            setUserStatusMsg("Friends");
+            setShowAddBtn(false);
+            setFriends(true);
+         }
+      }
+   }, [currentUserUid, friendRequestFilter, uid, userStatus, isFriend]);
 
    useEffect(() => {
       if (uid !== currentUserUid) {
@@ -77,30 +92,21 @@ export function FriendsModal({
 
    return (
       <S.FriendsModalDiv className={className}>
-         {showAddButton && (
-            <>
-               {sentRequest ? (
-                  <S.Button onClick={onClickHandler} id="remove-friend">
-                     <PersonRemove className="friend-icon" id="remove-friend" />
-                  </S.Button>
-               ) : (
-                  <S.Button onClick={onClickHandler} id="add-friend">
-                     <PersonAdd className="friend-icon" id="add-friend" />
-                  </S.Button>
-               )}
-            </>
-         )}
+         <S.Button onClick={onClickHandler} id="remove-friend">
+            <PersonRemove className="friend-icon" id="remove-friend" />
+         </S.Button>
+         <S.Button onClick={onClickHandler} id="add-friend">
+            <PersonAdd className="friend-icon" id="add-friend" />
+         </S.Button>
 
-         {!showAddButton && (
-            <>
-               <S.AcceptBtn onClick={onClickHandler} id="accept-friend">
-                  <PersonCheckFill className="friend-icon" id="accept-friend" />
-               </S.AcceptBtn>
-               <S.RejectBtn onClick={onClickHandler} id="reject-friend">
-                  <PersonXFill className="friend-icon" id="reject-friend" />
-               </S.RejectBtn>
-            </>
-         )}
+         <S.AcceptBtn onClick={onClickHandler} id="reject-friend">
+            <PersonXFill className="friend-icon" id="reject-friend" />
+         </S.AcceptBtn>
+
+         <S.AcceptBtn onClick={onClickHandler} id="accept-friend">
+            <PersonCheckFill className="friend-icon" id="accept-friend" />
+         </S.AcceptBtn>
+
          <S.ImageWrapper>
             <S.Image>
                <Image

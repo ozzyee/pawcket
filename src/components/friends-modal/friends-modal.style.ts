@@ -23,7 +23,7 @@ export const ImageWrapper = styled.div`
 export const Button = styled.button`
    border-color: transparent;
    background-color: ${styles.colors.primary};
-   position: absolute;
+   /* position: absolute; */
    height: 42px;
    width: 42px;
    border-radius: 50%;
@@ -53,10 +53,10 @@ export const Button = styled.button`
 `;
 
 export const AcceptBtn = styled.button`
-   position: absolute;
+   /* position: absolute; */
    border-color: transparent;
    background-color: ${styles.colors.primary};
-   position: absolute;
+   /* position: absolute; */
    height: 42px;
    width: 42px;
    border-radius: 50%;
@@ -86,10 +86,9 @@ export const AcceptBtn = styled.button`
 `;
 
 export const RejectBtn = styled.button`
-   position: absolute;
    border-color: transparent;
    background-color: ${styles.colors.primary};
-   position: absolute;
+   /* position: absolute; */
    height: 42px;
    width: 42px;
    border-radius: 50%;

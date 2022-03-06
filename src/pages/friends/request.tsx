@@ -115,7 +115,6 @@ const Friends = ({ userUID }: TFriendsData) => {
       };
 
       await setDoc(doc(firestoreDB, "users", userUID), newData);
-      setFriend({ id });
    };
 
    const setFriend = async ({ id }: { id: string }) => {
@@ -128,8 +127,66 @@ const Friends = ({ userUID }: TFriendsData) => {
          ({ friendID }: { friendID: string }) => friendID === userUID
       );
 
-      friendArr[objIndex].requestAccepted = true;
-      await setDoc(doc(firestoreDB, "users", id), _data);
+      if (objIndex !== -1) friendArr?.splice(objIndex, 1);
+
+      console.log("friend ->", _data?.friends);
+
+      const data = {
+         ..._data,
+         friends: [...friendArr, { friendID: userUID, requestAccepted: true }],
+      };
+
+      await setDoc(doc(firestoreDB, "users", id), data);
+   };
+
+   const removeFriend = async ({ id }: { id: string }) => {
+      if (!userUID) return null;
+      //! we make a copy of the array as this is what we are going to modify
+      const removalArr = currentUserData.friendsRequests;
+
+      //! then we get the index of the target id
+      const index = removalArr?.findIndex(
+         ({ friendID }: { friendID: string }) => {
+            return friendID === id;
+         }
+      );
+      //! then if there is an object in the array with the target if we remove it
+      if (index !== -1) removalArr?.splice(index, 1);
+
+      //! we then make a new object to sed to the db
+      const removeFriendData = {
+         ...currentUserData,
+         friends: [...removalArr],
+      };
+      //! when the object is ready then send it to the db
+      await setDoc(doc(firestoreDB, "users", userUID), removeFriendData);
+      removeFriendRequest({ id });
+   };
+
+   const removeFriendRequest = async ({ id }: { id: string }) => {
+      if (!id) return null;
+      //! get the selected friends data have
+      const docRef = doc(firestoreDB, "users", id);
+      const docSnap = await getDoc(docRef);
+      const _data = docSnap.data();
+      const removalFriendArr = _data?.friends;
+      const newArr: any = [];
+
+      //! we remove the user from are friend requests
+      removalFriendArr?.map((item: any) => {
+         if (item.friendID !== userUID) {
+            newArr.push(item);
+         }
+      });
+
+      const removeFriendData = {
+         ..._data,
+         friends: [...newArr],
+      };
+
+      console.log(removeFriendData);
+
+      await setDoc(doc(firestoreDB, "users", id), removeFriendData);
    };
 
    return (
@@ -159,8 +216,9 @@ const Friends = ({ userUID }: TFriendsData) => {
 
                                  if (functionId === "accept-friend") {
                                     confirmRequest({ id: userID });
+                                    setFriend({ id: userID });
                                  } else {
-                                    // removeFriend({ id: userID });
+                                    removeFriend({ id: userID });
                                  }
                               }}
                               type="friend-request"

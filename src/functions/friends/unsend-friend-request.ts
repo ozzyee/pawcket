@@ -8,7 +8,7 @@ type TAddFriend = {
    currentUserData: TUserData;
 };
 
-export const removeFriend = async ({
+export const unsendFriendRequest = async ({
    id,
    userUID,
    currentUserData,

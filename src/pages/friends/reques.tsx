@@ -87,57 +87,6 @@ const Friends = ({ userUID }: TFriendsData) => {
       setData(data);
    }, [allUsers]);
 
-   const confirmRequest = async ({ id }: { id: string }) => {
-      if (!userUID) return;
-      const friends = currentUserData.friends;
-      const removeItem = currentUserData.friendsRequests;
-
-      const index = removeItem?.findIndex(
-         ({ friendID }: { friendID: string }) => {
-            return friendID === id;
-         }
-      );
-
-      if (index !== -1) removeItem?.splice(index, 1);
-
-      if (!friends) {
-         const newData = {
-            ...currentUserData,
-            friends: ["", { friendID: id, requestAccepted: true }],
-         };
-
-         await setDoc(doc(firestoreDB, "users", userUID), newData);
-         return;
-      }
-      const newData = {
-         ...currentUserData,
-         friends: [...friends, { friendID: id, requestAccepted: true }],
-      };
-
-      await setDoc(doc(firestoreDB, "users", userUID), newData);
-   };
-
-   const setFriend = async ({ id }: { id: string }) => {
-      const docRef = doc(firestoreDB, "users", id);
-      const docSnap = await getDoc(docRef);
-      const _data = docSnap.data();
-      const friendArr = _data?.friends;
-
-      const objIndex = friendArr?.findIndex(
-         ({ friendID }: { friendID: string }) => friendID === userUID
-      );
-
-      if (objIndex !== -1) friendArr?.splice(objIndex, 1);
-
-      console.log("friend ->", _data?.friends);
-
-      const data = {
-         ..._data,
-         friends: [...friendArr, { friendID: userUID, requestAccepted: true }],
-      };
-
-      await setDoc(doc(firestoreDB, "users", id), data);
-   };
 
    const removeFriend = async ({ id }: { id: string }) => {
       if (!userUID) return null;
@@ -208,19 +157,23 @@ const Friends = ({ userUID }: TFriendsData) => {
                               sentRequest={false}
                               imageUrl={userImage}
                               friendsRequestList={friendsRequests}
-                              onClick={(evt) => {
-                                 const functionId =
-                                    (evt.target as Element).id ||
-                                    // @ts-ignore
-                                    (evt.target as Element).ownerSVGElement?.id;
+                              // onClick={(evt) => {
+                              //    const functionId =
+                              //       (evt.target as Element).id ||
+                              //       // @ts-ignore
+                              //       (evt.target as Element).ownerSVGElement?.id;
 
-                                 if (functionId === "accept-friend") {
-                                    confirmRequest({ id: userID });
-                                    setFriend({ id: userID });
-                                 } else {
-                                    removeFriend({ id: userID });
-                                    removeFriendRequest({ id: userID });
-                                 }
+                              //    if (functionId === "accept-friend") {
+                              //       confirmRequest({ id: userID });
+                              //       setFriend({ id: userID });
+                              //    } else {
+                              //       removeFriend({ id: userID });
+                              //       removeFriendRequest({ id: userID });
+                              //    }
+                              // }}
+                              onClickAddFriend={() => {
+                                 confirmRequest({ id: userID });
+                                 setFriend({ id: userID });
                               }}
                               type="friend-request"
                            />

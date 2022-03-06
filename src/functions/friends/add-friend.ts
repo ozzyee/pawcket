@@ -3,72 +3,72 @@ import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 import { TUserData } from "../../types/user-data.definition";
 
 type TAddFriend = {
-   id: string;
+   id?: string;
    userUID: string | undefined;
    currentUserData: TUserData;
+   userID: string;
 };
 
-export const addFriend = async ({
+export const addFriend = ({ userID, userUID, currentUserData }: TAddFriend) => {
+   if (!userUID) return null;
+   confirmRequest({ id: userID, userUID, currentUserData });
+   setFriend({ id: userID, userUID });
+};
+
+const confirmRequest = async ({
    id,
    userUID,
    currentUserData,
-}: TAddFriend) => {
-   if (!userUID) return null;
-
-   //! if the current used doesn't have any friends then add an empty sting to array  and put in selected friend
-   if (!currentUserData.friends) {
-      const addFriendData = {
-         ...currentUserData,
-         friends: ["", { friendID: id, requestAccepted: false }],
-      };
-      await setDoc(doc(firestoreDB, "users", userUID), addFriendData);
-      sendRequest({ id, userUID });
-      return;
-   }
-   //! if the current used has friends spread out the friends and put in the new one
-
-   const addFriendData = {
-      ...currentUserData,
-      friends: [
-         ...currentUserData.friends,
-         { friendID: id, requestAccepted: false },
-      ],
-   };
-   //! when the object is ready then send it to the db
-   await setDoc(doc(firestoreDB, "users", userUID), addFriendData);
-   sendRequest({ id, userUID });
-};
-
-const sendRequest = async ({
-   id,
-   userUID,
 }: {
    id: string;
    userUID: string;
+   currentUserData: TUserData;
 }) => {
-   //! get the selected friends data have
+   if (!userUID) return;
+   const friends = currentUserData.friends;
+   const removeItem = currentUserData.friendsRequests;
+
+   const index = removeItem?.findIndex(({ friendID }: { friendID: string }) => {
+      return friendID === id;
+   });
+
+   if (index !== -1) removeItem?.splice(index, 1);
+
+   if (!friends) {
+      const newData = {
+         ...currentUserData,
+         friends: ["", { friendID: id, requestAccepted: true }],
+      };
+
+      await setDoc(doc(firestoreDB, "users", userUID), newData);
+      return;
+   }
+   const newData = {
+      ...currentUserData,
+      friends: [...friends, { friendID: id, requestAccepted: true }],
+   };
+
+   await setDoc(doc(firestoreDB, "users", userUID), newData);
+};
+
+const setFriend = async ({ id, userUID }: { id: string; userUID: string }) => {
    const docRef = doc(firestoreDB, "users", id);
    const docSnap = await getDoc(docRef);
    const _data = docSnap.data();
+   const friendArr = _data?.friends;
 
-   //! once we have the data we can then send it to the db.
-   //! if the friend doesn't have any friends then we will set an empty array with a string an new data
-   if (!_data?.friendsRequests) {
-      const addFriendRequestData = {
-         ..._data,
-         friendsRequests: ["", { requestAccepted: false, friendID: userUID }],
-      };
-      await setDoc(doc(firestoreDB, "users", id), addFriendRequestData);
-      return;
-   }
+   const objIndex = friendArr?.findIndex(
+      ({ friendID }: { friendID: string }) => friendID === userUID
+   );
 
-   //! if  the friend has friends then speed out the data and add the new one
-   const addFriendRequestData = {
+   if (objIndex !== -1) friendArr?.splice(objIndex, 1);
+
+   console.log("friend ->", _data?.friends);
+
+   const data = {
       ..._data,
-      friendsRequests: [
-         ..._data.friendsRequests,
-         { requestAccepted: false, friendID: userUID },
-      ],
+      friends: [...friendArr, { friendID: userUID, requestAccepted: true }],
    };
-   await setDoc(doc(firestoreDB, "users", id), addFriendRequestData);
+
+   await setDoc(doc(firestoreDB, "users", id), data);
 };

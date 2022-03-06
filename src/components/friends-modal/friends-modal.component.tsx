@@ -16,10 +16,13 @@ export function FriendsModal({
    fullName,
    imageUrl,
    userStatus,
-   onClick,
    uid,
    currentUserUid,
    type,
+   onClickAddFriend,
+   onClickRemoveFriend,
+   onClickSendFriendRequest,
+   onClickUnsendFriendRequest,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [sentRequest, setSentRequest] = useState(false);
@@ -85,25 +88,21 @@ export function FriendsModal({
       }
    }, []);
 
-   const onClickHandler = (evt: any) => {
-      if (!onClick) return null;
-      onClick(evt);
-   };
-
    return (
       <S.FriendsModalDiv className={className}>
-         <S.Button onClick={onClickHandler} id="remove-friend">
+         <S.Button onClick={onClickUnsendFriendRequest} id="remove-friend">
             <PersonRemove className="friend-icon" id="remove-friend" />
          </S.Button>
-         <S.Button onClick={onClickHandler} id="add-friend">
+
+         <S.Button onClick={onClickSendFriendRequest} id="add-friend">
             <PersonAdd className="friend-icon" id="add-friend" />
          </S.Button>
 
-         <S.AcceptBtn onClick={onClickHandler} id="reject-friend">
+         <S.AcceptBtn onClick={onClickRemoveFriend} id="reject-friend">
             <PersonXFill className="friend-icon" id="reject-friend" />
          </S.AcceptBtn>
 
-         <S.AcceptBtn onClick={onClickHandler} id="accept-friend">
+         <S.AcceptBtn onClick={onClickAddFriend} id="accept-friend">
             <PersonCheckFill className="friend-icon" id="accept-friend" />
          </S.AcceptBtn>
 

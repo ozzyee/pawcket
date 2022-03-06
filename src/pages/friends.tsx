@@ -1,20 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import { collection, doc, onSnapshot, query } from "@firebase/firestore";
+import {
+   collection,
+   doc,
+   onSnapshot,
+   query,
+} from "@firebase/firestore";
 import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { FriendsModal } from "../components/friends-modal/friends-modal.component";
 import { Navbar } from "../components/navbar/navbar.component";
 import { Frame, MainLayout } from "../functions/dynamic-imports";
-import { addFriend } from "../functions/friends/add-friend";
+import { sendFriendRequest } from "../functions/friends/send-friend-request";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { FriendsPageWrapper } from "../styles/global.style";
 import * as S from "../styles/vets.style";
 import { TUserData } from "../types/user-data.definition";
-import { removeFriend } from "../functions/friends/remove-friends";
+import { unsendFriendRequest } from "../functions/friends/unsend-friend-request";
 import { searchUser } from "../functions/friends/search-friends";
+import { addFriend } from "../functions/friends/add-friend";
 
 type TFriendsData = {
    userUID?: string;
@@ -25,7 +31,10 @@ const Friends = ({ userUID }: TFriendsData) => {
    const [currentUserData, setCurrentUserData] = useState<any>(null);
    const [allUsers, setAllUsers] = useState<TUserData[]>([]);
 
-   console.log("allUsers =>", allUsers);
+   //? Add friend - done 
+   //? remove friends
+   //? send friend request  - done
+   //? unsend friend request - done
 
    //! realtime feed to db
    useEffect(() => {
@@ -58,9 +67,6 @@ const Friends = ({ userUID }: TFriendsData) => {
       });
    }, []);
 
-   //* if the user is to remove a friend with the button this must update in the db
-   //* if friend accepts request set light gray text to friend
-
    return (
       <>
          <S.Desktop>
@@ -86,26 +92,30 @@ const Friends = ({ userUID }: TFriendsData) => {
                               sentRequest={false}
                               imageUrl={userImage}
                               friendsRequestList={friendsRequests}
-                              onClick={(evt) => {
-                                 const functionId =
-                                    (evt.target as Element).id ||
-                                    // @ts-ignore
-                                    (evt.target as Element).ownerSVGElement?.id;
-
-                                 if (functionId === "add-friend") {
-                                    addFriend({
-                                       id: userID,
-                                       userUID,
-                                       currentUserData,
-                                    });
-                                 } else {
-                                    removeFriend({
-                                       id: userID,
-                                       userUID,
-                                       currentUserData,
-                                    });
-                                 }
+                              onClickSendFriendRequest={() => {
+                                 sendFriendRequest({
+                                    id: userID,
+                                    userUID,
+                                    currentUserData,
+                                 });
                               }}
+                              onClickUnsendFriendRequest={() => {
+                                 unsendFriendRequest({
+                                    id: userID,
+                                    userUID,
+                                    currentUserData,
+                                 });
+                              }}
+                              onClickAddFriend={() => {
+                                 addFriend({
+                                    userID,
+                                    userUID,
+                                    currentUserData,
+                                 });
+                              }}
+
+                              //    onClickAddFriend,
+                              // onClickRemoveFriend,
                            />
                         );
                      }

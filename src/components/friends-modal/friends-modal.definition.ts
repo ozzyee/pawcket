@@ -5,7 +5,16 @@ export type TFriendsModalProps = {
    sentRequest: boolean;
    imageUrl?: string;
    userStatus?: string;
-   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+
+   onClickAddFriend?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+   onClickRemoveFriend?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+   onClickSendFriendRequest?:
+      | React.MouseEventHandler<HTMLButtonElement>
+      | undefined;
+   onClickUnsendFriendRequest?:
+      | React.MouseEventHandler<HTMLButtonElement>
+      | undefined;
+
    uid: string;
    currentUserUid: string | undefined;
    friendsRequestList: any;

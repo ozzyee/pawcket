@@ -4,7 +4,7 @@ import { TUserData } from "../../types/user-data.definition";
 
 type TAddFriend = {
    id: string;
-   userUID: string;
+   userUID: string | undefined;
    currentUserData: TUserData;
 };
 

@@ -7,6 +7,7 @@ import * as S from "../../styles/vets.style";
 import {
    collection,
    doc,
+   getDoc,
    onSnapshot,
    query,
    setDoc,
@@ -114,6 +115,21 @@ const Friends = ({ userUID }: TFriendsData) => {
       };
 
       await setDoc(doc(firestoreDB, "users", userUID), newData);
+      setFriend({ id });
+   };
+
+   const setFriend = async ({ id }: { id: string }) => {
+      const docRef = doc(firestoreDB, "users", id);
+      const docSnap = await getDoc(docRef);
+      const _data = docSnap.data();
+      const friendArr = _data?.friends;
+
+      const objIndex = friendArr?.findIndex(
+         ({ friendID }: { friendID: string }) => friendID === userUID
+      );
+
+      friendArr[objIndex].requestAccepted = true;
+      await setDoc(doc(firestoreDB, "users", id), _data);
    };
 
    return (

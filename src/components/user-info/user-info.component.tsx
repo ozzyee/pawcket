@@ -12,7 +12,7 @@ export function UserInfo({ user, className }: TUserInfoProps) {
    return (
       <S.UserInfo className={className}>
         
-        {user.extraInfo === undefined ? null :
+        {user.extraInfo === undefined || user.extraInfo === "" ? null :
         <Text className="bio">{`${user.extraInfo}`}</Text>}
         {user.address === undefined ? null :
         <><Text className="placeholder">{"Address:"}</Text>

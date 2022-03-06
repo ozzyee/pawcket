@@ -71,7 +71,7 @@ const UserProfile: NextPage = ({userUID, data}) => {
                                     caption={pet.name}
                                     className="petPic"
                                     onClick={() =>
-                                       router.push("/pet-profile", undefined, {
+                                       router.push(`/pet-profile/${pet.id}`, undefined, {
                                           shallow: true,
                                        })
                                     }
@@ -122,7 +122,7 @@ const UserProfile: NextPage = ({userUID, data}) => {
                            return (
                               <RoundImage
                                  key={index}
-                                 src={pet.profilePic}
+                                 src={pet.image}
                                  diameter={100}
                                  caption={pet.name}
                                  onClick={() =>

@@ -22,4 +22,5 @@ export type TPet = {
    petWeight?: string;
    petExtraInfo?: string | undefined;
    image?: string;
+   id?:string;
 };

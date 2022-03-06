@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { TFriendsModalProps } from "./friends-modal.definition";
 import * as S from "./friends-modal.style";
@@ -5,6 +6,8 @@ import Image from "next/image";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { Text } from "../text/text.component";
+import { onSnapshot, doc } from "@firebase/firestore";
+import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 
 export function FriendsModal({
    className,
@@ -14,20 +17,39 @@ export function FriendsModal({
    onClick,
    uid,
    currentUserUid,
-   friendsRequestList,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [sentRequest, setSentRequest] = useState(false);
+   const [currentUserData, setCurrentUserData] = useState<any>(null);
 
-   const friendRequestFilter = friendsRequestList?.filter(
+   const friendRequestFilter = currentUserData?.friendsRequests?.filter(
       ({ friendID }: { friendID: string }) => friendID === currentUserUid
    );
+
+   useEffect(() => {
+      if (!uid) return;
+      //! current users data in real time
+      onSnapshot(doc(firestoreDB, "users", uid), (doc) => {
+         const data = doc.data();
+         const _data = {
+            ...data,
+            DOB: "",
+         };
+         setCurrentUserData(_data);
+      });
+   }, []);
 
    useEffect(() => {
       if (friendRequestFilter?.length === 1) {
          setUserStatusMsg("request pending");
          setSentRequest(true);
       }
+
+      if (friendRequestFilter?.length < 1) {
+         setSentRequest(false);
+         setUserStatusMsg("");
+      }
+
       if (uid === currentUserUid) {
          setUserStatusMsg("Your Account");
       }
@@ -36,8 +58,6 @@ export function FriendsModal({
    const onClickHandler = (evt: any) => {
       if (!onClick) return null;
       onClick(evt);
-
-      sentRequest ? setSentRequest(false) : setSentRequest(true);
    };
 
    return (

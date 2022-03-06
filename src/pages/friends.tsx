@@ -156,7 +156,6 @@ const Friends = ({ userUID }: TFriendsData) => {
 
       //! we remove the user from are friend requests
       removalFriendArr.map((item: any) => {
-         console.log(item);
          if (item.friendID !== userUID) {
             newArr.push(item);
          }

@@ -46,6 +46,9 @@ const Friends = ({ userUID }: TFriendsData) => {
    const [currentUserData, setCurrentUserData] = useState<any>(null);
    const [allUsers, setAllUsers] = useState<TUserData[]>([]);
 
+   console.log("allUsers =>",allUsers);
+   
+
    const searchUser = (text: string) => {
       const searchResults = allUsers.filter(
          ({ fullName, fullNameReverse, userName }) => {

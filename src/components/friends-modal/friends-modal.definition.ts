@@ -9,4 +9,5 @@ export type TFriendsModalProps = {
    uid: string;
    currentUserUid: string | undefined;
    friendsRequestList: any;
+   type?: string;
 };

@@ -52,6 +52,72 @@ export const Button = styled.button`
    }
 `;
 
+export const AcceptBtn = styled.button`
+   position: absolute;
+   border-color: transparent;
+   background-color: ${styles.colors.primary};
+   position: absolute;
+   height: 42px;
+   width: 42px;
+   border-radius: 50%;
+   padding: 7px;
+   bottom: 38%;
+   right: 16%;
+   z-index: 1000;
+   transition: all 80ms;
+
+   .friend-icon {
+      color: white;
+   }
+
+   :hover {
+      background-color: white;
+      border: 2px solid ${styles.colors.primary};
+      padding: 6px;
+
+      .friend-icon {
+         color: ${styles.colors.primary};
+      }
+   }
+
+   :active {
+      transform: scale(0.92);
+   }
+`;
+
+export const RejectBtn = styled.button`
+   position: absolute;
+   border-color: transparent;
+   background-color: ${styles.colors.primary};
+   position: absolute;
+   height: 42px;
+   width: 42px;
+   border-radius: 50%;
+   padding: 7px;
+   bottom: 38%;
+   left: 16%;
+   z-index: 1000;
+   transition: all 80ms;
+
+   .friend-icon {
+      color: white;
+   }
+
+   :hover {
+      background-color: white;
+      border: 2px solid ${styles.colors.primary};
+      padding: 6px;
+
+      .friend-icon {
+         color: ${styles.colors.primary};
+      }
+   }
+
+   :active {
+      transform: scale(0.92);
+   }
+`;
+
 export const Image = styled.div`
    display: flex;
    align-items: center;

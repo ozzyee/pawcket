@@ -8,6 +8,8 @@ import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { Text } from "../text/text.component";
 import { onSnapshot, doc } from "@firebase/firestore";
 import { firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { PersonCheckFill } from "@styled-icons/bootstrap/PersonCheckFill";
+import { PersonXFill } from "@styled-icons/bootstrap/PersonXFill";
 
 export function FriendsModal({
    className,
@@ -17,10 +19,12 @@ export function FriendsModal({
    onClick,
    uid,
    currentUserUid,
+   type,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [sentRequest, setSentRequest] = useState(false);
    const [currentUserData, setCurrentUserData] = useState<any>(null);
+   const [showAddButton, setShowAddBtn] = useState(false);
 
    const friendRequestFilter = currentUserData?.friendsRequests?.filter(
       ({ friendID }: { friendID: string }) => friendID === currentUserUid
@@ -55,6 +59,17 @@ export function FriendsModal({
       }
    }, [currentUserUid, friendRequestFilter, uid, userStatus]);
 
+   useEffect(() => {
+      if (uid !== currentUserUid) {
+         setShowAddBtn(true);
+      }
+
+      if (type === "friend-request") {
+         setShowAddBtn(false);
+         setUserStatusMsg("Accept Friend");
+      }
+   }, []);
+
    const onClickHandler = (evt: any) => {
       if (!onClick) return null;
       onClick(evt);
@@ -62,7 +77,7 @@ export function FriendsModal({
 
    return (
       <S.FriendsModalDiv className={className}>
-         {uid !== currentUserUid && (
+         {showAddButton && (
             <>
                {sentRequest ? (
                   <S.Button onClick={onClickHandler} id="remove-friend">
@@ -73,6 +88,17 @@ export function FriendsModal({
                      <PersonAdd className="friend-icon" id="add-friend" />
                   </S.Button>
                )}
+            </>
+         )}
+
+         {!showAddButton && (
+            <>
+               <S.AcceptBtn onClick={onClickHandler} id="accept-friend">
+                  <PersonCheckFill className="friend-icon" id="accept-friend" />
+               </S.AcceptBtn>
+               <S.RejectBtn onClick={onClickHandler} id="reject-friend">
+                  <PersonXFill className="friend-icon" id="reject-friend" />
+               </S.RejectBtn>
             </>
          )}
          <S.ImageWrapper>

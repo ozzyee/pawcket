@@ -26,16 +26,7 @@ export function CreateProfileForm({
    const hiddenImageUploader = useRef(null);
    const router = useRouter();
    const [img, setImg] = useState("");
-
-   const [userData, setUserData] = useState<null | TCreatUser>({
-      firstName: dateObject?.firstName || "",
-      lastName: dateObject?.lastName || "",
-      address: dateObject?.address || "",
-      postCode: dateObject?.postCode || "",
-      tel: dateObject?.tel || "",
-      extraInfo: dateObject?.extraInfo || "",
-      userImage: dateObject?.userImage || "",
-   });
+   const [userData, setUserData] = useState<null | TCreatUser>(dateObject);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [err, setErr] = useState<TCreatUser | null>(null);
 
@@ -54,14 +45,14 @@ export function CreateProfileForm({
          });
          return;
       }
-   }, [dateObject]);
+   }, []);
 
    useEffect(() => {
       if (img) {
          setUserData({ ...userData, userImage: img });
          return;
       }
-   }, [uploadImage, img]);
+   }, [uploadImage, img, userData]);
 
    const addUserInfo = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -106,6 +97,8 @@ export function CreateProfileForm({
          }
       }
    };
+
+   console.log(userData);
 
    return (
       <>

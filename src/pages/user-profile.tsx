@@ -37,7 +37,7 @@ const UserProfile: NextPage = ({userUID, data}) => {
                      background="/frame.svg"
                      img={
                         !user.profilePic || user.profilePic === ""
-                           ? "/circle/user-circle.svg"
+                           ? "/circle/user-circle-white.svg"
                            : user.profilePic
                      }
                      diameter={200}
@@ -70,6 +70,7 @@ const UserProfile: NextPage = ({userUID, data}) => {
                                     diameter={120}
                                     caption={pet.name}
                                     className="petPic"
+                                    isPet={true}
                                     onClick={() =>
                                        router.push(`/pet-profile/${pet.id}`, undefined, {
                                           shallow: true,
@@ -125,6 +126,7 @@ const UserProfile: NextPage = ({userUID, data}) => {
                                  src={pet.image}
                                  diameter={100}
                                  caption={pet.name}
+                                 isPet={true}
                                  onClick={() =>
                                     router.push("/pet-profile", undefined, {
                                        shallow: true,

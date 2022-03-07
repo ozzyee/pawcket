@@ -4,4 +4,5 @@ export type TRoundImageProps = {
    caption?: string;
    className?:string;
    onClick?: () => void;
+   isPet: boolean;
 };

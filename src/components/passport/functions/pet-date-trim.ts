@@ -1,41 +1,40 @@
-export function parseMonth(month: string):string{
-
+function parseMonth(month:string){
     let parsedMonth:string;
     switch (month) {
-        case "01":
+        case "Jan":
             parsedMonth = "January";
             break;
-        case "02":
+        case "Feb":
             parsedMonth = "February";
             break;
-        case "03":
+        case "Mar":
             parsedMonth = "March";
             break;
-        case "04":
+        case "Apr":
             parsedMonth = "April";
             break;
-        case "05":
+        case "May":
             parsedMonth = "May";
             break;
-        case "06":
+        case "Jun":
             parsedMonth = "June";
             break;
-        case "07":
+        case "Jul":
             parsedMonth = "July";
             break;
-        case "08":
+        case "Aug":
             parsedMonth = "August";
             break;
-        case "09":
+        case "Sep":
             parsedMonth = "September";
             break;
-        case "10":
+        case "Oct":
             parsedMonth = "October";
             break;
-        case "11":
+        case "Nov":
             parsedMonth = "November";
             break;
-        case "12":
+        case "Dec":
             parsedMonth = "December";
             break;
         
@@ -46,10 +45,10 @@ export function parseMonth(month: string):string{
 }
 
 
-export function trimDate(date:string):string{
-    const i = date.indexOf("T")
-    const trimmed = date.substring(1, i).split("-").reverse();
-    const parsedMonth = parseMonth(trimmed[1]);
-    const finalDate = `${trimmed[0]} of ${parsedMonth} ${trimmed[2]}`
+export function trimPetDate(date:string):string{
+    const trimmed = date.split(" ").slice(1,4);
+    const parsedMonth = parseMonth(trimmed[0]);
+    const finalDate = `${trimmed[1]} of ${parsedMonth} ${trimmed[2]}`
+    console.log(trimmed)
     return finalDate
 }

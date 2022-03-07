@@ -2,32 +2,46 @@
 import { NextApiRequest, NextPage} from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { RoundImage } from "../components/round-image/round-img.component";
-import { Separator } from "../components/separator/separator.component";
-import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
-import { Text } from "../components/text/text.component";
-import { Buttons } from "../components/buttons/buttons.component";
-import { UserInfo } from "../components/user-info/user-info.component";
-import * as dummyData from "../../dummy-data/dummy-data";
-import * as S from "../styles/user-profile";
+import { RoundImage } from "../../components/round-image/round-img.component";
+import { Separator } from "../../components/separator/separator.component";
+import { PassportWrapper } from "../../components/passport-wrapper/passport-wrapper.component";
+import { Text } from "../../components/text/text.component";
+import { Buttons } from "../../components/buttons/buttons.component";
+import { UserInfo } from "../../components/user-info/user-info.component";
+import * as dummyData from "../../../dummy-data/dummy-data";
+import * as S from "../../styles/user-profile";
 import router from "next/router";
-import { AuthService } from "../lib/auth-service/auth.service";
+import { AuthService } from "../../lib/auth-service/auth.service";
 import { doc, DocumentData, getDoc } from "@firebase/firestore";
-import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
+import { firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { Frame, MainLayout, Navbar } from "../../functions/dynamic-imports";
 import Head from "next/head";
-import { TUser } from "../../dummy-data/dummy-data";
-import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
-
-const UserProfile: NextPage = ({userUID, data}) => {
-//    const router = useRouter();
-//    const userID = router.asPath.split("/")[2];
-//    const userData = data?.filter(({ id }: { id: string }) => id === petID);
-//    console.log("this is pet data", petData);
+import { TPet } from "../../layouts/creat-pet-form/creat-pet-form.definition";
 
 
+ type TUser = {
+    firstName: string;
+    lastName: string;
+    userName: string;
+    address: string;
+    DOB: string;
+    telephone: string;
+    extraInfo: string;
+    profilePic: string;
+    postCode: string;
+    pets: TPet[];
+    id:string;
+    friends:TUser[]
+ };
 
-   const [user, setUser] = useState<TUser | DocumentData>({...data, friends:[dummyData.peter, dummyData.jennifer]});
+const UserProfileTest = ({data}) => {
+   const router = useRouter();
+   const userID = router.asPath.split("/")[2];
+   console.log("Here=====> ", data)
+   const friendData = data.friends.filter(({id}:{id:string}) => id === userID) 
+
+
+   const [user, setUser] = useState<TUser | DocumentData>({...friendData[0]});
    if (!user) return null;
    console.log(data);
    
@@ -280,7 +294,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
         return {
            props: {
               data,
-              userUID,
            },
         };
      }
@@ -301,4 +314,4 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
    }
 }
 
-export default UserProfile;
+export default UserProfileTest;

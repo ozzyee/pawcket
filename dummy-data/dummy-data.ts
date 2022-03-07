@@ -43,7 +43,7 @@ export const tony: TPet = {
 };
 
 export const jennifer: TUser = {
-
+   id: "BKoGsLPWFWV9BSUrDNCYpAOj6Tx2",
    firstName: "Jennifer Jones",
    lastName: "Jennifer Jones",
    address: "123 Street Rd.",
@@ -54,3 +54,16 @@ export const jennifer: TUser = {
    profilePic: "",
    pets: [tony, freddie],
 };
+
+export const peter: TUser = {
+    id:"Z7KsLZGQCGgjYvdVVtxAfP1x48x1",
+    firstName: "Peter",
+    lastName: "Peters",
+    address: "123 Avenue Rd.",
+    DOB: "1959-08-13T09:48:02.000Z",
+    telephone: "N/A",
+    userName: "Petey",
+    extraInfo: "I'm learning to use my phone.",
+    profilePic: "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/hc_480x270/public/media/image/2018/01/peter-griffin.jpg?itok=BgXuBkEr",
+    pets: [tony, freddie],
+ };

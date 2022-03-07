@@ -40,7 +40,7 @@ const PetProfile = ({ _data }: TData) => {
    const [pet] = useState({ ...petData[0] });
    if (!pet) return null;
 
-   console.log(pet);
+   console.log(pet,petID);
 
    return (
       <>

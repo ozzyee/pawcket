@@ -65,7 +65,9 @@ export function FriendsModal({
       //* is current user
       if (currentUserUid === uid) {
          setUserStatusMsg("You");
+         // setIsCurrentUser(true);
       } else {
+         // setIsCurrentUser(false);
          setUserStatusMsg("");
       }
    }, [currentFriendsData, uid]);
@@ -130,6 +132,10 @@ export function FriendsModal({
                </S.RightBtn>
             </>
          )}
+
+         {/* <S.RightBtn onClick={onClickRemoveFriend}>
+                  <PersonXFill className="friend-icon" id="reject-friend" />
+               </S.RightBtn> */}
 
          <S.ImageWrapper>
             <S.Image>

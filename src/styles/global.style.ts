@@ -269,4 +269,16 @@ export const ButtonsWrapper = styled.div`
    }
 `;
 
+export const FriendsPageWrapper = styled.main`
+   display: flex;
+   /* align-items: center; */
+   flex-wrap: wrap;
 
+   width: 885px;
+   height: 500px;
+   margin-top:2.5rem ;
+   overflow: scroll;
+
+   margin-left: auto;
+   margin-right: auto;
+`;

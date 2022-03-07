@@ -2,13 +2,10 @@ import React from "react";
 import { TUserInfoProps } from "./user-info.definition";
 import * as S from "./user-info.style";
 import { Text } from "../text/text.component";
+import { trimDate } from "./functions/date-trim";
 
 export function UserInfo({ user, className }: TUserInfoProps) {
 
-    function trimDate(date:string):string{
-        const i = date.indexOf("T")
-        return date.substring(1, i)
-        }
    return (
       <S.UserInfo className={className}>
         

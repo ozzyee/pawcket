@@ -45,10 +45,12 @@ function parseMonth(month:string){
 }
 
 
-export function trimPetDate(date:string):string{
+export function trimPetDate(date:string | Date | undefined):string|null{
+    if(date === undefined || typeof date === "object"){
+        return null
+    }
     const trimmed = date.split(" ").slice(1,4);
     const parsedMonth = parseMonth(trimmed[0]);
     const finalDate = `${trimmed[1]} of ${parsedMonth} ${trimmed[2]}`
-    console.log(trimmed)
     return finalDate
 }

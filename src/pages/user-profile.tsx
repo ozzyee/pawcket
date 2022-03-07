@@ -279,7 +279,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       return {
          props: {
             userUID,
-            data
          },
       };
    } catch (err) {

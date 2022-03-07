@@ -18,6 +18,7 @@ import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import Head from "next/head";
 import { TUser } from "../../dummy-data/dummy-data";
 import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
+import { Thumbnails } from "../components/thumbnails/thumbnails.component";
 
 const UserProfile: NextPage = ({userUID, data}) => {
 //    const router = useRouter();
@@ -69,37 +70,7 @@ const UserProfile: NextPage = ({userUID, data}) => {
                      separator={false}
                      className="desktopPassport"
                   >
-                     <S.PetsSection className="desktopPets">
-                        {user.pets &&
-                           user.pets.map((pet: TPet, id: number) => {
-                              return (
-                                 <RoundImage
-                                    src={pet.profilePic}
-                                    diameter={120}
-                                    caption={pet.name}
-                                    className="petPic"
-                                    isPet={true}
-                                    onClick={() =>
-                                       router.push(`/pet-profile/${pet.id}`, undefined, {
-                                          shallow: true,
-                                       })
-                                    }
-                                    key={id}
-                                 />
-                              );
-                           })}
-                        <Buttons
-                           dark={false}
-                           className={!user.pets ? "centeredButton": ""}
-                           onClick={() =>
-                              router.push("/create-pet", undefined, {
-                                 shallow: true,
-                              })
-                           }
-                        >
-                           +
-                        </Buttons>
-                     </S.PetsSection>
+                    <Thumbnails isForPets={true} data={user.pets} className="desktopPets"/>
                   </PassportWrapper>
                </S.BottomLeft>
                <S.BottomRight>
@@ -108,37 +79,8 @@ const UserProfile: NextPage = ({userUID, data}) => {
                      className="separator"
                   />
                     <PassportWrapper separator={true} separatorText="Your Friends" className="desktopPassport">
-                       <S.FriendsSection className="desktopPets">
-                          {user.friends &&
-                             user.friends.map((friend: TUser, index:number) => {
-                                return (
-                                   <RoundImage
-                                      key={index}
-                                      src={friend.profilePic}
-                                      diameter={120}
-                                      caption={friend.userName}
-                                      isPet={false}
-                                      className="petPic"
-                                      onClick={() =>
-                                         router.push(`/user-profile/${friend.id}`, undefined, {
-                                            shallow: true,
-                                         })
-                                      }
-                                   />
-                                );
-                             })}
-                          <Buttons
-                            dark={false}
-                            onClick={() =>
-                               router.push("/create-pet", undefined, {
-                                  shallow: true,
-                               })
-                            }
-                         >
-                            +
-                         </Buttons>
-                  </S.FriendsSection>
-               </PassportWrapper>
+                        <Thumbnails isForPets={false} data={user.friends} className="desktopPets"/>
+                    </PassportWrapper>
                </S.BottomRight>
             </MainLayout>
          </S.Desktop>
@@ -163,67 +105,11 @@ const UserProfile: NextPage = ({userUID, data}) => {
                    <UserInfo user={user}/>
                </S.InfoSection>
                <PassportWrapper separator={true} separatorText="Your Pets">
-                  <S.PetsSection>
-                     {user.pets &&
-                        user.pets.map((pet: TPet, index:number) => {
-                           return (
-                              <RoundImage
-                                 key={index}
-                                 src={pet.image}
-                                 diameter={100}
-                                 caption={pet.name}
-                                 isPet={true}
-                                 onClick={() =>
-                                    router.push(`/pet-profile/${pet.id}`, undefined, {
-                                       shallow: true,
-                                    })
-                                 }
-                              />
-                           );
-                        })}
-                     <Buttons
-                        dark={false}
-                        onClick={() =>
-                           router.push("/create-pet", undefined, {
-                              shallow: true,
-                           })
-                        }
-                     >
-                        +
-                     </Buttons>
-                  </S.PetsSection>
+                    <Thumbnails isForPets={true} data={user.pets}/>
                </PassportWrapper>
                
                <PassportWrapper separator={true} separatorText="Your Friends">
-                  <S.FriendsSection>
-                     {user.friends &&
-                        user.friends.map((friend: TUser, index:number) => {
-                           return (
-                              <RoundImage
-                                 key={index}
-                                 src={friend.profilePic}
-                                 diameter={100}
-                                 caption={friend.userName}
-                                 isPet={false}
-                                 onClick={() =>
-                                    router.push(`/user-profile/${friend.id}`, undefined, {
-                                       shallow: true,
-                                    })
-                                 }
-                              />
-                           );
-                        })}
-                     <Buttons
-                        dark={false}
-                        onClick={() =>
-                           router.push("/create-pet", undefined, {
-                              shallow: true,
-                           })
-                        }
-                     >
-                        +
-                     </Buttons>
-                  </S.FriendsSection>
+                    <Thumbnails isForPets={false} data={user.friends} className="desktopPets"/>
                </PassportWrapper>
                <Navbar className="nav" />
             </MainLayout>

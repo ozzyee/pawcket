@@ -1,35 +1,6 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import styles from "./style.config.json";
 
-export const PetsSection = styled.div`
-   display: grid;
-   grid-template-columns: repeat(2, 50%);
-   grid-auto-rows: 150px;
-   place-items: center;
-   margin-bottom: 30px;
-
-   button {
-      grid-column: span 2;
-      width: 80px;
-      height: 80px;
-      border-radius: 100%;
-   }
-`;
-
-export const FriendsSection = styled.div`
-   display: grid;
-   grid-template-columns: repeat(2, 50%);
-   grid-auto-rows: 150px;
-   place-items: center;
-   margin-bottom: 30px;
-
-   button {
-      grid-column: span 2;
-      width: 80px;
-      height: 80px;
-      border-radius: 100%;
-   }
-`;
 
 export const InfoSection = styled.div`
    line-height: 70%;
@@ -161,10 +132,10 @@ export const BottomLeft = styled.div`
 
    .desktopPets{
    display: grid;
-   grid-template-columns: repeat(3, 33.3%);
+   grid-template-columns: repeat(2, 50%);
    grid-auto-rows: 150px;
    place-items: center;
-   margin: 30px 0px;
+   margin: 10px 0px;
     }
 
    .separator {
@@ -224,9 +195,6 @@ export const BottomLeft = styled.div`
       border-radius: 50px;
    }
 
-   .centeredButton{
-       grid-column: span 3;
-   }
 `;
 
 export const BottomRight = styled.div`
@@ -243,10 +211,10 @@ export const BottomRight = styled.div`
 
    .desktopPets{
    display: grid;
-   grid-template-columns: repeat(3, 33.3%);
+   grid-template-columns: repeat(2, 50%);
    grid-auto-rows: 150px;
    place-items: center;
-   margin: 30px 0px;
+   margin: 10px 0px;
     }
 
    .separator {
@@ -306,8 +274,5 @@ export const BottomRight = styled.div`
       border-radius: 50px;
    }
 
-   .centeredButton{
-       grid-column: span 3;
-   }
 `;
 

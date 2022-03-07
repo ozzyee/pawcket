@@ -44,15 +44,16 @@ export const tony: TPet = {
 
 export const jennifer: TUser = {
    id: "BKoGsLPWFWV9BSUrDNCYpAOj6Tx2",
-   firstName: "Jennifer Jones",
-   lastName: "Jennifer Jones",
+   firstName: "Jennifer",
+   lastName: "Jones",
    address: "123 Street Rd.",
-   DOB: "29 of February 1988",
+   DOB: `"1988-02-29T09:48:02.000Z"`,
    telephone: "N/A",
    userName: "Jennifer",
    extraInfo: "I'm thecnically 8 years old.",
    profilePic: "",
    pets: [tony, freddie],
+   friends:[]
 };
 
 export const peter: TUser = {
@@ -60,10 +61,11 @@ export const peter: TUser = {
     firstName: "Peter",
     lastName: "Peters",
     address: "123 Avenue Rd.",
-    DOB: "1959-08-13T09:48:02.000Z",
+    DOB: `"1959-08-13T09:48:02.000Z"`,
     telephone: "N/A",
     userName: "Petey",
-    extraInfo: "I'm learning to use my phone.",
+    extraInfo: "I'm learning how to use my phone.",
     profilePic: "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/hc_480x270/public/media/image/2018/01/peter-griffin.jpg?itok=BgXuBkEr",
-    pets: [tony, freddie],
+   pets: [],
+   friends:[]
  };

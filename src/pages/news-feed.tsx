@@ -1,27 +1,39 @@
 import type { NextApiRequest, NextPage } from "next";
 import { Separator } from "../components/separator/separator.component";
 import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
-import * as S from "../styles/news-feed.style"
-import {NewsFeedPostCard} from "../components/news-feed-postcard/news-feed-postcard.component"
-import React, {useState} from "react";
+import * as S from "../styles/news-feed.style";
+import { NewsFeedPostCard } from "../components/news-feed-postcard/news-feed-postcard.component";
+import React, { useEffect, useState } from "react";
 import { freddie } from "../../dummy-data/dummy-data";
 
+const NewsFeed: NextPage = () => {
+   //This needs to be changed, possibly?
+   type TFeed = any[];
 
-const NewsFeed : NextPage = () =>{
-    //This needs to be changed, possibly?
-    type TFeed = any[];
+   const [feed, setFeed] = useState<TFeed>([]);
+   const arr = [];
 
-    const [feed, setFeed] = useState<TFeed>([]);
+   async function catsAPI() {
+      const apikey = "a0bc1dd9-0d9f-49b0-80c8-05e791dd8634";
+      const response = await fetch(
+         `https://api.thecatapi.com/v1/images/search?api_key=${apikey}`
+      );
+      const data = await response.json();
+      console.log(data[0].id);
+      return data[0].id;
+   }
 
-    function makeAFeed(){
-    const item = {name : "hello"}
-      setFeed([...feed, item])
-      console.log(feed)
-    }
+   useEffect(() => {
+      for (let i = 0; i < 6; i++) {
+         [...arr, catsAPI];
+      }
+      setFeed(arr);
+      console.log("HEY THERE! #)*%()W*%(*#)(*@%()*@$)(%*@$(%*" + arr);
+   }, []);
 
-
-return (<>
-{/* <S.Desktop>
+   return (
+      <>
+         {/* <S.Desktop>
 <MainLayout className="desktop" desktopCard={true}>
     <S.Top>
     <S.TopRight>
@@ -35,9 +47,10 @@ return (<>
     </S.Bottom>
 </MainLayout>
 </S.Desktop> */}
- {/* Start of the mobile version  */}
-<S.Mobile>
-<MainLayout className="mobile"
+         {/* Start of the mobile version  */}
+         <S.Mobile>
+            <MainLayout
+               className="mobile"
                bottomTitle="News Feed"
                topChildren={
                   <Frame
@@ -45,19 +58,27 @@ return (<>
                      img={"/circle/feed-icon-nav.svg"}
                      diameter={250}
                   />
-               }>
-                <S.CardList>
-                   {feed.map((item)=>{
-                       return <li><NewsFeedPostCard></NewsFeedPostCard>
-                       </li>
+               }
+            >
+               <S.CardList>
+                  {feed.map((item) => {
+                     return (
+                        <li>
+                           <NewsFeedPostCard
+                              userName={item.id}
+                              postText={item.url}
+                              postImage={item.url}
+                           ></NewsFeedPostCard>
+                        </li>
+                     );
                   })}
-                </S.CardList>
+               </S.CardList>
 
-                   <h1 onClick={makeAFeed}>Click me to add a feed!</h1>
-<Navbar className="nav" />
-</MainLayout>
-</S.Mobile>
-</>)
-}
+               <Navbar className="nav" />
+            </MainLayout>
+         </S.Mobile>
+      </>
+   );
+};
 
 export default NewsFeed;

@@ -20,16 +20,16 @@ export const ImageWrapper = styled.div`
    justify-content: center;
 `;
 
-export const Button = styled.button`
+export const LeftButton = styled.button`
    border-color: transparent;
    background-color: ${styles.colors.primary};
-   /* position: absolute; */
+   position: absolute;
    height: 42px;
    width: 42px;
    border-radius: 50%;
    padding: 7px;
    bottom: 38%;
-   right: 16%;
+   left: 16%;
    z-index: 1000;
    transition: all 80ms;
 
@@ -52,11 +52,10 @@ export const Button = styled.button`
    }
 `;
 
-export const AcceptBtn = styled.button`
-   /* position: absolute; */
+export const RightBtn = styled.button`
    border-color: transparent;
    background-color: ${styles.colors.primary};
-   /* position: absolute; */
+   position: absolute;
    height: 42px;
    width: 42px;
    border-radius: 50%;

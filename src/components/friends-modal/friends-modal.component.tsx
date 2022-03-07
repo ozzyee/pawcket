@@ -15,98 +15,121 @@ export function FriendsModal({
    className,
    fullName,
    imageUrl,
-   userStatus,
    uid,
    currentUserUid,
-   type,
    onClickAddFriend,
    onClickRemoveFriend,
    onClickSendFriendRequest,
    onClickUnsendFriendRequest,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
-   const [sentRequest, setSentRequest] = useState(false);
-   const [currentUserData, setCurrentUserData] = useState<any>(null);
-   const [showAddButton, setShowAddBtn] = useState(false);
-   const [friends, setFriends] = useState(false);
-
-   const friendRequestFilter = currentUserData?.friendsRequests?.filter(
-      ({ friendID }: { friendID: string }) => friendID === currentUserUid
-   );
-
-   const isFriend = currentUserData?.friends?.filter(
-      ({ friendID }: { friendID: string }) => friendID === currentUserUid
-   );
-
-   // console.log("isFriend =>", isFriend[0].requestAccepted);
+   const [currentFriendsData, setCurrentFriendsData] = useState<any>(null);
+   const [currentUsersData, setCurrentUsersData] = useState<any>(null);
 
    useEffect(() => {
-      if (!uid) return;
+      currentUsersData?.friendsRequests?.map(
+         ({ friendID }: { friendID: string }) => {
+            if (friendID === uid) {
+               setUserStatusMsg("Friend Request");
+               return;
+            }
+         }
+      );
+   }, [currentUsersData]);
+
+   useEffect(() => {
+      //* request pending
+      const friendPending = currentFriendsData?.friendsRequests?.filter(
+         ({ friendID }: { friendID: string }) => {
+            return friendID === currentUserUid;
+         }
+      );
+
+      if (friendPending?.length > 0) {
+         setUserStatusMsg("Friend pending");
+         return;
+      }
+
+      //* is friends
+      const friend = currentFriendsData?.friends?.filter(
+         ({ friendID }: { friendID: string }) => {
+            return friendID === currentUserUid;
+         }
+      );
+
+      if (friend?.length > 0) {
+         setUserStatusMsg("Friends");
+         return;
+      }
+
+      //* is current user
+      if (currentUserUid === uid) {
+         setUserStatusMsg("You");
+      } else {
+         setUserStatusMsg("");
+      }
+   }, [currentFriendsData, uid]);
+
+   //! realtime data
+   useEffect(() => {
+      if (!uid || !currentUserUid) return;
       //! current users data in real time
       onSnapshot(doc(firestoreDB, "users", uid), (doc) => {
          const data = doc.data();
          const _data = {
             ...data,
-            // DOB: "",
          };
-         console.log("the data ->", _data);
-
-         setCurrentUserData(_data);
+         setCurrentFriendsData(_data);
       });
-   }, []);
 
-   useEffect(() => {
-      if (friendRequestFilter?.length === 1) {
-         setUserStatusMsg("request pending");
-         setSentRequest(true);
-      }
-
-      if (friendRequestFilter?.length < 1) {
-         setSentRequest(false);
-         setUserStatusMsg("");
-      }
-
-      if (uid === currentUserUid) {
-         setUserStatusMsg("Your Account");
-      }
-
-      if (isFriend?.length >= 1) {
-         if (isFriend[0]?.requestAccepted) {
-            setUserStatusMsg("Friends");
-            setShowAddBtn(false);
-            setFriends(true);
-         }
-      }
-   }, [currentUserUid, friendRequestFilter, uid, userStatus, isFriend]);
-
-   useEffect(() => {
-      if (uid !== currentUserUid) {
-         setShowAddBtn(true);
-      }
-
-      if (type === "friend-request") {
-         setShowAddBtn(false);
-         setUserStatusMsg("Accept Friend");
-      }
+      onSnapshot(doc(firestoreDB, "users", currentUserUid), (doc) => {
+         const data = doc.data();
+         const _data = {
+            ...data,
+         };
+         setCurrentUsersData(_data);
+      });
    }, []);
 
    return (
       <S.FriendsModalDiv className={className}>
-         <S.Button onClick={onClickUnsendFriendRequest} id="remove-friend">
-            <PersonRemove className="friend-icon" id="remove-friend" />
-         </S.Button>
+         {!userStatusMsg && (
+            <>
+               <S.RightBtn onClick={onClickSendFriendRequest} id="add-friend">
+                  <PersonAdd className="friend-icon" id="add-friend" />
+               </S.RightBtn>
+            </>
+         )}
 
-         <S.Button onClick={onClickSendFriendRequest} id="add-friend">
-            <PersonAdd className="friend-icon" id="add-friend" />
-         </S.Button>
+         {userStatusMsg === "Friend pending" && (
+            <>
+               <S.RightBtn
+                  onClick={onClickUnsendFriendRequest}
+                  id="remove-friend"
+               >
+                  <PersonRemove className="friend-icon" id="remove-friend" />
+               </S.RightBtn>
+            </>
+         )}
 
-         <S.AcceptBtn onClick={onClickRemoveFriend} id="reject-friend">
-            <PersonXFill className="friend-icon" id="reject-friend" />
-         </S.AcceptBtn>
+         {userStatusMsg === "Friend Request" && (
+            <>
+               <S.LeftButton onClick={onClickRemoveFriend}>
+                  <PersonXFill className="friend-icon" id="reject-friend" />
+               </S.LeftButton>
+               <S.RightBtn onClick={onClickAddFriend} id="remove-friend">
+                  <PersonCheckFill className="friend-icon" id="accept-friend" />
+               </S.RightBtn>
+            </>
+         )}
 
-         <S.AcceptBtn onClick={onClickAddFriend} id="accept-friend">
-            <PersonCheckFill className="friend-icon" id="accept-friend" />
-         </S.AcceptBtn>
+         {userStatusMsg === "Friends" && (
+            <>
+               <S.RightBtn onClick={onClickRemoveFriend}>
+                  <PersonXFill className="friend-icon" id="reject-friend" />
+               </S.RightBtn>
+            </>
+         )}
 
          <S.ImageWrapper>
             <S.Image>

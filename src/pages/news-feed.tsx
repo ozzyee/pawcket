@@ -10,8 +10,7 @@ const NewsFeed: NextPage = () => {
    //This needs to be changed, possibly?
    type TFeed = any[];
 
-   const [feed, setFeed] = useState<TFeed>([]);
-   const arr = [];
+   const [feed, setFeed] = useState<TFeed>([1, 2, 4, 5]);
 
    async function catsAPI() {
       const apikey = "a0bc1dd9-0d9f-49b0-80c8-05e791dd8634";
@@ -22,14 +21,6 @@ const NewsFeed: NextPage = () => {
       console.log(data[0].id);
       return data[0].id;
    }
-
-   useEffect(() => {
-      for (let i = 0; i < 6; i++) {
-         [...arr, catsAPI];
-      }
-      setFeed(arr);
-      console.log("HEY THERE! #)*%()W*%(*#)(*@%()*@$)(%*@$(%*" + arr);
-   }, []);
 
    return (
       <>
@@ -65,8 +56,8 @@ const NewsFeed: NextPage = () => {
                      return (
                         <li>
                            <NewsFeedPostCard
-                              userName={item.id}
-                              postText={item.url}
+                              userName="reece"
+                              postText="I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay! I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!  "
                               postImage={item.url}
                            ></NewsFeedPostCard>
                         </li>

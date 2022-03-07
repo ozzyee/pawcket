@@ -3,7 +3,7 @@ import styles from "../../styles/style.config.json";
 
 export const Wrapper = styled.div`
    position: relative;
-   width: 280px;
+   width: 100vw;
 `;
 
 export const CardInfoDiv = styled.div`
@@ -37,38 +37,40 @@ export const CardLogoHolder = styled.div`
 
 export const CardInfo = styled.div`
    width: 90%;
-
-   .vet-name {
-      padding: 0;
-      margin: 0;
-      margin-bottom: 10px;
-      font-weight: bold;
-      color: black;
-      font-style: italic;
-   }
+   /* display: flex;
+   justify-content: center;
+   flex-wrap: wrap; */
 `;
 
 export const TextHolder = styled.div`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 0;
+   padding: 5px;
    margin: 0;
    margin-top: 0rem;
-
-   z-index: 1000;
-
-   right: 0;
-   left: 0;
+   overflow: none;
+   z-index: 1;
+   position: relative;
+   right: auto;
+   left: 6%;
+   background-color: #ffffff;
+   border-radius: 0% 20% 20% 20%;
 
    .bold {
       font-weight: bold;
       padding-right: 5px;
    }
 
-   .contact-info {
-      font-size: 0.8rem;
+   .postText {
+      font-size: 0.2rem;
       margin: 0;
       margin-top: 4px;
+      justify-self: center;
+      background-color: green;
    }
+`;
+
+export const UserNameWrapper = styled.div`
+   display: flex;
+   justify-content: center;
+   z-index: 5;
+   border: 2px red solid;
 `;

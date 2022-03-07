@@ -2,7 +2,7 @@
    "name": "pawcket",
    "private": true,
    "scripts": {
-      "analyzer":"cross-env ANALYZE=true next build",
+      "analyzer": "cross-env ANALYZE=true next build",
       "test": "jest --watchAll",
       "generate:component": "bin/scaffold.sh -c",
       "dev": "next dev",

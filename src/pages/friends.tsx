@@ -1,22 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import { collection, doc, onSnapshot, query } from "@firebase/firestore";
+import { collection, onSnapshot, query } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { FriendsModal } from "../components/friends-modal/friends-modal.component";
 import { Navbar } from "../components/navbar/navbar.component";
 import { Frame, MainLayout } from "../functions/dynamic-imports";
-import { sendFriendRequest } from "../functions/friends/send-friend-request";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { FriendsPageWrapper } from "../styles/global.style";
 import * as S from "../styles/vets.style";
 import { TUserData } from "../types/user-data.definition";
-import { unsendFriendRequest } from "../functions/friends/unsend-friend-request";
 import { searchUser } from "../functions/friends/search-friends";
-import { addFriend } from "../functions/friends/add-friend";
-import { removeFriend } from "../functions/friends/remove-friend";
 
 type TFriendsData = {
    userUID?: string;
@@ -24,21 +20,11 @@ type TFriendsData = {
 
 const Friends = ({ userUID }: TFriendsData) => {
    const [results, setResults] = useState<TUserData[]>([]);
-   const [currentUserData, setCurrentUserData] = useState<any>(null);
    const [allUsers, setAllUsers] = useState<TUserData[]>([]);
 
    //! realtime feed to db
    useEffect(() => {
       if (!userUID) return;
-      //! current users data in real time
-      onSnapshot(doc(firestoreDB, "users", userUID), (doc) => {
-         const data = doc.data();
-         const _data = {
-            ...data,
-         };
-         setCurrentUserData(_data);
-      });
-
       //! all documents in users in real time
       const q = query(collection(firestoreDB, "users"));
       onSnapshot(q, (querySnapshot) => {
@@ -72,11 +58,6 @@ const Friends = ({ userUID }: TFriendsData) => {
                         { fullName, userImage, userID, friendsRequests },
                         index
                      ) => {
-                        const paramsObject = {
-                           id: userID,
-                           userUID,
-                           currentUserData,
-                        };
                         return (
                            <FriendsModal
                               key={index}
@@ -86,26 +67,6 @@ const Friends = ({ userUID }: TFriendsData) => {
                               sentRequest={false}
                               imageUrl={userImage}
                               friendsRequestList={friendsRequests}
-                              onClickSendFriendRequest={() => {
-                                 sendFriendRequest({
-                                    ...paramsObject,
-                                 });
-                              }}
-                              onClickUnsendFriendRequest={() => {
-                                 unsendFriendRequest({
-                                    ...paramsObject,
-                                 });
-                              }}
-                              onClickAddFriend={() => {
-                                 addFriend({
-                                    ...paramsObject,
-                                 });
-                              }}
-                              onClickRemoveFriend={() => {
-                                 removeFriend({
-                                    ...paramsObject,
-                                 });
-                              }}
                            />
                         );
                      }

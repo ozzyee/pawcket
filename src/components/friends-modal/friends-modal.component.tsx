@@ -10,6 +10,10 @@ import { onSnapshot, doc } from "@firebase/firestore";
 import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 import { PersonCheckFill } from "@styled-icons/bootstrap/PersonCheckFill";
 import { PersonXFill } from "@styled-icons/bootstrap/PersonXFill";
+import { sendFriendRequest } from "../../functions/friends/send-friend-request";
+import { unsendFriendRequest } from "../../functions/friends/unsend-friend-request";
+import { removeFriend } from "../../functions/friends/remove-friend";
+import { addFriend } from "../../functions/friends/add-friend";
 
 export function FriendsModal({
    className,
@@ -17,60 +21,82 @@ export function FriendsModal({
    imageUrl,
    uid,
    currentUserUid,
-   onClickAddFriend,
-   onClickRemoveFriend,
-   onClickSendFriendRequest,
-   onClickUnsendFriendRequest,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [currentFriendsData, setCurrentFriendsData] = useState<any>(null);
    const [currentUsersData, setCurrentUsersData] = useState<any>(null);
 
    useEffect(() => {
-      currentUsersData?.friendsRequests?.map(
-         ({ friendID }: { friendID: string }) => {
-            if (friendID === uid) {
+      const setUser = () => {
+         if (!currentUsersData) return null;
+         //! friend request
+         currentUsersData?.friendsRequests?.map((item: any) => {
+            if (item.friendID === uid && currentUserUid !== uid) {
                setUserStatusMsg("Friend Request");
                return;
             }
+         });
+
+         currentUsersData?.friends?.map((item: any) => {
+            //! is friends
+            if (item.friendID === uid && item.requestAccepted) {
+               setUserStatusMsg("Friends");
+               return;
+            } else if (item.friendID === uid && !item.requestAccepted) {
+               //! pending
+               setUserStatusMsg("Friend pending");
+               return;
+            }
+         });
+
+         const friendsDataFilter = currentUsersData?.friends?.filter(
+            ({ friendID }: { friendID: string }) => friendID === uid
+         );
+         const friendsRequestFilter = currentUsersData?.friendsRequests?.filter(
+            ({ friendID }: { friendID: string }) => friendID === uid
+         );
+
+         if (
+            userStatusMsg === "Friend pending" &&
+            friendsDataFilter.length < 1 &&
+            friendsRequestFilter?.length < 1 &&
+            currentUserUid !== uid
+         ) {
+            console.log("currentUsersData -> ");
+            setUserStatusMsg("");
          }
-      );
-   }, [currentUsersData]);
+
+         if (
+            friendsDataFilter?.length < 1 &&
+            friendsRequestFilter?.length < 1 &&
+            userStatusMsg !== "Friend pending" &&
+            currentUserUid !== uid
+         ) {
+            setUserStatusMsg("");
+         }
+      };
+      setUser();
+   }, [currentUsersData, uid]);
 
    useEffect(() => {
-      //* request pending
-      const friendPending = currentFriendsData?.friendsRequests?.filter(
-         ({ friendID }: { friendID: string }) => {
-            return friendID === currentUserUid;
-         }
-      );
-
-      if (friendPending?.length > 0) {
-         setUserStatusMsg("Friend pending");
-         return;
-      }
-
-      //* is friends
-      const friend = currentFriendsData?.friends?.filter(
-         ({ friendID }: { friendID: string }) => {
-            return friendID === currentUserUid;
-         }
-      );
-
-      if (friend?.length > 0) {
-         setUserStatusMsg("Friends");
-         return;
-      }
-
       //* is current user
       if (currentUserUid === uid) {
          setUserStatusMsg("You");
-         // setIsCurrentUser(true);
+         return;
+      } else if (userStatusMsg === "Friend pending") {
+         setUserStatusMsg("Friend pending");
+         return;
+      } else if (userStatusMsg === "Friend Request") {
+         setUserStatusMsg("Friend Request");
+         return;
+      } else if (userStatusMsg === "Friends") {
+         setUserStatusMsg("Friends");
+         return;
       } else {
-         // setIsCurrentUser(false);
          setUserStatusMsg("");
+         return;
       }
-   }, [currentFriendsData, uid]);
+   }, [currentFriendsData, uid, currentUserUid]);
 
    //! realtime data
    useEffect(() => {
@@ -93,11 +119,26 @@ export function FriendsModal({
       });
    }, []);
 
+   const paramsObject = {
+      id: uid,
+      userUID: currentUserUid,
+      currentUserData: currentUsersData,
+   };
+
    return (
       <S.FriendsModalDiv className={className}>
          {!userStatusMsg && (
             <>
-               <S.RightBtn onClick={onClickSendFriendRequest} id="add-friend">
+               <S.RightBtn
+                  onClick={() => {
+                     sendFriendRequest({
+                        ...paramsObject,
+                     });
+
+                     setUserStatusMsg("Friend pending");
+                  }}
+                  id="add-friend"
+               >
                   <PersonAdd className="friend-icon" id="add-friend" />
                </S.RightBtn>
             </>
@@ -106,7 +147,12 @@ export function FriendsModal({
          {userStatusMsg === "Friend pending" && (
             <>
                <S.RightBtn
-                  onClick={onClickUnsendFriendRequest}
+                  onClick={() => {
+                     unsendFriendRequest({
+                        ...paramsObject,
+                     });
+                     setUserStatusMsg("");
+                  }}
                   id="remove-friend"
                >
                   <PersonRemove className="friend-icon" id="remove-friend" />
@@ -116,10 +162,25 @@ export function FriendsModal({
 
          {userStatusMsg === "Friend Request" && (
             <>
-               <S.LeftButton onClick={onClickRemoveFriend}>
+               <S.LeftButton
+                  onClick={() => {
+                     removeFriend({
+                        ...paramsObject,
+                     });
+                     setUserStatusMsg("");
+                  }}
+               >
                   <PersonXFill className="friend-icon" id="reject-friend" />
                </S.LeftButton>
-               <S.RightBtn onClick={onClickAddFriend} id="remove-friend">
+               <S.RightBtn
+                  onClick={() => {
+                     addFriend({
+                        ...paramsObject,
+                     });
+                     setUserStatusMsg("Friends");
+                  }}
+                  id="remove-friend"
+               >
                   <PersonCheckFill className="friend-icon" id="accept-friend" />
                </S.RightBtn>
             </>
@@ -127,15 +188,18 @@ export function FriendsModal({
 
          {userStatusMsg === "Friends" && (
             <>
-               <S.RightBtn onClick={onClickRemoveFriend}>
+               <S.RightBtn
+                  onClick={() => {
+                     removeFriend({
+                        ...paramsObject,
+                     });
+                     setUserStatusMsg("");
+                  }}
+               >
                   <PersonXFill className="friend-icon" id="reject-friend" />
                </S.RightBtn>
             </>
          )}
-
-         {/* <S.RightBtn onClick={onClickRemoveFriend}>
-                  <PersonXFill className="friend-icon" id="reject-friend" />
-               </S.RightBtn> */}
 
          <S.ImageWrapper>
             <S.Image>

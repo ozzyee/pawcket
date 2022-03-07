@@ -86,7 +86,7 @@ const PetProfile = ({ _data }: TData) => {
                topChildren={
                   <Frame
                      background="/frame.svg"
-                     img={!pet.image ? "/circle/user-circle.svg" : pet.image}
+                     img={!pet.image ? "/circle/pet-circle-white.svg" : pet.image}
                      diameter={230}
                   />
                }

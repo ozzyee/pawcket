@@ -16,6 +16,21 @@ export const PetsSection = styled.div`
    }
 `;
 
+export const FriendsSection = styled.div`
+   display: grid;
+   grid-template-columns: repeat(2, 50%);
+   grid-auto-rows: 150px;
+   place-items: center;
+   margin-bottom: 30px;
+
+   button {
+      grid-column: span 2;
+      width: 80px;
+      height: 80px;
+      border-radius: 100%;
+   }
+`;
+
 export const InfoSection = styled.div`
    line-height: 70%;
    color: ${styles.colors.black};
@@ -132,9 +147,9 @@ export const TopRight = styled.div`
       border-radius: 50px;
    }
 `;
-export const Bottom = styled.div`
+export const BottomLeft = styled.div`
    float: left;
-   width: 100%;
+   width: 50%;
    height: 50%;
    
    button {
@@ -213,3 +228,86 @@ export const Bottom = styled.div`
        grid-column: span 3;
    }
 `;
+
+export const BottomRight = styled.div`
+   float: left;
+   width: 50%;
+   height: 50%;
+   
+   button {
+       grid-column: unset;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+   }
+
+   .desktopPets{
+   display: grid;
+   grid-template-columns: repeat(3, 33.3%);
+   grid-auto-rows: 150px;
+   place-items: center;
+   margin: 30px 0px;
+    }
+
+   .separator {
+       display: grid;
+      width: 90%;
+      margin: 0 5%;
+      position: relative;
+      z-index: 5;
+   }
+   .placeholder {
+      color: rgba(14, 23, 27, 0.5);
+   }
+
+   .petPic::after{
+       visibility: hidden;
+        position: relative;
+        top: -110%;
+        width: 100%;
+        height: 100%;
+        border-radius: 100px;
+        color:white;
+        background-color: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        display: grid;
+        place-content: center;
+   }
+
+   .petPic:hover::after{
+       visibility: visible;
+   }
+
+   .desktopPassport {
+      display: grid;
+      overflow: scroll;
+      height: 90%;
+      overflow-x: hidden;
+      margin-top: 0;
+      transform: translatey(-5%);
+      line-height: 0%;
+   }
+
+   .desktopPassport::-webkit-scrollbar {
+      width: 6px;
+   }
+
+   .desktopPassport:hover::-webkit-scrollbar {
+      width: 6px;
+   }
+
+   .desktopPassport::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 50px;
+   }
+
+   .desktopPassport::-webkit-scrollbar-thumb {
+      background-color: ${styles.colors.primary};
+      border-radius: 50px;
+   }
+
+   .centeredButton{
+       grid-column: span 3;
+   }
+`;
+

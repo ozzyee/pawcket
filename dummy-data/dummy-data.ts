@@ -11,6 +11,8 @@ export type TUser = {
    profilePic?: string;
    postCode?: string;
    pets?: TPet[];
+   friends?: TUser[];
+   id?:string;
 };
 
 export const freddie: TPet = {

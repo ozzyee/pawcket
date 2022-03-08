@@ -9,6 +9,9 @@ function CommentSection({}: TCommentSection){
 
     function handleCommentSubmit(e : any){
         e.preventDefault();
+        if(commentContent === ""){
+            return;
+        }
         setCommentList([...commentList, {
             userName : "Reece",
             comment : commentContent
@@ -19,7 +22,6 @@ function CommentSection({}: TCommentSection){
 
      function handleChange(e : any){
         setCommentContent(e.target.value);
-        console.log(commentContent)
      }
 
 return (<div>

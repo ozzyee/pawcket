@@ -19,6 +19,7 @@ export function NewsFeedPostCard({
 
    const [likeCount, setLikeCount] = useState(0);
    const [isLiked, setIsLiked] = useState(false);
+   const [showComment, setShowComment] = useState(false);
 
    function handleLikeClick(){
       if(isLiked){
@@ -29,6 +30,13 @@ export function NewsFeedPostCard({
       return setIsLiked(true)
    }
 
+   function handleCommentClick(){
+      if(showComment){
+        return  setShowComment(false)
+      }
+      return setShowComment(true)
+
+   }
 
 
    return (
@@ -45,9 +53,9 @@ export function NewsFeedPostCard({
                   <Text>{postText}</Text>
                </S.TextHolder>
             </S.CardInfo>
-            <InterationRibbon likeCount={likeCount} handleLikeClick={handleLikeClick} isLiked={isLiked}/>
+            <InterationRibbon likeCount={likeCount} handleLikeClick={handleLikeClick} isLiked={isLiked} handleCommentClick={handleCommentClick}/>
          </S.CardInfoDiv>
-         <CommentSection/>
+         {showComment ? <CommentSection/> : null}
       </S.Wrapper>
    );
 }

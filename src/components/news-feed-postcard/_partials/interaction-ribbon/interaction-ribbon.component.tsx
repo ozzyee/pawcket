@@ -6,7 +6,7 @@ import {useState, useEffect} from "react";
 
 
 
-export function InterationRibbon({likeCount, handleLikeClick, isLiked} : TInteractionRibbonProps) {
+export function InterationRibbon({likeCount, handleLikeClick, isLiked, handleCommentClick} : TInteractionRibbonProps) {
 
    const interaction = [
       {
@@ -31,7 +31,7 @@ export function InterationRibbon({likeCount, handleLikeClick, isLiked} : TIntera
             {interaction.map((item, index) => {
                return (
                   <>
-                  <Buttons vetsNavBtn={true} onClick={index === 0 ? handleLikeClick : null}>{!isLiked ? interaction[index].buttonName : interaction[index].buttonNameAlt}</Buttons> <span>{item.buttonName === "Like" ? likeCount : null}</span>
+                  <Buttons vetsNavBtn={true} onClick={index === 0 ? handleLikeClick : index === 1 ? handleCommentClick : null}>{!isLiked ? interaction[index].buttonName : interaction[index].buttonNameAlt}</Buttons> <span>{item.buttonName === "Like" ? likeCount : null}</span>
                   </>
                );
             })}

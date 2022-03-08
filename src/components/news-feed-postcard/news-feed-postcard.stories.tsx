@@ -31,19 +31,15 @@ export default {
 } as ComponentMeta<typeof NewsFeedPostCard>;
 
 const Template = ({
-   vetName,
-   vetPhoneNumber,
-   vetAddress,
-   vetWebsite,
-   vetDistance,
+   userName,
+   postImage,
+   postText,
 }: TCardInfoProps) => {
    return (
       <NewsFeedPostCard
-         vetName={vetName}
-         vetPhoneNumber={vetPhoneNumber}
-         vetAddress={vetAddress}
-         vetWebsite={vetWebsite}
-         vetDistance={vetDistance}
+         userName={userName}
+         postImage={postImage}
+         postText={postText}
       />
    );
 };

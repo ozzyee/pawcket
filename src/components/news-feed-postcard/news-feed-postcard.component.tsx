@@ -6,6 +6,8 @@ import VetIcon from "./vet-icon.svg";
 import Image from "next/image";
 import UserIcon from "./user-icon.svg";
 import { InterationRibbon } from "./_partials/interaction-ribbon/interaction-ribbon.component";
+import {useState} from "react";
+
 
 export function NewsFeedPostCard({
    className,
@@ -13,6 +15,19 @@ export function NewsFeedPostCard({
    postImage,
    postText,
 }: TCardInfoProps) {
+
+   const [likeCount, setLikeCount] = useState(0);
+   const [isLiked, setIsLiked] = useState(false);
+
+   function handleLikeClick(){
+      if(isLiked){
+      setLikeCount( likeCount - 1)
+         return setIsLiked(false)
+      }
+      setLikeCount( likeCount + 1)
+      return setIsLiked(true)
+   }
+
    return (
       <S.Wrapper>
          <S.CardLogoHolder>
@@ -27,7 +42,7 @@ export function NewsFeedPostCard({
                   <Text>{postText}</Text>
                </S.TextHolder>
             </S.CardInfo>
-            <InterationRibbon />
+            <InterationRibbon likeCount={likeCount} handleLikeClick={handleLikeClick} isLiked={isLiked}/>
          </S.CardInfoDiv>
       </S.Wrapper>
    );

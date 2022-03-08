@@ -3,7 +3,7 @@ export type TButtonsProps = {
    id?: string;
    dark?: boolean;
    children: string;
-   onClick?: () => void;
+   onClick?: any;
    vetsNavBtn?: boolean;
    allBtns?: boolean;
 };

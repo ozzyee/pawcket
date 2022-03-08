@@ -1,25 +1,38 @@
 import React from "react";
+import { Buttons } from "../../../../functions/dynamic-imports";
 import * as S from "./interaction-ribbon.style";
+import {TInteractionRibbonProps} from "./interaction-ribbon.definition"
+import {useState, useEffect} from "react";
 
-export function InterationRibbon() {
+
+
+export function InterationRibbon({likeCount, handleLikeClick, isLiked} : TInteractionRibbonProps) {
+
    const interaction = [
       {
          buttonName: "Like",
+         buttonNameAlt: "Unlike",
       },
       {
          buttonName: "Comment",
+         buttonNameAlt: "Comment",
+
       },
       {
          buttonName: "Share",
+         buttonNameAlt: "Share",
+
       },
    ];
 
    return (
       <>
          <S.InteractionList>
-            {interaction.map((item) => {
+            {interaction.map((item, index) => {
                return (
-                  <S.InteractionButton>{item.buttonName}</S.InteractionButton>
+                  <>
+                  <Buttons vetsNavBtn={true} onClick={index === 0 ? handleLikeClick : null}>{!isLiked ? interaction[index].buttonName : interaction[index].buttonNameAlt}</Buttons> <span>{item.buttonName === "Like" ? likeCount : null}</span>
+                  </>
                );
             })}
          </S.InteractionList>

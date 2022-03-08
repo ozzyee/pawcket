@@ -20,7 +20,26 @@ import { TUser } from "../../dummy-data/dummy-data";
 import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
 import { Thumbnails } from "../components/thumbnails/thumbnails.component";
 
-const UserProfile: NextPage = ({userUID, data}) => {
+type TData = {
+    data: TUserData[]
+}
+
+type TUserData = {
+    firstName: string;
+    lastName: string;
+    userName?: string;
+    address?: string;
+    DOB: string;
+    telephone?: string;
+    extraInfo?: string;
+    profilePic?: string;
+    postCode?: string;
+    pets?: TPet[];
+    friends?: TUser[];
+    id?:string;
+}
+
+const UserProfile = ({data}: TData) => {
 //    const router = useRouter();
 //    const userID = router.asPath.split("/")[2];
 //    const userData = data?.filter(({ id }: { id: string }) => id === petID);

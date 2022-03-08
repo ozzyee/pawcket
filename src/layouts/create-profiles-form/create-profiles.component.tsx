@@ -26,16 +26,7 @@ export function CreateProfileForm({
    const hiddenImageUploader = useRef(null);
    const router = useRouter();
    const [img, setImg] = useState("");
-
-   const [userData, setUserData] = useState<null | TCreatUser>({
-      firstName: dateObject?.firstName || "",
-      lastName: dateObject?.lastName || "",
-      address: dateObject?.address || "",
-      postCode: dateObject?.postCode || "",
-      tel: dateObject?.tel || "",
-      extraInfo: dateObject?.extraInfo || "",
-      userImage: dateObject?.userImage || "",
-   });
+   const [userData, setUserData] = useState<null | TCreatUser>(dateObject);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [err, setErr] = useState<TCreatUser | null>(null);
 
@@ -54,14 +45,14 @@ export function CreateProfileForm({
          });
          return;
       }
-   }, [dateObject]);
+   }, []);
 
    useEffect(() => {
       if (img) {
          setUserData({ ...userData, userImage: img });
          return;
       }
-   }, [uploadImage, img]);
+   }, [uploadImage, img, userData]);
 
    const addUserInfo = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -92,10 +83,17 @@ export function CreateProfileForm({
       }
 
       if (!err?.DOB && !err?.firstName && !err?.lastName) {
+         const _DOB = userData?.DOB?.toString();
+
+         const data = {
+            ...userData,
+            DOB: _DOB,
+         };
+         console.log("the data ->", data);
+
          try {
             await setDoc(doc(firestoreDB, "users", userUID), {
-               // ...dateObject,
-               ...userData,
+               ...data,
             });
             router.push("/user-profile", undefined, { shallow: false });
          } catch (err) {
@@ -106,6 +104,8 @@ export function CreateProfileForm({
          }
       }
    };
+
+   console.log(userData);
 
    return (
       <>
@@ -230,8 +230,6 @@ export function CreateProfileForm({
                      inputType="text-area"
                      className="text-area"
                      onTextAreaChange={(evt) => {
-                        console.log("the evt =>", evt);
-
                         setUserData({
                            ...userData,
                            extraInfo: evt.target.value,

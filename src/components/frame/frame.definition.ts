@@ -1,6 +1,6 @@
 export type TFrameProps = {
-    background?:string,
-    img?:string,
-    diameter:number,
-    onClick?: () => void
-}
+   background?: string;
+   img?: string | null;
+   diameter: number;
+   onClick?: () => void;
+};

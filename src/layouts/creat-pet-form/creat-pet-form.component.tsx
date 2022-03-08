@@ -1,4 +1,5 @@
-import React, { FormEvent, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { Buttons } from "../../components/buttons/buttons.component";
 import { FormInputs } from "../../components/form-inputs/form-inputs.component";
 import { Separator } from "../../components/separator/separator.component";
@@ -15,17 +16,32 @@ import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 import { useRouter } from "next/router";
 import Router from "next/router";
 import { uid } from "uid";
+import { ImageUploader } from "../../functions/dynamic-imports";
 
 export function CreatePetForm({
    className,
    userUID,
    _data,
+   uploadImage,
 }: TCreatePetFormProps) {
    const router = useRouter();
+   const hiddenImageUploader = useRef(null);
    const [formData, setFormData] = useState<null | TPet>(null);
    const { _setOpen, _setSnackbarType, _setSnackbarMsg } = useContent();
    const [errors, setErrors] = useState<TPet | null>(null);
    const [redirect, setRedirect] = useState("");
+   const [img, setImg] = useState("");
+
+   useEffect(() => {
+      setFormData({ ...formData, image: uploadImage || img });
+   }, [uploadImage, img]);
+
+   console.log("data =>", formData);
+
+   const uploadImageFunc = () => {
+      // @ts-ignore
+      hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
+   };
 
    const onCreatePet = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -65,16 +81,22 @@ export function CreatePetForm({
          );
       }
 
-      console.log(redirect);
-
       //If no errors send data to db
       if (!errors?.name && !errors?.dateOfBirth && !errors?.sex) {
          const DOB = formData?.dateOfBirth?.toString();
+         console.log("HELLO!!");
 
          try {
             if (!_data?.pets) {
                await setDoc(doc(firestoreDB, "pets", userUID), {
-                  pets: [{ ...formData, dateOfBirth: DOB, id: uid() }],
+                  pets: [
+                     {
+                        ...formData,
+                        dateOfBirth: DOB,
+                        id: uid(),
+                        image: uploadImage || img,
+                     },
+                  ],
                });
                if (redirect !== "user-profile") {
                   // @ts-ignore
@@ -86,9 +108,15 @@ export function CreatePetForm({
                await setDoc(doc(firestoreDB, "pets", userUID), {
                   pets: [
                      ..._data?.pets,
-                     { ...formData, dateOfBirth: DOB, id: uid() },
+                     {
+                        ...formData,
+                        dateOfBirth: DOB,
+                        id: uid(),
+                        image: uploadImage || img,
+                     },
                   ],
                });
+
                if (redirect !== "user-profile") {
                   // @ts-ignore
                   Router.reload(window.location.pathname);
@@ -109,7 +137,18 @@ export function CreatePetForm({
             <S.FormSplitLeft>
                <S.Wrapper>
                   <S.ImageAndTextWrapper>
-                     <Frame background={"/frame.svg"} diameter={150} />
+                     <Frame
+                        diameter={150}
+                        img={formData?.image || img}
+                        onClick={uploadImageFunc}
+                     />
+                     <ImageUploader
+                        _ref={hiddenImageUploader}
+                        onChange={(imgUrl) => {
+                           setImg(imgUrl);
+                        }}
+                        folder={`/${userUID}`}
+                     />
                      <S.TextHolder>
                         <Text textType="h2" className="sub-heading-h2-upload">
                            Upload
@@ -136,7 +175,7 @@ export function CreatePetForm({
                         id="pet-bio"
                         placeholder="Bio"
                         inputType="text-area"
-                        onChange={(evt) => {
+                        onTextAreaChange={(evt) => {
                            setFormData({
                               ...formData,
                               petBio: evt.target.value,
@@ -253,6 +292,7 @@ export function CreatePetForm({
             <ButtonsWrapper id="display-none" className="create-users-forms">
                <Buttons
                   dark={false}
+                  type="submit"
                   className="form-btn"
                   id="pet-continue-btn"
                   onClick={() => setRedirect("user-profile")}
@@ -261,6 +301,7 @@ export function CreatePetForm({
                </Buttons>
                <Buttons
                   dark={true}
+                  type="submit"
                   className="form-btn"
                   id="pet-add-btn"
                   onClick={() => setRedirect("create-pet")}

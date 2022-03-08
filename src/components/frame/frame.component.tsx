@@ -4,11 +4,13 @@ import * as S from "./frame.style";
 
 export function Frame({ background, img, diameter, onClick }: TFrameProps) {
    return (
-      <S.CrossFrame
-         background={background}
-         img={img}
-         diameter={diameter}
-         onClick={onClick}
-      />
+      <>
+         <S.CrossFrame
+            background={background}
+            img={img}
+            diameter={diameter}
+            onClick={onClick}
+         />
+      </>
    );
 }

@@ -15,12 +15,18 @@ export default {
         },
         caption:{
             description: "Little text under picture, is optional. Takes a string"
-        }
+        },
+        isPet:{
+            description: "Determine if it's a pet ot not to change the default image. Takes a boolean"
+        },
+        className:{
+            description: "Element class. Takes a string"
+        },
     },
 } as ComponentMeta<typeof RoundImage>;
 
 const Template = ({src, diameter}: TRoundImageProps) =>{
-    return <RoundImage src={src} diameter={diameter}/>
+    return <RoundImage src={src} diameter={diameter} isPet={true}/>
 };
 
 export const aRoundImage: any = Template.bind({});

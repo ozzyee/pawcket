@@ -5,13 +5,34 @@ import { TPet } from "../../layouts/creat-pet-form/creat-pet-form.definition";
 import { TUser } from "../../../dummy-data/dummy-data";
 import { Buttons } from "../buttons/buttons.component";
 import { RoundImage } from "../round-image/round-img.component";
+import { Text } from "../text/text.component";
 import * as S from "./thumbnails.style";
 
-export function Thumbnails({data, isForPets, className}: TThumbnailsProps){
+export function Thumbnails({data, isForPets, isAFriend, userName, className}: TThumbnailsProps){
+
+    {if(data.length < 1){
+        if(isForPets){
+            return(
+                <S.DefaultText>
+                    <Text className="wrapped">
+                        {`${userName} has no pets yet.`}
+                    </Text>
+                </S.DefaultText>
+            )
+        }
+
+        return(
+            <S.DefaultText>
+                <Text className="wrapped">
+                    {`${userName} has no friends yet.`}
+                </Text>
+            </S.DefaultText>
+        )
+    }}
 
     {if(isForPets){
         return(
-            <S.Thumbnails data={data} className={className} isForPets>
+            <S.Thumbnails data={data} className={className} isForPets isAFriend={isAFriend}>
                 
                 {data.map((pet:TPet, id:number) => {
                     return(
@@ -29,7 +50,7 @@ export function Thumbnails({data, isForPets, className}: TThumbnailsProps){
                         key={id}
                     />)
                     })}
-                
+                {isAFriend ? null :
                 <Buttons
                        dark={false}
                        className={!data ? "centeredButton": ""}
@@ -40,13 +61,13 @@ export function Thumbnails({data, isForPets, className}: TThumbnailsProps){
                        }
                     >
                        +
-                    </Buttons>
+                </Buttons>}
             </S.Thumbnails>
         )
     }
     
     return(
-        <S.Thumbnails data={data} className={className} isForPets>
+        <S.Thumbnails data={data} className={className} isForPets isAFriend={isAFriend}>
             {data.map((user:TUser, id:number) => {
                 return(
                 <RoundImage
@@ -63,7 +84,7 @@ export function Thumbnails({data, isForPets, className}: TThumbnailsProps){
                     key={id}
                 />)
                 })}
-
+                {isAFriend ? null :
                 <Buttons
                    dark={false}
                    className={!data ? "centeredButton": ""}
@@ -74,7 +95,7 @@ export function Thumbnails({data, isForPets, className}: TThumbnailsProps){
                    }
                 >
                    +
-                </Buttons>
+                </Buttons>}
         </S.Thumbnails>
     )
 

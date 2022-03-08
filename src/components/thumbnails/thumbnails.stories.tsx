@@ -18,6 +18,14 @@ export default {
          description:
          "A boolean value that change the default image of the thumbnails. Takes a boolean",
       },
+      isAFriend: {
+         description:
+         "A boolean value that will display or not the add buttons. Takes a boolean",
+      },
+      userName: {
+         description:
+         "User's name to be displayed if there's not pets or friends to diasplay. Takes a string",
+      },
       className: {
          description:
          "Element class. Takes a string",
@@ -32,6 +40,7 @@ const Template = ({
    return (
       <Thumbnails
          isForPets={isForPets}
+         isAFriend={false}
          data={data}
       />
    );

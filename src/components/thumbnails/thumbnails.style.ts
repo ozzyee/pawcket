@@ -20,7 +20,6 @@ export const Thumbnails = styled.div<TThumbnailsProps>`
    }
 
 
-   
 
    @media (min-width: ${styles.breakPoints.m}) {   
     
@@ -47,4 +46,23 @@ export const Thumbnails = styled.div<TThumbnailsProps>`
        grid-column: span 3;
    }
    }
+`;
+
+export const DefaultText = styled.div`
+    color: rgba(14, 23, 27, 0.2);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow-wrap: break-word;
+    display: grid;
+    place-items: center;
+    justify-content: center;
+
+    .wrapped{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 `;

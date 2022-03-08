@@ -80,7 +80,7 @@ const UserProfileTest = ({data}) => {
                    separator={false}
                    className="desktopPassport"
                 >
-                  <Thumbnails isForPets={true} data={user.pets} className="desktopPets"/>
+                  <Thumbnails userName={user.firstName} isForPets={true} isAFriend={true} data={user.pets} className="desktopPets"/>
                 </PassportWrapper>
              </S.BottomLeft>
              <S.BottomRight>
@@ -89,7 +89,7 @@ const UserProfileTest = ({data}) => {
                    className="separator"
                 />
                   <PassportWrapper separator={true} separatorText="Your Friends" className="desktopPassport">
-                      <Thumbnails isForPets={false} data={user.friends} className="desktopPets"/>
+                      <Thumbnails userName={user.firstName} isForPets={false} isAFriend={true} data={user.friends} className="desktopPets"/>
                   </PassportWrapper>
              </S.BottomRight>
           </MainLayout>
@@ -114,12 +114,12 @@ const UserProfileTest = ({data}) => {
              <S.InfoSection>
                  <UserInfo user={user}/>
              </S.InfoSection>
-             <PassportWrapper separator={true} separatorText="Your Pets">
-                  <Thumbnails isForPets={true} data={user.pets}/>
+             <PassportWrapper separator={true} separatorText={`${user.firstName}'s Pets`}>
+                  <Thumbnails userName={user.firstName} isForPets={true} isAFriend={true} data={user.pets}/>
              </PassportWrapper>
              
-             <PassportWrapper separator={true} separatorText="Your Friends">
-                  <Thumbnails isForPets={false} data={user.friends} className="desktopPets"/>
+             <PassportWrapper separator={true} separatorText={`${user.firstName}'s Friends`}>
+                  <Thumbnails userName={user.firstName} isForPets={false} isAFriend={true} data={user.friends} className="desktopPets"/>
              </PassportWrapper>
              <Navbar className="nav" />
           </MainLayout>

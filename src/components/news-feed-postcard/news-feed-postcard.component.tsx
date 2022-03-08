@@ -7,6 +7,7 @@ import Image from "next/image";
 import UserIcon from "./user-icon.svg";
 import { InterationRibbon } from "./_partials/interaction-ribbon/interaction-ribbon.component";
 import {useState} from "react";
+import CommentSection from "./_partials/comment-section/comment-section.component";
 
 
 export function NewsFeedPostCard({
@@ -28,6 +29,8 @@ export function NewsFeedPostCard({
       return setIsLiked(true)
    }
 
+
+
    return (
       <S.Wrapper>
          <S.CardLogoHolder>
@@ -44,6 +47,7 @@ export function NewsFeedPostCard({
             </S.CardInfo>
             <InterationRibbon likeCount={likeCount} handleLikeClick={handleLikeClick} isLiked={isLiked}/>
          </S.CardInfoDiv>
+         <CommentSection/>
       </S.Wrapper>
    );
 }

@@ -14,28 +14,34 @@ import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 import { Frame, MainLayout, Navbar } from "../../functions/dynamic-imports";
 import Head from "next/head";
 import { TPet } from "../../layouts/creat-pet-form/creat-pet-form.definition";
+import { TUser } from "../../../dummy-data/dummy-data";
 import { Thumbnails } from "../../components/thumbnails/thumbnails.component";
 
 
- type TUser = {
+
+type TUserData = {
     firstName: string;
     lastName: string;
-    userName: string;
-    address: string;
+    userName?: string;
+    address?: string;
     DOB: string;
-    telephone: string;
-    extraInfo: string;
-    profilePic: string;
-    postCode: string;
-    pets: TPet[];
-    id:string;
-    friends:TUser[]
- };
+    telephone?: string;
+    extraInfo?: string;
+    profilePic?: string;
+    postCode?: string;
+    pets?: TPet[];
+    friends: TUser[];
+    id?:string;
+}
 
-const UserProfileTest = ({data}) => {
+type TData = {
+    data: TUserData;
+}
+
+const FriendProfile = ({data}: TData) => {
    const router = useRouter();
    const userID = router.asPath.split("/")[2];
-   const friendData = data.friends.filter(({id}:{id:string}) => id === userID) 
+   const friendData = data.friends.filter((user:TUser) => user.id === userID) 
 
 
    const [user, setUser] = useState<TUser | DocumentData>({...friendData[0]});
@@ -196,4 +202,4 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
    }
 }
 
-export default UserProfileTest;
+export default FriendProfile;

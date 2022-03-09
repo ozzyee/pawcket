@@ -31,6 +31,7 @@ const NewsFeed: NextPage = () => {
          setFeedData(_data);
       };
       getFeedData();
+      console.log(feedData);
    }, [feed]);
 
    return (
@@ -63,13 +64,16 @@ const NewsFeed: NextPage = () => {
                }
             >
                <S.CardList>
-                  {feed.map(({ userID, post, likes, comments }, index) => {
+                  {feedData.map(({ user, post, likes, comments }, index) => {
+                     console.log("FEEDDATA>>>>>>>>", user.userImage);
                      return (
                         <li key={index}>
                            <NewsFeedPostCard
-                              postText="I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay! I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!  "
-                              postImage={"item.url"}
-                              userName={""}
+                              postText={post}
+                              postImage={user.userImage}
+                              userName={user.fullName}
+                              postLike={likes}
+                              postComment={comments}
                            />
                         </li>
                      );

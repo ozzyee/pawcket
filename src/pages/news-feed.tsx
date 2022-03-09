@@ -1,13 +1,10 @@
-import type { NextApiRequest, NextPage } from "next";
+import type { NextPage } from "next";
 import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import * as S from "../styles/news-feed.style";
 import { NewsFeedPostCard } from "../components/news-feed-postcard/news-feed-postcard.component";
 import React, { useEffect, useState } from "react";
-import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { doc, getDoc } from "firebase/firestore";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { nullLiteralTypeAnnotation } from "@babel/types";
+import { collection, query, onSnapshot } from "firebase/firestore";
 import { getPost } from "../functions/get-feed";
 
 type TFeed = {

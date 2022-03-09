@@ -6,9 +6,9 @@ import VetIcon from "./vet-icon.svg";
 import Image from "next/image";
 import UserIcon from "./user-icon.svg";
 import { InterationRibbon } from "./_partials/interaction-ribbon/interaction-ribbon.component";
-import {useState} from "react";
+import { useState } from "react";
 import CommentSection from "./_partials/comment-section/comment-section.component";
-
+import { Frame } from "../../functions/dynamic-imports";
 
 export function NewsFeedPostCard({
    className,
@@ -16,33 +16,30 @@ export function NewsFeedPostCard({
    postImage,
    postText,
 }: TCardInfoProps) {
-
    const [likeCount, setLikeCount] = useState(0);
    const [isLiked, setIsLiked] = useState(false);
    const [showComment, setShowComment] = useState(false);
 
-   function handleLikeClick(){
-      if(isLiked){
-      setLikeCount( likeCount - 1)
-         return setIsLiked(false)
+   function handleLikeClick() {
+      if (isLiked) {
+         setLikeCount(likeCount - 1);
+         return setIsLiked(false);
       }
-      setLikeCount( likeCount + 1)
-      return setIsLiked(true)
+      setLikeCount(likeCount + 1);
+      return setIsLiked(true);
    }
 
-   function handleCommentClick(){
-      if(showComment){
-        return  setShowComment(false)
+   function handleCommentClick() {
+      if (showComment) {
+         return setShowComment(false);
       }
-      return setShowComment(true)
-
+      return setShowComment(true);
    }
-
 
    return (
       <S.Wrapper>
          <S.CardLogoHolder>
-            <UserIcon />
+            <Image src={postImage} width={100} height={100} />
          </S.CardLogoHolder>
          <S.CardInfoDiv className={className}>
             <S.CardInfo>
@@ -53,9 +50,14 @@ export function NewsFeedPostCard({
                   <Text>{postText}</Text>
                </S.TextHolder>
             </S.CardInfo>
-            <InterationRibbon likeCount={likeCount} handleLikeClick={handleLikeClick} isLiked={isLiked} handleCommentClick={handleCommentClick}/>
+            <InterationRibbon
+               likeCount={likeCount}
+               handleLikeClick={handleLikeClick}
+               isLiked={isLiked}
+               handleCommentClick={handleCommentClick}
+            />
          </S.CardInfoDiv>
-         {showComment ? <CommentSection/> : null}
+         {showComment ? <CommentSection /> : null}
       </S.Wrapper>
    );
 }

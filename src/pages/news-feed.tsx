@@ -8,6 +8,7 @@ import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { doc, getDoc } from "firebase/firestore";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { nullLiteralTypeAnnotation } from "@babel/types";
+import { getPost } from "../functions/get-feed";
 
 type TFeed = {
    comments: {
@@ -25,7 +26,7 @@ const NewsFeed: NextPage = () => {
    //This needs to be changed, possibly?
 
    const [feed, setFeed] = useState([]);
-   const [users, setUsers] = useState();
+   const [feedData, setFeedData] = useState([]);
 
    useEffect(() => {
       const qFeed = query(collection(firestoreDB, "feed"));
@@ -38,17 +39,15 @@ const NewsFeed: NextPage = () => {
       });
    }, []);
 
-   const getUser = async (userID: string) => {
-      const docRef = doc(firestoreDB, "users", userID);
-      const docSnap = await getDoc(docRef);
-      const _data = docSnap.data();
-      if (!_data) return null;
-      const userData = {
-         fullName: _data.firstName + " " + _data.lastName,
-         userImage: _data.userImage,
+   // const[feedData, setFeedData]= useState([]);
+
+   useEffect(() => {
+      const getFeedData = async () => {
+         const _data = await getPost({ feed });
+         setFeedData(_data);
       };
-      return userData;
-   };
+      getFeedData();
+   }, [feed]);
 
    return (
       <>
@@ -80,14 +79,13 @@ const NewsFeed: NextPage = () => {
                }
             >
                <S.CardList>
-                  {feed.map(async ({ userID, post, likes, comments }) => {
-                     const data = await getUser(userID);
-                     console.log(data);
+                  {feed.map(({ userID, post, likes, comments }, index) => {
                      return (
-                        <li>
+                        <li key={index}>
                            <NewsFeedPostCard
                               postText="I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay! I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!  "
                               postImage={"item.url"}
+                              userName={""}
                            />
                         </li>
                      );

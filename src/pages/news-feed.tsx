@@ -9,7 +9,6 @@ import { getPost } from "../functions/get-feed";
 import { TFeed, TFeedData } from "../types/feed-definition";
 
 const NewsFeed: NextPage = () => {
-   const [feed, setFeed] = useState<TFeed[]>([]);
    const [feedData, setFeedData] = useState<TFeedData[]>([]);
 
    useEffect(() => {
@@ -20,24 +19,12 @@ const NewsFeed: NextPage = () => {
             querySnapshot.forEach((doc) => {
                _feed.push(doc.data());
             });
-            // setFeed([..._feed]);
-
             const _data: any = await getPost({ feed: _feed });
-            console.log("data -> ", _data);
-            // setFeedData(_data);
+            setFeedData(_data);
          };
          getFeedData();
       });
    }, []);
-
-   // useEffect(() => {
-   //    // const getFeedData = async () => {
-   //    //    const _data: any = await getPost({ feed });
-   //    //    console.log("data -> ", _data);
-   //    //    setFeedData(_data);
-   //    // };
-   //    // getFeedData();
-   // }, [feed]);
 
    return (
       <>

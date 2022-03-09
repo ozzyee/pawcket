@@ -12,9 +12,12 @@ function CommentSection({}: TCommentSection){
         if(commentContent === ""){
             return;
         }
+        //@ts-ignore
         setCommentList([...commentList, {
-            userName : "Reece",
-            comment : commentContent
+        //@ts-ignore
+            userName : "USerBaidjsiodj",
+        //@ts-ignore
+        comment : commentContent
         }])
         console.log(commentList)
         setCommentContent("");
@@ -26,10 +29,11 @@ function CommentSection({}: TCommentSection){
 
 return (<div>
     <form onSubmit={handleCommentSubmit}>
-    <FormInputs placeholder="Write a comment here!" onChange={handleChange} value={""}/><button>Submit</button>
+    <FormInputs placeholder="Write a comment here!" onChange={handleChange}/><button>Submit</button>
     </form>
     <ul>
         {commentList.map((comment)=>{
+        //@ts-ignore
             return <li><h1>{comment.userName}{comment.comment}</h1></li>
         })}
     </ul>

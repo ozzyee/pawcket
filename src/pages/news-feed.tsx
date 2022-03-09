@@ -1,26 +1,54 @@
 import type { NextApiRequest, NextPage } from "next";
-import { Separator } from "../components/separator/separator.component";
 import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import * as S from "../styles/news-feed.style";
 import { NewsFeedPostCard } from "../components/news-feed-postcard/news-feed-postcard.component";
 import React, { useEffect, useState } from "react";
-import { freddie } from "../../dummy-data/dummy-data";
+import { AuthService } from "../lib/auth-service/auth.service";
+import { firestoreDB } from "../lib/firebase/firebase.initialize";
+import { doc, getDoc } from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { nullLiteralTypeAnnotation } from "@babel/types";
+
+type TFeed = {
+   comments: {
+      comment: string;
+      userID: string;
+   }[];
+   likes: {
+      userID: string;
+   }[];
+   post: string;
+   userID: string;
+};
 
 const NewsFeed: NextPage = () => {
    //This needs to be changed, possibly?
-   type TFeed = any[];
 
-   const [feed, setFeed] = useState<TFeed>([1, 2, 4, 5]);
+   const [feed, setFeed] = useState([]);
+   const [users, setUsers] = useState();
 
-   async function catsAPI() {
-      const apikey = "a0bc1dd9-0d9f-49b0-80c8-05e791dd8634";
-      const response = await fetch(
-         `https://api.thecatapi.com/v1/images/search?api_key=${apikey}`
-      );
-      const data = await response.json();
-      console.log(data[0].id);
-      return data[0].id;
-   }
+   useEffect(() => {
+      const qFeed = query(collection(firestoreDB, "feed"));
+      const _feed: any = [];
+      onSnapshot(qFeed, (querySnapshot) => {
+         querySnapshot.forEach((doc) => {
+            _feed.push(doc.data());
+         });
+         setFeed([..._feed]);
+      });
+   }, []);
+
+   const getUser = async (userID: string) => {
+      const docRef = doc(firestoreDB, "users", userID);
+      const docSnap = await getDoc(docRef);
+      const _data = docSnap.data();
+      if (!_data) return null;
+      const userData = {
+         fullName: _data.firstName + " " + _data.lastName,
+         userImage: _data.userImage,
+      };
+      return userData;
+   };
 
    return (
       <>
@@ -52,14 +80,15 @@ const NewsFeed: NextPage = () => {
                }
             >
                <S.CardList>
-                  {feed.map((item) => {
+                  {feed.map(async ({ userID, post, likes, comments }) => {
+                     const data = await getUser(userID);
+                     console.log(data);
                      return (
                         <li>
                            <NewsFeedPostCard
-                              userName="reece"
                               postText="I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay! I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!I own two dogs, yay!  "
-                              postImage={item.url}
-                           ></NewsFeedPostCard>
+                              postImage={"item.url"}
+                           />
                         </li>
                      );
                   })}

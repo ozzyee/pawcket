@@ -47,7 +47,7 @@ const UserProfile = ({data}: TData) => {
 
 
 
-   const [user, setUser] = useState<TUser | DocumentData>({...data, friends:[dummyData.peter, dummyData.jennifer]});
+   const [user, setUser] = useState<TUser | DocumentData>({...data});
    if (!user) return null;
    console.log(data);
    

@@ -1,8 +1,7 @@
-export const URL = "http://localhost:3000"
 
 describe("Visit landing page and check content", () => {
     it("Successfully loads", () => {
-      cy.visit(URL)
+      cy.visit("/")
 
       cy.get("svg")
       cy.get("h1").contains("Pawcket")
@@ -19,10 +18,10 @@ describe("Check buttons link",() => {
         
         cy.get("button").contains("Log in").click();
         cy.url().should("include", "/login")
-        cy.visit(URL)
+        cy.visit("/")
         cy.get("button").contains("Sign up").click();
         cy.url().should("include", "/sign-up")
-        cy.visit(URL)
+        cy.visit("/")
     })
 })
 
@@ -30,7 +29,7 @@ describe("Breakpoints", () => {
     context("Mobile", () => {
       beforeEach(() => {
         cy.viewport(414, 896)
-        cy.visit(URL)})
+        cy.visit("/")})
   
       it("Successfully loads", () => {
         cy.get("svg")
@@ -45,10 +44,10 @@ describe("Breakpoints", () => {
         
             cy.get("button").contains("Log in").click();
             cy.url().should("include", "/login")
-            cy.visit(URL)
+            cy.visit("/")
             cy.get("button").contains("Sign up").click();
             cy.url().should("include", "/sign-up")
-            cy.visit(URL)
+            cy.visit("/")
         })
 
     })

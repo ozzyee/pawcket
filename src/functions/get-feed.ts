@@ -2,7 +2,7 @@ import { doc, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { TFeed } from "../types/feed-definition";
 
-const getUser = async (userID: string) => {
+export const getUser = async (userID: string) => {
    const docRef = doc(firestoreDB, "users", userID);
    const docSnap = await getDoc(docRef);
    const _data = docSnap.data();
@@ -15,6 +15,8 @@ const getUser = async (userID: string) => {
 };
 
 export const getPost = async ({ feed }: { feed: TFeed[] }) => {
+   if (!feed) return null;
+
    const post = await Promise.all(
       feed.map(async ({ userID, post, likes, comments }) => {
          const author = await getUser(userID);
@@ -64,5 +66,6 @@ export const getPost = async ({ feed }: { feed: TFeed[] }) => {
          return postData;
       })
    );
+
    return post;
 };

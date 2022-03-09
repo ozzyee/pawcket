@@ -14,24 +14,30 @@ const NewsFeed: NextPage = () => {
 
    useEffect(() => {
       const qFeed = query(collection(firestoreDB, "feed"));
-      const _feed: any = [];
       onSnapshot(qFeed, (querySnapshot) => {
-         querySnapshot.forEach((doc) => {
-            _feed.push(doc.data());
-         });
-         setFeed([..._feed]);
+         const _feed: any = [];
+         const getFeedData = async () => {
+            querySnapshot.forEach((doc) => {
+               _feed.push(doc.data());
+            });
+            // setFeed([..._feed]);
+
+            const _data: any = await getPost({ feed: _feed });
+            console.log("data -> ", _data);
+            // setFeedData(_data);
+         };
+         getFeedData();
       });
    }, []);
 
-   // const[feedData, setFeedData]= useState([]);
-
-   useEffect(() => {
-      const getFeedData = async () => {
-         const _data: any = await getPost({ feed });
-         setFeedData(_data);
-      };
-      getFeedData();
-   }, [feed]);
+   // useEffect(() => {
+   //    // const getFeedData = async () => {
+   //    //    const _data: any = await getPost({ feed });
+   //    //    console.log("data -> ", _data);
+   //    //    setFeedData(_data);
+   //    // };
+   //    // getFeedData();
+   // }, [feed]);
 
    return (
       <>

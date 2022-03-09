@@ -6,24 +6,11 @@ import React, { useEffect, useState } from "react";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { getPost } from "../functions/get-feed";
-
-type TFeed = {
-   comments: {
-      comment: string;
-      userID: string;
-   }[];
-   likes: {
-      userID: string;
-   }[];
-   post: string;
-   userID: string;
-};
+import { TFeed, TFeedData } from "../types/feed-definition";
 
 const NewsFeed: NextPage = () => {
-   //This needs to be changed, possibly?
-
-   const [feed, setFeed] = useState([]);
-   const [feedData, setFeedData] = useState([]);
+   const [feed, setFeed] = useState<TFeed[]>([]);
+   const [feedData, setFeedData] = useState<TFeedData[]>([]);
 
    useEffect(() => {
       const qFeed = query(collection(firestoreDB, "feed"));
@@ -40,7 +27,7 @@ const NewsFeed: NextPage = () => {
 
    useEffect(() => {
       const getFeedData = async () => {
-         const _data = await getPost({ feed });
+         const _data: any = await getPost({ feed });
          setFeedData(_data);
       };
       getFeedData();

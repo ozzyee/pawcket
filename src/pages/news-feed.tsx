@@ -1,14 +1,31 @@
-import type { NextPage } from "next";
-import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
+import type { NextApiRequest, NextPage } from "next";
+import {
+   Buttons,
+   Frame,
+   MainLayout,
+   Navbar,
+} from "../functions/dynamic-imports";
 import * as S from "../styles/news-feed.style";
 import { NewsFeedPostCard } from "../components/news-feed-postcard/news-feed-postcard.component";
 import React, { useEffect, useState } from "react";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { collection, query, onSnapshot } from "firebase/firestore";
+import {
+   collection,
+   query,
+   onSnapshot,
+   addDoc,
+   doc,
+   getDoc,
+} from "firebase/firestore";
 import { getPost } from "../functions/get-feed";
 import { TFeed, TFeedData } from "../types/feed-definition";
-
-const NewsFeed: NextPage = () => {
+import { FormInputs } from "../components/form-inputs/form-inputs.component";
+import { NewPost } from "../components/news-feed-postcard/_partials/new-post/new-post.component";
+import { AuthService } from "../lib/auth-service/auth.service";
+type props = {
+   userUID: string;
+};
+const NewsFeed = ({ userUID }: props) => {
    const [feedData, setFeedData] = useState<TFeedData[]>([]);
 
    useEffect(() => {
@@ -50,7 +67,7 @@ const NewsFeed: NextPage = () => {
                topChildren={
                   <Frame
                      background={"/frame.svg"}
-                     img={"/circle/feed-icon-nav.svg"}
+                     img={"/circle/feed-circle-white.svg"}
                      diameter={250}
                   />
                }
@@ -72,11 +89,59 @@ const NewsFeed: NextPage = () => {
                   })}
                </S.CardList>
 
-               <Navbar className="nav" />
+               <NewPost userUID={userUID} />
+               {/* <Navbar className="nav" /> */}
             </MainLayout>
          </S.Mobile>
       </>
    );
 };
+
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+   try {
+      const cookieRefreshToken = req.cookies.token;
+      const authService = new AuthService();
+      const dataRes = await authService.getFirebaseUserToken(
+         cookieRefreshToken
+      );
+      const userUID = dataRes.getIdToken.user_id;
+      const docRef = doc(firestoreDB, "users", userUID);
+      const docSnap = await getDoc(docRef);
+      const _data = docSnap.data();
+
+      // No user then send to login/ sign up page
+      if (!dataRes) {
+         return {
+            redirect: {
+               destination: "/",
+            },
+         };
+      }
+
+      console.log(!_data?.DOB);
+
+      if (!_data?.firstName || !_data?.lastName || !_data?.DOB) {
+         return {
+            redirect: {
+               destination: "/create-user",
+            },
+         };
+      }
+
+      return {
+         props: {
+            userUID,
+         },
+      };
+   } catch (err) {
+      console.log("ERR", err);
+
+      return {
+         redirect: {
+            destination: "/",
+         },
+      };
+   }
+}
 
 export default NewsFeed;

@@ -9,7 +9,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       "set-cookie",
       cookie.serialize("token", refreshToken, {
          httpOnly: true,
-         maxAge: 60 * 60 * 3,
+         maxAge: 60 * 60 * 60,
          sameSite: true,
          path: "/",
       })

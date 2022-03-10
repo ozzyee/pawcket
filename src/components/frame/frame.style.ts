@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const CrossFrame = styled.span<TFrameProps>`
    width: ${(props) => (!props.diameter ? `150px` : props.diameter + "px")};
    height: ${(props) => (!props.diameter ? `150px` : props.diameter + "px")};
-   background: url("frame.svg");
+   background: url("/frame.svg");
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;

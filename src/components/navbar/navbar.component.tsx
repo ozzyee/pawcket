@@ -11,23 +11,23 @@ const icons = [
    },
    {
       name: "Misc",
-      direct: "./misc",
+      direct: "/misc",
       picture: "icons/miscellaneous-icon-nav.svg",
    },
    {
       name: "User",
 
-      direct: "./create-user",
+      direct: "/create-user",
       picture: "icons/user-icon.svg",
    },
    {
       name: "Chat",
-      direct: "./messaging",
+      direct: "/messaging",
       picture: "icons/message-icon-nav.svg",
    },
    {
       name: "Vet",
-      direct: "./vets",
+      direct: "/vets",
       picture: "icons/vet-icon-nav.svg",
    },
 ];

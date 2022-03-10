@@ -61,7 +61,6 @@ export const MainLayout = styled.main`
 export const BackgroundImage = styled.div`
    @media (min-width: ${styles.breakPoints.m}) {
       position: absolute;
-      border: 2px solid green;
       height: 100%;
       width: 100%;
       top: 0;

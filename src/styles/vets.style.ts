@@ -74,7 +74,7 @@ export const VetList = styled.ol`
 
    @media (min-width: ${styles.breakPoints.m}) {
       display: grid;
-      grid-template-columns: repeat(3, 400px);
+      grid-template-columns: repeat(3, 33%);
       padding: 0px;
       place-items: center;
       overflow-y: scroll;
@@ -146,7 +146,7 @@ export const Bottom = styled.div`
    ol {
       height: 100%;
       max-height: 110%;
-      padding: 0 5%;
+      padding: 0 2%;
    }
 
    .vetsep {

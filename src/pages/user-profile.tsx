@@ -1,23 +1,56 @@
 /* eslint-disable no-unused-vars */
-import { NextApiRequest, NextPage } from "next";
+import { NextApiRequest, NextPage} from "next";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { RoundImage } from "../components/round-image/round-img.component";
 import { Separator } from "../components/separator/separator.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 import { Text } from "../components/text/text.component";
 import { Buttons } from "../components/buttons/buttons.component";
-import * as data from "../../dummy-data/dummy-data";
+import { UserInfo } from "../components/user-info/user-info.component";
+import * as dummyData from "../../dummy-data/dummy-data";
 import * as S from "../styles/user-profile";
 import router from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
-import { doc, getDoc } from "@firebase/firestore";
+import { doc, DocumentData, getDoc } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import Head from "next/head";
+import { TUser } from "../../dummy-data/dummy-data";
+import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
+import { Thumbnails } from "../components/thumbnails/thumbnails.component";
 
-const UserProfile: NextPage = () => {
-   const [user, setUser] = useState({ ...data.jennifer });
+type TData = {
+    data: TUserData[]
+}
+
+type TUserData = {
+    firstName: string;
+    lastName: string;
+    userName?: string;
+    address?: string;
+    DOB: string;
+    telephone?: string;
+    extraInfo?: string;
+    profilePic?: string;
+    postCode?: string;
+    pets?: TPet[];
+    friends?: TUser[];
+    id?:string;
+}
+
+const UserProfile = ({data}: TData) => {
+//    const router = useRouter();
+//    const userID = router.asPath.split("/")[2];
+//    const userData = data?.filter(({ id }: { id: string }) => id === petID);
+//    console.log("this is pet data", petData);
+
+
+
+   const [user, setUser] = useState<TUser | DocumentData>({...data});
    if (!user) return null;
+   console.log(data);
+   
    return (
       <>
          <Head>
@@ -32,7 +65,7 @@ const UserProfile: NextPage = () => {
                      background="/frame.svg"
                      img={
                         !user.profilePic || user.profilePic === ""
-                           ? "/circle/user-circle.svg"
+                           ? "/circle/user-circle-white.svg"
                            : user.profilePic
                      }
                      diameter={200}
@@ -42,48 +75,32 @@ const UserProfile: NextPage = () => {
                   </Text>
                </S.TopLeft>
                <S.TopRight>
-                  <Navbar className="desktopNav" />
-                  <Text className="bio">{`"${user.extraInfo}"`}</Text>
+                  <Navbar className="desktopNav"/>
+                    <S.InfoSection className="desktopinfo">
+                        <UserInfo user={user}/>
+                    </S.InfoSection>
                </S.TopRight>
-               <S.Bottom>
+               <S.BottomLeft >
                   <Separator
-                     separatorText="My Passport"
+                     separatorText="Your Pets"
                      className="separator"
                   />
                   <PassportWrapper
                      separator={false}
                      className="desktopPassport"
                   >
-                     <S.PetsSection>
-                        {user.pets &&
-                           user.pets.map((pet, id) => {
-                              return (
-                                 <RoundImage
-                                    src={pet.profilePic}
-                                    diameter={100}
-                                    caption={pet.name}
-                                    onClick={() =>
-                                       router.push("/pet-profile", undefined, {
-                                          shallow: true,
-                                       })
-                                    }
-                                    key={id}
-                                 />
-                              );
-                           })}
-                        <Buttons
-                           dark={true}
-                           onClick={() =>
-                              router.push("/create-pet", undefined, {
-                                 shallow: true,
-                              })
-                           }
-                        >
-                           +
-                        </Buttons>
-                     </S.PetsSection>
+                    <Thumbnails isForPets={true} isAFriend={false} data={user.pets} className="desktopPets"/>
                   </PassportWrapper>
-               </S.Bottom>
+               </S.BottomLeft>
+               <S.BottomRight>
+                  <Separator
+                     separatorText="Your Friends"
+                     className="separator"
+                  />
+                    <PassportWrapper separator={true} separatorText="Your Friends" className="desktopPassport">
+                        <Thumbnails isForPets={false} isAFriend={false} data={user.friends} className="desktopPets"/>
+                    </PassportWrapper>
+               </S.BottomRight>
             </MainLayout>
          </S.Desktop>
 
@@ -95,7 +112,7 @@ const UserProfile: NextPage = () => {
                      background="/frame.svg"
                      img={
                         !user.profilePic || user.profilePic === ""
-                           ? "/circle/user-circle.svg"
+                           ? "/circle/user-circle-white.svg"
                            : user.profilePic
                      }
                      diameter={230}
@@ -104,42 +121,14 @@ const UserProfile: NextPage = () => {
                className="mobile"
             >
                <S.InfoSection>
-                  <Text className="bio">{`${user.extraInfo}`}</Text>
-                  <Text className="placeholder">{"Address:"}</Text>
-                  <Text>{`${user.address}`}</Text>
-                  <Text className="placeholder">{"Date of Birth:"}</Text>
-                  <Text>{`${user.DOB}`}</Text>
+                   <UserInfo user={user}/>
                </S.InfoSection>
-               <PassportWrapper separator={true} separatorText="My Pets">
-                  <S.PetsSection>
-                     {user.pets &&
-                        user.pets.map((pet, index) => {
-                           return (
-                              <RoundImage
-                                 key={index}
-                                 src={pet.profilePic}
-                                 diameter={100}
-                                 caption={pet.name}
-                                 onClick={() =>
-                                    router.push("/pet-profile", undefined, {
-                                       shallow: true,
-                                    })
-                                 }
-                              />
-                           );
-                        })}
-                     <Buttons
-                        dark={true}
-                        onClick={() =>
-                           router.push("/create-pet", undefined, {
-                              shallow: true,
-                           })
-                        }
-                     >
-                        +
-                     </Buttons>
-                  </S.PetsSection>
-                  ,
+               <PassportWrapper separator={true} separatorText="Your Pets">
+                    <Thumbnails isAFriend={false} isForPets={true} data={user.pets}/>
+               </PassportWrapper>
+               
+               <PassportWrapper separator={true} separatorText="Your Friends">
+                    <Thumbnails isAFriend={false} isForPets={false} data={user.friends} className="desktopPets"/>
                </PassportWrapper>
                <Navbar className="nav" />
             </MainLayout>
@@ -157,8 +146,14 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       );
       const userUID = dataRes.getIdToken.user_id;
       const docRef = doc(firestoreDB, "users", userUID);
+      const docRefPet = doc(firestoreDB, "pets", userUID);
       const docSnap = await getDoc(docRef);
+      const docSnapPet = await getDoc(docRefPet);
       const _data = docSnap.data();
+      const _dataPet = docSnapPet.data();
+
+      
+    //Fetch user info
 
       // No user then send to login/ sign up page
       if (!dataRes) {
@@ -178,6 +173,22 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
             },
          };
       }
+
+      if (_data?.DOB) {
+        const data = {
+           ..._data,
+           DOB: JSON.stringify(_data?.DOB.toDate()),
+           ..._dataPet,
+           friends:[dummyData.peter, dummyData.jennifer]
+        };
+
+        return {
+           props: {
+              data,
+              userUID,
+           },
+        };
+     }
 
       return {
          props: {

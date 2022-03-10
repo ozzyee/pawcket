@@ -4,6 +4,8 @@ import styles from "../../styles/style.config.json";
 export const Wrapper = styled.div`
    position: relative;
    width: 280px;
+   padding-left: 3%;
+   padding-right: 3%;
 `;
 
 export const VetsInfoDiv = styled.div`

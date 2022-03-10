@@ -73,8 +73,6 @@ export async function getServerSideProps({
       // const docSnap = await getDoc(docRef);
       // const _data = docSnap.data();
 
-      console.log(dataRes);
-
       // No user then send to login/ sign up page
       if (dataRes) {
          return {

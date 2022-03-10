@@ -15,6 +15,7 @@ import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Buttons, Frame, MainLayout } from "../functions/dynamic-imports";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import * as vetData from "../../dummy-data/dummy-data";
 
 type TData = {
    id: number;
@@ -34,6 +35,7 @@ const Vet: NextPage = () => {
       const response = await fetch("https://hub.dummyapis.com/vj/tuB6Lx7");
       const data = await response.json();
       setVets(data);
+      console.log(vets);
    }
 
    function getRandomWord() {
@@ -75,12 +77,24 @@ const Vet: NextPage = () => {
                      <Separator className="vets" />
                      <VetButtons className="vetbuttons">
                         <li>
-                           <Buttons vetsNavBtn={true} dark={true}>
+                           <Buttons
+                              vetsNavBtn={true}
+                              dark={true}
+                              onClick={() => {
+                                 getVets();
+                              }}
+                           >
                               Open Now
                            </Buttons>
                         </li>
                         <li>
-                           <Buttons vetsNavBtn={true} dark={true}>
+                           <Buttons
+                              vetsNavBtn={true}
+                              dark={true}
+                              onClick={() => {
+                                 setVets(vetData.onCallVets);
+                              }}
+                           >
                               On Call
                            </Buttons>
                         </li>
@@ -167,12 +181,11 @@ const Vet: NextPage = () => {
                </VetButtons>
                <VetList className="vetcard">
                   {vets.map((vet, index) => {
-                     //Making random values for the API, so they dont look samey.
-                     // const randomPhone = Math.floor(Math.random() * 1000);
-                     // const randomNoun = Math.floor(Math.random() * 3);
+                     const randomPhone = Math.floor(Math.random() * 1000);
+                     const randomNoun = Math.floor(Math.random() * 3);
                      return (
                         <>
-                           {/* <li key={index}>
+                           <li key={index}>
                               <VetsInfo
                                  vetName={
                                     "Dr. " + vet.name + "'s " + getRandomWord()
@@ -184,7 +197,7 @@ const Vet: NextPage = () => {
                                  vetWebsite={vet.website}
                                  vetDistance={vet.distance}
                               />
-                           </li> */}
+                           </li>
                         </>
                      );
                   })}

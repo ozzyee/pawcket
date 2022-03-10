@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { NextApiRequest} from "next";
+import { NextApiRequest } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Separator } from "../../components/separator/separator.component";
@@ -17,121 +17,151 @@ import { TPet } from "../../layouts/creat-pet-form/creat-pet-form.definition";
 import { TUser } from "../../../dummy-data/dummy-data";
 import { Thumbnails } from "../../components/thumbnails/thumbnails.component";
 
-
-
 type TUserData = {
-    firstName: string;
-    lastName: string;
-    userName?: string;
-    address?: string;
-    DOB: string;
-    telephone?: string;
-    extraInfo?: string;
-    profilePic?: string;
-    postCode?: string;
-    pets?: TPet[];
-    friends: TUser[];
-    id?:string;
-}
+   firstName: string;
+   lastName: string;
+   userName?: string;
+   address?: string;
+   DOB: string;
+   telephone?: string;
+   extraInfo?: string;
+   userImage?: string;
+   postCode?: string;
+   pets?: TPet[];
+   friends: TUser[];
+   id?: string;
+};
 
 type TData = {
-    data: TUserData;
-}
+   data: TUserData;
+};
 
-const FriendProfile = ({data}: TData) => {
+const FriendProfile = ({ data }: TData) => {
    const router = useRouter();
    const userID = router.asPath.split("/")[2];
-   const friendData = data.friends.filter((user:TUser) => user.id === userID) 
+   const friendData = data.friends.filter((user: TUser) => user.id === userID);
 
-
-   const [user, setUser] = useState<TUser | DocumentData>({...friendData[0]});
+   const [user, setUser] = useState<TUser | DocumentData>({ ...friendData[0] });
    if (!user) return null;
    console.log(friendData);
-   
+
    return (
-    <>
-       <Head>
-          <title>Pawcket | {`${user.firstName}'s Dashboard`}</title>
-          <html lang="en" />
-       </Head>
+      <>
+         <Head>
+            <title>Pawcket | {`${user.firstName}'s Dashboard`}</title>
+            <html lang="en" />
+         </Head>
 
-       <S.Desktop>
-          <MainLayout desktopCard={true} className="desktop">
-             <S.TopLeft>
-                <Frame
-                   background="/frame.svg"
-                   img={
-                      !user.profilePic || user.profilePic === ""
-                         ? "/circle/user-circle-white.svg"
-                         : user.profilePic
-                   }
-                   diameter={200}
-                />
-                <Text textType="h1" className="name">
-                   {user.firstName}
-                </Text>
-             </S.TopLeft>
-             <S.TopRight>
-                <Navbar className="desktopNav"/>
+         <S.Desktop>
+            <MainLayout desktopCard={true} className="desktop">
+               <S.TopLeft>
+                  <Frame
+                     background="/frame.svg"
+                     img={
+                        !user.userImage || user.userImage === ""
+                           ? "/circle/user-circle-white.svg"
+                           : user.userImage
+                     }
+                     diameter={200}
+                  />
+                  <Text textType="h1" className="name">
+                     {user.firstName}
+                  </Text>
+               </S.TopLeft>
+               <S.TopRight>
+                  <Navbar className="desktopNav" />
                   <S.InfoSection className="desktopinfo">
-                      <UserInfo user={user}/>
+                     <UserInfo user={user} />
                   </S.InfoSection>
-             </S.TopRight>
-             <S.BottomLeft >
-                <Separator
-                   separatorText={`${user.firstName}'s Pets`}
-                   className="separator"
-                />
-                <PassportWrapper
-                   separator={false}
-                   className="desktopPassport"
-                >
-                  <Thumbnails userName={user.firstName} isForPets={true} isAFriend={true} data={user.pets} className="desktopPets"/>
-                </PassportWrapper>
-             </S.BottomLeft>
-             <S.BottomRight>
-                <Separator
-                   separatorText={`${user.firstName}'s Friends`}
-                   className="separator"
-                />
-                  <PassportWrapper separator={true} separatorText="Your Friends" className="desktopPassport">
-                      <Thumbnails userName={user.firstName} isForPets={false} isAFriend={true} data={user.friends} className="desktopPets"/>
+               </S.TopRight>
+               <S.BottomLeft>
+                  <Separator
+                     separatorText={`${user.firstName}'s Pets`}
+                     className="separator"
+                  />
+                  <PassportWrapper
+                     separator={false}
+                     className="desktopPassport"
+                  >
+                     <Thumbnails
+                        userName={user.firstName}
+                        isForPets={true}
+                        isAFriend={true}
+                        data={user.pets}
+                        className="desktopPets"
+                     />
                   </PassportWrapper>
-             </S.BottomRight>
-          </MainLayout>
-       </S.Desktop>
+               </S.BottomLeft>
+               <S.BottomRight>
+                  <Separator
+                     separatorText={`${user.firstName}'s Friends`}
+                     className="separator"
+                  />
+                  <PassportWrapper
+                     separator={true}
+                     separatorText="Your Friends"
+                     className="desktopPassport"
+                  >
+                     <Thumbnails
+                        userName={user.firstName}
+                        isForPets={false}
+                        isAFriend={true}
+                        data={user.friends}
+                        className="desktopPets"
+                     />
+                  </PassportWrapper>
+               </S.BottomRight>
+            </MainLayout>
+         </S.Desktop>
 
-       <S.Mobile>
-          <MainLayout
-             bottomTitle={user.userName}
-             topChildren={
-                <Frame
-                   background="/frame.svg"
-                   img={
-                      !user.profilePic || user.profilePic === ""
-                         ? "/circle/user-circle-white.svg"
-                         : user.profilePic
-                   }
-                   diameter={230}
-                />
-             }
-             className="mobile"
-          >
-             <S.InfoSection>
-                 <UserInfo user={user}/>
-             </S.InfoSection>
-             <PassportWrapper separator={true} separatorText={`${user.firstName}'s Pets`}>
-                  <Thumbnails userName={user.firstName} isForPets={true} isAFriend={true} data={user.pets}/>
-             </PassportWrapper>
-             
-             <PassportWrapper separator={true} separatorText={`${user.firstName}'s Friends`}>
-                  <Thumbnails userName={user.firstName} isForPets={false} isAFriend={true} data={user.friends} className="desktopPets"/>
-             </PassportWrapper>
-             <Navbar className="nav" />
-          </MainLayout>
-       </S.Mobile>
-    </>
- );
+         <S.Mobile>
+            <MainLayout
+               bottomTitle={user.userName}
+               topChildren={
+                  <Frame
+                     background="/frame.svg"
+                     img={
+                        !user.userImage || user.userImage === ""
+                           ? "/circle/user-circle-white.svg"
+                           : user.userImage
+                     }
+                     diameter={230}
+                  />
+               }
+               className="mobile"
+            >
+               <S.InfoSection>
+                  <UserInfo user={user} />
+               </S.InfoSection>
+               <PassportWrapper
+                  separator={true}
+                  separatorText={`${user.firstName}'s Pets`}
+               >
+                  <Thumbnails
+                     userName={user.firstName}
+                     isForPets={true}
+                     isAFriend={true}
+                     data={user.pets}
+                  />
+               </PassportWrapper>
+
+               <PassportWrapper
+                  separator={true}
+                  separatorText={`${user.firstName}'s Friends`}
+               >
+                  <Thumbnails
+                     userName={user.firstName}
+                     isForPets={false}
+                     isAFriend={true}
+                     data={user.friends}
+                     className="desktopPets"
+                  />
+               </PassportWrapper>
+               <Navbar className="nav" />
+            </MainLayout>
+         </S.Mobile>
+      </>
+   );
 };
 
 export async function getServerSideProps({ req }: { req: NextApiRequest }) {
@@ -149,8 +179,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const _data = docSnap.data();
       const _dataPet = docSnapPet.data();
 
-      
-    //Fetch user info
+      //Fetch user info
 
       // No user then send to login/ sign up page
       if (!dataRes) {
@@ -172,19 +201,18 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       }
 
       if (_data?.DOB) {
-        const data = {
-           ..._data,
-           DOB: JSON.stringify(_data?.DOB.toDate()),
-           ..._dataPet,
-           friends:[dummyData.peter, dummyData.jennifer]
-        };
+         const data = {
+            ..._data,
+            ..._dataPet,
+            friends: [dummyData.peter, dummyData.jennifer],
+         };
 
-        return {
-           props: {
-              data,
-           },
-        };
-     }
+         return {
+            props: {
+               data,
+            },
+         };
+      }
 
       return {
          props: {

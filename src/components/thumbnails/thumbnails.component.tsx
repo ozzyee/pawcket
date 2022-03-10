@@ -15,27 +15,54 @@ export function Thumbnails({
    userName,
    className,
 }: TThumbnailsProps) {
-   if (data === undefined) {
-      return null;
-   }
    {
-      if (data.length < 1) {
+      if (data === undefined) {
          if (isForPets) {
             return (
-               <S.DefaultText>
-                  <Text className="wrapped">
-                     {`${userName} has no pets yet.`}
-                  </Text>
-               </S.DefaultText>
+               <>
+                  <S.DefaultText>
+                     <Text className="wrapped">
+                        {`${userName} has no pets yet.`}
+                     </Text>
+                     {isAFriend ? null : (
+                        <Buttons
+                           dark={false}
+                           className={!data ? "centeredButton" : ""}
+                           onClick={() =>
+                              router.push("/create-pet", undefined, {
+                                 shallow: true,
+                              })
+                           }
+                        >
+                           +
+                        </Buttons>
+                     )}
+                  </S.DefaultText>
+               </>
             );
          }
 
          return (
-            <S.DefaultText>
-               <Text className="wrapped">
-                  {`${userName} has no friends yet.`}
-               </Text>
-            </S.DefaultText>
+            <>
+               <S.DefaultText>
+                  <Text className="wrapped">
+                     {`${userName} has no friends yet.`}
+                  </Text>
+               </S.DefaultText>
+               {isAFriend ? null : (
+                  <Buttons
+                     dark={false}
+                     className="centeredButton"
+                     onClick={() =>
+                        router.push("/create-pet", undefined, {
+                           shallow: true,
+                        })
+                     }
+                  >
+                     +
+                  </Buttons>
+               )}
+            </>
          );
       }
    }
@@ -52,7 +79,7 @@ export function Thumbnails({
                {data.map((pet: TPet, id: number) => {
                   return (
                      <RoundImage
-                        src={pet.profilePic}
+                        src={pet.image}
                         diameter={120}
                         caption={pet.name}
                         className="petPic"
@@ -71,7 +98,7 @@ export function Thumbnails({
                      dark={false}
                      className={!data ? "centeredButton" : ""}
                      onClick={() =>
-                        router.push("/create-pet", undefined, {
+                        router.push("/friends", undefined, {
                            shallow: true,
                         })
                      }
@@ -93,7 +120,7 @@ export function Thumbnails({
             {data.map((user: TUser, id: number) => {
                return (
                   <RoundImage
-                     src={user.profilePic}
+                     src={user.userImage}
                      diameter={120}
                      caption={user.firstName}
                      className="petPic"
@@ -112,7 +139,7 @@ export function Thumbnails({
                   dark={false}
                   className={!data ? "centeredButton" : ""}
                   onClick={() =>
-                     router.push("/create-pet", undefined, {
+                     router.push("/friends", undefined, {
                         shallow: true,
                      })
                   }

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { NextApiRequest, NextPage} from "next";
+import { NextApiRequest, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { RoundImage } from "../components/round-image/round-img.component";
@@ -21,36 +21,34 @@ import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
 import { Thumbnails } from "../components/thumbnails/thumbnails.component";
 
 type TData = {
-    data: TUserData[]
-}
+   data: TUserData[];
+};
 
 type TUserData = {
-    firstName: string;
-    lastName: string;
-    userName?: string;
-    address?: string;
-    DOB: string;
-    telephone?: string;
-    extraInfo?: string;
-    profilePic?: string;
-    postCode?: string;
-    pets?: TPet[];
-    friends?: TUser[];
-    id?:string;
-}
+   firstName: string;
+   lastName: string;
+   userName?: string;
+   address?: string;
+   DOB: string;
+   telephone?: string;
+   extraInfo?: string;
+   profilePic?: string;
+   postCode?: string;
+   pets?: TPet[];
+   friends?: TUser[];
+   id?: string;
+};
 
-const UserProfile = ({data}: TData) => {
-//    const router = useRouter();
-//    const userID = router.asPath.split("/")[2];
-//    const userData = data?.filter(({ id }: { id: string }) => id === petID);
-//    console.log("this is pet data", petData);
+const UserProfile = ({ data }: TData) => {
+   //    const router = useRouter();
+   //    const userID = router.asPath.split("/")[2];
+   //    const userData = data?.filter(({ id }: { id: string }) => id === petID);
+   //    console.log("this is pet data", petData);
 
-
-
-   const [user, setUser] = useState<TUser | DocumentData>({...data});
+   const [user, setUser] = useState<TUser | DocumentData>({ ...data });
    if (!user) return null;
    console.log(data);
-   
+
    return (
       <>
          <Head>
@@ -64,9 +62,9 @@ const UserProfile = ({data}: TData) => {
                   <Frame
                      background="/frame.svg"
                      img={
-                        !user.profilePic || user.profilePic === ""
+                        !user.userImage || user.userImage === ""
                            ? "/circle/user-circle-white.svg"
-                           : user.profilePic
+                           : user.userImage
                      }
                      diameter={200}
                   />
@@ -75,21 +73,24 @@ const UserProfile = ({data}: TData) => {
                   </Text>
                </S.TopLeft>
                <S.TopRight>
-                  <Navbar className="desktopNav"/>
-                    <S.InfoSection className="desktopinfo">
-                        <UserInfo user={user}/>
-                    </S.InfoSection>
+                  <Navbar className="desktopNav" />
+                  <S.InfoSection className="desktopinfo">
+                     <UserInfo user={user} />
+                  </S.InfoSection>
                </S.TopRight>
-               <S.BottomLeft >
-                  <Separator
-                     separatorText="Your Pets"
-                     className="separator"
-                  />
+               <S.BottomLeft>
+                  <Separator separatorText="Your Pets" className="separator" />
                   <PassportWrapper
                      separator={false}
                      className="desktopPassport"
                   >
-                    <Thumbnails isForPets={true} isAFriend={false} data={user.pets} className="desktopPets"/>
+                     <Thumbnails
+                        isForPets={true}
+                        isAFriend={false}
+                        data={user.pets}
+                        className="desktopPets"
+                        userName={user.firstName}
+                     />
                   </PassportWrapper>
                </S.BottomLeft>
                <S.BottomRight>
@@ -97,9 +98,18 @@ const UserProfile = ({data}: TData) => {
                      separatorText="Your Friends"
                      className="separator"
                   />
-                    <PassportWrapper separator={true} separatorText="Your Friends" className="desktopPassport">
-                        <Thumbnails isForPets={false} isAFriend={false} data={user.friends} className="desktopPets"/>
-                    </PassportWrapper>
+                  <PassportWrapper
+                     separator={true}
+                     separatorText="Your Friends"
+                     className="desktopPassport"
+                  >
+                     <Thumbnails
+                        isForPets={false}
+                        isAFriend={false}
+                        data={user.friends}
+                        className="desktopPets"
+                     />
+                  </PassportWrapper>
                </S.BottomRight>
             </MainLayout>
          </S.Desktop>
@@ -111,9 +121,9 @@ const UserProfile = ({data}: TData) => {
                   <Frame
                      background="/frame.svg"
                      img={
-                        !user.profilePic || user.profilePic === ""
+                        !user.userImage || user.userImage === ""
                            ? "/circle/user-circle-white.svg"
-                           : user.profilePic
+                           : user.userImage
                      }
                      diameter={230}
                   />
@@ -121,14 +131,23 @@ const UserProfile = ({data}: TData) => {
                className="mobile"
             >
                <S.InfoSection>
-                   <UserInfo user={user}/>
+                  <UserInfo user={user} />
                </S.InfoSection>
                <PassportWrapper separator={true} separatorText="Your Pets">
-                    <Thumbnails isAFriend={false} isForPets={true} data={user.pets}/>
+                  <Thumbnails
+                     isAFriend={false}
+                     isForPets={true}
+                     data={user.pets}
+                  />
                </PassportWrapper>
-               
+
                <PassportWrapper separator={true} separatorText="Your Friends">
-                    <Thumbnails isAFriend={false} isForPets={false} data={user.friends} className="desktopPets"/>
+                  <Thumbnails
+                     isAFriend={false}
+                     isForPets={false}
+                     data={user.friends}
+                     className="desktopPets"
+                  />
                </PassportWrapper>
                <Navbar className="nav" />
             </MainLayout>
@@ -152,8 +171,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const _data = docSnap.data();
       const _dataPet = docSnapPet.data();
 
-      
-    //Fetch user info
+      //Fetch user info
 
       // No user then send to login/ sign up page
       if (!dataRes) {
@@ -175,20 +193,20 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       }
 
       if (_data?.DOB) {
-        const data = {
-           ..._data,
-           DOB: JSON.stringify(_data?.DOB.toDate()),
-           ..._dataPet,
-           friends:[dummyData.peter, dummyData.jennifer]
-        };
+         const data = {
+            ..._data,
+            // DOB: JSON.stringify(_data?.DOB.toDate()),
+            ..._dataPet,
+            friends: [dummyData.peter, dummyData.jennifer],
+         };
 
-        return {
-           props: {
-              data,
-              userUID,
-           },
-        };
-     }
+         return {
+            props: {
+               data,
+               userUID,
+            },
+         };
+      }
 
       return {
          props: {

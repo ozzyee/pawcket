@@ -3,4 +3,6 @@ export type TCardInfoProps = {
    userName: string;
    postImage: string;
    postText: string;
+   postLike?: any;
+   postComment?: any;
 };

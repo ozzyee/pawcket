@@ -30,11 +30,7 @@ export default {
    },
 } as ComponentMeta<typeof NewsFeedPostCard>;
 
-const Template = ({
-   userName,
-   postImage,
-   postText,
-}: TCardInfoProps) => {
+const Template = ({ userName, postImage, postText }: TCardInfoProps) => {
    return (
       <NewsFeedPostCard
          userName={userName}

@@ -72,22 +72,25 @@ export const peter: TUser = {
 
 export const onCallVets = [
    {
+      id: 128,
       name: "Patricia",
-      phone: "233",
+      phone: 233,
       address: "53, Mariot Way",
       website: "www.pawtricia.com",
       distance: "10",
    },
    {
+      id: 129,
       name: "Dave",
-      phone: "781",
+      phone: 781,
       address: "98, Sumit Close",
       website: "www.supergoodvet.com",
       distance: "30",
    },
    {
+      id: 130,
       name: "Medivet",
-      phone: "855",
+      phone: 855,
       address: "3, Leopold Drive",
       website: "www.medivet.com",
       distance: "50",

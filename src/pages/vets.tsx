@@ -169,12 +169,24 @@ const Vet: NextPage = () => {
                      </Buttons>
                   </li>
                   <li>
-                     <Buttons vetsNavBtn={true} dark={true}>
+                     <Buttons
+                        vetsNavBtn={true}
+                        dark={true}
+                        onClick={() => {
+                           setVets(vetData.onCallVets);
+                        }}
+                     >
                         On Call
                      </Buttons>
                   </li>
                   <li>
-                     <Buttons vetsNavBtn={true} dark={true} onClick={() => {}}>
+                     <Buttons
+                        vetsNavBtn={true}
+                        dark={true}
+                        onClick={() => {
+                           setVets(vetData.onCallVets);
+                        }}
+                     >
                         Near You
                      </Buttons>
                   </li>

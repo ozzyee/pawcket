@@ -2,13 +2,10 @@ import React from "react";
 import { TCardInfoProps } from "./news-feed-postcard.definition";
 import * as S from "./news-feed-postcard.style";
 import { Text } from "../text/text.component";
-import VetIcon from "./vet-icon.svg";
-import Image from "next/image";
-import UserIcon from "./user-icon.svg";
 import { InterationRibbon } from "./_partials/interaction-ribbon/interaction-ribbon.component";
 import { useState } from "react";
 import CommentSection from "./_partials/comment-section/comment-section.component";
-import { Frame } from "../../functions/dynamic-imports";
+import { RoundImage } from "../../components/round-image/round-img.component";
 
 export function NewsFeedPostCard({
    className,
@@ -39,7 +36,7 @@ export function NewsFeedPostCard({
    return (
       <S.Wrapper>
          <S.CardLogoHolder>
-            <Image src={postImage} width={100} height={100} />
+            <RoundImage src={postImage} diameter={60} isPet={false} />
          </S.CardLogoHolder>
          <S.CardInfoDiv className={className}>
             <S.CardInfo>

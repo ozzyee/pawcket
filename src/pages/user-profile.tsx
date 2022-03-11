@@ -59,6 +59,16 @@ const UserProfile = ({ data }: TData) => {
          <S.Desktop>
             <MainLayout desktopCard={true} className="desktop">
                <S.TopLeft>
+                  <Buttons
+                     onClick={() =>
+                        router.push("/signin", undefined, {
+                           shallow: true,
+                        })
+                     }
+                  >
+                     LogOut
+                  </Buttons>
+
                   <Frame
                      background="/frame.svg"
                      img={

@@ -25,7 +25,7 @@ export const freddie: TPet = {
    weight: "6 Kilograms",
    aboutMe:
       "Freddie loves playing with his stuffedbear and ragging around the kitchen. It's so funny",
-   profilePic: "/dummy/freddie.jpg",
+   image: "/dummy/freddie.jpg",
 };
 
 export const tony: TPet = {
@@ -38,7 +38,7 @@ export const tony: TPet = {
    weight: "200 Grams",
    aboutMe:
       "Tony is too young to have other cat friends but he'll love to meet you once he put on some grams on!!",
-   profilePic: "/dummy/tony.jpg",
+   image: "/dummy/tony.jpg",
 };
 
 export const jennifer: TUser = {

@@ -12,7 +12,6 @@ import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { TCreateUserPage } from "../types/create-user-definition";
 import Head from "next/head";
 
-
 const CreateUser = ({ data, userUID }: TCreateUserPage) => {
    const hiddenImageUploader = useRef(null);
    const [image, setImage] = useState("");
@@ -27,7 +26,6 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
          <Head>
             <title>Pawcket | Create User</title>
             <html lang="en" />
-
          </Head>
 
          <MainLayout desktopCard={true} className="desktop-display-block">

@@ -1,55 +1,56 @@
-export function parseMonth(month: string):string{
+function parseMonth(month: string) {
+   let parsedMonth: string;
+   switch (month) {
+      case "Jan":
+         parsedMonth = "January";
+         break;
+      case "Feb":
+         parsedMonth = "February";
+         break;
+      case "Mar":
+         parsedMonth = "March";
+         break;
+      case "Apr":
+         parsedMonth = "April";
+         break;
+      case "May":
+         parsedMonth = "May";
+         break;
+      case "Jun":
+         parsedMonth = "June";
+         break;
+      case "Jul":
+         parsedMonth = "July";
+         break;
+      case "Aug":
+         parsedMonth = "August";
+         break;
+      case "Sep":
+         parsedMonth = "September";
+         break;
+      case "Oct":
+         parsedMonth = "October";
+         break;
+      case "Nov":
+         parsedMonth = "November";
+         break;
+      case "Dec":
+         parsedMonth = "December";
+         break;
 
-    let parsedMonth:string;
-    switch (month) {
-        case "01":
-            parsedMonth = "January";
-            break;
-        case "02":
-            parsedMonth = "February";
-            break;
-        case "03":
-            parsedMonth = "March";
-            break;
-        case "04":
-            parsedMonth = "April";
-            break;
-        case "05":
-            parsedMonth = "May";
-            break;
-        case "06":
-            parsedMonth = "June";
-            break;
-        case "07":
-            parsedMonth = "July";
-            break;
-        case "08":
-            parsedMonth = "August";
-            break;
-        case "09":
-            parsedMonth = "September";
-            break;
-        case "10":
-            parsedMonth = "October";
-            break;
-        case "11":
-            parsedMonth = "November";
-            break;
-        case "12":
-            parsedMonth = "December";
-            break;
-        
-        default: parsedMonth = month
-            break;
-    }
-    return parsedMonth
+      default:
+         parsedMonth = month;
+         break;
+   }
+   return parsedMonth;
 }
 
-
-export function trimDate(date:string):string{
-    const i = date.indexOf("T")
-    const trimmed = date.substring(1, i).split("-").reverse();
-    const parsedMonth = parseMonth(trimmed[1]);
-    const finalDate = `${trimmed[0]} of ${parsedMonth} ${trimmed[2]}`
-    return finalDate
+export function trimDate(date: string | Date | undefined): string | null {
+   if (date === undefined || typeof date === "object") {
+      return null;
+   }
+   const trimmed = date.split(" ").slice(1, 4);
+   const parsedMonth = parseMonth(trimmed[0]);
+   const finalDate = `${trimmed[1]} of ${parsedMonth} ${trimmed[2]}`;
+   return finalDate;
 }

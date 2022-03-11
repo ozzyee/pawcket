@@ -6,7 +6,7 @@ import NavbarIcon from "./_partials/navbar-icon/navbaricon.component";
 const icons = [
    {
       name: "Feed",
-      direct: "/feed",
+      direct: "./news-feed",
       picture: "icons/feed-icon-nav.svg",
    },
    {

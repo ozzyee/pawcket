@@ -1,7 +1,11 @@
+/* eslint-disable @next/next/link-passhref */
 import React from "react";
 import * as S from "./navbar.style";
 import { TNavbarProps } from "./navbar.definition";
 import NavbarIcon from "./_partials/navbar-icon/navbaricon.component";
+import { Search } from "@styled-icons/boxicons-regular/Search";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const icons = [
    {
@@ -32,7 +36,40 @@ const icons = [
    },
 ];
 
-export function Navbar({ className }: TNavbarProps) {
+export function Navbar({ className, type }: TNavbarProps) {
+   const router = useRouter();
+   // requests
+
+   if (type === "mobile-friends") {
+      return (
+         <S.FriendsNav>
+            <Link href="/friends/my-friends">
+               <S.NavBtn
+                  className={
+                     router.pathname === "/friends/my-friends" ? "active" : ""
+                  }
+               >
+                  My Friends
+               </S.NavBtn>
+            </Link>
+
+            <Link href="/friends/requests">
+               <S.NavBtn
+                  className={
+                     router.pathname === "/friends/requests" ? "active" : ""
+                  }
+               >
+                  Requests
+               </S.NavBtn>
+            </Link>
+
+            <S.NavBtn>
+               <Search id="icon" />
+            </S.NavBtn>
+         </S.FriendsNav>
+      );
+   }
+
    return (
       <S.NavbarDiv className={className} backgroundColor={"219ebc"}>
          <S.List className="list" listStyleType="none">

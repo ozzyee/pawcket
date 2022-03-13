@@ -36,7 +36,7 @@ const icons = [
    },
 ];
 
-export function Navbar({ className, type }: TNavbarProps) {
+export function Navbar({ className, type, requests }: TNavbarProps) {
    const router = useRouter();
    // requests
 
@@ -59,7 +59,7 @@ export function Navbar({ className, type }: TNavbarProps) {
                      router.pathname === "/friends/requests" ? "active" : ""
                   }
                >
-                  Requests
+                  Requests ({requests})
                </S.NavBtn>
             </Link>
 

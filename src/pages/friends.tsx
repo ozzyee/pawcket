@@ -5,14 +5,18 @@ import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { FriendsModal } from "../components/friends-modal/friends-modal.component";
-import { Navbar } from "../components/navbar/navbar.component";
-import { Frame, MainLayout } from "../functions/dynamic-imports";
+import { MainLayout, Navbar } from "../functions/dynamic-imports";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { FriendsPageWrapper } from "../styles/global.style";
+import {
+   FriendsPageWrapper,
+   FriendsTitleWrapper,
+   MobileFriendsWrapper,
+} from "../styles/global.style";
 import * as S from "../styles/vets.style";
 import { TUserData } from "../types/user-data.definition";
 import { searchUser } from "../functions/friends/search-friends";
+import { Text } from "../components/text/text.component";
 
 type TFriendsData = {
    userUID?: string;
@@ -78,16 +82,22 @@ const Friends = ({ userUID }: TFriendsData) => {
          <S.Mobile>
             <MainLayout
                className="mobile"
-               bottomTitle="Vets near you"
+               cardClassName="friends-section"
                topChildren={
-                  <Frame
-                     background={"/frame.svg"}
-                     img={"/circle/vet-circle.svg"}
-                     diameter={230}
-                  />
+                  <FriendsTitleWrapper>
+                     <Text textType="h1">Friends</Text>
+                  </FriendsTitleWrapper>
                }
             >
-               <Navbar className="nav" />
+               <MobileFriendsWrapper>
+                  <Navbar type="mobile-friends" />
+                  {/* <FormInputs
+                     placeholder={"Search for friends"}
+                     onKeyUp={(event: { target: HTMLInputElement }) => {
+                        setResults(searchUser(event.target.value, allUsers));
+                     }}
+                  /> */}
+               </MobileFriendsWrapper>
             </MainLayout>
          </S.Mobile>
       </>

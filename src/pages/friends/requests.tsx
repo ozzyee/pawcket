@@ -28,34 +28,26 @@ type TFriendsData = {
 const Friends = ({ userUID }: TFriendsData) => {
    const [allFriends, setAllFriends] = useState([]);
    const [friendsList, setFriendsList] = useState<TUserData[]>([]);
-   const [requestNum, setRequestNum] = useState(0);
 
    useEffect(() => {
       if (!userUID) return;
       onSnapshot(doc(firestoreDB, "users", userUID), (doc) => {
          const data = doc.data();
-         const requests = data?.friendsRequests;
-         const friends = data?.friends;
-         setAllFriends(friends);
-         setRequestNum(requests.length - 1);
+         const friendsRequest = data?.friendsRequests;
+         setAllFriends(friendsRequest);
       });
    }, []);
 
    useEffect(() => {
-      const myFriends = allFriends.filter(
-         ({ requestAccepted }) => requestAccepted === true
-      );
-
       const q = query(collection(firestoreDB, "users"));
       onSnapshot(q, (querySnapshot) => {
          const users: DocumentData = [];
          querySnapshot.forEach((doc) => {
             users.push(doc.data());
          });
-
          const _friendsList: TUserData[] = [];
          users.map((user: TUserData) => {
-            myFriends.map(({ friendID }) => {
+            allFriends.map(({ friendID }) => {
                if (user?.userID === friendID) {
                   _friendsList.push(user);
                }
@@ -64,8 +56,6 @@ const Friends = ({ userUID }: TFriendsData) => {
          setFriendsList(_friendsList);
       });
    }, [allFriends]);
-
-   console.log(friendsList);
 
    return (
       <>
@@ -80,7 +70,7 @@ const Friends = ({ userUID }: TFriendsData) => {
                }
             >
                <MobileFriendsWrapper>
-                  <Navbar type="mobile-friends" requests={requestNum} />
+                  <Navbar type="mobile-friends" requests={friendsList.length}/>
                   {friendsList.map(
                      ({ firstName, lastName, userID, userImage }) => {
                         return (

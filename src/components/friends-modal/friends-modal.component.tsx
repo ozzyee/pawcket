@@ -162,8 +162,31 @@ export function FriendsModal({
                         unfriended
                      </Buttons>
                   )}
-                  {/* <Buttons className="btn">Confirm</Buttons>
-                  <Buttons className="btn delete">Delete</Buttons> */}
+
+                  {userStatusMsg === "Friend Request" && (
+                     <>
+                        <Buttons
+                           className="btn"
+                           onClick={() => {
+                              addFriend({
+                                 ...paramsObject,
+                              });
+                           }}
+                        >
+                           Confirm
+                        </Buttons>
+                        <Buttons
+                           className="btn delete"
+                           onClick={() => {
+                              removeFriend({
+                                 ...paramsObject,
+                              });
+                           }}
+                        >
+                           Delete
+                        </Buttons>
+                     </>
+                  )}
                </S.ButtonWrapper>
             </S.MobileNameAndBtnWrapper>
          </S.MobileFriendWrapper>

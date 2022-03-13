@@ -2,7 +2,7 @@
 export type TFriendsModalProps = {
    className?: string;
    fullName: string;
-   sentRequest: boolean;
+   sentRequest?: boolean;
    imageUrl?: string;
    userStatus?: string;
 

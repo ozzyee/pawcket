@@ -14,6 +14,7 @@ import { sendFriendRequest } from "../../functions/friends/send-friend-request";
 import { unsendFriendRequest } from "../../functions/friends/unsend-friend-request";
 import { removeFriend } from "../../functions/friends/remove-friend";
 import { addFriend } from "../../functions/friends/add-friend";
+import { Buttons } from "../buttons/buttons.component";
 
 export function FriendsModal({
    className,
@@ -21,6 +22,7 @@ export function FriendsModal({
    imageUrl,
    uid,
    currentUserUid,
+   type,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [currentFriendsData, setCurrentFriendsData] = useState<any>(null);
@@ -124,6 +126,49 @@ export function FriendsModal({
       userUID: currentUserUid,
       currentUserData: currentUsersData,
    };
+
+   if (type === "mobile") {
+      return (
+         <S.MobileFriendWrapper>
+            <S.MobileSmallWrapper>
+               <S.MobileImg>
+                  <Image
+                     src={!imageUrl ? "/icon-256x256.png" : imageUrl}
+                     alt="Picture of the author"
+                     width={80}
+                     height={80}
+                  />
+               </S.MobileImg>
+            </S.MobileSmallWrapper>
+
+            <S.MobileNameAndBtnWrapper>
+               <S.TextWrapper>
+                  <Text textType="h3" className="name-text-mobile">
+                     {fullName}
+                  </Text>
+                  <Text className="status-text">{userStatusMsg}</Text>
+               </S.TextWrapper>
+
+               <S.ButtonWrapper>
+                  {userStatusMsg === "Friends" && (
+                     <Buttons
+                        className="btn"
+                        onClick={() => {
+                           removeFriend({
+                              ...paramsObject,
+                           });
+                        }}
+                     >
+                        unfriended
+                     </Buttons>
+                  )}
+                  {/* <Buttons className="btn">Confirm</Buttons>
+                  <Buttons className="btn delete">Delete</Buttons> */}
+               </S.ButtonWrapper>
+            </S.MobileNameAndBtnWrapper>
+         </S.MobileFriendWrapper>
+      );
+   }
 
    return (
       <S.FriendsModalDiv className={className}>

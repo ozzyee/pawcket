@@ -5,6 +5,7 @@ export const MobileFriendWrapper = styled.div`
    border-radius: 11px;
    display: flex;
    margin-top: 1rem;
+   margin-bottom: 1rem;
 `;
 
 export const MobileSmallWrapper = styled.div`

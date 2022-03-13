@@ -1,6 +1,6 @@
 import { TUserData } from "../../types/user-data.definition";
 
-export const searchUser = (text: string, allUsers:TUserData[]) => {
+export const searchUser = (text: string, allUsers: TUserData[]) => {
    const searchResults = allUsers.filter(
       ({ fullName, fullNameReverse, userName }) => {
          const fullNameLowercase = fullName.toLowerCase();
@@ -14,6 +14,10 @@ export const searchUser = (text: string, allUsers:TUserData[]) => {
          );
       }
    );
+
+   if (!text) {
+      return [];
+   }
 
    return [...searchResults];
 };

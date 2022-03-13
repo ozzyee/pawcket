@@ -187,6 +187,36 @@ export function FriendsModal({
                         </Buttons>
                      </>
                   )}
+
+                  {!userStatusMsg && (
+                     <>
+                        <Buttons
+                           className="btn"
+                           onClick={() => {
+                              sendFriendRequest({
+                                 ...paramsObject,
+                              });
+                           }}
+                        >
+                           Add Friend
+                        </Buttons>
+                     </>
+                  )}
+
+                  {userStatusMsg === "Friend pending" && (
+                     <>
+                        <Buttons
+                           className="btn"
+                           onClick={() => {
+                              unsendFriendRequest({
+                                 ...paramsObject,
+                              });
+                           }}
+                        >
+                           Remove
+                        </Buttons>
+                     </>
+                  )}
                </S.ButtonWrapper>
             </S.MobileNameAndBtnWrapper>
          </S.MobileFriendWrapper>

@@ -303,11 +303,24 @@ export const FriendsTitleWrapper = styled.div`
 `;
 
 export const MobileFriendsWrapper = styled.div`
-   /* border: 2px solid green; */
+   position: absolute;
+   left: 0;
+   padding: 1rem;
    margin-top: -3rem;
+   height: 100vh;
+   width: 100vw;
+   background-color: white;
+   overflow: none;
 
    #friends-wrapper {
       margin-top: 2rem;
       /* border: 2px solid green; */
+   }
+
+   #friends {
+      height: 85%;
+      overflow: scroll;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
    }
 `;

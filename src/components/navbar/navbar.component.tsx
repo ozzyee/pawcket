@@ -63,9 +63,15 @@ export function Navbar({ className, type, requests }: TNavbarProps) {
                </S.NavBtn>
             </Link>
 
-            <S.NavBtn>
-               <Search id="icon" />
-            </S.NavBtn>
+            <Link href="/friends/search">
+               <S.NavBtn
+                  className={
+                     router.pathname === "/friends/search" ? "active" : ""
+                  }
+               >
+                  <Search id="icon" />
+               </S.NavBtn>
+            </Link>
          </S.FriendsNav>
       );
    }

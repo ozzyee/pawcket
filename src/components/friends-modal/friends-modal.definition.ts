@@ -20,4 +20,6 @@ export type TFriendsModalProps = {
    friendsRequestList: any;
    type?: string;
    status?: string;
+   onClick?: any;
+   chatID?: string;
 };

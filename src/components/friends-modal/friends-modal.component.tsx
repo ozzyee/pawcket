@@ -23,6 +23,8 @@ export function FriendsModal({
    uid,
    currentUserUid,
    type,
+   onClick,
+   chatID,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [currentFriendsData, setCurrentFriendsData] = useState<any>(null);
@@ -126,6 +128,36 @@ export function FriendsModal({
       userUID: currentUserUid,
       currentUserData: currentUsersData,
    };
+
+   if (type === "mobile messaging") {
+      return (
+         <S.MobileFriendWrapper
+            onClick={() => {
+               onClick(chatID);
+            }}
+         >
+            <S.MobileSmallWrapper>
+               <S.MobileImg>
+                  <Image
+                     src={!imageUrl ? "/icon-256x256.png" : imageUrl}
+                     alt="Picture of the author"
+                     width={80}
+                     height={80}
+                  />
+               </S.MobileImg>
+            </S.MobileSmallWrapper>
+
+            <S.MobileNameAndBtnWrapper>
+               <S.TextWrapper>
+                  <Text textType="h3" className="name-text-mobile">
+                     {fullName}
+                  </Text>
+                  <Text className="status-text">{userStatusMsg}</Text>
+               </S.TextWrapper>
+            </S.MobileNameAndBtnWrapper>
+         </S.MobileFriendWrapper>
+      );
+   }
 
    if (type === "mobile") {
       return (

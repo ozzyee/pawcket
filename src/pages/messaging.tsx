@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+   /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 import {
    collection,
@@ -15,7 +15,11 @@ import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { TUserData } from "../types/user-data.definition";
 import { Text } from "../components/text/text.component";
 import * as S from "../styles/vets.style";
-import { FriendsTitleWrapper, MobileFriendsWrapper } from "../styles/global.style";
+import {
+   FriendsTitleWrapper,
+   MobileFriendsWrapper,
+} from "../styles/global.style";
+import { MessagingScreen } from "../layouts/messaging-screen/messaging-screen.component";
 
 type TFriendsData = {
    userUID?: string;
@@ -24,7 +28,6 @@ type TFriendsData = {
 const Message = ({ userUID }: TFriendsData) => {
    const [allFriends, setAllFriends] = useState([]);
    const [friendsList, setFriendsList] = useState<TUserData[]>([]);
-   const [requestNum, setRequestNum] = useState(0);
 
    useEffect(() => {
       if (!userUID) return;
@@ -33,7 +36,6 @@ const Message = ({ userUID }: TFriendsData) => {
          const requests = data?.friendsRequests;
          const friends = data?.friends;
          setAllFriends(friends);
-         setRequestNum(requests?.length - 1);
       });
    }, []);
 
@@ -76,7 +78,7 @@ const Message = ({ userUID }: TFriendsData) => {
                }
             >
                <MobileFriendsWrapper>
-                  <Navbar type="mobile-friends" requests={requestNum} />
+                  <MessagingScreen />
                </MobileFriendsWrapper>
             </MainLayout>
          </S.Mobile>

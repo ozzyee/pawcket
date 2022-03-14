@@ -330,6 +330,7 @@ export const MobileFriendsWrapper = styled.div`
    width: 100vw;
    background-color: white;
    overflow: none;
+   border-radius: 22px;
 
    #friends-wrapper {
       margin-top: 2rem;

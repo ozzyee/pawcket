@@ -37,12 +37,12 @@ const Friends = ({ userUID }: TFriendsData) => {
          const requests = data?.friendsRequests;
          const friends = data?.friends;
          setAllFriends(friends);
-         setRequestNum(requests.length - 1);
+         setRequestNum(requests?.length - 1);
       });
    }, []);
 
    useEffect(() => {
-      const myFriends = allFriends.filter(
+      const myFriends = allFriends?.filter(
          ({ requestAccepted }) => requestAccepted === true
       );
 
@@ -55,7 +55,7 @@ const Friends = ({ userUID }: TFriendsData) => {
 
          const _friendsList: TUserData[] = [];
          users.map((user: TUserData) => {
-            myFriends.map(({ friendID }) => {
+            myFriends?.map(({ friendID }) => {
                if (user?.userID === friendID) {
                   _friendsList.push(user);
                }

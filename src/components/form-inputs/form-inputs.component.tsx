@@ -22,6 +22,7 @@ export function FormInputs({
    onTextAreaChange,
    formDateValue,
    id,
+   onKeyUp,
 }: TFormInputsProps) {
    const { _hasError } = useContent();
    const [value, setValue] = useState<Date | string>("");
@@ -117,6 +118,8 @@ export function FormInputs({
                onChange={handleChange}
                aria-describedby="component-error-text"
                type={inputType}
+               // @ts-ignore
+               onKeyUp={onKeyUp}
             />
          </FormControl>
       </S.InputWrapper>

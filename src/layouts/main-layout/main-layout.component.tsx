@@ -13,7 +13,7 @@ export function MainLayout({
    children,
    topChildren,
    desktopCard,
-
+   cardClassName
 }: TMainLayoutProps) {
    return (
       <>
@@ -67,7 +67,7 @@ export function MainLayout({
             {!desktopCard && (
                <>
                   <S.Filter />
-                  <S.Card>
+                  <S.Card className={cardClassName}>
                      <S.InnerCard>
                         <S.TitleWrapper>
                            {bottomTitle && (

@@ -65,6 +65,13 @@ export const GlobalStyle = createGlobalStyle`
       padding-left:.5rem;
    }
 
+   .friends-section{
+      margin-top: -20vh;
+      .kQdQMS{
+         border:2px solid transparent;
+      }
+   }
+
    
 
    @media (min-width: ${styles.breakPoints.m}) {
@@ -269,4 +276,51 @@ export const ButtonsWrapper = styled.div`
    }
 `;
 
+export const FriendsPageWrapper = styled.main`
+   display: flex;
+   /* align-items: center; */
+   flex-wrap: wrap;
 
+   width: 885px;
+   height: 500px;
+   margin-top: 2.5rem;
+   overflow: scroll;
+
+   margin-left: auto;
+   margin-right: auto;
+`;
+
+export const FriendsTitleWrapper = styled.div`
+   width: 100vw;
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 60%;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+`;
+
+export const MobileFriendsWrapper = styled.div`
+   position: absolute;
+   left: 0;
+   padding: 1rem;
+   margin-top: -3rem;
+   height: 100vh;
+   width: 100vw;
+   background-color: white;
+   overflow: none;
+
+   #friends-wrapper {
+      margin-top: 2rem;
+      /* border: 2px solid green; */
+   }
+
+   #friends {
+      height: 85%;
+      overflow: scroll;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+   }
+`;

@@ -10,10 +10,12 @@ module.exports = withPWA({
    pwa: {
       dest: "public",
       register: true,
+      disable: process.env.NODE_ENV === "development",
    },
 });
 
-// const withBundleAnalyzer = require('@next/bundle-analyzer')({
-//    enabled: process.env.ANALYZE === 'true',
-//  })
-//  module.exports = withBundleAnalyzer({})
+module.exports = {
+   images: {
+      domains: ["lh3.googleusercontent.com", "firebasestorage.googleapis.com"],
+   },
+};

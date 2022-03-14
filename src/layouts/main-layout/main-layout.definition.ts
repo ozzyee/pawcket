@@ -9,4 +9,5 @@ export type TMainLayoutProps = {
    children?: ReactNode;
    topChildren?: ReactNode;
    desktopCard?: boolean;
+   cardClassName?: string;
 };

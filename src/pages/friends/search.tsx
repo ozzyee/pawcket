@@ -3,20 +3,20 @@
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
-import { FormInputs } from "../components/form-inputs/form-inputs.component";
-import { FriendsModal } from "../components/friends-modal/friends-modal.component";
-import { MainLayout, Navbar } from "../functions/dynamic-imports";
-import { AuthService } from "../lib/auth-service/auth.service";
-import { firestoreDB } from "../lib/firebase/firebase.initialize";
+import { FormInputs } from "../../components/form-inputs/form-inputs.component";
+import { FriendsModal } from "../../components/friends-modal/friends-modal.component";
+import { MainLayout, Navbar } from "../../functions/dynamic-imports";
+import { AuthService } from "../../lib/auth-service/auth.service";
+import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 import {
    FriendsPageWrapper,
    FriendsTitleWrapper,
    MobileFriendsWrapper,
-} from "../styles/global.style";
-import * as S from "../styles/vets.style";
-import { TUserData } from "../types/user-data.definition";
-import { searchUser } from "../functions/friends/search-friends";
-import { Text } from "../components/text/text.component";
+} from "../../styles/global.style";
+import * as S from "../../styles/vets.style";
+import { TUserData } from "../../types/user-data.definition";
+import { searchUser } from "../../functions/friends/search-friends";
+import { Text } from "../../components/text/text.component";
 
 type TFriendsData = {
    userUID?: string;
@@ -25,6 +25,7 @@ type TFriendsData = {
 const Friends = ({ userUID }: TFriendsData) => {
    const [results, setResults] = useState<TUserData[]>([]);
    const [allUsers, setAllUsers] = useState<TUserData[]>([]);
+   const [requestNum, setRequestNum] = useState(0);
 
    //! realtime feed to db
    useEffect(() => {
@@ -35,6 +36,12 @@ const Friends = ({ userUID }: TFriendsData) => {
          const users: TUserData[] = [];
          querySnapshot.forEach((doc) => {
             const _data = doc.data();
+
+            if (_data?.friendsRequests) {
+               const requests = _data?.friendsRequests;
+               setRequestNum(requests?.length - 1);
+            }
+
             const data: any = {
                ..._data,
                fullName: _data.firstName + " " + _data.lastName,
@@ -90,13 +97,30 @@ const Friends = ({ userUID }: TFriendsData) => {
                }
             >
                <MobileFriendsWrapper>
-                  <Navbar type="mobile-friends" />
-                  {/* <FormInputs
+                  <Navbar type="mobile-friends" requests={requestNum} />
+                  <FormInputs
                      placeholder={"Search for friends"}
                      onKeyUp={(event: { target: HTMLInputElement }) => {
                         setResults(searchUser(event.target.value, allUsers));
                      }}
-                  /> */}
+                  />
+                  <div id="friends">
+                     {results.map(
+                        ({ firstName, lastName, userID, userImage }) => {
+                           return (
+                              <FriendsModal
+                                 key={userID}
+                                 type="mobile"
+                                 fullName={`${firstName} ${lastName}`}
+                                 uid={userID}
+                                 currentUserUid={userUID}
+                                 friendsRequestList={undefined}
+                                 imageUrl={userImage}
+                              />
+                           );
+                        }
+                     )}
+                  </div>
                </MobileFriendsWrapper>
             </MainLayout>
          </S.Mobile>

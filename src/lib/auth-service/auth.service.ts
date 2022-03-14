@@ -88,9 +88,6 @@ export class AuthService implements IAuthContract {
 
    async googleSignIn(location: string | undefined): Promise<void> {
       try {
-         const currentUrl = window.location.href;
-         console.log("current url ->", currentUrl);
-
          const provider = new GoogleAuthProvider();
          const _res = await signInWithPopup(auth, provider);
          const res = _res as TUserCredential;
@@ -116,7 +113,6 @@ export class AuthService implements IAuthContract {
          await fetchService.post("/api/auth", { refreshToken });
 
          if (location === "login") {
-            console.log("im form login");
             window.location.href = "/user-profile";
             return;
          }
@@ -151,7 +147,6 @@ export class AuthService implements IAuthContract {
          await fetchService.post("/api/auth", { refreshToken });
 
          if (location === "login") {
-            console.log("im form login");
             window.location.href = "/user-profile";
             return;
          }

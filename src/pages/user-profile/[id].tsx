@@ -1,28 +1,21 @@
 /* eslint-disable no-unused-vars */
-import { NextApiRequest, NextPage } from "next";
+import { NextApiRequest } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { RoundImage } from "../components/round-image/round-img.component";
-import { Separator } from "../components/separator/separator.component";
-import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
-import { Text } from "../components/text/text.component";
-import { Buttons } from "../components/buttons/buttons.component";
-import { UserInfo } from "../components/user-info/user-info.component";
-import * as dummyData from "../../dummy-data/dummy-data";
-import * as S from "../styles/user-profile";
-import router from "next/router";
-import { AuthService } from "../lib/auth-service/auth.service";
+import { Separator } from "../../components/separator/separator.component";
+import { PassportWrapper } from "../../components/passport-wrapper/passport-wrapper.component";
+import { Text } from "../../components/text/text.component";
+import { UserInfo } from "../../components/user-info/user-info.component";
+import * as dummyData from "../../../dummy-data/dummy-data";
+import * as S from "../../styles/user-profile";
+import { AuthService } from "../../lib/auth-service/auth.service";
 import { doc, DocumentData, getDoc } from "@firebase/firestore";
-import { firestoreDB } from "../lib/firebase/firebase.initialize";
-import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
+import { firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { Frame, MainLayout, Navbar } from "../../functions/dynamic-imports";
 import Head from "next/head";
-import { TUser } from "../../dummy-data/dummy-data";
-import { TPet } from "../layouts/creat-pet-form/creat-pet-form.definition";
-import { Thumbnails } from "../components/thumbnails/thumbnails.component";
-
-type TData = {
-   data: TUserData[];
-};
+import { TPet } from "../../layouts/creat-pet-form/creat-pet-form.definition";
+import { TUser } from "../../../dummy-data/dummy-data";
+import { Thumbnails } from "../../components/thumbnails/thumbnails.component";
 
 type TUserData = {
    firstName: string;
@@ -32,43 +25,36 @@ type TUserData = {
    DOB: string;
    telephone?: string;
    extraInfo?: string;
-   profilePic?: string;
+   userImage?: string;
    postCode?: string;
    pets?: TPet[];
-   friends?: TUser[];
+   friends: TUser[];
    id?: string;
 };
 
-const UserProfile = ({ data }: TData) => {
-   //    const router = useRouter();
-   //    const userID = router.asPath.split("/")[2];
-   //    const userData = data?.filter(({ id }: { id: string }) => id === petID);
-   //    console.log("this is pet data", petData);
+type TData = {
+   data: TUserData;
+};
 
-   const [user, setUser] = useState<TUser | DocumentData>({ ...data });
+const FriendProfile = ({ data }: TData) => {
+   const router = useRouter();
+   const userID = router.asPath.split("/")[2];
+   const friendData = data.friends.filter((user: TUser) => user.id === userID);
+
+   const [user, setUser] = useState<TUser | DocumentData>({ ...friendData[0] });
    if (!user) return null;
-   console.log(data);
+   console.log(friendData);
 
    return (
       <>
          <Head>
-            <title>Pawcket | Dashboard</title>
+            <title>Pawcket | {`${user.firstName}'s Dashboard`}</title>
             <html lang="en" />
          </Head>
 
          <S.Desktop>
             <MainLayout desktopCard={true} className="desktop">
                <S.TopLeft>
-                  <Buttons
-                     onClick={() =>
-                        router.push("/signin", undefined, {
-                           shallow: true,
-                        })
-                     }
-                  >
-                     LogOut
-                  </Buttons>
-
                   <Frame
                      background="/frame.svg"
                      img={
@@ -89,23 +75,26 @@ const UserProfile = ({ data }: TData) => {
                   </S.InfoSection>
                </S.TopRight>
                <S.BottomLeft>
-                  <Separator separatorText="Your Pets" className="separator" />
+                  <Separator
+                     separatorText={`${user.firstName}'s Pets`}
+                     className="separator"
+                  />
                   <PassportWrapper
                      separator={false}
                      className="desktopPassport"
                   >
                      <Thumbnails
+                        userName={user.firstName}
                         isForPets={true}
-                        isAFriend={false}
+                        isAFriend={true}
                         data={user.pets}
                         className="desktopPets"
-                        userName={user.firstName}
                      />
                   </PassportWrapper>
                </S.BottomLeft>
                <S.BottomRight>
                   <Separator
-                     separatorText="Your Friends"
+                     separatorText={`${user.firstName}'s Friends`}
                      className="separator"
                   />
                   <PassportWrapper
@@ -114,8 +103,9 @@ const UserProfile = ({ data }: TData) => {
                      className="desktopPassport"
                   >
                      <Thumbnails
+                        userName={user.firstName}
                         isForPets={false}
-                        isAFriend={false}
+                        isAFriend={true}
                         data={user.friends}
                         className="desktopPets"
                      />
@@ -143,18 +133,26 @@ const UserProfile = ({ data }: TData) => {
                <S.InfoSection>
                   <UserInfo user={user} />
                </S.InfoSection>
-               <PassportWrapper separator={true} separatorText="Your Pets">
+               <PassportWrapper
+                  separator={true}
+                  separatorText={`${user.firstName}'s Pets`}
+               >
                   <Thumbnails
-                     isAFriend={false}
+                     userName={user.firstName}
                      isForPets={true}
+                     isAFriend={true}
                      data={user.pets}
                   />
                </PassportWrapper>
 
-               <PassportWrapper separator={true} separatorText="Your Friends">
+               <PassportWrapper
+                  separator={true}
+                  separatorText={`${user.firstName}'s Friends`}
+               >
                   <Thumbnails
-                     isAFriend={false}
+                     userName={user.firstName}
                      isForPets={false}
+                     isAFriend={true}
                      data={user.friends}
                      className="desktopPets"
                   />
@@ -205,7 +203,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       if (_data?.DOB) {
          const data = {
             ..._data,
-            // DOB: JSON.stringify(_data?.DOB.toDate()),
             ..._dataPet,
             friends: [dummyData.peter, dummyData.jennifer],
          };
@@ -213,7 +210,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          return {
             props: {
                data,
-               userUID,
             },
          };
       }
@@ -234,4 +230,4 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
    }
 }
 
-export default UserProfile;
+export default FriendProfile;

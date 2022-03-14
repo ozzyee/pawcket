@@ -3,5 +3,4 @@ export type TTextProps = {
    textType?: string;
    children: string;
    onClick?: () => void;
-
 };

@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 const icons = [
    {
       name: "Feed",
-      direct: "/feed",
+      direct: "./news-feed",
       picture: "icons/feed-icon-nav.svg",
    },
    {

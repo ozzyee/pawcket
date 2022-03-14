@@ -47,7 +47,7 @@ const Friends = ({ userUID }: TFriendsData) => {
          });
          const _friendsList: TUserData[] = [];
          users.map((user: TUserData) => {
-            allFriends.map(({ friendID }) => {
+            allFriends?.map(({ friendID }) => {
                if (user?.userID === friendID) {
                   _friendsList.push(user);
                }
@@ -70,7 +70,7 @@ const Friends = ({ userUID }: TFriendsData) => {
                }
             >
                <MobileFriendsWrapper>
-                  <Navbar type="mobile-friends" requests={friendsList.length}/>
+                  <Navbar type="mobile-friends" requests={friendsList.length} />
                   {friendsList.map(
                      ({ firstName, lastName, userID, userImage }) => {
                         return (

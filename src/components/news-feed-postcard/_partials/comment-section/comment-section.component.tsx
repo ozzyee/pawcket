@@ -2,10 +2,27 @@ import React, { useState } from "react";
 import { TCommentSection } from "./comment-section.definition";
 import { FormInputs } from "../../../form-inputs/form-inputs.component";
 import * as S from "./comment-section.style";
-import { getUser } from "../../../../functions/get-feed";
+import {
+   collection,
+   query,
+   onSnapshot,
+   updateDoc,
+   doc,
+   getDoc,
+} from "firebase/firestore";
+import { firestoreDB } from "../../../../lib/firebase/firebase.initialize";
 
-function CommentSection({ userName }: TCommentSection) {
-   const [commentList, setCommentList] = useState([]);
+function CommentSection({ feedData }: TCommentSection) {
+   const [commentList, setCommentList] = useState([
+      {
+         userID: "eK3NDSxrLaaDa3v3ONXnj4SFAZN2",
+         contents: "SDIAsodijsaiodjsa",
+      },
+      {
+         userID: "eK3NDSxrLaaDa3v3ONXnj4SFAZN2",
+         contents: "SDIAsodiasdsadsadsajsaiodjsa",
+      },
+   ]);
    const [commentContent, setCommentContent] = useState("");
 
    function handleCommentSubmit(e: any) {
@@ -13,28 +30,39 @@ function CommentSection({ userName }: TCommentSection) {
       if (commentContent === "") {
          return;
       }
-      //@ts-ignore
-      setCommentList([
-         ...commentList,
-         {
-            //@ts-ignore
-            userName: userName,
-            //@ts-ignore
-            comment: commentContent,
-         },
-      ]);
-      console.log(commentList);
       setCommentContent("");
    }
+
+   async function testpost(e) {
+      e.preventDefault();
+      const taskDocRef = doc(firestoreDB, "feed", "hE5HPlTcNjEwveRQFrh2");
+      try {
+         await updateDoc(taskDocRef, {
+            comments: [
+               ...commentList,
+               {
+                  userID: "Someoneelse",
+                  contents: "Hello I am a comment x",
+               },
+            ],
+         });
+      } catch {
+         throw new Error("Hello");
+      }
+   }
+
+   const slurp = async (e) => {
+    e.preventDefault()
+    try {
+      await getDoc(collection(firestoreDB, 'feed'), {
+      })
+    } catch (err) {
+      alert(err)
+    }
 
    function handleChange(e: any) {
       setCommentContent(e.target.value);
    }
-
-   const convertName = async () => {
-      console.log(await getUser(userName));
-      return await getUser(userName);
-   };
 
    return (
       <div>
@@ -45,20 +73,27 @@ function CommentSection({ userName }: TCommentSection) {
             />
             <button>Submit</button>
          </form>
+         <h1
+            onClick={(e) => {
+               testpost(e);
+               console.log(commentList);
+            }}
+         >
+            Clcik me for feeddata
+         </h1>
          <S.List>
             {commentList.map((comment) => {
                //@ts-ignore
                return (
                   <S.ListItem>
                      <S.TextHolder>
-                        {convertName}
+                        {comment.userName}
                         {comment.comment}
                      </S.TextHolder>
                   </S.ListItem>
                );
             })}
          </S.List>
-         <h1 onClick={convertName.fullName}>Click me!</h1>
       </div>
    );
 }

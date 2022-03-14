@@ -1,3 +1,3 @@
 export type TCommentSection = {
-   userName: string;
+   feedData: any;
 };

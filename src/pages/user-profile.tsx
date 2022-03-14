@@ -140,26 +140,31 @@ const UserProfile = ({ data }: TData) => {
                }
                className="mobile"
             >
-               <S.InfoSection>
-                  <UserInfo user={user} />
-               </S.InfoSection>
-               <PassportWrapper separator={true} separatorText="Your Pets">
-                  <Thumbnails
-                     isAFriend={false}
-                     isForPets={true}
-                     data={user.pets}
-                  />
-               </PassportWrapper>
+               <div id="mobile-wrapper">
+                  <S.InfoSection>
+                     <UserInfo user={user} />
+                  </S.InfoSection>
+                  <PassportWrapper separator={true} separatorText="Your Pets">
+                     <Thumbnails
+                        isAFriend={false}
+                        isForPets={true}
+                        data={user.pets}
+                     />
+                  </PassportWrapper>
 
-               <PassportWrapper separator={true} separatorText="Your Friends">
-                  <Thumbnails
-                     isAFriend={false}
-                     isForPets={false}
-                     data={user.friends}
-                     className="desktopPets"
-                  />
-               </PassportWrapper>
-               <Navbar className="nav" />
+                  <PassportWrapper
+                     separator={true}
+                     separatorText="Your Friends"
+                  >
+                     <Thumbnails
+                        isAFriend={false}
+                        isForPets={false}
+                        data={user.friends}
+                        className="desktopPets"
+                     />
+                  </PassportWrapper>
+                  <Navbar className="nav" />
+               </div>
             </MainLayout>
          </S.Mobile>
       </>

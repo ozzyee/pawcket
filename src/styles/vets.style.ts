@@ -71,7 +71,7 @@ export const VetList = styled.ol`
    align-items: center;
    justify-content: center;
    padding: 0px;
-
+   padding-bottom:60px ;
    @media (min-width: ${styles.breakPoints.m}) {
       display: grid;
       grid-template-columns: repeat(3, 33%);

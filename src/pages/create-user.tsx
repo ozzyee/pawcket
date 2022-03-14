@@ -60,11 +60,13 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
                </>
             }
          >
-            <CreateProfileForm
-               dateObject={data}
-               userUID={userUID}
-               uploadImage={image}
-            />
+            <div id="mobile-wrapper" className="extra-padding">
+               <CreateProfileForm
+                  dateObject={data}
+                  userUID={userUID}
+                  uploadImage={image}
+               />
+            </div>
          </MainLayout>
       </>
    );

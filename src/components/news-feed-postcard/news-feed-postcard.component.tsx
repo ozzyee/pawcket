@@ -12,6 +12,7 @@ export function NewsFeedPostCard({
    userName,
    postImage,
    postText,
+   userUID,
 }: TCardInfoProps) {
    const [likeCount, setLikeCount] = useState(0);
    const [isLiked, setIsLiked] = useState(false);
@@ -53,8 +54,8 @@ export function NewsFeedPostCard({
                isLiked={isLiked}
                handleCommentClick={handleCommentClick}
             />
+            {showComment ? <CommentSection userName={userUID} /> : null}
          </S.CardInfoDiv>
-         {showComment ? <CommentSection /> : null}
       </S.Wrapper>
    );
 }

@@ -5,4 +5,5 @@ export type TCardInfoProps = {
    postText: string;
    postLike?: any;
    postComment?: any;
+   userUID: string;
 };

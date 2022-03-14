@@ -74,7 +74,7 @@ const NewsFeed = ({ userUID }: props) => {
             >
                <S.CardList>
                   {feedData.map(({ user, post, likes, comments }, index) => {
-                     console.log("FEEDDATA>>>>>>>>", user.userImage);
+                     console.log("FEEDDATA>>>>>>>>", userUID);
                      return (
                         <li key={index}>
                            <NewsFeedPostCard
@@ -83,6 +83,7 @@ const NewsFeed = ({ userUID }: props) => {
                               userName={user.fullName}
                               postLike={likes}
                               postComment={comments}
+                              userUID={userUID}
                            />
                         </li>
                      );
@@ -90,7 +91,7 @@ const NewsFeed = ({ userUID }: props) => {
                </S.CardList>
 
                <NewPost userUID={userUID} />
-               {/* <Navbar className="nav" /> */}
+               <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>
       </>

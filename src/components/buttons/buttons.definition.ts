@@ -5,6 +5,7 @@ export type TButtonsProps = {
    children: string;
    onClick?: any;
    vetsNavBtn?: boolean;
+   postButton?: boolean;
    allBtns?: boolean;
    type?: string;
 };

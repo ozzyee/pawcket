@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Buttons } from "../../../../functions/dynamic-imports";
 import { firestoreDB } from "../../../../lib/firebase/firebase.initialize";
 import { FormInputs } from "../../../form-inputs/form-inputs.component";
+import * as S from "./new-post.style";
 
 type Tpost = {
    userID: string;
@@ -20,8 +21,18 @@ export function NewPost({ userUID }: { userUID: string }) {
    };
    const [postInfo, setPostInfo] = useState<Tpost>(initialState);
    const [post, setPost] = useState("");
+   const [showInput, setShowInput] = useState(false);
+   const [text, setText] = useState("");
 
    async function createPost(e: React.ChangeEvent<HTMLInputElement>) {
+      if (!showInput) {
+         setShowInput(true);
+         return;
+      }
+      if (!text) {
+         setShowInput(false);
+         return;
+      }
       e.preventDefault();
       try {
          await addDoc(collection(firestoreDB, "feed"), {
@@ -33,17 +44,30 @@ export function NewPost({ userUID }: { userUID: string }) {
       } catch (err) {
          alert(err);
       }
+      setText("");
+      setShowInput(false);
    }
 
    function handleChange(e: any) {
       e.preventDefault();
-      setPost(e.target.value);
+      setText(e.target.value);
+      setPost(text);
    }
+
+   function remove() {}
 
    return (
       <>
-         <FormInputs placeholder="post a comment" onChange={handleChange} />
-         <Buttons onClick={createPost}> Post Comment </Buttons>
+         <S.test>
+            {showInput ? (
+               <FormInputs
+                  placeholder="post a comment"
+                  onChange={handleChange}
+                  formValue={text}
+               />
+            ) : null}
+            <S.postButton onClick={createPost}>Post</S.postButton>
+         </S.test>
       </>
    );
 }

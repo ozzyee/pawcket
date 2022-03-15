@@ -68,9 +68,9 @@ const Vet: NextPage = () => {
       <>
          <S.Desktop>
             <MainLayout className="desktop" desktopCard={true}>
+               <Navbar className="nav-desktop" />
                <S.Top>
                   <S.TopRight>
-                     <Navbar className="nav" />
                      <Text textType="h1" className="title">
                         Vets near you
                      </Text>
@@ -220,7 +220,7 @@ const Vet: NextPage = () => {
                      );
                   })}
                </VetList>
-
+               <div style={{ height: " 3vh" }}></div>
                <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>

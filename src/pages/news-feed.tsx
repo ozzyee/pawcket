@@ -90,6 +90,7 @@ const NewsFeed = ({ userUID }: props) => {
                   })}
                </S.CardList>
                <NewPost userUID={userUID} />
+               <div style={{ height: " 10vh" }}></div>
                <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>

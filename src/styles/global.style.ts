@@ -63,6 +63,12 @@ export const GlobalStyle = createGlobalStyle`
       left: 0;
       z-index: 2;
    }
+
+   .nav-desktop{
+width: 50%;
+float: right;
+border-radius: 0px 0px 0px 50px;
+   }
    
    #auth-btn{
       margin-top: 2rem ;

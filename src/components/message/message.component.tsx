@@ -1,9 +1,11 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { TMessageProps } from "./message.definition";
 import * as S from "./message.style";
+import Image from "next/image";
 
 export function Message({ className, sending, message, type }: TMessageProps) {
-   if (type == "response") {
+   if (type === "response") {
       return (
          <>
             <S.ResponseBubble>
@@ -15,6 +17,35 @@ export function Message({ className, sending, message, type }: TMessageProps) {
                   </div>
                </div>
             </S.ResponseBubble>
+         </>
+      );
+   }
+
+   console.log();
+
+   const isImg: string[] | undefined = message?.split(
+      "https://firebasestorage.googleapis.com"
+   );
+
+   // @ts-ignore
+   if (isImg?.length > 1) {
+      return (
+         <>
+            {message && (
+               <>
+                  <S.MessageDiv
+                     className={className}
+                     float={sending ? "right" : "left"}
+                  >
+                     <S.MessageWrapper
+                        float={sending ? "right" : "left"}
+                        color={sending ? "#3984EE" : "#e7eaeb"}
+                     >
+                        <Image src={message} width={100} height={100} />
+                     </S.MessageWrapper>
+                  </S.MessageDiv>
+               </>
+            )}
          </>
       );
    }

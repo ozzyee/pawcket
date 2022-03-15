@@ -30,26 +30,44 @@ export const InputAndBtnWrapper = styled.div`
    width: 100vw;
    height: 40px;
    left: 0;
-   bottom: 0;
+   bottom: 0px;
+   padding: 0 2rem;
 `;
 
 export const MsgInput = styled.input`
-   margin-left: 1rem;
-   width: 70%;
+   height: 1.8rem;
+   width: 78%;
+   border-radius: 22px;
+   padding: 0 1rem;
+   border: 2px solid ${styles.colors.primary};
+   :focus {
+      outline-width: 0;
+   }
 `;
 
 export const MsgSendBtn = styled.button`
-   margin-left: 1rem;
+   background-color: transparent;
+   border-color: transparent;
+   #send-icon {
+      width: 1.8rem;
+      margin-top: -5px;
+      color: ${styles.colors.primary};
+      :active {
+         transform: scale(0.9);
+      }
+   }
 `;
 
 export const ChatMessagesArea = styled.div`
    bottom: 60px;
    width: 80%;
-   max-height: 88%;
+   max-height: 60%;
    overflow: scroll;
    position: fixed;
    transition: height 120ms;
-   border: 1px solid red;
+   width: 100%;
+   left: 0;
+   padding: 0 2rem;
 `;
 
 export const MessagingArea = styled.div`
@@ -60,8 +78,15 @@ export const MessagingArea = styled.div`
 `;
 
 export const usersMessages = styled.div`
-   border: 2px solid green;
+   border: 2px solid transparent;
    position: relative;
    margin-top: 0;
-   height: 80%;
+`;
+
+export const ImagesToSend = styled.div`
+   height: 80px;
+   border: 2px solid transparent;
+   position: absolute;
+   width: 88%;
+   bottom: 3rem;
 `;

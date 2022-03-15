@@ -6,6 +6,7 @@ export const MobileFriendWrapper = styled.div`
    display: flex;
    margin-top: 1rem;
    margin-bottom: 1rem;
+   cursor: pointer;
 `;
 
 export const MobileSmallWrapper = styled.div`
@@ -20,11 +21,19 @@ export const MobileNameAndBtnWrapper = styled.div`
 `;
 
 export const TextWrapper = styled.div`
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+   /* width: 60%; */
    .name-text-mobile {
       margin: 0;
       padding: 0;
       color: black;
       font-size: 1.05rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 60%;
    }
    .status-text {
       margin: 0;
@@ -33,6 +42,11 @@ export const TextWrapper = styled.div`
       font-weight: normal;
       font-size: 0.9rem;
       margin-top: -4px;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 60%;
    }
 `;
 
@@ -68,7 +82,7 @@ export const ButtonWrapper = styled.div`
 
 export const MobileImg = styled.div`
    display: block;
-   width: 74%;
+   width: 60px;
    display: flex;
    align-items: center;
    justify-content: center;

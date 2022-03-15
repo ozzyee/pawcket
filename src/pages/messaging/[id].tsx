@@ -64,20 +64,20 @@ const Message = ({ userUID }: TFriendsData) => {
          <S.Mobile>
             <MainLayout
                className="mobile"
-               cardClassName="friends-section"
+               cardClassName="messaging"
                topChildren={
                   <FriendsTitleWrapper>
                      {selectedFriend.userImage && (
-                        <>
+                        <div className="img-holder">
                            <Image
-                              width={50}
-                              height={50}
+                              width={60}
+                              height={60}
                               alt="user img"
                               src={selectedFriend.userImage}
                            />
-                        </>
+                        </div>
                      )}
-                     <Text textType="h2">{selectedFriend.firstName}</Text>
+                     <Text textType="h1" className="msg-name">{selectedFriend.firstName}</Text>
                   </FriendsTitleWrapper>
                }
             >

@@ -30,6 +30,7 @@ export function FriendsModal({
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [currentFriendsData, setCurrentFriendsData] = useState<any>(null);
    const [currentUsersData, setCurrentUsersData] = useState<any>(null);
+   const [msg, setMsg] = useState("");
 
    useEffect(() => {
       const setUser = () => {
@@ -123,6 +124,19 @@ export function FriendsModal({
          setCurrentUsersData(_data);
       });
    }, []);
+   const isImg: string[] | undefined = message?.split(
+      "https://firebasestorage.googleapis.com"
+   );
+
+   useEffect(() => {
+      // @ts-ignore
+      if (isImg?.length > 1) {
+         setMsg("Image Sent");
+         return;
+      }
+      // @ts-ignore
+      setMsg(message);
+   }, [message]);
 
    const paramsObject = {
       id: uid,
@@ -156,7 +170,7 @@ export function FriendsModal({
                   {!message && (
                      <Text className="status-text">{userStatusMsg}</Text>
                   )}
-                  {message && <Text className="status-text">{message}</Text>}
+                  {message && <Text className="status-text">{msg}</Text>}
                </S.TextWrapper>
             </S.MobileNameAndBtnWrapper>
          </S.MobileFriendWrapper>

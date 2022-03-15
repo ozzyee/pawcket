@@ -69,7 +69,7 @@ const Message = ({ userUID }: TFriendsData) => {
          <S.Mobile>
             <MainLayout
                className="mobile"
-               cardClassName="friends-section"
+               cardClassName="messaging"
                topChildren={
                   <FriendsTitleWrapper>
                      <Text textType="h1">Select Contact</Text>

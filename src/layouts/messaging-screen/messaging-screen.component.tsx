@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TMessage, TMessagingScreenProps } from "./messaging-screen.definition";
 import * as S from "./messaging-screen.style";
 import { firestoreDB } from "../../lib/firebase/firebase.initialize";
@@ -22,6 +22,9 @@ import { useRouter } from "next/router";
 import { uid } from "uid";
 import { Message } from "../../components/message/message.component";
 import { handleSelectedFriend } from "../../functions/messaging/selected-friend";
+import { Send } from "@styled-icons/boxicons-regular/Send";
+import { Images } from "@styled-icons/bootstrap/Images";
+import { ImageUploader } from "../../functions/dynamic-imports";
 
 type TFriendsList = {
    fullName: string;
@@ -46,6 +49,41 @@ export function MessagingScreen({
    const [currentUsersChats, setCurrentUsersChats] = useState([]);
    const [_selectedFriend, setSelectedFriend] = useState({});
    const [friend, setFriend] = useState<TFriendsList[]>();
+   const hiddenImageUploader = useRef(null);
+   const [img, setImg] = useState("");
+
+   useEffect(() => {
+      const sendImag = async  () => {
+         if (!userUID) return null;
+
+         if (!messages) {
+            setMessages([{ userID: userUID, _message: img }]);
+            if (!messageID) return;
+            await setDoc(doc(firestoreDB, "massages", messageID), {
+               users: [
+                  { userId: userUID, isResponding: false },
+                  { userId: selectedFriend, isResponding: false },
+               ],
+               messages: ["", { userID: userUID, _message: img }],
+            });
+            return;
+         }
+
+         setMessages([...messages, { userID: userUID, _message: img }]);
+         if (!messageID) return;
+         await setDoc(doc(firestoreDB, "massages", messageID), {
+            users: [
+               { userId: userUID, isResponding: false },
+               { userId: selectedFriend, isResponding: false },
+            ],
+            messages: [...messages, { userID: userUID, _message: img }],
+         });
+      };
+
+      if (img) {
+         sendImag();
+      }
+   }, [img]);
 
    useEffect(() => {
       if (!userUID) return;
@@ -125,7 +163,7 @@ export function MessagingScreen({
                const friend = users?.filter(
                   ({ userId }: { userId: string }) => userId !== userUID
                );
-               const lastMsgPosition = data?.messages.length - 1;
+               const lastMsgPosition = data?.messages?.length - 1;
 
                const chatData = {
                   chatID,
@@ -194,6 +232,11 @@ export function MessagingScreen({
       });
    };
 
+   const sendImg = () => {
+      // @ts-ignore
+      hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
+   };
+
    if (type === "messaging") {
       return (
          <>
@@ -227,6 +270,13 @@ export function MessagingScreen({
                         }
                      }
                   )}
+                  <ImageUploader
+                     _ref={hiddenImageUploader}
+                     onChange={(imgUrl) => {
+                        setImg(imgUrl);
+                     }}
+                     folder={`/${userUID}/messages`}
+                  />
                </S.ChatMessagesArea>
 
                <S.InputAndBtnWrapper>
@@ -234,8 +284,15 @@ export function MessagingScreen({
                      type="text"
                      onChange={(evt) => setMsg(evt.target.value)}
                      value={msg}
+                     placeholder="Enter a message"
                   />
-                  <S.MsgSendBtn onClick={sendMsg}>Send</S.MsgSendBtn>
+
+                  <S.MsgSendBtn onClick={sendMsg}>
+                     <Send id="send-icon" />
+                  </S.MsgSendBtn>
+                  <S.MsgSendBtn onClick={sendImg}>
+                     <Images id="send-icon" />
+                  </S.MsgSendBtn>
                </S.InputAndBtnWrapper>
             </S.MessagingScreenDiv>
          </>

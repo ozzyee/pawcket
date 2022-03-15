@@ -11,7 +11,7 @@ export function Buttons({
    onClick,
    vetsNavBtn,
    id,
-   type
+   type,
 }: TButtonsProps) {
    const theme = {
       backgroundColor: dark ? styles.colors.orange : styles.colors.primary,
@@ -22,16 +22,20 @@ export function Buttons({
       fontColor: dark ? "white" : "white",
    };
 
-
-   if(type === "submit"){
+   if (type === "submit") {
       <ThemeProvider theme={theme}>
-      <S.ButtonsSubmit className={className} id={id} onClick={onClick} placeholder={children}/>
-   </ThemeProvider>
+         <S.ButtonsSubmit
+            className={className}
+            id={id}
+            onClick={onClick}
+            placeholder={children}
+         />
+      </ThemeProvider>;
    }
 
    return (
       <ThemeProvider theme={theme}>
-         <S.ButtonsDiv className={className} id={id} onClick={onClick} >
+         <S.ButtonsDiv className={className} id={id} onClick={onClick}>
             {children}
          </S.ButtonsDiv>
       </ThemeProvider>

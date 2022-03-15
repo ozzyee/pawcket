@@ -92,4 +92,10 @@ export const ButtonsSubmit = styled.button`
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
    }
+   .a {
+      outline: 20px solid red;
+   }
+   #b {
+      outline: 20px solid red;
+   }
 `;

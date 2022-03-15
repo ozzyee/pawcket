@@ -29,6 +29,7 @@ const CreatePet = ({ userUID, _data }: TCreatePetPage) => {
          </Head>
 
          <MainLayout desktopCard={true} className="desktop-display-block">
+            <Navbar className="nav-desktop" />
             <CreatePetForm userUID={userUID} _data={_data} />
          </MainLayout>
 
@@ -61,8 +62,9 @@ const CreatePet = ({ userUID, _data }: TCreatePetPage) => {
                   _data={_data}
                   uploadImage={image ? image : ""}
                />
-               <Navbar className="nav" />
+               <div style={{ height: " 23vh" }}></div>
             </div>
+            <Navbar className="nav" />
          </MainLayout>
       </>
    );

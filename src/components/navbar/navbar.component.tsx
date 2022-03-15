@@ -15,7 +15,7 @@ const icons = [
    },
    {
       name: "Misc",
-      direct: "/misc",
+      direct: "/friends",
       picture: "icons/miscellaneous-icon-nav.svg",
    },
    {

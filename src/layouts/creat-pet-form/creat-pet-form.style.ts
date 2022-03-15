@@ -29,8 +29,8 @@ export const CreatePetFormDiv = styled.div``;
 
 export const CreatePetForm = styled.form`
    height: 75vh;
-   width: 100% ;
-   overflow: scroll;
+   width: 100%;
+   /* overflow: scroll; */
 `;
 
 export const CreatePetSpan = styled.span``;

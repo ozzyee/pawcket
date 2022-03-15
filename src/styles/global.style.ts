@@ -79,11 +79,18 @@ export const GlobalStyle = createGlobalStyle`
       z-index: 2;
    }
 
+
+   .nav-desktop{
+width: 50%;
+float: right;
+border-radius: 0px 0px 0px 50px;
+
    .img-holder{
       overflow: hidden;
       width:60px;
       height:60px;
       border-radius:50%;
+
    }
    
    #auth-btn{

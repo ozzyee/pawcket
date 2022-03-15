@@ -5,7 +5,7 @@ import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { FriendsModal } from "../components/friends-modal/friends-modal.component";
-import { MainLayout, Navbar } from "../functions/dynamic-imports";
+import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import {
@@ -84,6 +84,7 @@ const Friends = ({ userUID }: TFriendsData) => {
                className="mobile"
                cardClassName="friends-section"
                topChildren={
+                  // <Frame img="/public/dummy-logo.svg" diameter={150} />
                   <FriendsTitleWrapper>
                      <Text textType="h1">Friends</Text>
                   </FriendsTitleWrapper>
@@ -98,6 +99,7 @@ const Friends = ({ userUID }: TFriendsData) => {
                      }}
                   /> */}
                </MobileFriendsWrapper>
+               <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>
       </>

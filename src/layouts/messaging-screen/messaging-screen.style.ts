@@ -32,11 +32,13 @@ export const InputAndBtnWrapper = styled.div`
    left: 0;
    bottom: 0px;
    padding: 0 2rem;
+   align-items: center;
+   justify-content: center;
 `;
 
 export const MsgInput = styled.input`
    height: 1.8rem;
-   width: 78%;
+   width: 70%;
    border-radius: 22px;
    padding: 0 1rem;
    border: 2px solid ${styles.colors.primary};

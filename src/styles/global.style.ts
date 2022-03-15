@@ -45,9 +45,9 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .messaging{
-     height : 60vh;
-     margin-top:26vh ;
-     position: fixed ;
+     height : 75vh;
+     margin-top:-15vh ;
+     /* position: fixed ; */
      .kQdQMS{
          border:2px solid transparent;
       }

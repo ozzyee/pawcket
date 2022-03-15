@@ -39,9 +39,16 @@ export function Message({ className, sending, message, type }: TMessageProps) {
                   >
                      <S.MessageWrapper
                         float={sending ? "right" : "left"}
-                        color={sending ? "#3984EE" : "#e7eaeb"}
+                        color={sending ? "transparent" : "transparent"}
                      >
-                        <Image src={message} width={100} height={100} />
+                        <S.ImageWrapper>
+                           <Image
+                              src={message}
+                              width={120}
+                              height={120}
+                              objectFit="cover"
+                           />
+                        </S.ImageWrapper>
                      </S.MessageWrapper>
                   </S.MessageDiv>
                </>

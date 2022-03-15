@@ -15,12 +15,16 @@ import { MessagingScreen } from "../../layouts/messaging-screen/messaging-screen
 import { AuthService } from "../../lib/auth-service/auth.service";
 import { firestoreDB } from "../../lib/firebase/firebase.initialize";
 import {
+   BackButton,
    FriendsTitleWrapper,
    MobileFriendsWrapper,
 } from "../../styles/global.style";
 import { TUserData } from "../../types/user-data.definition";
 import { Text } from "../../components/text/text.component";
 import * as S from "../../styles/vets.style";
+import Image from "next/image";
+import { ArrowBack } from "@styled-icons/boxicons-regular/ArrowBack";
+import router from "next/router";
 
 type TFriendsData = {
    userUID?: string;
@@ -72,6 +76,9 @@ const Message = ({ userUID }: TFriendsData) => {
                cardClassName="messaging"
                topChildren={
                   <FriendsTitleWrapper>
+                     <BackButton onClick={() => router.back()}>
+                        <ArrowBack id="back-btn" />
+                     </BackButton>
                      <Text textType="h1">Select Contact</Text>
                   </FriendsTitleWrapper>
                }

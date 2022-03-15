@@ -366,3 +366,22 @@ export const MobileFriendsWrapper = styled.div`
       margin-bottom: 1rem;
    }
 `;
+
+export const BackButton = styled.button`
+   position: absolute;
+   left: 1.4rem;
+   top: 1.4rem;
+   width: 2.8rem;
+   height: 2.8rem;
+   border-radius: 50%;
+   background-color: ${styles.colors.orange};
+   border: 2px solid ${styles.colors.orange};
+
+   :active {
+      transform: scale(0.95);
+   }
+
+   #back-btn {
+      color: white;
+   }
+`;

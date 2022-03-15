@@ -92,3 +92,5 @@ export const ImagesToSend = styled.div`
    width: 88%;
    bottom: 3rem;
 `;
+
+

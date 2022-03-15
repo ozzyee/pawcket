@@ -1,4 +1,4 @@
-   /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 import {
    collection,
@@ -16,10 +16,13 @@ import { TUserData } from "../types/user-data.definition";
 import { Text } from "../components/text/text.component";
 import * as S from "../styles/vets.style";
 import {
+   BackButton,
    FriendsTitleWrapper,
    MobileFriendsWrapper,
 } from "../styles/global.style";
 import { MessagingScreen } from "../layouts/messaging-screen/messaging-screen.component";
+import { ArrowBack } from "@styled-icons/boxicons-regular/ArrowBack";
+import { useRouter } from "next/router";
 
 type TFriendsData = {
    userUID?: string;
@@ -28,6 +31,7 @@ type TFriendsData = {
 const Message = ({ userUID }: TFriendsData) => {
    const [allFriends, setAllFriends] = useState([]);
    const [friendsList, setFriendsList] = useState<TUserData[]>([]);
+   const router = useRouter();
 
    useEffect(() => {
       if (!userUID) return;
@@ -72,6 +76,9 @@ const Message = ({ userUID }: TFriendsData) => {
                cardClassName="messaging"
                topChildren={
                   <FriendsTitleWrapper>
+                     <BackButton onClick={() => router.back()}>
+                        <ArrowBack id="back-btn" />
+                     </BackButton>
                      <Text textType="h1">Messages</Text>
                   </FriendsTitleWrapper>
                }

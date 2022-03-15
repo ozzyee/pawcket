@@ -45,9 +45,9 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .messaging{
-     height : 60vh;
-     margin-top:26vh ;
-     position: fixed ;
+     height : 75vh;
+     margin-top:-15vh ;
+     /* position: fixed ; */
      .kQdQMS{
          border:2px solid transparent;
       }
@@ -371,5 +371,24 @@ export const MobileFriendsWrapper = styled.div`
       overflow: scroll;
       margin-top: 1rem;
       margin-bottom: 1rem;
+   }
+`;
+
+export const BackButton = styled.button`
+   position: absolute;
+   left: 1.4rem;
+   top: 1.4rem;
+   width: 2.8rem;
+   height: 2.8rem;
+   border-radius: 50%;
+   background-color: ${styles.colors.orange};
+   border: 2px solid ${styles.colors.orange};
+
+   :active {
+      transform: scale(0.95);
+   }
+
+   #back-btn {
+      color: white;
    }
 `;

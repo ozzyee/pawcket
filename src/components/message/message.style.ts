@@ -113,3 +113,10 @@ export const ResponseBubble = styled.div`
       }
    }
 `;
+
+export const ImageWrapper = styled.div`
+   display: flex;
+   border-radius: 22px;
+   overflow: hidden;
+   margin-right: -12px;
+`;

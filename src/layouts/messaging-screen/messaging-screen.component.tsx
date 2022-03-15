@@ -48,12 +48,24 @@ export function MessagingScreen({
    const [respondingToMsg, setRespondingToMsg] = useState(false);
    const [currentUsersChats, setCurrentUsersChats] = useState([]);
    const [_selectedFriend, setSelectedFriend] = useState({});
-   const [friend, setFriend] = useState<TFriendsList[]>();
+   const [friend, setFriend] = useState<TFriendsList>();
+   const [_data, setData] = useState<TFriendsList[] | null>(null);
    const hiddenImageUploader = useRef(null);
    const [img, setImg] = useState("");
 
    useEffect(() => {
-      const sendImag = async  () => {
+      if (!_data) {
+         // @ts-ignore
+         setData([friend]);
+         return;
+      }
+      // @ts-ignore
+      setData([..._data, friend]);
+   }, [friend]);
+   console.log("friend =>", _data);
+
+   useEffect(() => {
+      const sendImag = async () => {
          if (!userUID) return null;
 
          if (!messages) {
@@ -139,19 +151,13 @@ export function MessagingScreen({
       ) => {
          onSnapshot(doc(firestoreDB, "users", userID), (doc) => {
             const data = doc.data();
-            console.log(data);
             const _data = {
                fullName: data?.firstName + " " + data?.lastName,
                image: data?.userImage,
                chatData,
             };
 
-            if (!friend) {
-               setFriend([{ ..._data }]);
-            }
-            if (friend) {
-               setFriend([...friend, { ..._data }]);
-            }
+            setFriend(_data);
          });
       };
 
@@ -169,7 +175,8 @@ export function MessagingScreen({
                   chatID,
                   lastMsg: data?.messages[lastMsgPosition],
                };
-               getUser(friend[0].userId, chatData);
+               if (!friend) return;
+               getUser(friend[0]?.userId, chatData);
             });
          }
       });
@@ -207,6 +214,7 @@ export function MessagingScreen({
 
    const sendMsg = async () => {
       if (!userUID) return null;
+      setMsg("");
 
       if (!messages) {
          setMessages([{ userID: userUID, _message: msg }]);
@@ -342,35 +350,43 @@ export function MessagingScreen({
 
    return (
       <S.MessagingScreenDiv className={className}>
+         
          <S.usersMessages>
-            {friend?.map(
-               ({ chatData: { chatID, lastMsg }, fullName, image }, index) => {
-                  let msg;
+            {_data?.map((item, index) => {
+               if (!item) return;
+               console.log(item);
 
-                  if (lastMsg.userID === userUID) {
-                     msg = "You: " + lastMsg._message;
-                  } else {
-                     msg = lastMsg._message;
-                  }
+               const {
+                  chatData: { chatID, lastMsg },
+                  fullName,
+                  image,
+               } = item;
 
-                  return (
-                     <FriendsModal
-                        key={index}
-                        onClick={() => {
-                           router.push("/messaging/" + chatID);
-                        }}
-                        type="mobile messaging"
-                        fullName={fullName}
-                        uid={""}
-                        currentUserUid={userUID}
-                        friendsRequestList={undefined}
-                        imageUrl={image}
-                        chatID={messageID}
-                        message={msg}
-                     />
-                  );
+               let msg;
+
+               if (lastMsg.userID === userUID) {
+                  msg = "You: " + lastMsg._message;
+               } else {
+                  msg = lastMsg._message;
                }
-            )}
+
+               return (
+                  <FriendsModal
+                     key={index}
+                     onClick={() => {
+                        router.push("/messaging/" + chatID);
+                     }}
+                     type="mobile messaging"
+                     fullName={fullName}
+                     uid={""}
+                     currentUserUid={userUID}
+                     friendsRequestList={undefined}
+                     imageUrl={image}
+                     chatID={messageID}
+                     message={msg}
+                  />
+               );
+            })}
          </S.usersMessages>
          <S.MessagingBtn>
             <MessageDetail

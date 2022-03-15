@@ -30,17 +30,32 @@ type TFriendsData = {
 
 const Message = ({ userUID }: TFriendsData) => {
    const router = useRouter();
-   const friendId = router.asPath.split("/")[2];
-   const [selectedFriend, setSelectedFriend] = useState<TUserData>({});
+   const msgID = router.asPath.split("/")[2];
+   const [selectedFriend, setSelectedFriend] = useState<TUserData>();
+   const [userID, setUserId] = useState("");
 
    useEffect(() => {
       if (!userUID) return;
-      onSnapshot(doc(firestoreDB, "users", friendId), (doc) => {
+      onSnapshot(doc(firestoreDB, "massages", msgID), (doc) => {
          const data = doc.data();
-         //  @ts-ignore
-         setSelectedFriend(data);
+         const users = data?.users;
+
+         users?.map(({ userId }: { userId: string }) => {
+            if (userUID !== userId) {
+               setUserId(userId);
+            }
+         });
       });
    }, []);
+
+   useEffect(() => {
+      if (!userID) return;
+      onSnapshot(doc(firestoreDB, "users", userID), (doc) => {
+         const data = doc.data();
+         // @ts-ignore
+         setSelectedFriend(data);
+      });
+   }, [userID]);
 
    if (!selectedFriend) return null;
 
@@ -70,7 +85,8 @@ const Message = ({ userUID }: TFriendsData) => {
                <MessagingScreen
                   type="messaging"
                   userUID={userUID}
-                  selectedFriend={friendId}
+                  selectedFriend={userID}
+                  messageID={msgID}
                />
                {/* </MobileFriendsWrapper> */}
             </MainLayout>

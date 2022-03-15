@@ -52,10 +52,16 @@ export const ChatMessagesArea = styled.div`
    border: 1px solid red;
 `;
 
-
 export const MessagingArea = styled.div`
    margin-top: 25px;
 
    width: 100%;
    display: inline-block;
+`;
+
+export const usersMessages = styled.div`
+   border: 2px solid green;
+   position: relative;
+   margin-top: 0;
+   height: 80%;
 `;

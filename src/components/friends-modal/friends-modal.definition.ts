@@ -22,4 +22,5 @@ export type TFriendsModalProps = {
    status?: string;
    onClick?: any;
    chatID?: string;
+   message?: string;
 };

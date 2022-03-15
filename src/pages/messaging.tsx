@@ -9,7 +9,7 @@ import {
 } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
-import { MainLayout, Navbar } from "../functions/dynamic-imports";
+import { MainLayout } from "../functions/dynamic-imports";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { TUserData } from "../types/user-data.definition";
@@ -33,7 +33,6 @@ const Message = ({ userUID }: TFriendsData) => {
       if (!userUID) return;
       onSnapshot(doc(firestoreDB, "users", userUID), (doc) => {
          const data = doc.data();
-         const requests = data?.friendsRequests;
          const friends = data?.friends;
          setAllFriends(friends);
       });
@@ -78,7 +77,7 @@ const Message = ({ userUID }: TFriendsData) => {
                }
             >
                <MobileFriendsWrapper>
-                  <MessagingScreen />
+                  <MessagingScreen userUID={userUID} />
                </MobileFriendsWrapper>
             </MainLayout>
          </S.Mobile>

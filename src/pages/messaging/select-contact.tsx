@@ -64,8 +64,6 @@ const Message = ({ userUID }: TFriendsData) => {
       });
    }, [allFriends]);
 
-   console.log("friendsList => ", friendsList);
-
    return (
       <>
          <S.Mobile>

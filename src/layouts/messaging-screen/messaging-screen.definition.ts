@@ -3,6 +3,7 @@ export type TMessagingScreenProps = {
    type?: string;
    userUID: string | undefined;
    selectedFriend?: string;
+   messageID?: string;
 };
 
 export type TMessage = {

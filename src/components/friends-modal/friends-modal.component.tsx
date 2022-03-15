@@ -25,6 +25,7 @@ export function FriendsModal({
    type,
    onClick,
    chatID,
+   message,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [currentFriendsData, setCurrentFriendsData] = useState<any>(null);
@@ -133,7 +134,7 @@ export function FriendsModal({
       return (
          <S.MobileFriendWrapper
             onClick={() => {
-               onClick(chatID);
+               onClick(`${chatID}/${uid}`);
             }}
          >
             <S.MobileSmallWrapper>
@@ -141,8 +142,8 @@ export function FriendsModal({
                   <Image
                      src={!imageUrl ? "/icon-256x256.png" : imageUrl}
                      alt="Picture of the author"
-                     width={80}
-                     height={80}
+                     width={60}
+                     height={60}
                   />
                </S.MobileImg>
             </S.MobileSmallWrapper>
@@ -152,7 +153,10 @@ export function FriendsModal({
                   <Text textType="h3" className="name-text-mobile">
                      {fullName}
                   </Text>
-                  <Text className="status-text">{userStatusMsg}</Text>
+                  {!message && (
+                     <Text className="status-text">{userStatusMsg}</Text>
+                  )}
+                  {message && <Text className="status-text">{message}</Text>}
                </S.TextWrapper>
             </S.MobileNameAndBtnWrapper>
          </S.MobileFriendWrapper>

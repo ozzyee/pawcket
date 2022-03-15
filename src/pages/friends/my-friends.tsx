@@ -65,8 +65,6 @@ const Friends = ({ userUID }: TFriendsData) => {
       });
    }, [allFriends]);
 
-   console.log(friendsList);
-
    return (
       <>
          <S.Mobile>

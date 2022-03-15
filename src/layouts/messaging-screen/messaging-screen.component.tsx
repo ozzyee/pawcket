@@ -27,6 +27,7 @@ export function MessagingScreen({
    type,
    userUID,
    selectedFriend,
+   messageID,
 }: TMessagingScreenProps) {
    const router = useRouter();
    const [allFriends, setAllFriends] = useState([]);
@@ -37,6 +38,9 @@ export function MessagingScreen({
    const [respondingToMsg, setRespondingToMsg] = useState(false);
    const [currentUsersChats, setCurrentUsersChats] = useState([]);
    const [newData, setNewData] = useState([]);
+   const [_selectedFriend, setSelectedFriend] = useState({});
+   const [crrUserData, setCurrUserData] = useState({});
+   const [friend, setFriend] = useState([]);
 
    useEffect(() => {
       if (!userUID) return;
@@ -45,6 +49,8 @@ export function MessagingScreen({
          const friends = data?.friends;
          setAllFriends(friends);
          setCurrentUsersChats(data?.chats);
+         // @ts-ignore
+         setCurrUserData(data);
       });
    }, []);
 
@@ -70,10 +76,45 @@ export function MessagingScreen({
          });
          setFriendsList(_friendsList);
       });
+
+      const getUser = (userID: string, chatData: any) => {
+         onSnapshot(doc(firestoreDB, "users", userID), (doc) => {
+            const data = doc.data();
+            console.log(data);
+            const _data = {
+               fullName: data?.firstName + " " + data?.lastName,
+               image: data?.userImage,
+               chatData,
+            };
+            // @ts-ignore
+            setFriend([...friend, { ..._data }]);
+         });
+      };
+
+      allFriends.map(({ chatID }) => {
+         if (chatID) {
+            onSnapshot(doc(firestoreDB, "massages", chatID), (doc) => {
+               const data = doc.data();
+               const users = data?.users;
+               const friend = users.filter(
+                  ({ userId }: { userId: string }) => userId !== userUID
+               );
+               const lastMsgPosition = data?.messages.length - 1;
+
+               const chatData = {
+                  chatID,
+                  lastMsg: data?.messages[lastMsgPosition],
+               };
+               getUser(friend[0].userId, chatData);
+            });
+         }
+      });
    }, [allFriends]);
 
    useEffect(() => {
-      onSnapshot(doc(firestoreDB, "massages", "msg-id-123"), (doc) => {
+      if (!messageID) return;
+
+      onSnapshot(doc(firestoreDB, "massages", messageID), (doc) => {
          const data = doc.data();
          // @ts-ignore
          setMsgData(data);
@@ -108,8 +149,8 @@ export function MessagingScreen({
       );
 
       _users[objIndex].isResponding = respondingToMsg;
-
-      updateDoc(doc(firestoreDB, "massages", "msg-id-123"), {
+      if (!messageID) return;
+      updateDoc(doc(firestoreDB, "massages", messageID), {
          users: [..._users],
       });
    }, [respondingToMsg]);
@@ -121,11 +162,8 @@ export function MessagingScreen({
                const res = await Promise.all(
                   currentUsersChats.map(async ({ chatID }) => {
                      if (item.chatID === chatID) {
-                        const docRef = doc(
-                           firestoreDB,
-                           "massages",
-                           "msg-id-123"
-                        );
+                        if (!messageID) return;
+                        const docRef = doc(firestoreDB, "massages", messageID);
                         const docSnap = await getDoc(docRef);
                         const data = docSnap.data();
                         return data;
@@ -145,8 +183,93 @@ export function MessagingScreen({
       getData();
    }, []);
 
-   const handleSelectedFriend = (id: string) => {
-      router.push("/messaging/" + id);
+   const sendMessageDataToUser = async (newData: any) => {
+      if (!userUID) return null;
+      await setDoc(doc(firestoreDB, "users", userUID), {
+         ...newData,
+      });
+   };
+
+   const sendMessageDataToFriend = async (
+      newData: any,
+      userID: any,
+      messageID: any
+   ) => {
+      await setDoc(doc(firestoreDB, "users", userID), {
+         ...newData,
+      });
+
+      await setDoc(doc(firestoreDB, "massages", messageID), {
+         users: [
+            { userId: userUID, isResponding: false },
+            { userId: userID, isResponding: false },
+         ],
+         messages: [""],
+      });
+      router.push("/messaging/" + messageID);
+   };
+
+   const handleSelectedFriend = async (id: string) => {
+      const userID = id.split("/")[1];
+      const messageID = id.split("/")[0];
+
+      if (!userUID) return;
+      // set message id to friendßs
+      onSnapshot(doc(firestoreDB, "users", userID), async (doc) => {
+         const data = doc.data();
+         const result = data?.friends.filter(
+            ({ friendID }: { friendID: string }) => friendID === userUID
+         );
+
+         if (!result[0].chatID) {
+            const friend = data?.friends;
+            const objIndex = friend?.findIndex(
+               ({ friendID }: { friendID: string }) => friendID == userUID
+            );
+            friend[objIndex] = {
+               friendID: userUID,
+               requestAccepted: true,
+               chatID: messageID,
+            };
+
+            const newData = {
+               ...data,
+               friends: friend,
+            };
+            await sendMessageDataToFriend(newData, userID, messageID);
+         }
+
+         if (result[0].chatID) {
+            console.log("RES ->", result[0].chatID);
+            router.push("/messaging/" + result[0].chatID);
+         }
+      });
+
+      // set message id to current user
+      onSnapshot(doc(firestoreDB, "users", userUID), async (doc) => {
+         const data = doc.data();
+         const result = data?.friends.filter(
+            ({ friendID }: { friendID: string }) => friendID === userID
+         );
+
+         if (!result[0].chatID) {
+            const friend = data?.friends;
+            const objIndex = friend?.findIndex(
+               ({ friendID }: { friendID: string }) => friendID == userID
+            );
+            friend[objIndex] = {
+               friendID: userID,
+               requestAccepted: true,
+               chatID: messageID,
+            };
+
+            const newData = {
+               ...data,
+               friends: friend,
+            };
+            await sendMessageDataToUser(newData);
+         }
+      });
    };
 
    const sendMsg = async () => {
@@ -156,8 +279,8 @@ export function MessagingScreen({
       if (!messages) {
          // @ts-ignore
          setMessages(["", { userID: userUID, _message: msg }]);
-
-         await setDoc(doc(firestoreDB, "massages", "msg-id-123"), {
+         if (!messageID) return;
+         await setDoc(doc(firestoreDB, "massages", messageID), {
             users: [
                { userId: userUID, isResponding: false },
                { userId: selectedFriend, isResponding: false },
@@ -168,7 +291,8 @@ export function MessagingScreen({
       }
 
       setMessages([...messages, { userID: userUID, _message: msg }]);
-      await setDoc(doc(firestoreDB, "massages", "msg-id-123"), {
+      if (!messageID) return;
+      await setDoc(doc(firestoreDB, "massages", messageID), {
          users: [
             { userId: userUID, isResponding: false },
             { userId: selectedFriend, isResponding: false },
@@ -176,8 +300,6 @@ export function MessagingScreen({
          messages: [...messages, { userID: userUID, _message: msg }],
       });
    };
-
-   console.log("currentUsersChats =>", currentUsersChats);
 
    if (type === "messaging") {
       return (
@@ -230,7 +352,7 @@ export function MessagingScreen({
                   ({ firstName, lastName, userID, userImage, chats }) => {
                      let messageID;
                      const r = chats?.filter((elem) =>
-                        currentUsersChats.find(
+                        currentUsersChats?.find(
                            ({ chatID }) => elem.chatID === chatID
                         )
                      );
@@ -240,7 +362,6 @@ export function MessagingScreen({
                      } else {
                         messageID = uid();
                      }
-
 
                      return (
                         <FriendsModal
@@ -264,8 +385,48 @@ export function MessagingScreen({
 
    return (
       <S.MessagingScreenDiv className={className}>
+         <S.usersMessages>
+            {friend.map(
+               ({ chatData: { chatID, lastMsg }, fullName, image }, index) => {
+                  let msg;
+
+                  // @ts-ignore
+                  if (lastMsg.userID === userUID) {
+                     // @ts-ignore
+
+                     msg = "You: " + lastMsg._message;
+                  } else {
+                     // @ts-ignore
+
+                     msg = lastMsg._message;
+                  }
+
+                  return (
+                     <FriendsModal
+                        key={index}
+                        onClick={() => {
+                           router.push("/messaging/" + chatID);
+                        }}
+                        type="mobile messaging"
+                        fullName={fullName}
+                        uid={""}
+                        currentUserUid={userUID}
+                        friendsRequestList={undefined}
+                        imageUrl={image}
+                        chatID={messageID}
+                        message={msg}
+                     />
+                  );
+               }
+            )}
+         </S.usersMessages>
          <S.MessagingBtn>
-            <MessageDetail id="icon" />
+            <MessageDetail
+               id="icon"
+               onClick={() => {
+                  router.push("/messaging/select-contact");
+               }}
+            />
          </S.MessagingBtn>
       </S.MessagingScreenDiv>
    );

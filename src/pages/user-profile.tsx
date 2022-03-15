@@ -42,11 +42,6 @@ type TUserData = {
 };
 
 const UserProfile = ({ data }: TData) => {
-   //    const router = useRouter();
-   //    const userID = router.asPath.split("/")[2];
-   //    const userData = data?.filter(({ id }: { id: string }) => id === petID);
-   //    console.log("this is pet data", petData);
-
    const [user, setUser] = useState<TUser | DocumentData>({ ...data });
    const [friends, setFriends] = useState<any[]>([])
 

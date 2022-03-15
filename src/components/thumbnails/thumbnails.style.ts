@@ -6,6 +6,7 @@ export const Thumbnails = styled.div<TThumbnailsProps>`
    width: 100%;
    height: 100%;
    margin: 10% 10%;
+   margin-bottom: 10vh;
    display: grid;
    grid-template-columns: repeat(1, 80%);
    grid-auto-rows: 150px;

@@ -43,19 +43,22 @@ type TData = {
 const FriendProfile = ({ data }: TData) => {
     const router = useRouter();
     const userID = router.asPath.split("/")[2];
-    console.log(userID)
 
-   const [user, setUser] = useState<TUser | DocumentData>({});
-   const [friends, setFriends] = useState<any[]>([])
+   const [user, setUser] = useState<TUser | DocumentData>();
+   const [friends, setFriends] = useState<any[]>([""])
+   const [trigger, setTrigger] = useState<boolean>(false)
 
     useEffect(async () => {
         const docRef = doc(firestoreDB, "users", userID);
         const docSnap = await getDoc(docRef);
         const _data = docSnap.data();
-        setUser({..._data})
+        setUser({..._data});
+        setTrigger(true)
     }, [])
-
     useEffect(async () => {
+        if(!trigger){
+            return null
+        }
         const getFriendsIDS = () =>{
             const acceptedRequest = user.friends.filter((friend: TFriendData) => { return friend.requestAccepted ? true : false})
             const IDS: string[] = [];
@@ -72,9 +75,9 @@ const FriendProfile = ({ data }: TData) => {
             setFriends([...friendsData])
         }
         friendsID.map(async(id:string) => {await getFriendsData(id)})
-    }, [user])
+    }, [trigger])
 
-   if (!user) return null;
+if (!user) return null;
    return (
       <>
          <Head>
@@ -136,7 +139,7 @@ const FriendProfile = ({ data }: TData) => {
                         userName={user.firstName}
                         isForPets={false}
                         isAFriend={true}
-                        data={user.friends}
+                        data={friends}
                         className="desktopPets"
                      />
                   </PassportWrapper>
@@ -183,7 +186,7 @@ const FriendProfile = ({ data }: TData) => {
                      userName={user.firstName}
                      isForPets={false}
                      isAFriend={true}
-                     data={user.friends}
+                     data={friends}
                      className="desktopPets"
                   />
                </PassportWrapper>

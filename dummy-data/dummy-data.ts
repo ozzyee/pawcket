@@ -1,11 +1,11 @@
 import { TPet } from "../src/layouts/creat-pet-form/creat-pet-form.definition";
 
 export type TUser = {
-   firstName: string;
-   lastName: string;
+   firstName?: string;
+   lastName?: string;
    userName?: string;
    address?: string;
-   DOB: string;
+   DOB?: string;
    telephone?: string;
    extraInfo?: string;
    userImage?: string;

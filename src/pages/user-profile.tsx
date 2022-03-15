@@ -27,11 +27,11 @@ type TFriendData = {
 };
 
 type TUserData = {
-   firstName: string;
-   lastName: string;
+   firstName?: string;
+   lastName?: string;
    userName?: string;
    address?: string;
-   DOB: string;
+   DOB?: string;
    telephone?: string;
    extraInfo?: string;
    profilePic?: string;
@@ -54,12 +54,12 @@ const UserProfile = ({ data }: TData) => {
             return IDS 
         }
         const friendsID = getFriendsIDS()
-        const friendsData = [];
+        const friendsData: TUser[] | DocumentData[] = [];
         async function getFriendsData(id:string) {       
             const docRef = doc(firestoreDB, "users", id);
             const docSnap = await getDoc(docRef);
             const data = docSnap.data();
-            friendsData.push(data)
+            data ? friendsData.push(data): null
             setFriends([...friendsData])
         }
         

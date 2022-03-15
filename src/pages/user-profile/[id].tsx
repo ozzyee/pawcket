@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { NextApiRequest } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { EffectCallback, useEffect, useState } from "react";
 import { Separator } from "../../components/separator/separator.component";
 import { PassportWrapper } from "../../components/passport-wrapper/passport-wrapper.component";
 import { Text } from "../../components/text/text.component";
@@ -48,33 +48,44 @@ const FriendProfile = ({ data }: TData) => {
    const [friends, setFriends] = useState<any[]>([""])
    const [trigger, setTrigger] = useState<boolean>(false)
 
-    useEffect(async () => {
+    useEffect(() => {
+
+        const setFriendData = async() => {            
         const docRef = doc(firestoreDB, "users", userID);
         const docSnap = await getDoc(docRef);
         const _data = docSnap.data();
         setUser({..._data});
         setTrigger(true)
+        };
+        setFriendData();
+
     }, [])
-    useEffect(async () => {
-        if(!trigger){
-            return null
+    useEffect(() => {
+
+        const setFriendsID = async() =>{
+            
+            if(!trigger){
+                return null
+            }
+            const getFriendsIDS = () =>{
+                const acceptedRequest = user.friends.filter((friend: TFriendData) => { return friend.requestAccepted ? true : false})
+                const IDS: string[] = [];
+                acceptedRequest.forEach((id: TFriendData) => IDS.push(id.friendID))
+                return IDS 
+            }
+            const friendsID = getFriendsIDS()
+            const friendsData = [];
+            async function getFriendsData(id:string) {       
+                const docRef = doc(firestoreDB, "users", id);
+                const docSnap = await getDoc(docRef);
+                const data = docSnap.data();
+                friendsData.push(data)
+                setFriends([...friendsData])
+            }
+            friendsID.map(async(id:string) => {await getFriendsData(id)})
         }
-        const getFriendsIDS = () =>{
-            const acceptedRequest = user.friends.filter((friend: TFriendData) => { return friend.requestAccepted ? true : false})
-            const IDS: string[] = [];
-            acceptedRequest.forEach((id: TFriendData) => IDS.push(id.friendID))
-            return IDS 
-        }
-        const friendsID = getFriendsIDS()
-        const friendsData = [];
-        async function getFriendsData(id:string) {       
-            const docRef = doc(firestoreDB, "users", id);
-            const docSnap = await getDoc(docRef);
-            const data = docSnap.data();
-            friendsData.push(data)
-            setFriends([...friendsData])
-        }
-        friendsID.map(async(id:string) => {await getFriendsData(id)})
+        setFriendsID();
+
     }, [trigger])
 
 if (!user) return null;

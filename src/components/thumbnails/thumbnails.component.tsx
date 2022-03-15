@@ -139,7 +139,7 @@ export function Thumbnails({
                   dark={false}
                   className={!data ? "centeredButton" : ""}
                   onClick={() =>
-                     router.push("/friends", undefined, {
+                     router.push("/friends/search", undefined, {
                         shallow: true,
                      })
                   }

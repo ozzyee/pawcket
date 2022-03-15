@@ -13,6 +13,9 @@ export type TUserData = {
    fullNameReverse: string;
    userName: string;
    friendsRequests: any;
+   chats: {
+      chatID: string;
+   }[];
    friends: {
       friendID: string;
       requestAccepted: boolean;

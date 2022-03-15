@@ -126,7 +126,7 @@ export function Thumbnails({
                      className="petPic"
                      isPet={false}
                      onClick={() =>
-                        router.push(`/user-profile/${user.id}`, undefined, {
+                        router.push(`/user-profile/${user.userID}`, undefined, {
                            shallow: true,
                         })
                      }
@@ -139,7 +139,7 @@ export function Thumbnails({
                   dark={false}
                   className={!data ? "centeredButton" : ""}
                   onClick={() =>
-                     router.push("/friends", undefined, {
+                     router.push("/friends/search", undefined, {
                         shallow: true,
                      })
                   }

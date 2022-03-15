@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+   /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 import {
    collection,
@@ -9,35 +9,32 @@ import {
 } from "@firebase/firestore";
 import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
-import { MainLayout, Navbar } from "../../functions/dynamic-imports";
-import { AuthService } from "../../lib/auth-service/auth.service";
-import { firestoreDB } from "../../lib/firebase/firebase.initialize";
+import { MainLayout } from "../functions/dynamic-imports";
+import { AuthService } from "../lib/auth-service/auth.service";
+import { firestoreDB } from "../lib/firebase/firebase.initialize";
+import { TUserData } from "../types/user-data.definition";
+import { Text } from "../components/text/text.component";
+import * as S from "../styles/vets.style";
 import {
    FriendsTitleWrapper,
    MobileFriendsWrapper,
-} from "../../styles/global.style";
-import { TUserData } from "../../types/user-data.definition";
-import { Text } from "../../components/text/text.component";
-import * as S from "../../styles/vets.style";
-import { FriendsModal } from "../../components/friends-modal/friends-modal.component";
+} from "../styles/global.style";
+import { MessagingScreen } from "../layouts/messaging-screen/messaging-screen.component";
 
 type TFriendsData = {
    userUID?: string;
 };
 
-const Friends = ({ userUID }: TFriendsData) => {
+const Message = ({ userUID }: TFriendsData) => {
    const [allFriends, setAllFriends] = useState([]);
    const [friendsList, setFriendsList] = useState<TUserData[]>([]);
-   const [requestNum, setRequestNum] = useState(0);
 
    useEffect(() => {
       if (!userUID) return;
       onSnapshot(doc(firestoreDB, "users", userUID), (doc) => {
          const data = doc.data();
-         const requests = data?.friendsRequests;
          const friends = data?.friends;
          setAllFriends(friends);
-         setRequestNum(requests?.length - 1);
       });
    }, []);
 
@@ -65,37 +62,23 @@ const Friends = ({ userUID }: TFriendsData) => {
       });
    }, [allFriends]);
 
+   console.log("friendsList => ", friendsList);
+
    return (
       <>
          <S.Mobile>
             <MainLayout
                className="mobile"
-               cardClassName="friends-section"
+               cardClassName="messaging"
                topChildren={
                   <FriendsTitleWrapper>
-                     <Text textType="h1">Friends</Text>
+                     <Text textType="h1">Messages</Text>
                   </FriendsTitleWrapper>
                }
             >
                <MobileFriendsWrapper>
-                  <Navbar type="mobile-friends" requests={requestNum} />
-                  {friendsList.map(
-                     ({ firstName, lastName, userID, userImage }) => {
-                        return (
-                           <FriendsModal
-                              key={userID}
-                              type="mobile"
-                              fullName={`${firstName} ${lastName}`}
-                              uid={userID}
-                              currentUserUid={userUID}
-                              friendsRequestList={undefined}
-                              imageUrl={userImage}
-                           />
-                        );
-                     }
-                  )}
+                  <MessagingScreen userUID={userUID} />
                </MobileFriendsWrapper>
-               <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>
       </>
@@ -137,4 +120,4 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
    }
 }
 
-export default Friends;
+export default Message;

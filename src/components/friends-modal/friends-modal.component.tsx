@@ -23,10 +23,14 @@ export function FriendsModal({
    uid,
    currentUserUid,
    type,
+   onClick,
+   chatID,
+   message,
 }: TFriendsModalProps) {
    const [userStatusMsg, setUserStatusMsg] = useState("");
    const [currentFriendsData, setCurrentFriendsData] = useState<any>(null);
    const [currentUsersData, setCurrentUsersData] = useState<any>(null);
+   const [msg, setMsg] = useState("");
 
    useEffect(() => {
       const setUser = () => {
@@ -120,12 +124,58 @@ export function FriendsModal({
          setCurrentUsersData(_data);
       });
    }, []);
+   const isImg: string[] | undefined = message?.split(
+      "https://firebasestorage.googleapis.com"
+   );
+
+   useEffect(() => {
+      // @ts-ignore
+      if (isImg?.length > 1) {
+         setMsg("Image Sent");
+         return;
+      }
+      // @ts-ignore
+      setMsg(message);
+   }, [message]);
 
    const paramsObject = {
       id: uid,
       userUID: currentUserUid,
       currentUserData: currentUsersData,
    };
+
+   if (type === "mobile messaging") {
+      return (
+         <S.MobileFriendWrapper
+            onClick={() => {
+               onClick(`${chatID}/${uid}`);
+            }}
+         >
+            <S.MobileSmallWrapper>
+               <S.MobileImg>
+                  <Image
+                     src={!imageUrl ? "/icon-256x256.png" : imageUrl}
+                     alt="Picture of the author"
+                     width={60}
+                     height={60}
+                  />
+               </S.MobileImg>
+            </S.MobileSmallWrapper>
+
+            <S.MobileNameAndBtnWrapper>
+               <S.TextWrapper>
+                  <Text textType="h3" className="name-text-mobile">
+                     {fullName}
+                  </Text>
+                  {!message && (
+                     <Text className="status-text">{userStatusMsg}</Text>
+                  )}
+                  {message && <Text className="status-text">{msg}</Text>}
+               </S.TextWrapper>
+            </S.MobileNameAndBtnWrapper>
+         </S.MobileFriendWrapper>
+      );
+   }
 
    if (type === "mobile") {
       return (

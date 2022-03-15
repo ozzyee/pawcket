@@ -44,6 +44,21 @@ export const GlobalStyle = createGlobalStyle`
       border-color: ${styles.colors.primary};
    }
 
+   .messaging{
+     height : 60vh;
+     margin-top:26vh ;
+     position: fixed ;
+     .kQdQMS{
+         border:2px solid transparent;
+      }
+   }
+
+   .msg-name{
+      color: white;
+      font-weight:400 ;
+      margin-left:1rem
+   }
+
    #mobile-wrapper{
       position:absolute; 
       left: 0;
@@ -64,10 +79,18 @@ export const GlobalStyle = createGlobalStyle`
       z-index: 2;
    }
 
+
    .nav-desktop{
 width: 50%;
 float: right;
 border-radius: 0px 0px 0px 50px;
+
+   .img-holder{
+      overflow: hidden;
+      width:60px;
+      height:60px;
+      border-radius:50%;
+
    }
    
    #auth-btn{
@@ -336,6 +359,7 @@ export const MobileFriendsWrapper = styled.div`
    width: 100vw;
    background-color: white;
    overflow: none;
+   border-radius: 22px;
 
    #friends-wrapper {
       margin-top: 2rem;

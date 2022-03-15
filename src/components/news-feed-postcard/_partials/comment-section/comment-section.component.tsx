@@ -33,7 +33,7 @@ function CommentSection({ feedData }: TCommentSection) {
       setCommentContent("");
    }
 
-   async function testpost(e) {
+   async function testpost(e: any) {
       e.preventDefault();
       const taskDocRef = doc(firestoreDB, "feed", "hE5HPlTcNjEwveRQFrh2");
       try {
@@ -51,14 +51,14 @@ function CommentSection({ feedData }: TCommentSection) {
       }
    }
 
-   const slurp = async (e) => {
-    e.preventDefault()
-    try {
-      await getDoc(collection(firestoreDB, 'feed'), {
-      })
-    } catch (err) {
-      alert(err)
-    }
+   // const slurp = async (e) => {
+   //  e.preventDefault()
+   //  try {
+   //    await getDoc(collection(firestoreDB, 'feed'), {
+   //    })
+   //  } catch (err) {
+   //    alert(err)
+   //  }
 
    function handleChange(e: any) {
       setCommentContent(e.target.value);
@@ -74,7 +74,7 @@ function CommentSection({ feedData }: TCommentSection) {
             <button>Submit</button>
          </form>
          <h1
-            onClick={(e) => {
+            onClick={(e: any) => {
                testpost(e);
                console.log(commentList);
             }}
@@ -87,8 +87,8 @@ function CommentSection({ feedData }: TCommentSection) {
                return (
                   <S.ListItem>
                      <S.TextHolder>
-                        {comment.userName}
-                        {comment.comment}
+                        {/* {comment.userName}
+                        {comment.comment} */}
                      </S.TextHolder>
                   </S.ListItem>
                );

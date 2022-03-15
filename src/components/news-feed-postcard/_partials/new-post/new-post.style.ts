@@ -3,8 +3,11 @@ import styled from "styled-components";
 // export const PostWrapper = styled.div`
 //    width: 100%;
 // `;
-
-export const test = styled.div`
+type Tvisible = {
+   visible?: boolean;
+   onClick?: any;
+};
+export const test = styled.div<Tvisible>`
    z-index: 2;
    bottom: 8%;
    position: fixed;
@@ -17,7 +20,7 @@ export const test = styled.div`
    }
 `;
 
-export const postButton = styled.button`
+export const postButton = styled.button<Tvisible>`
    background-color: #fb8500;
    border: none;
    /* color: white; */

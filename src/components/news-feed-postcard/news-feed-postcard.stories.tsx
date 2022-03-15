@@ -36,6 +36,7 @@ const Template = ({ userName, postImage, postText }: TCardInfoProps) => {
          userName={userName}
          postImage={postImage}
          postText={postText}
+         feedData={undefined}
       />
    );
 };

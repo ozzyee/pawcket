@@ -24,7 +24,7 @@ export function NewPost({ userUID }: { userUID: string }) {
    const [showInput, setShowInput] = useState(false);
    const [text, setText] = useState("");
 
-   async function createPost(e: React.ChangeEvent<HTMLInputElement>) {
+   async function createPost(e: React.MouseEvent<HTMLElement>) {
       if (!showInput) {
          setShowInput(true);
          return;
@@ -67,7 +67,13 @@ export function NewPost({ userUID }: { userUID: string }) {
                   className="postbackground"
                />
             ) : null}
-            <S.postButton onClick={createPost}>📝</S.postButton>
+            <S.postButton
+               onClick={(e: React.MouseEvent<HTMLElement>) => {
+                  createPost(e);
+               }}
+            >
+               📝
+            </S.postButton>
          </S.test>
       </>
    );

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { NextApiRequest } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Separator } from "../../components/separator/separator.component";
 import { PassportWrapper } from "../../components/passport-wrapper/passport-wrapper.component";
 import { Text } from "../../components/text/text.component";
@@ -28,8 +28,12 @@ type TUserData = {
    userImage?: string;
    postCode?: string;
    pets?: TPet[];
-   friends: TUser[];
+   friends: TFriendData[];
    id?: string;
+};
+type TFriendData = {
+    requestAccepted:boolean;
+    friendID: string;
 };
 
 type TData = {
@@ -37,14 +41,40 @@ type TData = {
 };
 
 const FriendProfile = ({ data }: TData) => {
-   const router = useRouter();
-   const userID = router.asPath.split("/")[2];
-   const friendData = data.friends.filter((user: TUser) => user.id === userID);
+    const router = useRouter();
+    const userID = router.asPath.split("/")[2];
+    console.log(userID)
 
-   const [user, setUser] = useState<TUser | DocumentData>({ ...friendData[0] });
+   const [user, setUser] = useState<TUser | DocumentData>({});
+   const [friends, setFriends] = useState<any[]>([])
+
+    useEffect(async () => {
+        const docRef = doc(firestoreDB, "users", userID);
+        const docSnap = await getDoc(docRef);
+        const _data = docSnap.data();
+        setUser({..._data})
+    }, [])
+
+    useEffect(async () => {
+        const getFriendsIDS = () =>{
+            const acceptedRequest = user.friends.filter((friend: TFriendData) => { return friend.requestAccepted ? true : false})
+            const IDS: string[] = [];
+            acceptedRequest.forEach((id: TFriendData) => IDS.push(id.friendID))
+            return IDS 
+        }
+        const friendsID = getFriendsIDS()
+        const friendsData = [];
+        async function getFriendsData(id:string) {       
+            const docRef = doc(firestoreDB, "users", id);
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+            friendsData.push(data)
+            setFriends([...friendsData])
+        }
+        friendsID.map(async(id:string) => {await getFriendsData(id)})
+    }, [user])
+
    if (!user) return null;
-   console.log(friendData);
-
    return (
       <>
          <Head>
@@ -116,7 +146,7 @@ const FriendProfile = ({ data }: TData) => {
 
          <S.Mobile>
             <MainLayout
-               bottomTitle={user.userName}
+               bottomTitle={user.userName ? user.userName : user.firstName}
                topChildren={
                   <Frame
                      background="/frame.svg"
@@ -190,7 +220,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          };
       }
 
-      console.log(!_data?.DOB);
 
       if (!_data?.firstName || !_data?.lastName || !_data?.DOB) {
          return {
@@ -204,7 +233,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          const data = {
             ..._data,
             ..._dataPet,
-            friends: [dummyData.peter, dummyData.jennifer],
          };
 
          return {

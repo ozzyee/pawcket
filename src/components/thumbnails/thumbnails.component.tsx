@@ -126,7 +126,7 @@ export function Thumbnails({
                      className="petPic"
                      isPet={false}
                      onClick={() =>
-                        router.push(`/user-profile/${user.id}`, undefined, {
+                        router.push(`/user-profile/${user.userID}`, undefined, {
                            shallow: true,
                         })
                      }

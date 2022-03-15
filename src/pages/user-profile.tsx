@@ -148,6 +148,7 @@ const UserProfile = ({ data }: TData) => {
                      isAFriend={false}
                      isForPets={true}
                      data={user.pets}
+                     userName={user.firstName}
                   />
                </PassportWrapper>
 

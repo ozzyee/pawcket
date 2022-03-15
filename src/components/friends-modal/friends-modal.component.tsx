@@ -159,7 +159,7 @@ export function FriendsModal({
                            });
                         }}
                      >
-                        unfriended
+                        unfriend
                      </Buttons>
                   )}
 

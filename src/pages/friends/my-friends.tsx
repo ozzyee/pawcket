@@ -97,6 +97,7 @@ const Friends = ({ userUID }: TFriendsData) => {
                      }
                   )}
                </MobileFriendsWrapper>
+               <Navbar className="nav" />
             </MainLayout>
          </S.Mobile>
       </>

@@ -164,7 +164,13 @@ const Vet: NextPage = () => {
             >
                <VetButtons>
                   <li>
-                     <Buttons vetsNavBtn={true} dark={true}>
+                     <Buttons
+                        vetsNavBtn={true}
+                        dark={true}
+                        onClick={() => {
+                           getVets();
+                        }}
+                     >
                         Open Now
                      </Buttons>
                   </li>
@@ -207,7 +213,7 @@ const Vet: NextPage = () => {
                                  }  ${randomPhone * 2}`}
                                  vetAddress={vet.address}
                                  vetWebsite={vet.website}
-                                 vetDistance={vet.distance}
+                                 vetDistance={vet.distance + " meters"}
                               />
                            </li>
                         </>

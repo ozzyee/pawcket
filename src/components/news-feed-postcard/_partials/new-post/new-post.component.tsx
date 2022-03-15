@@ -58,15 +58,16 @@ export function NewPost({ userUID }: { userUID: string }) {
 
    return (
       <>
-         <S.test>
+         <S.test visible={showInput ? true : false}>
             {showInput ? (
                <FormInputs
                   placeholder="post a comment"
                   onChange={handleChange}
                   formValue={text}
+                  className="postbackground"
                />
             ) : null}
-            <S.postButton onClick={createPost}>Post</S.postButton>
+            <S.postButton onClick={createPost}>📝</S.postButton>
          </S.test>
       </>
    );

@@ -10,15 +10,24 @@ export const test = styled.div`
    position: fixed;
    right: 20px;
    display: flex;
+   background-color: ${(props) => (props.visible ? "white" : "none")};
+   .postbackground {
+      background-color: white;
+      outline: solid red 2px;
+   }
 `;
 
 export const postButton = styled.button`
    background-color: #fb8500;
    border: none;
-   color: white;
-   font-family: Poppins;
-   border-radius: 50%;
-   width: 5rem;
-   height: 4rem;
+   /* color: white; */
+   font-family: "Poppins", sans-serif;
+   border-radius: 50px;
+   width: 50px;
+   height: 50px;
+   text-align: center;
+   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+   font-weight: 500;
+   font-size: 2rem;
    text-align: center;
 `;

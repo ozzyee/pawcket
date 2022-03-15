@@ -68,21 +68,22 @@ const FriendProfile = ({ data }: TData) => {
                 return null
             }
             const getFriendsIDS = () =>{
+                if(!user){return null}
                 const acceptedRequest = user.friends.filter((friend: TFriendData) => { return friend.requestAccepted ? true : false})
                 const IDS: string[] = [];
                 acceptedRequest.forEach((id: TFriendData) => IDS.push(id.friendID))
                 return IDS 
             }
             const friendsID = getFriendsIDS()
-            const friendsData = [];
+            const friendsData: TUser[] | DocumentData[] = [];
             async function getFriendsData(id:string) {       
                 const docRef = doc(firestoreDB, "users", id);
                 const docSnap = await getDoc(docRef);
                 const data = docSnap.data();
-                friendsData.push(data)
+                data ? friendsData.push(data): null
                 setFriends([...friendsData])
             }
-            friendsID.map(async(id:string) => {await getFriendsData(id)})
+            friendsID ? friendsID.map(async(id:string) => {await getFriendsData(id)}) : null
         }
         setFriendsID();
 

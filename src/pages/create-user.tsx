@@ -1,6 +1,6 @@
 import { doc, getDoc } from "@firebase/firestore";
 import { NextApiRequest } from "next";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
    CreateProfileForm,
    Frame,
@@ -20,6 +20,12 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
       // @ts-ignore
       hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
    };
+
+   useEffect(() => {
+      if (data?.userImage) setImage(data?.userImage);
+   }, [data]);
+
+   console.log(image);
 
    return (
       <>
@@ -41,7 +47,7 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
                   <Frame
                      background={"/frame.svg"}
                      diameter={150}
-                     img={data?.userImage ? data?.userImage || image : ""}
+                     img={image ? image : ""}
                      onClick={uploadImage}
                   />
                   <ImageUploader
@@ -54,11 +60,13 @@ const CreateUser = ({ data, userUID }: TCreateUserPage) => {
                </>
             }
          >
-            <CreateProfileForm
-               dateObject={data}
-               userUID={userUID}
-               uploadImage={image}
-            />
+            <div id="mobile-wrapper" className="extra-padding">
+               <CreateProfileForm
+                  dateObject={data}
+                  userUID={userUID}
+                  uploadImage={image}
+               />
+            </div>
          </MainLayout>
       </>
    );

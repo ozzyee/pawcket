@@ -162,60 +162,65 @@ const Vet: NextPage = () => {
                   />
                }
             >
-               <VetButtons>
-                  <li>
-                     <Buttons vetsNavBtn={true} dark={true}>
-                        Open Now
-                     </Buttons>
-                  </li>
-                  <li>
-                     <Buttons
-                        vetsNavBtn={true}
-                        dark={true}
-                        onClick={() => {
-                           setVets(vetData.onCallVets);
-                        }}
-                     >
-                        On Call
-                     </Buttons>
-                  </li>
-                  <li>
-                     <Buttons
-                        vetsNavBtn={true}
-                        dark={true}
-                        onClick={() => {
-                           setVets(vetData.onCallVets);
-                        }}
-                     >
-                        Near You
-                     </Buttons>
-                  </li>
-               </VetButtons>
-               <VetList className="vetcard">
-                  {vets.map((vet, index) => {
-                     const randomPhone = Math.floor(Math.random() * 1000);
-                     const randomNoun = Math.floor(Math.random() * 3);
-                     return (
-                        <>
-                           <li key={index}>
-                              <VetsInfo
-                                 vetName={
-                                    "Dr. " + vet.name + "'s " + getRandomWord()
-                                 }
-                                 vetPhoneNumber={`0${randomPhone}  ${
-                                    vet.phone
-                                 }  ${randomPhone * 2}`}
-                                 vetAddress={vet.address}
-                                 vetWebsite={vet.website}
-                                 vetDistance={vet.distance}
-                              />
-                           </li>
-                        </>
-                     );
-                  })}
-               </VetList>
+               <div id="mobile-wrapper">
+                  <VetButtons>
+                     <li>
+                        <Buttons vetsNavBtn={true} dark={true}>
+                           Open Now
+                        </Buttons>
+                     </li>
+                     <li>
+                        <Buttons
+                           vetsNavBtn={true}
+                           dark={true}
+                           onClick={() => {
+                              setVets(vetData.onCallVets);
+                           }}
+                        >
+                           On Call
+                        </Buttons>
+                     </li>
+                     <li>
+                        <Buttons
+                           vetsNavBtn={true}
+                           dark={true}
+                           onClick={() => {
+                              setVets(vetData.onCallVets);
+                           }}
+                        >
+                           Near You
+                        </Buttons>
+                     </li>
+                  </VetButtons>
+                  <VetList className="vetcard">
+                     {vets.map((vet, index) => {
+                        const randomPhone = Math.floor(Math.random() * 1000);
+                        const randomNoun = Math.floor(Math.random() * 3);
+                        return (
+                           <>
+                              <li key={index}>
+                                 <VetsInfo
+                                    vetName={
+                                       "Dr. " +
+                                       vet.name +
+                                       "'s " +
+                                       getRandomWord()
+                                    }
+                                    vetPhoneNumber={`0${randomPhone}  ${
+                                       vet.phone
+                                    }  ${randomPhone * 2}`}
+                                    vetAddress={vet.address}
+                                    vetWebsite={vet.website}
+                                    vetDistance={vet.distance}
+                                 />
+                              </li>
+                           </>
+                        );
+                     })}
+                  </VetList>
 
-               <Navbar className="nav" />
+                  <Navbar className="nav" />
+               </div>
             </MainLayout>
          </S.Mobile>
          {/* Desktop Version */}

@@ -5,6 +5,7 @@ import {
    CreatePetForm,
    ImageUploader,
    MainLayout,
+   Navbar,
 } from "../functions/dynamic-imports";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
@@ -54,11 +55,14 @@ const CreatePet = ({ userUID, _data }: TCreatePetPage) => {
                </>
             }
          >
-            <CreatePetForm
-               userUID={userUID}
-               _data={_data}
-               uploadImage={image ? image : ""}
-            />
+            <div id="mobile-wrapper" className="extra-padding">
+               <CreatePetForm
+                  userUID={userUID}
+                  _data={_data}
+                  uploadImage={image ? image : ""}
+               />
+               <Navbar className="nav" />
+            </div>
          </MainLayout>
       </>
    );

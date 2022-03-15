@@ -44,6 +44,25 @@ export const GlobalStyle = createGlobalStyle`
       border-color: ${styles.colors.primary};
    }
 
+   #mobile-wrapper{
+      position:absolute; 
+      left: 0;
+      width: 100vw;
+      padding:0 0.5rem;
+      background-color:white ;
+   }
+
+   .extra-padding{
+      padding:0 2rem !important;
+   }
+
+   .nav {
+      width: 100vw;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+   }
    
    #auth-btn{
       margin-top: 2rem ;
@@ -240,7 +259,7 @@ export const ButtonsWrapper = styled.div`
    padding-bottom: 1.5rem;
 
    &.create-users-forms {
-      border: 2px solid green !important;
+      margin-top: 0.6rem !important;
    }
 
    .form-btn {

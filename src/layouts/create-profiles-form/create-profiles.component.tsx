@@ -88,6 +88,7 @@ export function CreateProfileForm({
          const data = {
             ...userData,
             DOB: _DOB,
+            userImage: uploadImage,
          };
          console.log("the data ->", data);
 

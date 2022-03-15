@@ -1,18 +1,18 @@
 import { TPet } from "../src/layouts/creat-pet-form/creat-pet-form.definition";
 
 export type TUser = {
-   firstName: string;
-   lastName: string;
+   firstName?: string;
+   lastName?: string;
    userName?: string;
    address?: string;
-   DOB: string;
+   DOB?: string;
    telephone?: string;
    extraInfo?: string;
    userImage?: string;
    postCode?: string;
    pets?: TPet[];
    friends?: TUser[];
-   id?: string;
+   userID?: string;
 };
 
 export const freddie: TPet = {
@@ -42,7 +42,7 @@ export const tony: TPet = {
 };
 
 export const jennifer: TUser = {
-   id: "BKoGsLPWFWV9BSUrDNCYpAOj6Tx2",
+   userID: "BKoGsLPWFWV9BSUrDNCYpAOj6Tx2",
    firstName: "Jennifer",
    lastName: "Jones",
    address: "123 Street Rd.",
@@ -56,7 +56,7 @@ export const jennifer: TUser = {
 };
 
 export const peter: TUser = {
-   id: "Z7KsLZGQCGgjYvdVVtxAfP1x48x1",
+   userID: "Z7KsLZGQCGgjYvdVVtxAfP1x48x1",
    firstName: "Peter",
    lastName: "Peters",
    address: "123 Avenue Rd.",

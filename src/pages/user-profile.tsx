@@ -1,18 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { NextApiRequest, NextPage } from "next";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { RoundImage } from "../components/round-image/round-img.component";
+import { NextApiRequest } from "next";
+import { useEffect, useState } from "react";
 import { Separator } from "../components/separator/separator.component";
 import { PassportWrapper } from "../components/passport-wrapper/passport-wrapper.component";
 import { Text } from "../components/text/text.component";
 import { Buttons } from "../components/buttons/buttons.component";
 import { UserInfo } from "../components/user-info/user-info.component";
-import * as dummyData from "../../dummy-data/dummy-data";
 import * as S from "../styles/user-profile";
 import router from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
-import { doc, DocumentData, getDoc } from "@firebase/firestore";
+import { doc, DocumentData, getDoc, query, collection, where, onSnapshot } from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import Head from "next/head";
@@ -24,30 +21,53 @@ type TData = {
    data: TUserData[];
 };
 
+type TFriendData = {
+    requestAccepted:boolean;
+    friendID: string;
+};
+
 type TUserData = {
-   firstName: string;
-   lastName: string;
+   firstName?: string;
+   lastName?: string;
    userName?: string;
    address?: string;
-   DOB: string;
+   DOB?: string;
    telephone?: string;
    extraInfo?: string;
    profilePic?: string;
    postCode?: string;
    pets?: TPet[];
-   friends?: TUser[];
+   friends?: TFriendData[];
    id?: string;
 };
 
 const UserProfile = ({ data }: TData) => {
-   //    const router = useRouter();
-   //    const userID = router.asPath.split("/")[2];
-   //    const userData = data?.filter(({ id }: { id: string }) => id === petID);
-   //    console.log("this is pet data", petData);
-
    const [user, setUser] = useState<TUser | DocumentData>({ ...data });
+   const [friends, setFriends] = useState<any[]>([])
+
+    useEffect(() => {
+        const getFriendsIDS = () =>{
+            const acceptedRequest = user.friends.filter((friend: TFriendData) => {
+            return friend.requestAccepted ? true : false})
+            const IDS: string[] = [];
+            acceptedRequest.forEach((id: TFriendData) => IDS.push(id.friendID))
+            return IDS 
+        }
+        const friendsID = getFriendsIDS()
+        const friendsData: TUser[] | DocumentData[] = [];
+        async function getFriendsData(id:string) {       
+            const docRef = doc(firestoreDB, "users", id);
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+            data ? friendsData.push(data): null
+            setFriends([...friendsData])
+        }
+        
+        friendsID.map(async(id:string) => {await getFriendsData(id)})
+    }, [user])
+
+
    if (!user) return null;
-   console.log(data);
 
    return (
       <>
@@ -59,15 +79,6 @@ const UserProfile = ({ data }: TData) => {
          <S.Desktop>
             <MainLayout desktopCard={true} className="desktop">
                <S.TopLeft>
-                  <Buttons
-                     onClick={() =>
-                        router.push("/signin", undefined, {
-                           shallow: true,
-                        })
-                     }
-                  >
-                     LogOut
-                  </Buttons>
 
                   <Frame
                      background="/frame.svg"
@@ -116,7 +127,8 @@ const UserProfile = ({ data }: TData) => {
                      <Thumbnails
                         isForPets={false}
                         isAFriend={false}
-                        data={user.friends}
+                        data={friends}
+                        userName={user.firstName}
                         className="desktopPets"
                      />
                   </PassportWrapper>
@@ -156,8 +168,9 @@ const UserProfile = ({ data }: TData) => {
                   <Thumbnails
                      isAFriend={false}
                      isForPets={false}
-                     data={user.friends}
+                     data={friends}
                      className="desktopPets"
+                     userName={user.firstName}
                   />
                </PassportWrapper>
                <Navbar className="nav" />
@@ -182,7 +195,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       const _data = docSnap.data();
       const _dataPet = docSnapPet.data();
 
-      //Fetch user info
+      //Fetch friends info
 
       // No user then send to login/ sign up page
       if (!dataRes) {
@@ -193,7 +206,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
          };
       }
 
-      console.log(!_data?.DOB);
 
       if (!_data?.firstName || !_data?.lastName || !_data?.DOB) {
          return {
@@ -208,7 +220,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
             ..._data,
             // DOB: JSON.stringify(_data?.DOB.toDate()),
             ..._dataPet,
-            friends: [dummyData.peter, dummyData.jennifer],
          };
 
          return {

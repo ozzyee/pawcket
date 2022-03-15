@@ -221,7 +221,8 @@ const Vet: NextPage = () => {
                   })}
                </VetList>
 
-               <Navbar className="nav" />
+                  <Navbar className="nav" />
+               </div>
             </MainLayout>
          </S.Mobile>
          {/* Desktop Version */}

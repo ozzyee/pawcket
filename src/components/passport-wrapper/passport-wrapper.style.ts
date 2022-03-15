@@ -10,4 +10,5 @@ export const Wrapper = styled.div`
     margin: 40px auto;
     position: relative;
     box-shadow: 5px 10px 10px rgba(14, 23, 27, 0.4);
+    margin-bottom: 120px
 `

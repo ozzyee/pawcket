@@ -19,3 +19,9 @@ module.exports = {
       domains: ["lh3.googleusercontent.com", "firebasestorage.googleapis.com"],
    },
 };
+
+module.exports = {
+   devIndicators: {
+      buildActivity: false,
+   },
+};

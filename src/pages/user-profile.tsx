@@ -9,7 +9,15 @@ import { UserInfo } from "../components/user-info/user-info.component";
 import * as S from "../styles/user-profile";
 import router from "next/router";
 import { AuthService } from "../lib/auth-service/auth.service";
-import { doc, DocumentData, getDoc, query, collection, where, onSnapshot } from "@firebase/firestore";
+import {
+   doc,
+   DocumentData,
+   getDoc,
+   query,
+   collection,
+   where,
+   onSnapshot,
+} from "@firebase/firestore";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
 import Head from "next/head";
@@ -22,8 +30,8 @@ type TData = {
 };
 
 type TFriendData = {
-    requestAccepted:boolean;
-    friendID: string;
+   requestAccepted: boolean;
+   friendID: string;
 };
 
 type TUserData = {
@@ -43,29 +51,33 @@ type TUserData = {
 
 const UserProfile = ({ data }: TData) => {
    const [user, setUser] = useState<TUser | DocumentData>({ ...data });
-   const [friends, setFriends] = useState<any[]>([])
+   const [friends, setFriends] = useState<any[]>([]);
 
-    useEffect(() => {
-        const getFriendsIDS = () =>{
-            const acceptedRequest = user?.friends?.filter((friend: TFriendData) => {
-            return friend.requestAccepted ? true : false})
-            const IDS: string[] = [];
-            acceptedRequest.forEach((id: TFriendData) => IDS.push(id.friendID))
-            return IDS 
-        }
-        const friendsID = getFriendsIDS()
-        const friendsData: TUser[] | DocumentData[] = [];
-        async function getFriendsData(id:string) {       
-            const docRef = doc(firestoreDB, "users", id);
-            const docSnap = await getDoc(docRef);
-            const data = docSnap.data();
-            data ? friendsData.push(data): null
-            setFriends([...friendsData])
-        }
-        
-        friendsID.map(async(id:string) => {await getFriendsData(id)})
-    }, [user])
+   useEffect(() => {
+      const getFriendsIDS = () => {
+         const acceptedRequest = user?.friends?.filter(
+            (friend: TFriendData) => {
+               return friend.requestAccepted ? true : false;
+            }
+         );
+         const IDS: string[] = [];
+         acceptedRequest?.forEach((id: TFriendData) => IDS.push(id.friendID));
+         return IDS;
+      };
+      const friendsID = getFriendsIDS();
+      const friendsData: TUser[] | DocumentData[] = [];
+      async function getFriendsData(id: string) {
+         const docRef = doc(firestoreDB, "users", id);
+         const docSnap = await getDoc(docRef);
+         const data = docSnap.data();
+         data ? friendsData.push(data) : null;
+         setFriends([...friendsData]);
+      }
 
+      friendsID.map(async (id: string) => {
+         await getFriendsData(id);
+      });
+   }, [user]);
 
    if (!user) return null;
 
@@ -79,7 +91,6 @@ const UserProfile = ({ data }: TData) => {
          <S.Desktop>
             <MainLayout desktopCard={true} className="desktop">
                <S.TopLeft>
-
                   <Frame
                      background="/frame.svg"
                      img={
@@ -205,7 +216,6 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
             },
          };
       }
-
 
       if (!_data?.firstName || !_data?.lastName || !_data?.DOB) {
          return {

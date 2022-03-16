@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
     * {
     box-sizing: border-box;
     }
-    
+
 .logo{
     width:10rem;
     overflow: visible;
@@ -29,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
    .desktop-display-block{
          display: none !important;
    }
-   
+
    .nco-banner __bm__extension{
     display: none;
    }
@@ -60,7 +60,7 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    #mobile-wrapper{
-      position:absolute; 
+      position:absolute;
       left: 0;
       width: 100vw;
       padding:0 0.5rem;
@@ -84,7 +84,7 @@ export const GlobalStyle = createGlobalStyle`
 width: 50%;
 float: right;
 border-radius: 0px 0px 0px 50px;
-
+   }
    .img-holder{
       overflow: hidden;
       width:60px;
@@ -92,7 +92,19 @@ border-radius: 0px 0px 0px 50px;
       border-radius:50%;
 
    }
-   
+   .auth-btn-1{
+      border: solid red 10px;
+      margin-top: 2rem ;
+      height: 34px !important;;
+      width: 90% !important;;
+      font-size: 1.1rem !important;;
+      font-weight: normal !important;;
+      color: white !important;;
+      border-radius: 50px !important;;
+      margin-left: auto !important;
+      margin-right: auto !important;
+   }
+
    #auth-btn{
       margin-top: 2rem ;
       height: 34px;
@@ -101,8 +113,8 @@ border-radius: 0px 0px 0px 50px;
       font-weight: normal;
       color: white;
       border-radius: 50px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-left: auto !important;
+      margin-right: auto !important;
 
       :hover {
          color: ${styles.colors.primary};
@@ -120,7 +132,7 @@ border-radius: 0px 0px 0px 50px;
       }
    }
 
-   
+
 
    @media (min-width: ${styles.breakPoints.m}) {
       .css-1x51dt5-MuiInputBase-input-MuiInput-input{
@@ -143,7 +155,6 @@ border-radius: 0px 0px 0px 50px;
       #auth-btn {
      left:0 ;
      right:0 ;
-
          position: relative;
          width: 200px ;
          height: 30px;
@@ -159,7 +170,6 @@ border-radius: 0px 0px 0px 50px;
          margin-right:auto ;
       }
    }
-
 `;
 
 export const StoryLayout = styled.div`

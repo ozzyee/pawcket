@@ -47,7 +47,7 @@ const UserProfile = ({ data }: TData) => {
 
     useEffect(() => {
         const getFriendsIDS = () =>{
-            const acceptedRequest = user.friends.filter((friend: TFriendData) => {
+            const acceptedRequest = user?.friends?.filter((friend: TFriendData) => {
             return friend.requestAccepted ? true : false})
             const IDS: string[] = [];
             acceptedRequest.forEach((id: TFriendData) => IDS.push(id.friendID))

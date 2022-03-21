@@ -35,6 +35,9 @@ export function CreateProfileForm({
       hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
    };
 
+   console.log("user image ->", img);
+   console.log("the data ->", userData);
+
    useEffect(() => {
       if (dateObject?.DOB) {
          const dateSplit = dateObject.DOB.split("T")[0];
@@ -48,11 +51,12 @@ export function CreateProfileForm({
    }, []);
 
    useEffect(() => {
-      if (img) {
-         setUserData({ ...userData, userImage: img });
-         return;
+      if (uploadImage) {
+         setImg(uploadImage);
       }
-   }, [uploadImage, img, userData]);
+
+      setUserData({ ...userData, userImage: img });
+   }, [uploadImage, img]);
 
    const addUserInfo = async (evt: FormEvent) => {
       evt.preventDefault();
@@ -88,7 +92,7 @@ export function CreateProfileForm({
          const data = {
             ...userData,
             DOB: _DOB,
-            userImage: uploadImage,
+            userImage: img || "",
          };
          console.log("the data ->", data);
 

@@ -13,15 +13,18 @@ import { TCreateUserPage } from "../types/create-user-definition";
 import Head from "next/head";
 
 const CreateUser = ({ data, userUID }: TCreateUserPage) => {
+   // this is for the hidden image uploader if a button is clicked if will open the uploader
    const hiddenImageUploader = useRef(null);
    const [image, setImage] = useState("");
 
    const uploadImage = () => {
       // @ts-ignore
+      // we call the ref and set it as clicked this opens the file finder
       hiddenImageUploader.current?.click() as React.MutableRefObject<null>;
    };
 
    useEffect(() => {
+      // if there is an image in the data we set the image in are user state
       if (data?.userImage) setImage(data?.userImage);
    }, [data]);
 

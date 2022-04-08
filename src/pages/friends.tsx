@@ -5,7 +5,7 @@ import type { NextApiRequest } from "next";
 import { useEffect, useState } from "react";
 import { FormInputs } from "../components/form-inputs/form-inputs.component";
 import { FriendsModal } from "../components/friends-modal/friends-modal.component";
-import { Frame, MainLayout, Navbar } from "../functions/dynamic-imports";
+import { MainLayout, Navbar } from "../functions/dynamic-imports";
 import { AuthService } from "../lib/auth-service/auth.service";
 import { firestoreDB } from "../lib/firebase/firebase.initialize";
 import {
